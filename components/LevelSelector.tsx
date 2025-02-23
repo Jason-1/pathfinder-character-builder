@@ -5,9 +5,15 @@ import { Button } from "./ui/button";
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
-const LevelSelector = () => {
-  const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
+interface LevelSelectorProps {
+  selectedLevel: number;
+  setSelectedLevel: React.Dispatch<React.SetStateAction<number>>;
+}
 
+const LevelSelector: React.FC<LevelSelectorProps> = ({
+  selectedLevel,
+  setSelectedLevel,
+}) => {
   return (
     <div className="grid grid-cols-4 gap-1 mt-6">
       {levels.map((level) => (

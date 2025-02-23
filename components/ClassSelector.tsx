@@ -13,19 +13,29 @@ import {
 
 import { Classes } from "@/data";
 
-const ClassSelector = () => {
-  const [selectedClass, setSelectedClass] = useState<string>("Select Class");
+interface ClassSelectorProps {
+  selectedClass: string;
+  setSelectedClass: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ClassSelector: React.FC<ClassSelectorProps> = ({
+  selectedClass,
+  setSelectedClass,
+}) => {
   return (
     <div className="mt-6">
       <DropdownMenu>
-        <DropdownMenuTrigger>{selectedClass}</DropdownMenuTrigger>
+        <DropdownMenuTrigger>
+          {selectedClass === "Select Class" ? "" : "Class: "}
+          {selectedClass}
+        </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {Classes.map((classItem) => (
             <DropdownMenuItem
               key={classItem.name}
-              onClick={() => setSelectedClass(`Class: ${classItem.name}`)}
+              onClick={() => setSelectedClass(`${classItem.name}`)}
             >
               {classItem.name}
             </DropdownMenuItem>

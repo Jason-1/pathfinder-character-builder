@@ -12,22 +12,29 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Backgrounds } from "@/data";
 
-const BackgroundSelector = () => {
-  const [selectedBackground, setSelectedBackground] =
-    useState<string>("Select Background");
+interface BackgroundSelectorProps {
+  selectedBackground: string;
+  setSelectedBackground: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
+  selectedBackground,
+  setSelectedBackground,
+}) => {
   return (
     <div className="mt-6">
       <DropdownMenu>
-        <DropdownMenuTrigger>{selectedBackground}</DropdownMenuTrigger>
+        <DropdownMenuTrigger>
+          {selectedBackground === "Select Background" ? "" : "Background: "}
+          {selectedBackground}
+        </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {Backgrounds.map((backgroundItem) => (
             <DropdownMenuItem
               key={backgroundItem.name}
-              onClick={() =>
-                setSelectedBackground(`Background: ${backgroundItem.name}`)
-              }
+              onClick={() => setSelectedBackground(`${backgroundItem.name}`)}
             >
               {backgroundItem.name}
             </DropdownMenuItem>

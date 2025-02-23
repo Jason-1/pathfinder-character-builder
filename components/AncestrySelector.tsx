@@ -13,20 +13,29 @@ import {
 
 import { Ancestries } from "@/data";
 
-const AncestrySelector = () => {
-  const [selectedAncestry, setSelectedAncestry] =
-    useState<string>("Select Ancestry");
+interface AncestrySelectorProps {
+  selectedAncestry: string;
+  setSelectedAncestry: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const AncestrySelector: React.FC<AncestrySelectorProps> = ({
+  selectedAncestry,
+  setSelectedAncestry,
+}) => {
   return (
     <div className="mt-6">
       <DropdownMenu>
-        <DropdownMenuTrigger>{selectedAncestry}</DropdownMenuTrigger>
+        <DropdownMenuTrigger>
+          {selectedAncestry === "Select Ancestry" ? "" : "Ancestry: "}
+          {selectedAncestry}
+        </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {Ancestries.map((ancestryItem) => (
             <DropdownMenuItem
               key={ancestryItem.name}
-              onClick={() => setSelectedAncestry(`Class: ${ancestryItem.name}`)}
+              onClick={() => setSelectedAncestry(`${ancestryItem.name}`)}
             >
               {ancestryItem.name}
             </DropdownMenuItem>

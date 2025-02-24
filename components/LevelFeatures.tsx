@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Card,
@@ -8,6 +8,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "./ui/button";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ClassFeats } from "@/data";
 
 interface LevelFeaturesProps {
   selectedLevel: number;
@@ -24,6 +35,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   selectedBackground,
   selectedClass,
 }) => {
+  const [level2Feat, setLevel2Feat] = useState<string>("");
   return (
     <div className="mt-6">
       {levels.map((level) => (
@@ -54,7 +66,29 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p>Card Content</p>
+            {level % 2 === 0 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  {level2Feat === "Select Ancestry" ? "" : "Class Feat: "}
+                  {level2Feat}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+
+                  {ClassFeats.filter(
+                    (feat) => feat.traits === "Fighter" && feat.level <= 2
+                  ).map((feat) => (
+                    <DropdownMenuItem
+                      key={feat.name}
+                      onClick={() => setLevel2Feat(`${feat.name}`)}
+                    >
+                      {feat.name}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </CardContent>
           <CardFooter>
             <p>Card Footer</p>

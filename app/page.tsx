@@ -6,6 +6,7 @@ import ClassSelector from "@/components/ClassSelector";
 import LevelFeatures from "@/components/LevelFeatures";
 import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
+import YearsArray from "@/components/YearsArray";
 import { useState } from "react";
 
 export default function Home() {
@@ -19,7 +20,6 @@ export default function Home() {
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
       <div className="max-w-7xl w-full">
-        <Name />
         <LevelSelector
           selectedLevel={selectedLevel}
           setSelectedLevel={setSelectedLevel}

@@ -13,10 +13,10 @@ export const Backgrounds = [
 ];
 
 export const Classes = [
-  { name: "Fighter" },
-  { name: "Ranger" },
-  { name: "Wizard" },
-  { name: "Sorcerer" },
+  { name: "Fighter", type: "Martial" },
+  { name: "Ranger", type: "Martial" },
+  { name: "Wizard", type: "Caster" },
+  { name: "Sorcerer", type: "Caster" },
 ];
 
 export const ClassFeats = [

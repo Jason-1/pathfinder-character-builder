@@ -1,5 +1,6 @@
 "use client";
 
+import Abilities from "@/components/Abilities";
 import AncestrySelector from "@/components/AncestrySelector";
 import BackgroundSelector from "@/components/BackgroundSelector";
 import ClassSelector from "@/components/ClassSelector";
@@ -37,6 +38,7 @@ export default function Home() {
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
         />
+        <Abilities selectedLevel={selectedLevel} />
         <LevelFeatures
           selectedLevel={selectedLevel}
           selectedAncestry={selectedAncestry}

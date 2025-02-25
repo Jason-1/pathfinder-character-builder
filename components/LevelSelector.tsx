@@ -25,7 +25,7 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({
               ? "opacity-100 border-black text-white"
               : "opacity-80"
           }`}
-          onClick={() => (setSelectedLevel(level), console.log(level))}
+          onClick={() => setSelectedLevel(level)}
         >
           {level}
         </Button>

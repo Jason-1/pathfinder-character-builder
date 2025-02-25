@@ -42,6 +42,7 @@ export const Classes = [
       heavy: "Trained",
     },
     DC: "Trained",
+    Attributes: [{ name: "Strength" }, { name: "Dexterity" }],
     features: [
       {
         name: "reactive strike",
@@ -168,6 +169,7 @@ export const Classes = [
       heavy: "Untrained",
     },
     DC: "Trained",
+    Attributes: [{ name: "Intelligence" }],
   },
 ];
 
@@ -225,4 +227,13 @@ export const Feats = [
     level: 20,
     feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
   },
+];
+
+export const Attributes = [
+  { name: "Strength" },
+  { name: "Dexterity" },
+  { name: "Constitution" },
+  { name: "Intelligence" },
+  { name: "Wisdom" },
+  { name: "Charisma" },
 ];

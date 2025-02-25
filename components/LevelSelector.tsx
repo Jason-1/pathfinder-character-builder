@@ -21,7 +21,7 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({
           variant="default"
           key={level}
           className={`col-span-1 ${
-            selectedLevel === level
+            level <= selectedLevel
               ? "opacity-100 border-black text-white"
               : "opacity-80"
           }`}

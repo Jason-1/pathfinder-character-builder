@@ -25,8 +25,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ClassFeats } from "@/data";
-import { Classes } from "@/data";
+import { ClassFeats } from "@/data/classFeats";
+import { Classes, Feats } from "@/data";
 
 interface LevelFeaturesProps {
   selectedLevel: number;
@@ -43,11 +43,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   selectedBackground,
   selectedClass,
 }) => {
-  const [level2Feat, setLevel2Feat] = useState<string>("");
-
-  const selectedClassType = Classes.find(
-    (classType) => classType.name === selectedClass
-  )?.type;
+  const selectedClassData = Classes.find(
+    (classItem) => classItem.name === selectedClass
+  );
 
   return (
     <div className="mt-6">
@@ -81,46 +79,29 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
             )}
           </CardHeader>
           <CardContent>
-            {(level % 2 === 0 ||
-              (level === 1 && selectedClassType === "Martial")) && (
-              <Dialog>
-                <DialogTrigger>Class Feat</DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
-                    <DialogDescription>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger>
-                          {level2Feat === "Select Ancestry"
-                            ? ""
-                            : "Class Feat: "}
-                          {level2Feat}
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-
-                          {ClassFeats.filter(
-                            (feat) =>
-                              feat.traits === "Fighter" && feat.level <= level
-                          ).map((feat) => (
-                            <DropdownMenuItem
-                              key={feat.name}
-                              onClick={() => setLevel2Feat(`${feat.name}`)}
-                            >
-                              {feat.name}
-                            </DropdownMenuItem>
-                          ))}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
+            {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>
+              feat.type !== "Martial" ? (
+                <div key={feat.type}>{feat.type}</div>
+              ) : selectedClassData?.type === "Martial" ? (
+                <div key={feat.type}>Class</div>
+              ) : null
             )}
           </CardContent>
           <CardFooter>
-            <p>Card Footer</p>
+            {selectedClass !== "Select Class" &&
+              selectedClassData?.features && (
+                <div>
+                  {selectedClassData?.features.map(
+                    (feature) =>
+                      level === feature.level && (
+                        <div key={feature.name}>
+                          <div>{feature.name}</div>
+                          <div>{feature.description}</div>
+                        </div>
+                      )
+                  )}
+                </div>
+              )}
           </CardFooter>
         </Card>
       ))}

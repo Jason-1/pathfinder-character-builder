@@ -7,7 +7,6 @@ import ClassSelector from "@/components/ClassSelector";
 import LevelFeatures from "@/components/LevelFeatures";
 import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
-import YearsArray from "@/components/YearsArray";
 import { InitialAttributeBoosts } from "@/data";
 import { AttributeBoost } from "@/types";
 import { useState } from "react";

@@ -74,8 +74,8 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                 ({ name, boosts }) =>
                   name === boostsType && boosts.includes(attribute.name)
               )
-                ? "opacity-10"
-                : "opacity-100"
+                ? "opacity-100"
+                : "opacity-70"
             }`}
             onClick={() => handleClick(attribute.name)}
           >

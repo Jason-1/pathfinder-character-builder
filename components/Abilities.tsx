@@ -11,12 +11,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import AttributeButtons from "./AttributeButtons";
+import { AttributeBoost } from "@/types";
 
 interface LevelSelectorProps {
   selectedLevel: number;
+  attributeBoosts: AttributeBoost[];
+  setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
 }
 
-const Abilities: React.FC<LevelSelectorProps> = (selectedLevel) => {
+const Abilities: React.FC<LevelSelectorProps> = ({
+  selectedLevel,
+  attributeBoosts,
+  setAttributeBoosts,
+}) => {
   return (
     <div className="grid grid-cols-2 gap-1 mt-6">
       {Attributes.map((attribute) => (
@@ -30,27 +37,51 @@ const Abilities: React.FC<LevelSelectorProps> = (selectedLevel) => {
           className={"lg:max-w-screen-lg overflow-y-scroll max-h-screen"}
         >
           <DialogHeader>
-            <DialogTitle>Attributes</DialogTitle>
+            <DialogTitle>Attributes </DialogTitle>
             <DialogDescription>
               Click on the attribute to increase it.
             </DialogDescription>
           </DialogHeader>
-          <p className="mt-6">Ancestry</p>
-          <AttributeButtons />
-          <p className="mt-6">Background</p>
-          <AttributeButtons />
-          <p className="mt-6">Class</p>
-          <AttributeButtons />
-          <p className="mt-6">Initial</p>
-          <AttributeButtons />
-          <p className="mt-6">Level 5</p>
-          <AttributeButtons />
-          <p className="mt-6">Level 10</p>
-          <AttributeButtons />
-          <p className="mt-6">Level 15</p>
-          <AttributeButtons />
-          <p className="mt-6">Level 20</p>
-          <AttributeButtons />
+          <AttributeButtons
+            boostsType="Ancestry"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
+          <AttributeButtons
+            boostsType="Background"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
+          <AttributeButtons
+            boostsType="Class"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
+          <AttributeButtons
+            boostsType="Initial"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
+          <AttributeButtons
+            boostsType="Level5"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
+          <AttributeButtons
+            boostsType="Level10"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
+          <AttributeButtons
+            boostsType="Level15"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
+          <AttributeButtons
+            boostsType="Level20"
+            attributeBoosts={attributeBoosts}
+            setAttributeBoosts={setAttributeBoosts}
+          />
         </DialogContent>
       </Dialog>
     </div>

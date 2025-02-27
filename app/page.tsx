@@ -8,6 +8,8 @@ import LevelFeatures from "@/components/LevelFeatures";
 import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
 import YearsArray from "@/components/YearsArray";
+import { InitialAttributeBoosts } from "@/data";
+import { AttributeBoost } from "@/types";
 import { useState } from "react";
 
 export default function Home() {
@@ -17,6 +19,9 @@ export default function Home() {
   const [selectedBackground, setSelectedBackground] =
     useState<string>("Select Background");
   const [selectedClass, setSelectedClass] = useState<string>("Select Class");
+  const [attributeBoosts, setAttributeBoosts] = useState<AttributeBoost[]>(
+    InitialAttributeBoosts
+  );
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
@@ -38,7 +43,11 @@ export default function Home() {
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
         />
-        <Abilities selectedLevel={selectedLevel} />
+        <Abilities
+          selectedLevel={selectedLevel}
+          attributeBoosts={attributeBoosts}
+          setAttributeBoosts={setAttributeBoosts}
+        />
         <LevelFeatures
           selectedLevel={selectedLevel}
           selectedAncestry={selectedAncestry}

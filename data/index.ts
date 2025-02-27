@@ -1,3 +1,4 @@
+import { AttributesType } from "@/types";
 import { features } from "process";
 
 export const Ancestries = [
@@ -229,11 +230,22 @@ export const Feats = [
   },
 ];
 
-export const Attributes = [
+export const Attributes: { name: AttributesType }[] = [
   { name: "Strength" },
   { name: "Dexterity" },
   { name: "Constitution" },
   { name: "Intelligence" },
   { name: "Wisdom" },
   { name: "Charisma" },
+];
+
+export const InitialAttributeBoosts = [
+  { name: "Ancestry", boosts: [] },
+  { name: "Background", boosts: [] },
+  { name: "Class", boosts: [] },
+  { name: "Initial", boosts: [] },
+  { name: "Level5", boosts: [] },
+  { name: "Level10", boosts: [] },
+  { name: "Level15", boosts: [] },
+  { name: "Level20", boosts: [] },
 ];

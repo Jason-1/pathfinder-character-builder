@@ -2,9 +2,10 @@ import { Attributes } from "@/data";
 import React, { useEffect } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoost, AttributesType, Category } from "@/types";
+import { InitialAttributeBoosts } from "@/data";
+import { init } from "next/dist/compiled/webpack/webpack";
 
 interface LevelSelectorProps {
-  boostsType: Category;
   attributeBoosts: AttributeBoost[];
   setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
 }
@@ -21,11 +22,10 @@ const BoostLimits = {
 };
 
 const AttributeButtons: React.FC<LevelSelectorProps> = ({
-  boostsType,
   attributeBoosts,
   setAttributeBoosts,
 }) => {
-  function handleClick(attribute: AttributesType): void {
+  function handleClick(attribute: AttributesType, boostsType: Category): void {
     if (
       attributeBoosts.find(
         ({ name, boosts }) =>
@@ -63,26 +63,32 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
 
   return (
     <>
-      <p className="mt-6">{boostsType}</p>
-      <div className="grid grid-cols-6 gap-1">
-        {Attributes.map((attribute) => (
-          <Button
-            variant="default"
-            key={attribute.name}
-            className={`col-span-1 ${
-              attributeBoosts.find(
-                ({ name, boosts }) =>
-                  name === boostsType && boosts.includes(attribute.name)
-              )
-                ? "opacity-100"
-                : "opacity-70"
-            }`}
-            onClick={() => handleClick(attribute.name)}
-          >
-            {attribute.name}
-          </Button>
-        ))}
-      </div>
+      {InitialAttributeBoosts.map((boost) => (
+        <>
+          <p className="mt-6">{boost.name}</p>
+          <div className="grid grid-cols-6 gap-1">
+            {Attributes.map((attribute) => (
+              <Button
+                variant="default"
+                key={attribute.name}
+                className={`col-span-1 ${
+                  attributeBoosts.find(
+                    ({ name, boosts }) =>
+                      name === boost.name && boosts.includes(attribute.name)
+                  )
+                    ? "opacity-100"
+                    : "opacity-70"
+                }`}
+                onClick={() =>
+                  handleClick(attribute.name, boost.name as Category)
+                }
+              >
+                {attribute.name}
+              </Button>
+            ))}
+          </div>
+        </>
+      ))}
     </>
   );
 };

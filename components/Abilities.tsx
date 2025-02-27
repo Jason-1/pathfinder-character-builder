@@ -59,42 +59,6 @@ const Abilities: React.FC<LevelSelectorProps> = ({
             </DialogDescription>
           </DialogHeader>
           <AttributeButtons
-            boostsType="Ancestry"
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
-          />
-          <AttributeButtons
-            boostsType="Background"
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
-          />
-          <AttributeButtons
-            boostsType="Class"
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
-          />
-          <AttributeButtons
-            boostsType="Initial"
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
-          />
-          <AttributeButtons
-            boostsType="Level5"
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
-          />
-          <AttributeButtons
-            boostsType="Level10"
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
-          />
-          <AttributeButtons
-            boostsType="Level15"
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
-          />
-          <AttributeButtons
-            boostsType="Level20"
             attributeBoosts={attributeBoosts}
             setAttributeBoosts={setAttributeBoosts}
           />

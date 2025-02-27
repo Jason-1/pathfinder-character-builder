@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoost, AttributesType, Category } from "@/types";
 import { InitialAttributeBoosts } from "@/data";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 const BoostLimits = {
   Ancestry: 2,
@@ -28,14 +27,6 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   setAttributeBoosts,
 }) => {
   function handleClick(attribute: AttributesType, boostsType: Category): void {
-    if (
-      (boostsType === "Level5" && selectedLevel < 5) ||
-      (boostsType === "Level10" && selectedLevel < 10) ||
-      (boostsType === "Level15" && selectedLevel < 15) ||
-      (boostsType === "Level20" && selectedLevel < 20)
-    ) {
-      return;
-    }
     if (
       attributeBoosts.find(
         ({ name, boosts }) =>
@@ -73,7 +64,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   return (
     <>
       {InitialAttributeBoosts.map((boost) => (
-        <>
+        <React.Fragment key={boost.name}>
           <p className="mt-6" key={boost.name + "title"}>
             {boost.name}
           </p>
@@ -98,7 +89,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
               </Button>
             ))}
           </div>
-        </>
+        </React.Fragment>
       ))}
     </>
   );

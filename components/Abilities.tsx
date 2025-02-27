@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import AttributeButtons from "./AttributeButtons";
-import { AttributeBoost } from "@/types";
+import { AttributeBoost, AttributesType } from "@/types";
 
 interface LevelSelectorProps {
   selectedLevel: number;
@@ -24,11 +24,27 @@ const Abilities: React.FC<LevelSelectorProps> = ({
   attributeBoosts,
   setAttributeBoosts,
 }) => {
+  const currentAttributeBoosts = (attributeName: AttributesType): number => {
+    let i = 0;
+    let partial = false;
+    attributeBoosts.forEach((boost) => {
+      if (boost.boosts.includes(attributeName)) {
+        if (i >= 4 && !partial) {
+          partial = true;
+        } else {
+          i++;
+          partial = false;
+        }
+      }
+    });
+    return i;
+  };
+
   return (
     <div className="grid grid-cols-2 gap-1 mt-6">
       {Attributes.map((attribute) => (
         <Button variant="default" key={attribute.name} className="col-span-1">
-          {attribute.name} 0
+          {attribute.name}: {currentAttributeBoosts(attribute.name)}
         </Button>
       ))}
       <Dialog>

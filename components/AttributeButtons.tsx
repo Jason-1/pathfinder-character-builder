@@ -5,11 +5,6 @@ import { AttributeBoost, AttributesType, Category } from "@/types";
 import { InitialAttributeBoosts } from "@/data";
 import { init } from "next/dist/compiled/webpack/webpack";
 
-interface LevelSelectorProps {
-  attributeBoosts: AttributeBoost[];
-  setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
-}
-
 const BoostLimits = {
   Ancestry: 2,
   Background: 2,
@@ -21,11 +16,26 @@ const BoostLimits = {
   Level20: 4,
 };
 
+interface LevelSelectorProps {
+  selectedLevel: number;
+  attributeBoosts: AttributeBoost[];
+  setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
+}
+
 const AttributeButtons: React.FC<LevelSelectorProps> = ({
+  selectedLevel,
   attributeBoosts,
   setAttributeBoosts,
 }) => {
   function handleClick(attribute: AttributesType, boostsType: Category): void {
+    if (
+      (boostsType === "Level5" && selectedLevel < 5) ||
+      (boostsType === "Level10" && selectedLevel < 10) ||
+      (boostsType === "Level15" && selectedLevel < 15) ||
+      (boostsType === "Level20" && selectedLevel < 20)
+    ) {
+      return;
+    }
     if (
       attributeBoosts.find(
         ({ name, boosts }) =>
@@ -48,7 +58,6 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
         ({ name, boosts }) => name === boostsType && boosts.includes(attribute)
       )
     ) {
-      console.log("Removing attribute:", attribute, "from", boostsType);
       setAttributeBoosts((prev) => {
         const updatedBoosts = prev.map((boost) =>
           boost.name === boostsType
@@ -65,8 +74,10 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     <>
       {InitialAttributeBoosts.map((boost) => (
         <>
-          <p className="mt-6">{boost.name}</p>
-          <div className="grid grid-cols-6 gap-1">
+          <p className="mt-6" key={boost.name + "title"}>
+            {boost.name}
+          </p>
+          <div className="grid grid-cols-6 gap-1" key={boost.name}>
             {Attributes.map((attribute) => (
               <Button
                 variant="default"

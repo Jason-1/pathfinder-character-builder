@@ -59,6 +59,7 @@ const Abilities: React.FC<LevelSelectorProps> = ({
             </DialogDescription>
           </DialogHeader>
           <AttributeButtons
+            selectedLevel={selectedLevel}
             attributeBoosts={attributeBoosts}
             setAttributeBoosts={setAttributeBoosts}
           />

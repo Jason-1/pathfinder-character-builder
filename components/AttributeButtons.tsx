@@ -1,16 +1,15 @@
 import { Attributes } from "@/data";
 import React, { useEffect } from "react";
 import { Button } from "./ui/button";
-import { AttributeBoost, AttributesType } from "@/types";
+import { AttributeBoost, AttributesType, Category } from "@/types";
 
 interface LevelSelectorProps {
-  boostsType: string;
+  boostsType: Category;
   attributeBoosts: AttributeBoost[];
   setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
 }
 
-//FIX TYPING
-const BoostLimits: any = {
+const BoostLimits = {
   Ancestry: 2,
   Background: 2,
   Class: 1,

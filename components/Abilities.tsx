@@ -30,31 +30,28 @@ const Abilities: React.FC<LevelSelectorProps> = ({
   attributeBoosts,
   setAttributeBoosts,
 }) => {
-  //Reset Ancestry boosts when a new class is selected
-  useEffect(() => {
+  const ResetAttributeBoosts = (selectedAttributeBoosts: string) => {
     setAttributeBoosts((prev) =>
       prev.map((boost) =>
-        boost.name === "Ancestry" ? { ...boost, boosts: [] } : boost
+        boost.name === selectedAttributeBoosts
+          ? { ...boost, boosts: [] }
+          : boost
       )
     );
+  };
+  //Reset Ancestry boosts when a new class is selected
+  useEffect(() => {
+    ResetAttributeBoosts("Ancestry");
   }, [selectedAncestry]);
 
   //Reset Background boosts when a new class is selected
   useEffect(() => {
-    setAttributeBoosts((prev) =>
-      prev.map((boost) =>
-        boost.name === "Background" ? { ...boost, boosts: [] } : boost
-      )
-    );
+    ResetAttributeBoosts("Background");
   }, [selectedBackground]);
 
   //Reset Class boosts when a new class is selected
   useEffect(() => {
-    setAttributeBoosts((prev) =>
-      prev.map((boost) =>
-        boost.name === "Class" ? { ...boost, boosts: [] } : boost
-      )
-    );
+    ResetAttributeBoosts("Class");
   }, [selectedClass]);
 
   const currentAttributeBoosts = (attributeName: AttributesType): number => {

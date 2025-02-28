@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Attributes } from "@/data";
+import { Attributes, InitialAttributeBoosts } from "@/data";
 import { Button } from "./ui/button";
 
 import {
@@ -39,6 +39,11 @@ const Abilities: React.FC<LevelSelectorProps> = ({
       )
     );
   };
+
+  const ResetAllAttributeBoosts = () => {
+    setAttributeBoosts(InitialAttributeBoosts);
+  };
+
   //Reset Ancestry boosts when a new class is selected
   useEffect(() => {
     ResetAttributeBoosts("Ancestry");
@@ -86,14 +91,17 @@ const Abilities: React.FC<LevelSelectorProps> = ({
         </Button>
       ))}
       <Dialog>
-        <DialogTrigger>Open</DialogTrigger>
+        <DialogTrigger>Modify Attributes</DialogTrigger>
         <DialogContent
           className={"lg:max-w-screen-lg overflow-y-scroll max-h-screen"}
         >
           <DialogHeader>
             <DialogTitle>Attributes </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="flex flex-row justify-between">
               Click on the attribute to increase it.
+              <Button onClick={ResetAllAttributeBoosts}>
+                Reset Attributes
+              </Button>
             </DialogDescription>
           </DialogHeader>
           <AttributeButtons

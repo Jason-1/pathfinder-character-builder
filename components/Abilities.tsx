@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Attributes } from "@/data";
 import { Button } from "./ui/button";
 
@@ -16,6 +16,8 @@ import { AttributeBoost, AttributesType } from "@/types";
 interface LevelSelectorProps {
   selectedLevel: number;
   selectedClass: string;
+  selectedAncestry: string;
+  selectedBackground: string;
   attributeBoosts: AttributeBoost[];
   setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
 }
@@ -23,9 +25,38 @@ interface LevelSelectorProps {
 const Abilities: React.FC<LevelSelectorProps> = ({
   selectedLevel,
   selectedClass,
+  selectedAncestry,
+  selectedBackground,
   attributeBoosts,
   setAttributeBoosts,
 }) => {
+  //Reset Ancestry boosts when a new class is selected
+  useEffect(() => {
+    setAttributeBoosts((prev) =>
+      prev.map((boost) =>
+        boost.name === "Ancestry" ? { ...boost, boosts: [] } : boost
+      )
+    );
+  }, [selectedAncestry]);
+
+  //Reset Background boosts when a new class is selected
+  useEffect(() => {
+    setAttributeBoosts((prev) =>
+      prev.map((boost) =>
+        boost.name === "Background" ? { ...boost, boosts: [] } : boost
+      )
+    );
+  }, [selectedBackground]);
+
+  //Reset Class boosts when a new class is selected
+  useEffect(() => {
+    setAttributeBoosts((prev) =>
+      prev.map((boost) =>
+        boost.name === "Class" ? { ...boost, boosts: [] } : boost
+      )
+    );
+  }, [selectedClass]);
+
   const currentAttributeBoosts = (attributeName: AttributesType): number => {
     let i = 0;
     let partial = false;

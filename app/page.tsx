@@ -45,6 +45,8 @@ export default function Home() {
         <Abilities
           selectedLevel={selectedLevel}
           selectedClass={selectedClass}
+          selectedAncestry={selectedAncestry}
+          selectedBackground={selectedBackground}
           attributeBoosts={attributeBoosts}
           setAttributeBoosts={setAttributeBoosts}
         />

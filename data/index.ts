@@ -43,7 +43,7 @@ export const Classes = [
       heavy: "Trained",
     },
     DC: "Trained",
-    Attributes: [{ name: "Strength" }, { name: "Dexterity" }],
+    Attributes: ["Strength", "Dexterity"],
     features: [
       {
         name: "reactive strike",
@@ -170,7 +170,7 @@ export const Classes = [
       heavy: "Untrained",
     },
     DC: "Trained",
-    Attributes: [{ name: "Intelligence" }],
+    Attributes: ["Intelligence"],
   },
 ];
 

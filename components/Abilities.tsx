@@ -15,12 +15,14 @@ import { AttributeBoost, AttributesType } from "@/types";
 
 interface LevelSelectorProps {
   selectedLevel: number;
+  selectedClass: string;
   attributeBoosts: AttributeBoost[];
   setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
 }
 
 const Abilities: React.FC<LevelSelectorProps> = ({
   selectedLevel,
+  selectedClass,
   attributeBoosts,
   setAttributeBoosts,
 }) => {
@@ -69,6 +71,7 @@ const Abilities: React.FC<LevelSelectorProps> = ({
           <AttributeButtons
             attributeBoosts={attributeBoosts}
             setAttributeBoosts={setAttributeBoosts}
+            selectedClass={selectedClass}
           />
         </DialogContent>
       </Dialog>

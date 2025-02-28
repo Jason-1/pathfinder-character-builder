@@ -1,4 +1,4 @@
-import { Attributes } from "@/data";
+import { Attributes, Classes } from "@/data";
 import React from "react";
 import { Button } from "./ui/button";
 import { AttributeBoost, AttributesType, Category } from "@/types";
@@ -17,20 +17,38 @@ const BoostLimits = {
 interface LevelSelectorProps {
   attributeBoosts: AttributeBoost[];
   setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
+  selectedClass: string;
 }
 
 const AttributeButtons: React.FC<LevelSelectorProps> = ({
   attributeBoosts,
   setAttributeBoosts,
+  selectedClass,
 }) => {
   function handleClick(attribute: AttributesType, boostsType: Category): void {
-    const currentBoost = attributeBoosts.find(
+    const currentBoostCategory = attributeBoosts.find(
       ({ name }) => name === boostsType
     );
+
+    const currentClass = Classes.find(
+      (classItem) => classItem.name === selectedClass
+    );
+
     if (
-      currentBoost &&
-      !currentBoost.boosts.includes(attribute) &&
-      currentBoost.boosts.length < BoostLimits[boostsType]
+      currentBoostCategory &&
+      currentBoostCategory.name === "Class" &&
+      !currentClass?.Attributes.includes(attribute) &&
+      !currentBoostCategory.boosts.includes(attribute)
+    ) {
+      {
+        /* Selected Class cannot boost this attribute so dont allow it to be clicked */
+      }
+      return;
+    }
+    if (
+      currentBoostCategory &&
+      !currentBoostCategory.boosts.includes(attribute) &&
+      currentBoostCategory.boosts.length < BoostLimits[boostsType]
     ) {
       setAttributeBoosts((prev) =>
         prev.map((boost) =>
@@ -39,27 +57,37 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
             : boost
         )
       );
-    } else if (currentBoost && currentBoost.boosts.includes(attribute)) {
+    } else if (
+      currentBoostCategory &&
+      currentBoostCategory.boosts.includes(attribute)
+    ) {
       setAttributeBoosts((prev) =>
         prev.map((boost) =>
           boost.name === boostsType
-            ? { ...boost, boosts: boost.boosts.filter((b) => b !== attribute) }
+            ? {
+                ...boost,
+                boosts: boost.boosts.filter((b) => b !== attribute),
+              }
             : boost
         )
       );
     }
   }
 
+  //Only show the attributes that are available for the current boost category
   return (
     <>
-      {attributeBoosts.map((currentAttributeBoost) => (
-        <React.Fragment key={currentAttributeBoost.name}>
-          <p className="mt-6" key={currentAttributeBoost.name + "title"}>
-            {currentAttributeBoost.name}
+      {attributeBoosts.map((currentAttributeBoostCategory) => (
+        <React.Fragment key={currentAttributeBoostCategory.name}>
+          <p
+            className="mt-6"
+            key={currentAttributeBoostCategory.name + "title"}
+          >
+            {currentAttributeBoostCategory.name}
           </p>
           <div
             className="grid grid-cols-6 gap-1"
-            key={currentAttributeBoost.name}
+            key={currentAttributeBoostCategory.name}
           >
             {Attributes.map((attribute) => (
               <Button
@@ -68,7 +96,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                 className={`col-span-1 ${
                   attributeBoosts.find(
                     ({ name, boosts }) =>
-                      name === currentAttributeBoost.name &&
+                      name === currentAttributeBoostCategory.name &&
                       boosts.includes(attribute.name)
                   )
                     ? "opacity-100"
@@ -77,7 +105,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                 onClick={() =>
                   handleClick(
                     attribute.name,
-                    currentAttributeBoost.name as Category
+                    currentAttributeBoostCategory.name as Category
                   )
                 }
               >

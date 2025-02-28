@@ -44,6 +44,7 @@ export default function Home() {
         />
         <Abilities
           selectedLevel={selectedLevel}
+          selectedClass={selectedClass}
           attributeBoosts={attributeBoosts}
           setAttributeBoosts={setAttributeBoosts}
         />

@@ -27,13 +27,13 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   setAttributeBoostCategories,
   selectedClass,
 }) => {
+  const currentClass = Classes.find(
+    (classItem) => classItem.name === selectedClass
+  );
+
   function handleClick(attribute: AttributesType, boostsType: Category): void {
     const currentBoostCategory = attributeBoostCategories.find(
       ({ name }) => name === boostsType
-    );
-
-    const currentClass = Classes.find(
-      (classItem) => classItem.name === selectedClass
     );
 
     if (
@@ -102,8 +102,11 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                       boosts.includes(attribute.name)
                   )
                     ? "opacity-100"
-                    : "opacity-70"
-                }`}
+                    : currentAttributeBoostCategory.name === "Class" &&
+                      !currentClass?.Attributes.includes(attribute.name)
+                    ? "opacity-10"
+                    : "opacity-75"
+                } `}
                 onClick={() =>
                   handleClick(
                     attribute.name,

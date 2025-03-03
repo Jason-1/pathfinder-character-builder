@@ -18,8 +18,10 @@ interface LevelSelectorProps {
   selectedClass: string;
   selectedAncestry: string;
   selectedBackground: string;
-  attributeBoosts: AttributeBoost[];
-  setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
+  attributeBoostCategories: AttributeBoost[];
+  setAttributeBoostCategories: React.Dispatch<
+    React.SetStateAction<AttributeBoost[]>
+  >;
 }
 
 const Abilities: React.FC<LevelSelectorProps> = ({
@@ -27,11 +29,11 @@ const Abilities: React.FC<LevelSelectorProps> = ({
   selectedClass,
   selectedAncestry,
   selectedBackground,
-  attributeBoosts,
-  setAttributeBoosts,
+  attributeBoostCategories,
+  setAttributeBoostCategories,
 }) => {
   const ResetAttributeBoosts = (selectedAttributeBoosts: string) => {
-    setAttributeBoosts((prev) =>
+    setAttributeBoostCategories((prev) =>
       prev.map((boost) =>
         boost.name === selectedAttributeBoosts
           ? { ...boost, boosts: [] }
@@ -41,7 +43,7 @@ const Abilities: React.FC<LevelSelectorProps> = ({
   };
 
   const ResetAllAttributeBoosts = () => {
-    setAttributeBoosts(InitialAttributeBoosts);
+    setAttributeBoostCategories(InitialAttributeBoosts);
   };
 
   //Reset Ancestry boosts when a new class is selected
@@ -62,7 +64,7 @@ const Abilities: React.FC<LevelSelectorProps> = ({
   const currentAttributeBoosts = (attributeName: AttributesType): number => {
     let i = 0;
     let partial = false;
-    attributeBoosts.forEach((boost) => {
+    attributeBoostCategories.forEach((boost) => {
       if (boost.boosts.includes(attributeName)) {
         if (
           (boost.name === "Level5" && selectedLevel < 5) ||
@@ -105,8 +107,8 @@ const Abilities: React.FC<LevelSelectorProps> = ({
             </DialogDescription>
           </DialogHeader>
           <AttributeButtons
-            attributeBoosts={attributeBoosts}
-            setAttributeBoosts={setAttributeBoosts}
+            attributeBoostCategories={attributeBoostCategories}
+            setAttributeBoostCategories={setAttributeBoostCategories}
             selectedClass={selectedClass}
           />
         </DialogContent>

@@ -15,18 +15,20 @@ const BoostLimits = {
 };
 
 interface LevelSelectorProps {
-  attributeBoosts: AttributeBoost[];
-  setAttributeBoosts: React.Dispatch<React.SetStateAction<AttributeBoost[]>>;
+  attributeBoostCategories: AttributeBoost[];
+  setAttributeBoostCategories: React.Dispatch<
+    React.SetStateAction<AttributeBoost[]>
+  >;
   selectedClass: string;
 }
 
 const AttributeButtons: React.FC<LevelSelectorProps> = ({
-  attributeBoosts,
-  setAttributeBoosts,
+  attributeBoostCategories,
+  setAttributeBoostCategories,
   selectedClass,
 }) => {
   function handleClick(attribute: AttributesType, boostsType: Category): void {
-    const currentBoostCategory = attributeBoosts.find(
+    const currentBoostCategory = attributeBoostCategories.find(
       ({ name }) => name === boostsType
     );
 
@@ -50,7 +52,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
       !currentBoostCategory.boosts.includes(attribute) &&
       currentBoostCategory.boosts.length < BoostLimits[boostsType]
     ) {
-      setAttributeBoosts((prev) =>
+      setAttributeBoostCategories((prev) =>
         prev.map((boost) =>
           boost.name === boostsType
             ? { ...boost, boosts: [...boost.boosts, attribute] }
@@ -61,7 +63,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
       currentBoostCategory &&
       currentBoostCategory.boosts.includes(attribute)
     ) {
-      setAttributeBoosts((prev) =>
+      setAttributeBoostCategories((prev) =>
         prev.map((boost) =>
           boost.name === boostsType
             ? {
@@ -77,7 +79,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   //Only show the attributes that are available for the current boost category
   return (
     <>
-      {attributeBoosts.map((currentAttributeBoostCategory) => (
+      {attributeBoostCategories.map((currentAttributeBoostCategory) => (
         <React.Fragment key={currentAttributeBoostCategory.name}>
           <p
             className="mt-6"
@@ -94,7 +96,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                 variant="default"
                 key={attribute.name}
                 className={`col-span-1 ${
-                  attributeBoosts.find(
+                  attributeBoostCategories.find(
                     ({ name, boosts }) =>
                       name === currentAttributeBoostCategory.name &&
                       boosts.includes(attribute.name)

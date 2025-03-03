@@ -18,9 +18,9 @@ export default function Home() {
   const [selectedBackground, setSelectedBackground] =
     useState<string>("Select Background");
   const [selectedClass, setSelectedClass] = useState<string>("Select Class");
-  const [attributeBoosts, setAttributeBoosts] = useState<AttributeBoost[]>(
-    InitialAttributeBoosts
-  );
+  const [attributeBoostCategories, setAttributeBoostCategories] = useState<
+    AttributeBoost[]
+  >(InitialAttributeBoosts);
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
@@ -47,8 +47,8 @@ export default function Home() {
           selectedClass={selectedClass}
           selectedAncestry={selectedAncestry}
           selectedBackground={selectedBackground}
-          attributeBoosts={attributeBoosts}
-          setAttributeBoosts={setAttributeBoosts}
+          attributeBoostCategories={attributeBoostCategories}
+          setAttributeBoostCategories={setAttributeBoostCategories}
         />
         <LevelFeatures
           selectedLevel={selectedLevel}

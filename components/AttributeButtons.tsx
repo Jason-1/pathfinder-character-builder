@@ -14,10 +14,10 @@ const BoostLimits = {
   Level20: 4,
 };
 
-//TODO - Clean up the click handler - move the logic to separate functions
 //TODO - Use disabled instead of opacity to disable the button
 //TODO - Clean up the classname logic, moving the if statements out into a separate function
 //TODO - Add a tooltip to explain why the button is disabled
+//TODO - Reset attributes needs to reset the disabled state
 
 interface LevelSelectorProps {
   attributeBoostCategories: AttributeBoost[];
@@ -55,13 +55,94 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     (classItem) => classItem.name === selectedClass
   );
 
+  function handleAncestryBoost(
+    ancestry: AttributeBoost,
+    boostedAttribute: AttributesType
+  ): void {
+    if (ancestry.boosts.length === 1) {
+      const selectedBoost = ancestry.boosts[0]; //Check if the selected boost is from the Attributes array
+      if (
+        !currentAncestry?.Attributes.includes(selectedBoost) &&
+        !currentAncestry?.Attributes.includes("Free")
+      ) {
+        //only allow the selection of a boost from the array
+        if (
+          boostedAttribute !== selectedBoost &&
+          !currentAncestry?.Attributes.includes(boostedAttribute)
+        ) {
+          return;
+        }
+      }
+    } else {
+      if (
+        !currentAncestry?.Attributes.includes(boostedAttribute) &&
+        !currentAncestry?.Attributes.includes("Free")
+      ) {
+        setRestrictAncestryBoosts(true);
+      }
+    }
+  }
+
+  function handleBackgroundBoost(
+    background: AttributeBoost,
+    boostedAttribute: AttributesType
+  ): void {
+    if (background.boosts.length === 1) {
+      const selectedBoost = background.boosts[0];
+
+      //Check if the selected boost is from the Attributes array
+      if (!currentBackground?.Attributes.includes(selectedBoost)) {
+        //only allow the selection of a boost from the array
+        if (
+          boostedAttribute !== selectedBoost &&
+          !currentBackground?.Attributes.includes(boostedAttribute)
+        ) {
+          return;
+        }
+      }
+    } else {
+      if (!currentBackground?.Attributes.includes(boostedAttribute)) {
+        setRestrictBackgroundBoosts(true);
+      }
+    }
+  }
+
+  function handleBoostRemoval(
+    boostedAttribute: AttributesType,
+    boostsType: Category
+  ): void {
+    setAttributeBoostCategories((prev) =>
+      prev.map((boost) =>
+        boost.name === boostsType
+          ? {
+              ...boost,
+              boosts: boost.boosts.filter((b) => b !== boostedAttribute),
+            }
+          : boost
+      )
+    );
+    if (
+      boostsType === "Ancestry" &&
+      !currentAncestry?.Attributes.includes(boostedAttribute)
+    ) {
+      setRestrictAncestryBoosts(false);
+    }
+    if (
+      boostsType === "Background" &&
+      !currentBackground?.Attributes.includes(boostedAttribute)
+    ) {
+      setRestrictBackgroundBoosts(false);
+    }
+  }
+
   function handleClick(attribute: AttributesType, boostsType: Category): void {
     const currentBoostCategory = attributeBoostCategories.find(
       ({ name }) => name === boostsType
     );
 
+    //Check if tge boost category exists
     if (currentBoostCategory) {
-      //Check if the selected class can boost the attribute
+      //If we have selected a class, check that it can boost the selected Attribute
       if (
         currentBoostCategory.name === "Class" &&
         !currentClass?.Attributes.includes(attribute) &&
@@ -71,55 +152,15 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
         return;
       }
 
-      // Every Ancestry has a free boost. Some get 2 boosts. If we have picked an Ancestry boost already check at least one of the selected boosts is from the Attributes array or they get 2 boosts
       if (currentBoostCategory.name === "Ancestry") {
-        if (currentBoostCategory.boosts.length === 1) {
-          const selectedBoost = currentBoostCategory.boosts[0]; //Check if the selected boost is from the Attributes array
-          if (
-            !currentAncestry?.Attributes.includes(selectedBoost) &&
-            !currentAncestry?.Attributes.includes("Free")
-          ) {
-            //only allow the selection of a boost from the array
-            if (
-              attribute !== selectedBoost &&
-              !currentAncestry?.Attributes.includes(attribute)
-            ) {
-              return;
-            }
-          }
-        } else {
-          if (
-            !currentAncestry?.Attributes.includes(attribute) &&
-            !currentAncestry?.Attributes.includes("Free")
-          ) {
-            setRestrictAncestryBoosts(true);
-          }
-        }
+        handleAncestryBoost(currentBoostCategory, attribute);
       }
 
-      // Only allow 1 free boost. If we have picked a Background boost already check at least one of the selected boosts is from the Attributes array
       if (currentBoostCategory.name === "Background") {
-        if (currentBoostCategory.boosts.length === 1) {
-          const selectedBoost = currentBoostCategory.boosts[0];
-
-          //Check if the selected boost is from the Attributes array
-          if (!currentBackground?.Attributes.includes(selectedBoost)) {
-            //only allow the selection of a boost from the array
-            if (
-              attribute !== selectedBoost &&
-              !currentBackground?.Attributes.includes(attribute)
-            ) {
-              return;
-            }
-          }
-        } else {
-          if (!currentBackground?.Attributes.includes(attribute)) {
-            setRestrictBackgroundBoosts(true);
-          }
-        }
+        handleBackgroundBoost(currentBoostCategory, attribute);
       }
 
-      //Check if we have less than the maximum number of boosts for the current category
+      //Check if we have less than the maximum number of boosts for the current category and that we have clicked on an unallocated boost
       if (
         !currentBoostCategory.boosts.includes(attribute) &&
         currentBoostCategory.boosts.length < BoostLimits[boostsType]
@@ -133,28 +174,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
         );
         //if we select an attribute that is already boosted, remove it
       } else if (currentBoostCategory.boosts.includes(attribute)) {
-        setAttributeBoostCategories((prev) =>
-          prev.map((boost) =>
-            boost.name === boostsType
-              ? {
-                  ...boost,
-                  boosts: boost.boosts.filter((b) => b !== attribute),
-                }
-              : boost
-          )
-        );
-        if (
-          boostsType === "Ancestry" &&
-          !currentAncestry?.Attributes.includes(attribute)
-        ) {
-          setRestrictAncestryBoosts(false);
-        }
-        if (
-          boostsType === "Background" &&
-          !currentBackground?.Attributes.includes(attribute)
-        ) {
-          setRestrictBackgroundBoosts(false);
-        }
+        handleBoostRemoval(attribute, boostsType);
       }
     }
   }

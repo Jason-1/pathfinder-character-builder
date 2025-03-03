@@ -14,6 +14,11 @@ const BoostLimits = {
   Level20: 4,
 };
 
+//TODO - Clean up the click handler - move the logic to separate functions
+//TODO - Use disabled instead of opacity to disable the button
+//TODO - Clean up the classname logic, moving the if statements out into a separate function
+//TODO - Add a tooltip to explain why the button is disabled
+
 interface LevelSelectorProps {
   attributeBoostCategories: AttributeBoost[];
   setAttributeBoostCategories: React.Dispatch<
@@ -83,7 +88,10 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
             }
           }
         } else {
-          if (!currentAncestry?.Attributes.includes(attribute)) {
+          if (
+            !currentAncestry?.Attributes.includes(attribute) &&
+            !currentAncestry?.Attributes.includes("Free")
+          ) {
             setRestrictAncestryBoosts(true);
           }
         }

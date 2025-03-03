@@ -109,6 +109,8 @@ const Abilities: React.FC<LevelSelectorProps> = ({
           <AttributeButtons
             attributeBoostCategories={attributeBoostCategories}
             setAttributeBoostCategories={setAttributeBoostCategories}
+            selectedAncestry={selectedAncestry}
+            selectedBackground={selectedBackground}
             selectedClass={selectedClass}
           />
         </DialogContent>

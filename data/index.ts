@@ -1,18 +1,17 @@
 import { AttributesType } from "@/types";
-import { features } from "process";
 
 export const Ancestries = [
-  { name: "Human" },
-  { name: "Elf" },
-  { name: "Dwarf" },
-  { name: "Halfling" },
+  { name: "Human", Attributes: ["Free"] },
+  { name: "Elf", Attributes: ["Dexterity", "Intelligence"] },
+  { name: "Dwarf", Attributes: ["Constitution", "Wisdom"] },
+  { name: "Halfling", Attributes: ["Dexterity", "Wisdom"] },
 ];
 
 export const Backgrounds = [
-  { name: "Barkeeper" },
-  { name: "Hunter" },
-  { name: "Hermit" },
-  { name: "Field Medic" },
+  { name: "Barkeep", Attributes: ["Constitution", "Charisma"] },
+  { name: "Hunter", Attributes: ["Dexterity", "Wisdom"] },
+  { name: "Hermit", Attributes: ["Constitution", "Intelligence"] },
+  { name: "Field Medic", Attributes: ["Constitution", "Wisdom"] },
 ];
 
 export const Classes = [

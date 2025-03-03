@@ -35,6 +35,9 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   const [restrictAncestryBoosts, setRestrictAncestryBoosts] =
     useState<boolean>(false);
 
+  const [restrictBackgroundBoosts, setRestrictBackgroundBoosts] =
+    useState<boolean>(false);
+
   const currentAncestry = Ancestries.find(
     (ancestryItem) => ancestryItem.name === selectedAncestry
   );
@@ -82,26 +85,28 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
         } else {
           if (!currentAncestry?.Attributes.includes(attribute)) {
             setRestrictAncestryBoosts(true);
-            console.log("Restricting Ancestry Boosts");
           }
         }
       }
 
       // Only allow 1 free boost. If we have picked a Background boost already check at least one of the selected boosts is from the Attributes array
-      if (
-        currentBoostCategory.name === "Background" &&
-        currentBoostCategory.boosts.length === 1
-      ) {
-        const selectedBoost = currentBoostCategory.boosts[0];
+      if (currentBoostCategory.name === "Background") {
+        if (currentBoostCategory.boosts.length === 1) {
+          const selectedBoost = currentBoostCategory.boosts[0];
 
-        //Check if the selected boost is from the Attributes array
-        if (!currentBackground?.Attributes.includes(selectedBoost)) {
-          //only allow the selection of a boost from the array
-          if (
-            attribute !== selectedBoost &&
-            !currentBackground?.Attributes.includes(attribute)
-          ) {
-            return;
+          //Check if the selected boost is from the Attributes array
+          if (!currentBackground?.Attributes.includes(selectedBoost)) {
+            //only allow the selection of a boost from the array
+            if (
+              attribute !== selectedBoost &&
+              !currentBackground?.Attributes.includes(attribute)
+            ) {
+              return;
+            }
+          }
+        } else {
+          if (!currentBackground?.Attributes.includes(attribute)) {
+            setRestrictBackgroundBoosts(true);
           }
         }
       }
@@ -135,6 +140,12 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
           !currentAncestry?.Attributes.includes(attribute)
         ) {
           setRestrictAncestryBoosts(false);
+        }
+        if (
+          boostsType === "Background" &&
+          !currentBackground?.Attributes.includes(attribute)
+        ) {
+          setRestrictBackgroundBoosts(false);
         }
       }
     }
@@ -170,11 +181,18 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                         BoostLimits[
                           currentAttributeBoostCategory.name as keyof typeof BoostLimits
                         ] ||
-                      (currentAttributeBoostCategory.name === "Class" &&
-                        !currentClass?.Attributes.includes(attribute.name)) ||
                       (currentAttributeBoostCategory.name === "Ancestry" &&
                         restrictAncestryBoosts &&
-                        !currentAncestry?.Attributes.includes(attribute.name))
+                        !currentAncestry?.Attributes.includes(
+                          attribute.name
+                        )) ||
+                      (currentAttributeBoostCategory.name === "Background" &&
+                        restrictBackgroundBoosts &&
+                        !currentBackground?.Attributes.includes(
+                          attribute.name
+                        )) ||
+                      (currentAttributeBoostCategory.name === "Class" &&
+                        !currentClass?.Attributes.includes(attribute.name))
                     ? "opacity-10"
                     : "opacity-75"
                 } `}

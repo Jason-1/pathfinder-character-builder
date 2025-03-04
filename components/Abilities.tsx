@@ -99,11 +99,8 @@ const Abilities: React.FC<LevelSelectorProps> = ({
         >
           <DialogHeader>
             <DialogTitle>Attributes </DialogTitle>
-            <DialogDescription className="flex flex-row justify-between">
+            <DialogDescription>
               Click on the attribute to increase it.
-              <Button onClick={ResetAllAttributeBoosts}>
-                Reset Attributes
-              </Button>
             </DialogDescription>
           </DialogHeader>
           <AttributeButtons

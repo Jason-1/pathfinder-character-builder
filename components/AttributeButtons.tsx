@@ -1,4 +1,10 @@
-import { Ancestries, Attributes, Backgrounds, Classes } from "@/data";
+import {
+  Ancestries,
+  Attributes,
+  Backgrounds,
+  Classes,
+  InitialAttributeBoosts,
+} from "@/data";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoost, AttributesType, Category } from "@/types";
@@ -13,13 +19,6 @@ const BoostLimits = {
   Level15: 4,
   Level20: 4,
 };
-
-//TODO - Move all click restrictions to the buttons disabled function
-//TODO - Fix Ancestry and Background hidden buttons being clickable
-//TODO - Use disabled instead of opacity to disable the button
-//TODO - Clean up the classname logic, moving the if statements out into a separate function
-//TODO - Add a tooltip to explain why the button is disabled
-//TODO - Reset attributes needs to reset the disabled state
 
 interface LevelSelectorProps {
   attributeBoostCategories: AttributeBoost[];
@@ -44,6 +43,12 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
 
   const [restrictBackgroundBoosts, setRestrictBackgroundBoosts] =
     useState<boolean>(false);
+
+  const ResetAllAttributeBoosts = () => {
+    setAttributeBoostCategories(InitialAttributeBoosts);
+    setRestrictAncestryBoosts(false);
+    setRestrictBackgroundBoosts(false);
+  };
 
   const currentAncestry = Ancestries.find(
     (ancestryItem) => ancestryItem.name === selectedAncestry
@@ -183,7 +188,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
 
   function isDisabled(
     currentAttributeBoostCategory: AttributeBoost,
-    attribute: any
+    attribute: { name: AttributesType }
   ): boolean {
     if (
       attributeBoostCategories.find(
@@ -216,6 +221,9 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   //Only show the attributes that are available for the current boost category
   return (
     <>
+      <Button className="max-w-44" onClick={ResetAllAttributeBoosts}>
+        Reset Attributes
+      </Button>
       {attributeBoostCategories.map((currentAttributeBoostCategory) => (
         <React.Fragment key={currentAttributeBoostCategory.name}>
           <p

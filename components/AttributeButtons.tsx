@@ -218,6 +218,26 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     return false;
   }
 
+  function displayAttributes(attributeName: string): string[] {
+    switch (attributeName) {
+      case "Ancestry":
+        return (
+          currentAncestry?.Attributes?.map((attribute) => " " + attribute) || []
+        );
+      case "Background":
+        return (
+          currentBackground?.Attributes.map((attribute) => " " + attribute) ||
+          []
+        );
+      case "Class":
+        return (
+          currentClass?.Attributes.map((attribute) => " " + attribute) || []
+        );
+      default:
+        return [];
+    }
+  }
+
   //Only show the attributes that are available for the current boost category
   return (
     <>
@@ -231,6 +251,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
             key={currentAttributeBoostCategory.name + "title"}
           >
             {currentAttributeBoostCategory.name}
+            {displayAttributes(currentAttributeBoostCategory.name)}
           </p>
           <div
             className="grid grid-cols-6 gap-1"

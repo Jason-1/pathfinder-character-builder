@@ -147,7 +147,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
       ({ name }) => name === boostsType
     );
 
-    //Check if tge boost category exists
+    //Check if the boost category exists
     if (currentBoostCategory) {
       //If we have selected a class, check that it can boost the selected Attribute
       if (
@@ -247,7 +247,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                       name === currentAttributeBoostCategory.name &&
                       boosts.includes(attribute.name)
                   )
-                    ? "opacity-100"
+                    ? "opacity-100 border-black text-white"
                     : "opacity-75"
                 } `}
                 onClick={() =>

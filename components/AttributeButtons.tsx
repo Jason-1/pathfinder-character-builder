@@ -14,6 +14,8 @@ const BoostLimits = {
   Level20: 4,
 };
 
+//TODO - Move all click restrictions to the buttons disabled function
+//TODO - Fix Ancestry and Background hidden buttons being clickable
 //TODO - Use disabled instead of opacity to disable the button
 //TODO - Clean up the classname logic, moving the if statements out into a separate function
 //TODO - Add a tooltip to explain why the button is disabled
@@ -179,6 +181,38 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     }
   }
 
+  function isDisabled(
+    currentAttributeBoostCategory: AttributeBoost,
+    attribute: any
+  ): boolean {
+    if (
+      attributeBoostCategories.find(
+        ({ name, boosts }) =>
+          name === currentAttributeBoostCategory.name &&
+          boosts.includes(attribute.name)
+      )
+    ) {
+      return false;
+    }
+    if (
+      currentAttributeBoostCategory.boosts.length >=
+        BoostLimits[
+          currentAttributeBoostCategory.name as keyof typeof BoostLimits
+        ] ||
+      (currentAttributeBoostCategory.name === "Ancestry" &&
+        restrictAncestryBoosts &&
+        !currentAncestry?.Attributes.includes(attribute.name)) ||
+      (currentAttributeBoostCategory.name === "Background" &&
+        restrictBackgroundBoosts &&
+        !currentBackground?.Attributes.includes(attribute.name)) ||
+      (currentAttributeBoostCategory.name === "Class" &&
+        !currentClass?.Attributes.includes(attribute.name))
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   //Only show the attributes that are available for the current boost category
   return (
     <>
@@ -198,6 +232,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
               <Button
                 variant="default"
                 key={attribute.name}
+                disabled={isDisabled(currentAttributeBoostCategory, attribute)}
                 className={`col-span-1 ${
                   attributeBoostCategories.find(
                     ({ name, boosts }) =>
@@ -205,23 +240,6 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                       boosts.includes(attribute.name)
                   )
                     ? "opacity-100"
-                    : currentAttributeBoostCategory.boosts.length >=
-                        BoostLimits[
-                          currentAttributeBoostCategory.name as keyof typeof BoostLimits
-                        ] ||
-                      (currentAttributeBoostCategory.name === "Ancestry" &&
-                        restrictAncestryBoosts &&
-                        !currentAncestry?.Attributes.includes(
-                          attribute.name
-                        )) ||
-                      (currentAttributeBoostCategory.name === "Background" &&
-                        restrictBackgroundBoosts &&
-                        !currentBackground?.Attributes.includes(
-                          attribute.name
-                        )) ||
-                      (currentAttributeBoostCategory.name === "Class" &&
-                        !currentClass?.Attributes.includes(attribute.name))
-                    ? "opacity-10"
                     : "opacity-75"
                 } `}
                 onClick={() =>

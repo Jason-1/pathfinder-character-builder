@@ -207,9 +207,13 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
       (currentAttributeBoostCategory.name === "Ancestry" &&
         restrictAncestryBoosts &&
         !currentAncestry?.Attributes.includes(attribute.name)) ||
+      (currentAttributeBoostCategory.name === "Ancestry" &&
+        selectedAncestry === "Select Ancestry") ||
       (currentAttributeBoostCategory.name === "Background" &&
         restrictBackgroundBoosts &&
         !currentBackground?.Attributes.includes(attribute.name)) ||
+      (currentAttributeBoostCategory.name === "Background" &&
+        selectedBackground === "Select Background") ||
       (currentAttributeBoostCategory.name === "Class" &&
         !currentClass?.Attributes.includes(attribute.name))
     ) {

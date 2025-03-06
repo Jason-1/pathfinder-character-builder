@@ -7,6 +7,7 @@ import ClassSelector from "@/components/ClassSelector";
 import LevelFeatures from "@/components/LevelFeatures";
 import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
+import VariantRules from "@/components/VariantRules";
 import { InitialAttributeBoosts } from "@/data";
 import { AttributeBoost } from "@/types";
 import { useState } from "react";
@@ -21,6 +22,8 @@ export default function Home() {
   const [attributeBoostCategories, setAttributeBoostCategories] = useState<
     AttributeBoost[]
   >(InitialAttributeBoosts);
+  const [freeArchetype, setFreeArchetype] = useState<boolean>(false);
+  const [ancestralParagon, setAncestralParagon] = useState<boolean>(false);
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
@@ -50,11 +53,19 @@ export default function Home() {
           attributeBoostCategories={attributeBoostCategories}
           setAttributeBoostCategories={setAttributeBoostCategories}
         />
+        <VariantRules
+          freeArchetype={freeArchetype}
+          setFreeArchetype={setFreeArchetype}
+          ancestralParagon={ancestralParagon}
+          setAncestralParagon={setAncestralParagon}
+        />
         <LevelFeatures
           selectedLevel={selectedLevel}
           selectedAncestry={selectedAncestry}
           selectedBackground={selectedBackground}
           selectedClass={selectedClass}
+          freeArchetype={freeArchetype}
+          ancestralParagon={ancestralParagon}
         />
       </div>
     </main>

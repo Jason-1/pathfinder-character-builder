@@ -33,6 +33,8 @@ interface LevelFeaturesProps {
   selectedAncestry: string;
   selectedBackground: string;
   selectedClass: string;
+  freeArchetype: boolean;
+  ancestralParagon: boolean;
 }
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -42,10 +44,23 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   selectedAncestry,
   selectedBackground,
   selectedClass,
+  freeArchetype,
+  ancestralParagon,
 }) => {
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
+
+  function displayFeatType(featType: string) {
+    switch (featType) {
+      case "Martial":
+        return "Class";
+      case "Paragon":
+        return "Ancestry";
+      default:
+        return featType;
+    }
+  }
 
   return (
     <div className="mt-6">
@@ -78,13 +93,16 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
               </CardDescription>
             )}
           </CardHeader>
+
           <CardContent>
             {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>
-              feat.type !== "Martial" ? (
-                <div key={feat.type}>{feat.type}</div>
-              ) : selectedClassData?.type === "Martial" ? (
-                <div key={feat.type}>Class</div>
-              ) : null
+              feat.type === "Martial" &&
+              selectedClassData?.type !== "Martial" ? null : (feat.type ===
+                  "Archetype" &&
+                  !freeArchetype) ||
+                (feat.type === "Paragon" && !ancestralParagon) ? null : (
+                <div key={feat.type}>{displayFeatType(feat.type)}</div>
+              )
             )}
           </CardContent>
           <CardFooter>

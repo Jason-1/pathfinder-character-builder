@@ -62,35 +62,6 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     (classItem) => classItem.name === selectedClass
   );
 
-  function handleBoostRemoval(
-    boostedAttribute: AttributesType,
-    boostsType: Category
-  ): void {
-    setAttributeBoostCategories((prev) =>
-      prev.map((boost) =>
-        boost.name === boostsType
-          ? {
-              ...boost,
-              boosts: boost.boosts.filter((b) => b !== boostedAttribute),
-            }
-          : boost
-      )
-    );
-    if (
-      boostsType === "Ancestry" &&
-      !currentAncestry?.Attributes.includes(boostedAttribute)
-    ) {
-      console.log("Removing Ancestry Boost");
-      setRestrictAncestryBoosts(false);
-    }
-    if (
-      boostsType === "Background" &&
-      !currentBackground?.Attributes.includes(boostedAttribute)
-    ) {
-      setRestrictBackgroundBoosts(false);
-    }
-  }
-
   function handleClick(attribute: AttributesType, boostsType: Category): void {
     const currentBoostCategory = attributeBoostCategories.find(
       ({ name }) => name === boostsType
@@ -131,6 +102,34 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
       } else if (currentBoostCategory.boosts.includes(attribute)) {
         handleBoostRemoval(attribute, boostsType);
       }
+    }
+  }
+
+  function handleBoostRemoval(
+    boostedAttribute: AttributesType,
+    boostsType: Category
+  ): void {
+    setAttributeBoostCategories((prev) =>
+      prev.map((boost) =>
+        boost.name === boostsType
+          ? {
+              ...boost,
+              boosts: boost.boosts.filter((b) => b !== boostedAttribute),
+            }
+          : boost
+      )
+    );
+    if (
+      boostsType === "Ancestry" &&
+      !currentAncestry?.Attributes.includes(boostedAttribute)
+    ) {
+      setRestrictAncestryBoosts(false);
+    }
+    if (
+      boostsType === "Background" &&
+      !currentBackground?.Attributes.includes(boostedAttribute)
+    ) {
+      setRestrictBackgroundBoosts(false);
     }
   }
 

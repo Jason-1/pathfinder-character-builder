@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import {
   DropdownMenu,
@@ -20,6 +20,8 @@ interface AncestrySelectorProps {
   selectedHeritage: string;
   setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
 }
+
+//TODO - Make the dropdown menus display cards, initially they are just the title of the heritage. Clicking on the title will display the card with the full description of the heritage. Add a button at the bottom to select the heritage.
 
 const AncestrySelector: React.FC<AncestrySelectorProps> = ({
   selectedAncestry,

@@ -22,7 +22,7 @@ const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
   setSelectedBackground,
 }) => {
   return (
-    <div className="mt-6">
+    <div className="mt-6 flex flex-col">
       <DropdownMenu>
         <DropdownMenuTrigger>
           {selectedBackground === "Select Background" ? "" : "Background: "}

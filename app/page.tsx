@@ -21,6 +21,8 @@ export default function Home() {
   const [selectedBackground, setSelectedBackground] =
     useState<string>("Select Background");
   const [selectedClass, setSelectedClass] = useState<string>("Select Class");
+  const [selectedSubclass, setSelectedSubclass] =
+    useState<string>("Select Subclass");
   const [attributeBoostCategories, setAttributeBoostCategories] = useState<
     AttributeBoost[]
   >(InitialAttributeBoosts);
@@ -57,6 +59,8 @@ export default function Home() {
         <ClassSelector
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
+          selectedSubclass={selectedSubclass}
+          setSelectedSubclass={setSelectedSubclass}
         />
         <Abilities
           selectedLevel={selectedLevel}

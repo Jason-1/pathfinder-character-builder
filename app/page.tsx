@@ -16,6 +16,8 @@ export default function Home() {
   const [selectedLevel, setSelectedLevel] = useState<number>(1);
   const [selectedAncestry, setSelectedAncestry] =
     useState<string>("Select Ancestry");
+  const [selectedHeritage, setSelectedHeritage] =
+    useState<string>("Select Heritage");
   const [selectedBackground, setSelectedBackground] =
     useState<string>("Select Background");
   const [selectedClass, setSelectedClass] = useState<string>("Select Class");
@@ -24,6 +26,15 @@ export default function Home() {
   >(InitialAttributeBoosts);
   const [freeArchetype, setFreeArchetype] = useState<boolean>(false);
   const [ancestralParagon, setAncestralParagon] = useState<boolean>(false);
+
+  //TODO -
+  // 1. Heratige and subclass
+  // 2. Selectable feats
+  // 3. Skills.
+  // 4. Save Character
+  // 5. Load Character
+  // 6. Equipment
+  // 7. Calculate defence and offence
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
@@ -36,6 +47,8 @@ export default function Home() {
         <AncestrySelector
           selectedAncestry={selectedAncestry}
           setSelectedAncestry={setSelectedAncestry}
+          selectedHeritage={selectedHeritage}
+          setSelectedHeritage={setSelectedHeritage}
         />
         <BackgroundSelector
           selectedBackground={selectedBackground}

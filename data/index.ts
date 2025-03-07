@@ -43,6 +43,7 @@ export const Classes = [
     },
     DC: "Trained",
     Attributes: ["Strength", "Dexterity"],
+    subclasses: [],
     features: [
       {
         name: "reactive strike",
@@ -170,6 +171,16 @@ export const Classes = [
     },
     DC: "Trained",
     Attributes: ["Intelligence"],
+    subclasses: [
+      "Red Mantis Magic School",
+      "School of Ars Grammatica",
+      "School of Battle Magic",
+      "School of Civic Wizardry",
+      "School of Mentalism",
+      "School of Protean Form",
+      "School of the Boundary",
+      "School of Unified Magical Theory",
+    ],
   },
 ];
 

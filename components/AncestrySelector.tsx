@@ -21,8 +21,6 @@ interface AncestrySelectorProps {
   setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-//TODO - When an Ancestry is selected, populate a dropdown to add a heritiage.
-
 const AncestrySelector: React.FC<AncestrySelectorProps> = ({
   selectedAncestry,
   setSelectedAncestry,

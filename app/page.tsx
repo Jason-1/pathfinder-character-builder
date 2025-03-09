@@ -9,7 +9,7 @@ import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
 import VariantRules from "@/components/VariantRules";
 import { InitialAttributeBoosts } from "@/data";
-import { AttributeBoost } from "@/types";
+import { AttributeBoostsType } from "@/types";
 import { useState } from "react";
 
 export default function Home() {
@@ -24,12 +24,13 @@ export default function Home() {
   const [selectedSubclass, setSelectedSubclass] =
     useState<string>("Select Subclass");
   const [attributeBoostCategories, setAttributeBoostCategories] = useState<
-    AttributeBoost[]
+    AttributeBoostsType[]
   >(InitialAttributeBoosts);
   const [freeArchetype, setFreeArchetype] = useState<boolean>(false);
   const [ancestralParagon, setAncestralParagon] = useState<boolean>(false);
 
   //TODO -
+  //Enumerated types
   // 1. Heratige and subclass
   // 2. Selectable feats
   // 3. Skills.

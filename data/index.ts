@@ -1,20 +1,26 @@
-import { AttributesType } from "@/types";
+import {
+  AncestryBackgroundType,
+  AttributeBoostsType,
+  AttributesType,
+  ClassType,
+  FeatsType,
+} from "@/types";
 
-export const Ancestries = [
+export const Ancestries: AncestryBackgroundType[] = [
   { name: "Human", Attributes: ["Free"] },
   { name: "Elf", Attributes: ["Dexterity", "Intelligence"] },
   { name: "Dwarf", Attributes: ["Constitution", "Wisdom"] },
   { name: "Halfling", Attributes: ["Dexterity", "Wisdom"] },
 ];
 
-export const Backgrounds = [
+export const Backgrounds: AncestryBackgroundType[] = [
   { name: "Barkeep", Attributes: ["Constitution", "Charisma"] },
   { name: "Hunter", Attributes: ["Dexterity", "Wisdom"] },
   { name: "Hermit", Attributes: ["Constitution", "Intelligence"] },
   { name: "Field Medic", Attributes: ["Constitution", "Wisdom"] },
 ];
 
-export const Classes = [
+export const Classes: ClassType[] = [
   {
     name: "Fighter",
     type: "Martial",
@@ -149,7 +155,7 @@ export const Classes = [
     type: "Caster",
     perception: "Trained",
     saves: {
-      fortitude: "Trained ",
+      fortitude: "Trained",
       reflex: "Trained",
       will: "Expert",
     },
@@ -181,10 +187,11 @@ export const Classes = [
       "School of the Boundary",
       "School of Unified Magical Theory",
     ],
+    features: [],
   },
 ];
 
-export const Feats = [
+export const Feats: FeatsType[] = [
   {
     level: 1,
     feats: [{ type: "Martial" }, { type: "Ancestry" }, { type: "Paragon" }],
@@ -249,7 +256,7 @@ export const Attributes: { name: AttributesType }[] = [
   { name: "Charisma" },
 ];
 
-export const InitialAttributeBoosts = [
+export const InitialAttributeBoosts: AttributeBoostsType[] = [
   { name: "Ancestry", boosts: [] },
   { name: "Background", boosts: [] },
   { name: "Class", boosts: [] },

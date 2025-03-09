@@ -1,8 +1,3 @@
-export interface AttributeBoost {
-  name: string;
-  boosts: AttributesType[];
-}
-
 export type Category =
   | "Ancestry"
   | "Background"
@@ -19,4 +14,86 @@ export type AttributesType =
   | "Constitution"
   | "Intelligence"
   | "Wisdom"
-  | "Charisma";
+  | "Charisma"
+  | "Free";
+
+export type TrainingType =
+  | "Untrained"
+  | "Trained"
+  | "Expert"
+  | "Master"
+  | "Legendary";
+
+export type FeatTypes =
+  | "Ancestry"
+  | "Class"
+  | "Archetype"
+  | "Skill"
+  | "Paragon"
+  | "General"
+  | "Martial";
+
+export type AncestryBackgroundType = {
+  name: string;
+  Attributes: AttributesType[];
+};
+
+export type ClassType = {
+  name: string;
+  type: string;
+  perception: TrainingType;
+  saves: {
+    fortitude: TrainingType;
+    reflex: TrainingType;
+    will: TrainingType;
+  };
+  skills: {
+    acrobatics?: TrainingType;
+    arcana?: TrainingType;
+    athletics?: TrainingType;
+    crafting?: TrainingType;
+    deception?: TrainingType;
+    diplomacy?: TrainingType;
+    intimidation?: TrainingType;
+    medicine?: TrainingType;
+    nature?: TrainingType;
+    occultism?: TrainingType;
+    performance?: TrainingType;
+    religion?: TrainingType;
+    society?: TrainingType;
+    stealth?: TrainingType;
+    survival?: TrainingType;
+    thievery?: TrainingType;
+    additional: number;
+  };
+  attacks: {
+    simple: TrainingType;
+    martial: TrainingType;
+    advanced: TrainingType;
+    unarmed: TrainingType;
+  };
+  defences: {
+    unarmoured: TrainingType;
+    light: TrainingType;
+    medium: TrainingType;
+    heavy: TrainingType;
+  };
+  DC: TrainingType;
+  Attributes: AttributesType[];
+  subclasses: string[];
+  features: {
+    name: string;
+    level: number;
+    description: string;
+  }[];
+};
+
+export type FeatsType = {
+  level: number;
+  feats: { type: FeatTypes }[];
+};
+
+export type AttributeBoostsType = {
+  name: Category;
+  boosts: AttributesType[];
+};

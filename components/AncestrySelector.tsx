@@ -21,7 +21,9 @@ interface AncestrySelectorProps {
   setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
 }
 
+//TODO - Change dropdown menus to selects
 //TODO - Make the dropdown menus display cards, initially they are just the title of the heritage. Clicking on the title will display the card with the full description of the heritage. Add a button at the bottom to select the heritage.
+//TODO - Potentially use popovers in the selects
 
 const AncestrySelector: React.FC<AncestrySelectorProps> = ({
   selectedAncestry,

@@ -10,9 +10,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 import { Ancestries } from "@/data";
 import { heritiges } from "@/data/heritiges";
+import { Button } from "./ui/button";
 
 interface AncestrySelectorProps {
   selectedAncestry: string;
@@ -20,10 +44,6 @@ interface AncestrySelectorProps {
   selectedHeritage: string;
   setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
 }
-
-//TODO - Change dropdown menus to selects
-//TODO - Make the dropdown menus display cards, initially they are just the title of the heritage. Clicking on the title will display the card with the full description of the heritage. Add a button at the bottom to select the heritage.
-//TODO - Potentially use popovers in the selects
 
 const AncestrySelector: React.FC<AncestrySelectorProps> = ({
   selectedAncestry,
@@ -37,27 +57,44 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
 
   return (
     <div className="mt-6 flex flex-col">
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          {selectedAncestry === "Select Ancestry" ? "" : "Ancestry: "}
-          {selectedAncestry}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {Ancestries.map((ancestryItem) => (
-            <DropdownMenuItem
-              key={ancestryItem.name}
-              onClick={() => {
-                setSelectedAncestry(`${ancestryItem.name}`);
-                setSelectedHeritage("Select Heritage");
-              }}
-            >
-              {ancestryItem.name}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <Dialog>
+        <DialogTrigger>{selectedAncestry}</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Select an Ancestry</DialogTitle>
+
+            {Ancestries.map((ancestryItem) => (
+              <Accordion type="single" collapsible key={ancestryItem.name}>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>{ancestryItem.name}</AccordionTrigger>
+                  <AccordionContent>
+                    <Card>
+                      <CardHeader>
+                        <CardDescription>
+                          {ancestryItem.Attributes}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent></CardContent>
+                      <CardFooter>
+                        <DialogClose asChild>
+                          <Button
+                            onClick={() =>
+                              setSelectedAncestry(ancestryItem.name)
+                            }
+                          >
+                            Confirm Selection
+                          </Button>
+                        </DialogClose>
+                      </CardFooter>
+                    </Card>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
       <DropdownMenu>
         <DropdownMenuTrigger>
           {selectedHeritage === "Select Heritage" ? "" : "Heritage: "}

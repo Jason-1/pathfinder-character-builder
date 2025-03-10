@@ -7,7 +7,7 @@ import {
 } from "@/data";
 import React, { use, useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { AttributeBoost, AttributesType, Category } from "@/types";
+import { AttributeBoostsType, AttributesType, Category } from "@/types";
 
 const BoostLimits = {
   Ancestry: 2,
@@ -21,9 +21,9 @@ const BoostLimits = {
 };
 
 interface LevelSelectorProps {
-  attributeBoostCategories: AttributeBoost[];
+  attributeBoostCategories: AttributeBoostsType[];
   setAttributeBoostCategories: React.Dispatch<
-    React.SetStateAction<AttributeBoost[]>
+    React.SetStateAction<AttributeBoostsType[]>
   >;
   selectedAncestry: string;
   selectedBackground: string;
@@ -134,7 +134,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   }
 
   function isDisabled(
-    currentAttributeBoostCategory: AttributeBoost,
+    currentAttributeBoostCategory: AttributeBoostsType,
     attribute: { name: AttributesType }
   ): boolean {
     if (

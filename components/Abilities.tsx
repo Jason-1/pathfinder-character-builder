@@ -11,16 +11,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import AttributeButtons from "./AttributeButtons";
-import { AttributeBoost, AttributesType } from "@/types";
+import { AttributeBoostsType, AttributesType } from "@/types";
 
 interface LevelSelectorProps {
   selectedLevel: number;
   selectedClass: string;
   selectedAncestry: string;
   selectedBackground: string;
-  attributeBoostCategories: AttributeBoost[];
+  attributeBoostCategories: AttributeBoostsType[];
   setAttributeBoostCategories: React.Dispatch<
-    React.SetStateAction<AttributeBoost[]>
+    React.SetStateAction<AttributeBoostsType[]>
   >;
 }
 
@@ -40,10 +40,6 @@ const Abilities: React.FC<LevelSelectorProps> = ({
           : boost
       )
     );
-  };
-
-  const ResetAllAttributeBoosts = () => {
-    setAttributeBoostCategories(InitialAttributeBoosts);
   };
 
   //Reset Ancestry boosts when a new class is selected

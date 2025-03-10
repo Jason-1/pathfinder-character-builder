@@ -8,13 +8,11 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -37,8 +35,6 @@ interface AncestrySelectorProps {
   setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-//TODO - Replace all dropdowns with Dialogs
-
 const AncestrySelector: React.FC<AncestrySelectorProps> = ({
   selectedAncestry,
   setSelectedAncestry,
@@ -59,9 +55,12 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Select an Ancestry</DialogTitle>
-            {Ancestries.map((ancestryItem) => (
-              <Accordion type="single" collapsible key={ancestryItem.name}>
-                <AccordionItem value="item-1">
+            <Accordion type="single" collapsible>
+              {Ancestries.map((ancestryItem) => (
+                <AccordionItem
+                  value={ancestryItem.name}
+                  key={ancestryItem.name}
+                >
                   <AccordionTrigger>{ancestryItem.name}</AccordionTrigger>
                   <AccordionContent>
                     <Card>
@@ -85,8 +84,8 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
                     </Card>
                   </AccordionContent>
                 </AccordionItem>
-              </Accordion>
-            ))}
+              ))}
+            </Accordion>
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -99,13 +98,12 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Select a Heritage</DialogTitle>
-            {availableHeritiges.map((heritigeItem) => (
-              <Accordion
-                type="single"
-                collapsible
-                key={heritigeItem.heritageName}
-              >
-                <AccordionItem value="item-1">
+            <Accordion type="single" collapsible>
+              {availableHeritiges.map((heritigeItem) => (
+                <AccordionItem
+                  value={heritigeItem.heritageName}
+                  key={heritigeItem.heritageName}
+                >
                   <AccordionTrigger>
                     {heritigeItem.heritageName}
                   </AccordionTrigger>
@@ -129,8 +127,8 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
                     </Card>
                   </AccordionContent>
                 </AccordionItem>
-              </Accordion>
-            ))}
+              ))}
+            </Accordion>
           </DialogHeader>
         </DialogContent>
       </Dialog>

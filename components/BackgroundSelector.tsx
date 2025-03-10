@@ -8,13 +8,11 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -47,9 +45,12 @@ const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Select a Background</DialogTitle>
-            {Backgrounds.map((backgroundItem) => (
-              <Accordion type="single" collapsible key={backgroundItem.name}>
-                <AccordionItem value="item-1">
+            <Accordion type="single" collapsible>
+              {Backgrounds.map((backgroundItem) => (
+                <AccordionItem
+                  value={backgroundItem.name}
+                  key={backgroundItem.name}
+                >
                   <AccordionTrigger>{backgroundItem.name}</AccordionTrigger>
                   <AccordionContent>
                     <Card>
@@ -73,8 +74,8 @@ const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
                     </Card>
                   </AccordionContent>
                 </AccordionItem>
-              </Accordion>
-            ))}
+              ))}
+            </Accordion>
           </DialogHeader>
         </DialogContent>
       </Dialog>

@@ -30,9 +30,9 @@ export default function Home() {
   const [ancestralParagon, setAncestralParagon] = useState<boolean>(false);
 
   //TODO -
-  // 1. Heratige and subclass
-  // 1.1 - Add the ability to select a heritage and subclass
-  // 1.2 - Give the description of the heritage and subclass when being selected
+  // [X] 1. Heratige and subclass
+  // [X] 1.1 - Add the ability to select a heritage and subclass
+  // [X] 1.2 - Give the description of the heritage and subclass when being selected
   // 1.3 - Add the selected heritage and subclass to the applicable levels
   // 2. Selectable feats
   // 3. Skills.

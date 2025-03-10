@@ -73,9 +73,10 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
                       <CardFooter>
                         <DialogClose asChild>
                           <Button
-                            onClick={() =>
-                              setSelectedAncestry(ancestryItem.name)
-                            }
+                            onClick={() => {
+                              setSelectedAncestry(ancestryItem.name);
+                              setSelectedHeritage("Select Heritage");
+                            }}
                           >
                             Confirm Selection
                           </Button>

@@ -11,6 +11,7 @@ import {
 import { Button } from "./ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -18,13 +19,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { ClassFeats } from "@/data/classFeats";
 import { Classes, Feats } from "@/data";
 
@@ -60,6 +59,34 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
       default:
         return featType;
     }
+  }
+
+  function selectTrait(featType: string) {
+    switch (featType) {
+      case "Martial":
+        return selectedClass;
+      case "Class":
+        return selectedClass;
+      case "Archetype":
+        return selectedClass;
+      case "Ancestry":
+        return selectedAncestry;
+      case "Paragon":
+        return selectedAncestry;
+      default:
+        return "";
+    }
+  }
+
+  function findCurrentFeats(featType: string, currentLevel: number) {
+    const selectedTrait = selectTrait(featType);
+    const currentFeats = ClassFeats.filter(
+      (featItem) =>
+        featItem.traits.split(", ").includes(selectedTrait) &&
+        featItem.level <= currentLevel
+    );
+
+    return currentFeats;
   }
 
   return (
@@ -101,7 +128,43 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   "Archetype" &&
                   !freeArchetype) ||
                 (feat.type === "Paragon" && !ancestralParagon) ? null : (
-                <div key={feat.type}>{displayFeatType(feat.type)}</div>
+                <div key={feat.type}>
+                  <Dialog>
+                    <DialogTrigger>{displayFeatType(feat.type)}</DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Select an Ancestry</DialogTitle>
+                        <Accordion type="single" collapsible>
+                          {findCurrentFeats(feat.type, level).map((feats) => (
+                            <AccordionItem value={feats.name} key={feats.name}>
+                              <AccordionTrigger>
+                                {feats.name}
+                                <br />
+                                {" Level: "}
+                                {feats.level}
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <Card>
+                                  <CardHeader>
+                                    <CardDescription>
+                                      {feats.text.text}
+                                    </CardDescription>
+                                  </CardHeader>
+                                  <CardContent></CardContent>
+                                  <CardFooter>
+                                    <DialogClose asChild>
+                                      <Button>Confirm Selection</Button>
+                                    </DialogClose>
+                                  </CardFooter>
+                                </Card>
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </Accordion>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               )
             )}
           </CardContent>

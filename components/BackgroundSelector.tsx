@@ -10,7 +10,31 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Backgrounds } from "@/data";
+import { Button } from "./ui/button";
 
 interface BackgroundSelectorProps {
   selectedBackground: string;
@@ -41,6 +65,46 @@ const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <Dialog>
+        <DialogTrigger>
+          {selectedBackground === "Select Background" ? "" : "Background: "}
+          {selectedBackground}
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Select a Background</DialogTitle>
+            {Backgrounds.map((backgroundItem) => (
+              <Accordion type="single" collapsible key={backgroundItem.name}>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>{backgroundItem.name}</AccordionTrigger>
+                  <AccordionContent>
+                    <Card>
+                      <CardHeader>
+                        <CardDescription>
+                          {backgroundItem.Attributes}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent></CardContent>
+                      <CardFooter>
+                        <DialogClose asChild>
+                          <Button
+                            onClick={() =>
+                              setSelectedBackground(backgroundItem.name)
+                            }
+                          >
+                            Confirm Selection
+                          </Button>
+                        </DialogClose>
+                      </CardFooter>
+                    </Card>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -3,14 +3,6 @@
 import React from "react";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Card,
   CardContent,
   CardDescription,
@@ -45,6 +37,8 @@ interface AncestrySelectorProps {
   setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
 }
 
+//TODO - Replace all dropdowns with Dialogs
+
 const AncestrySelector: React.FC<AncestrySelectorProps> = ({
   selectedAncestry,
   setSelectedAncestry,
@@ -58,11 +52,13 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
   return (
     <div className="mt-6 flex flex-col">
       <Dialog>
-        <DialogTrigger>{selectedAncestry}</DialogTrigger>
+        <DialogTrigger>
+          {selectedAncestry === "Select Ancestry" ? "" : "Ancestry: "}
+          {selectedAncestry}
+        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Select an Ancestry</DialogTitle>
-
             {Ancestries.map((ancestryItem) => (
               <Accordion type="single" collapsible key={ancestryItem.name}>
                 <AccordionItem value="item-1">
@@ -95,25 +91,49 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
         </DialogContent>
       </Dialog>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger>
+      <Dialog>
+        <DialogTrigger>
           {selectedHeritage === "Select Heritage" ? "" : "Heritage: "}
           {selectedHeritage}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-
-          {availableHeritiges.map((heritigeItem) => (
-            <DropdownMenuItem
-              key={heritigeItem.heritageName}
-              onClick={() => setSelectedHeritage(heritigeItem.heritageName)}
-            >
-              {heritigeItem.heritageName}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Select a Heritage</DialogTitle>
+            {availableHeritiges.map((heritigeItem) => (
+              <Accordion
+                type="single"
+                collapsible
+                key={heritigeItem.heritageName}
+              >
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>
+                    {heritigeItem.heritageName}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <Card>
+                      <CardHeader>
+                        <CardDescription>{heritigeItem.desc}</CardDescription>
+                      </CardHeader>
+                      <CardContent></CardContent>
+                      <CardFooter>
+                        <DialogClose asChild>
+                          <Button
+                            onClick={() =>
+                              setSelectedHeritage(heritigeItem.heritageName)
+                            }
+                          >
+                            Confirm Selection
+                          </Button>
+                        </DialogClose>
+                      </CardFooter>
+                    </Card>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

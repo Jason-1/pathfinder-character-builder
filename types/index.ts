@@ -90,7 +90,7 @@ export type ClassType = {
 
 export type FeatsType = {
   level: number;
-  feats: { type: FeatTypes }[];
+  feats: { type: FeatTypes; selected: string }[];
 };
 
 export type AttributeBoostsType = {

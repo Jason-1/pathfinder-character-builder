@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/accordion";
 import { ClassFeats } from "@/data/classFeats";
 import { Classes, Feats } from "@/data";
+import { FeatsType } from "@/types";
 
 interface LevelFeaturesProps {
   selectedLevel: number;
@@ -34,6 +35,8 @@ interface LevelFeaturesProps {
   selectedClass: string;
   freeArchetype: boolean;
   ancestralParagon: boolean;
+  selectedFeats: FeatsType[];
+  setSelectedFeats: React.Dispatch<React.SetStateAction<FeatsType[]>>;
 }
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -45,6 +48,8 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   selectedClass,
   freeArchetype,
   ancestralParagon,
+  selectedFeats,
+  setSelectedFeats,
 }) => {
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
@@ -68,11 +73,15 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
       case "Class":
         return selectedClass;
       case "Archetype":
-        return selectedClass;
+        return "Archetype";
       case "Ancestry":
         return selectedAncestry;
       case "Paragon":
         return selectedAncestry;
+      case "Skill":
+        return "Skill";
+      case "General":
+        return "General";
       default:
         return "";
     }
@@ -87,6 +96,45 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     );
 
     return currentFeats;
+  }
+
+  function displayFeatName(selectedLevel: number, featType: string) {
+    const feat = selectedFeats.find((feat) => feat.level === selectedLevel);
+    if (feat) {
+      const featItem = feat.feats.find(
+        (featItem) => featItem.type === featType
+      );
+      if (featItem) {
+        return featItem.selected;
+      }
+    }
+  }
+
+  //TODO - Set the feat when handleClick is called
+  function handleClick(
+    level: number,
+    featType: string,
+    featName: string
+  ): void {
+    setSelectedFeats((prev) =>
+      prev.map((currentLevel) => {
+        if (currentLevel.level === level) {
+          return {
+            ...currentLevel,
+            feats: currentLevel.feats.map((feat) => {
+              if (feat.type === featType) {
+                // Return updated feat with new selected value
+                return { ...feat, selected: featName };
+              }
+              // Return original feat if type doesn't match
+              return feat;
+            }),
+          };
+        }
+        // Return original level if level doesn't match
+        return currentLevel;
+      })
+    );
   }
 
   return (
@@ -130,10 +178,16 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 (feat.type === "Paragon" && !ancestralParagon) ? null : (
                 <div key={feat.type}>
                   <Dialog>
-                    <DialogTrigger>{displayFeatType(feat.type)}</DialogTrigger>
+                    <DialogTrigger>
+                      {displayFeatName(level, feat.type)
+                        ? displayFeatName(level, feat.type)
+                        : displayFeatType(feat.type)}
+                    </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle>Select an Ancestry</DialogTitle>
+                        <DialogTitle>
+                          Select a {selectTrait(feat.type)} feat
+                        </DialogTitle>
                         <Accordion type="single" collapsible>
                           {findCurrentFeats(feat.type, level).map((feats) => (
                             <AccordionItem value={feats.name} key={feats.name}>
@@ -153,7 +207,17 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                                   <CardContent></CardContent>
                                   <CardFooter>
                                     <DialogClose asChild>
-                                      <Button>Confirm Selection</Button>
+                                      <Button
+                                        onClick={() =>
+                                          handleClick(
+                                            level,
+                                            feat.type,
+                                            feats.name
+                                          )
+                                        }
+                                      >
+                                        Confirm Selection
+                                      </Button>
                                     </DialogClose>
                                   </CardFooter>
                                 </Card>

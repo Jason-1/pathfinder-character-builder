@@ -194,56 +194,130 @@ export const Classes: ClassType[] = [
 export const Feats: FeatsType[] = [
   {
     level: 1,
-    feats: [{ type: "Martial" }, { type: "Ancestry" }, { type: "Paragon" }],
+    feats: [
+      { type: "Martial", selected: "" },
+      { type: "Ancestry", selected: "" },
+      { type: "Paragon", selected: "" },
+    ],
   },
   {
     level: 2,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 3, feats: [{ type: "Paragon" }, { type: "General" }] },
+  {
+    level: 3,
+    feats: [
+      { type: "Paragon", selected: "" },
+      { type: "General", selected: "" },
+    ],
+  },
   {
     level: 4,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 5, feats: [{ type: "Ancestry" }] },
+  { level: 5, feats: [{ type: "Ancestry", selected: "" }] },
   {
     level: 6,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 7, feats: [{ type: "Paragon" }, { type: "General" }] },
+  {
+    level: 7,
+    feats: [
+      { type: "Paragon", selected: "" },
+      { type: "General", selected: "" },
+    ],
+  },
   {
     level: 8,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 9, feats: [{ type: "Ancestry" }] },
+  { level: 9, feats: [{ type: "Ancestry", selected: "" }] },
   {
     level: 10,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 11, feats: [{ type: "Paragon" }, { type: "General" }] },
+  {
+    level: 11,
+    feats: [
+      { type: "Paragon", selected: "" },
+      { type: "General", selected: "" },
+    ],
+  },
   {
     level: 12,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 13, feats: [{ type: "Ancestry" }] },
+  { level: 13, feats: [{ type: "Ancestry", selected: "" }] },
   {
     level: 14,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 15, feats: [{ type: "Paragon" }, { type: "General" }] },
+  {
+    level: 15,
+    feats: [
+      { type: "Paragon", selected: "" },
+      { type: "General", selected: "" },
+    ],
+  },
   {
     level: 16,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 17, feats: [{ type: "Ancestry" }] },
+  { level: 17, feats: [{ type: "Ancestry", selected: "" }] },
   {
     level: 18,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
-  { level: 19, feats: [{ type: "Paragon" }, { type: "General" }] },
+  {
+    level: 19,
+    feats: [
+      { type: "Paragon", selected: "" },
+      { type: "General", selected: "" },
+    ],
+  },
   {
     level: 20,
-    feats: [{ type: "Class" }, { type: "Archetype" }, { type: "Skill" }],
+    feats: [
+      { type: "Class", selected: "" },
+      { type: "Archetype", selected: "" },
+      { type: "Skill", selected: "" },
+    ],
   },
 ];
 

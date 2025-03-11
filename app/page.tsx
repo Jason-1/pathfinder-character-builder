@@ -8,8 +8,8 @@ import LevelFeatures from "@/components/LevelFeatures";
 import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
 import VariantRules from "@/components/VariantRules";
-import { InitialAttributeBoosts } from "@/data";
-import { AttributeBoostsType } from "@/types";
+import { Feats, InitialAttributeBoosts } from "@/data";
+import { AttributeBoostsType, FeatsType } from "@/types";
 import { useState } from "react";
 
 export default function Home() {
@@ -26,15 +26,16 @@ export default function Home() {
   const [attributeBoostCategories, setAttributeBoostCategories] = useState<
     AttributeBoostsType[]
   >(InitialAttributeBoosts);
+  const [selectedFeats, setSelectedFeats] = useState<FeatsType[]>(Feats);
   const [freeArchetype, setFreeArchetype] = useState<boolean>(false);
   const [ancestralParagon, setAncestralParagon] = useState<boolean>(false);
 
   //TODO -
   // [X] 1. Heratige and subclass
   // [X] 1.1 - Add the ability to select a heritage and subclass
-  // [X] 1.2 - Give the description of the heritage and subclass when being selected
-  // 1.3 - Add the selected heritage and subclass to the applicable levels
-  // 2. Selectable feats
+  // [X] 1.2 - Give the description of the heritage and subclass when being selected]
+  // [X] 2. Selectable feats
+  // 2.1 - Implement Archetype feats
   // 3. Skills.
   // 4. Save Character
   // 5. Load Character
@@ -86,6 +87,8 @@ export default function Home() {
           selectedClass={selectedClass}
           freeArchetype={freeArchetype}
           ancestralParagon={ancestralParagon}
+          selectedFeats={selectedFeats}
+          setSelectedFeats={setSelectedFeats}
         />
       </div>
     </main>

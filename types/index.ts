@@ -106,10 +106,9 @@ export type ClassType = {
   }[];
 };
 
-export type skillIncreasesType = {
-  level: number;
+export type skillProficienciesType = {
   skill: skillTypes | "";
-  proficiency: TrainingType;
+  LevelsBoosted: number[];
 };
 
 export type FeatsType = {

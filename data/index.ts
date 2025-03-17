@@ -4,7 +4,7 @@ import {
   AttributesType,
   ClassType,
   FeatsType,
-  skillIncreasesType,
+  skillProficienciesType,
 } from "@/types";
 
 export const Ancestries: AncestryBackgroundType[] = [
@@ -192,16 +192,23 @@ export const Classes: ClassType[] = [
   },
 ];
 
-export const skillIncreases: skillIncreasesType[] = [
-  { level: 3, skill: "", proficiency: "Untrained" },
-  { level: 5, skill: "", proficiency: "Untrained" },
-  { level: 7, skill: "", proficiency: "Untrained" },
-  { level: 9, skill: "", proficiency: "Untrained" },
-  { level: 11, skill: "", proficiency: "Untrained" },
-  { level: 13, skill: "", proficiency: "Untrained" },
-  { level: 15, skill: "", proficiency: "Untrained" },
-  { level: 17, skill: "", proficiency: "Untrained" },
-  { level: 19, skill: "", proficiency: "Untrained" },
+export const skillProficiencies: skillProficienciesType[] = [
+  { skill: "Acrobatics", LevelsBoosted: [] },
+  { skill: "Arcana", LevelsBoosted: [] },
+  { skill: "Athletics", LevelsBoosted: [] },
+  { skill: "Crafting", LevelsBoosted: [] },
+  { skill: "Deception", LevelsBoosted: [] },
+  { skill: "Diplomacy", LevelsBoosted: [] },
+  { skill: "Intimidation", LevelsBoosted: [] },
+  { skill: "Medicine", LevelsBoosted: [] },
+  { skill: "Nature", LevelsBoosted: [] },
+  { skill: "Occultism", LevelsBoosted: [] },
+  { skill: "Performance", LevelsBoosted: [] },
+  { skill: "Religion", LevelsBoosted: [] },
+  { skill: "Society", LevelsBoosted: [] },
+  { skill: "Stealth", LevelsBoosted: [] },
+  { skill: "Survival", LevelsBoosted: [] },
+  { skill: "Thievery", LevelsBoosted: [] },
 ];
 
 export const Feats: FeatsType[] = [
@@ -353,3 +360,5 @@ export const InitialAttributeBoosts: AttributeBoostsType[] = [
   { name: "Level15", boosts: [] },
   { name: "Level20", boosts: [] },
 ];
+
+export const skillIncreaseLevels = [3, 5, 7, 9, 11, 13, 15, 17, 19];

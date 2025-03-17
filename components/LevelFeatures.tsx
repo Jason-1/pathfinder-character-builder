@@ -25,8 +25,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ClassFeats } from "@/data/classFeats";
-import { Classes, Feats, skillIncreases } from "@/data";
+import {
+  Classes,
+  Feats,
+  skillProficiencies,
+  skillIncreaseLevels,
+} from "@/data";
 import { FeatsType } from "@/types";
+import SkillIncreases from "./SkillIncreases";
 
 interface LevelFeaturesProps {
   selectedLevel: number;
@@ -137,6 +143,8 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     );
   }
 
+  //Get Initial Proficiencies working
+
   return (
     <div className="mt-6">
       {levels.map((level) => (
@@ -170,11 +178,11 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
           </CardHeader>
 
           <CardContent>
-            {skillIncreases
-              .filter((skill) => skill.level === level)
-              .map((skill) => (
-                <div key={skill.skill}>Skill Feat</div>
-              ))}
+            <SkillIncreases
+              currentLevel={level}
+              selectedBackground={selectedBackground}
+              selectedClass={selectedClass}
+            />
 
             {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>
               feat.type === "Martial" &&

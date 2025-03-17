@@ -4,6 +4,7 @@ import {
   AttributesType,
   ClassType,
   FeatsType,
+  skillIncreasesType,
 } from "@/types";
 
 export const Ancestries: AncestryBackgroundType[] = [
@@ -189,6 +190,18 @@ export const Classes: ClassType[] = [
     ],
     features: [],
   },
+];
+
+export const skillIncreases: skillIncreasesType[] = [
+  { level: 3, skill: "", proficiency: "Untrained" },
+  { level: 5, skill: "", proficiency: "Untrained" },
+  { level: 7, skill: "", proficiency: "Untrained" },
+  { level: 9, skill: "", proficiency: "Untrained" },
+  { level: 11, skill: "", proficiency: "Untrained" },
+  { level: 13, skill: "", proficiency: "Untrained" },
+  { level: 15, skill: "", proficiency: "Untrained" },
+  { level: 17, skill: "", proficiency: "Untrained" },
+  { level: 19, skill: "", proficiency: "Untrained" },
 ];
 
 export const Feats: FeatsType[] = [

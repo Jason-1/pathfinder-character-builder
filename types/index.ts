@@ -33,6 +33,24 @@ export type FeatTypes =
   | "General"
   | "Martial";
 
+export type skillTypes =
+  | "Acrobatics"
+  | "Arcana"
+  | "Athletics"
+  | "Crafting"
+  | "Deception"
+  | "Diplomacy"
+  | "Intimidation"
+  | "Medicine"
+  | "Nature"
+  | "Occultism"
+  | "Performance"
+  | "Religion"
+  | "Society"
+  | "Stealth"
+  | "Survival"
+  | "Thievery";
+
 export type AncestryBackgroundType = {
   name: string;
   Attributes: AttributesType[];
@@ -86,6 +104,12 @@ export type ClassType = {
     level: number;
     description: string;
   }[];
+};
+
+export type skillIncreasesType = {
+  level: number;
+  skill: skillTypes | "";
+  proficiency: TrainingType;
 };
 
 export type FeatsType = {

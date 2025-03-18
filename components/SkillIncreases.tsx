@@ -31,6 +31,23 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   selectedSkills,
   setSelectedSkills,
 }) => {
+  function findTrainingLevel(numericalTraining: number) {
+    switch (numericalTraining) {
+      case 0:
+        return "Untrained";
+      case 1:
+        return "Trained";
+      case 2:
+        return "Expert";
+      case 3:
+        return "Master";
+      case 4:
+        return "Legendary";
+      default:
+        return "Untrained";
+    }
+  }
+
   function findDefaultValue(LevelsBoosted: number[]) {
     const boostsAtCurrentLevel = LevelsBoosted.filter(
       (level) => level <= currentLevel
@@ -55,69 +72,68 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         return "Untrained";
     }
   }
-  //TODO - If we try to add a level already in the array, remove it.
 
-  // Adds the levels the skill was boosted at in order to the array.
+  // Adds the levels the skill was boosted at in order to the array. If the level is already in the array, it is removed.
   const handleRadioChange = (skill: skillTypes | "") => {
     setSelectedSkills((prevSkills) =>
       prevSkills.map((skillBoost) =>
         skillBoost.skill === skill
           ? {
               ...skillBoost,
-              LevelsBoosted: [...skillBoost.LevelsBoosted, currentLevel].sort(
-                (a, b) => a - b
-              ),
+              LevelsBoosted: skillBoost.LevelsBoosted.includes(currentLevel)
+                ? skillBoost.LevelsBoosted.filter(
+                    (level) => level !== currentLevel
+                  )
+                : [...skillBoost.LevelsBoosted, currentLevel].sort(
+                    (a, b) => a - b
+                  ),
             }
           : skillBoost
       )
     );
-
-    console.log(selectedSkills);
   };
 
   const handleDisabled = (
-    trainingLevel: TrainingType,
+    currentButtonProficiency: TrainingType,
     skillBoosts: skillProficienciesType
   ) => {
-    if (trainingLevel === "Expert" && currentLevel < 3) {
+    if (currentButtonProficiency === "Expert" && currentLevel < 3) {
       return true;
     }
-    if (trainingLevel === "Master" && currentLevel < 7) {
+    if (currentButtonProficiency === "Master" && currentLevel < 7) {
       return true;
     }
-    if (trainingLevel === "Legendary" && currentLevel < 15) {
+    if (currentButtonProficiency === "Legendary" && currentLevel < 15) {
       return true;
     }
 
-    if (
-      trainingLevel === "Untrained" &&
-      skillBoosts.LevelsBoosted.length >= 1 &&
-      !skillBoosts.LevelsBoosted.includes(currentLevel)
-    ) {
-      return true;
-    }
-    if (
-      trainingLevel === "Trained" &&
-      skillBoosts.LevelsBoosted.length >= 2 &&
-      !skillBoosts.LevelsBoosted.includes(currentLevel)
-    ) {
-      return true;
-    }
-    if (
-      trainingLevel === "Expert" &&
-      skillBoosts.LevelsBoosted.length >= 3 &&
-      !skillBoosts.LevelsBoosted.includes(currentLevel)
-    ) {
-      return true;
-    }
-    if (trainingLevel === "Master")
+    const numericalTrainingLevel = skillBoosts.LevelsBoosted.filter(
+      (level) => level <= currentLevel
+    ).length;
+    const currentTrainingLevel = findTrainingLevel(numericalTrainingLevel);
+
+    //disable if training is trained or higher and the skill has not been allocated this level
+    if (currentButtonProficiency === "Untrained") {
       if (
-        (skillBoosts.LevelsBoosted.length >= 4 &&
-          !skillBoosts.LevelsBoosted.includes(currentLevel)) ||
-        skillBoosts.LevelsBoosted.length < 2
+        currentTrainingLevel === "Trained" &&
+        skillBoosts.LevelsBoosted.includes(currentLevel)
       ) {
-        return true;
+        return false;
       }
+    }
+    if (currentButtonProficiency === "Trained") {
+      if (currentTrainingLevel === "Untrained") {
+        return false;
+      }
+    }
+    if (currentButtonProficiency === "Expert") {
+    }
+    if (currentButtonProficiency === "Master") {
+    }
+    if (currentButtonProficiency === "Legendary") {
+    }
+
+    return true;
   };
 
   return (

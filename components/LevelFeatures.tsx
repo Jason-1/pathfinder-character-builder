@@ -31,7 +31,7 @@ import {
   skillProficiencies,
   skillIncreaseLevels,
 } from "@/data";
-import { FeatsType } from "@/types";
+import { FeatsType, skillProficienciesType } from "@/types";
 import SkillIncreases from "./SkillIncreases";
 
 interface LevelFeaturesProps {
@@ -43,6 +43,10 @@ interface LevelFeaturesProps {
   ancestralParagon: boolean;
   selectedFeats: FeatsType[];
   setSelectedFeats: React.Dispatch<React.SetStateAction<FeatsType[]>>;
+  selectedSkills: skillProficienciesType[];
+  setSelectedSkills: React.Dispatch<
+    React.SetStateAction<skillProficienciesType[]>
+  >;
 }
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -56,6 +60,8 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   ancestralParagon,
   selectedFeats,
   setSelectedFeats,
+  selectedSkills,
+  setSelectedSkills,
 }) => {
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
@@ -182,6 +188,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
               currentLevel={level}
               selectedBackground={selectedBackground}
               selectedClass={selectedClass}
+              availableBoosts={3}
+              selectedSkills={selectedSkills}
+              setSelectedSkills={setSelectedSkills}
             />
 
             {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>

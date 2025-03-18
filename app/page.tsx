@@ -8,8 +8,12 @@ import LevelFeatures from "@/components/LevelFeatures";
 import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
 import VariantRules from "@/components/VariantRules";
-import { Feats, InitialAttributeBoosts } from "@/data";
-import { AttributeBoostsType, FeatsType } from "@/types";
+import { Feats, InitialAttributeBoosts, skillProficiencies } from "@/data";
+import {
+  AttributeBoostsType,
+  FeatsType,
+  skillProficienciesType,
+} from "@/types";
 import { useState } from "react";
 
 export default function Home() {
@@ -29,6 +33,8 @@ export default function Home() {
   const [selectedFeats, setSelectedFeats] = useState<FeatsType[]>(Feats);
   const [freeArchetype, setFreeArchetype] = useState<boolean>(false);
   const [ancestralParagon, setAncestralParagon] = useState<boolean>(false);
+  const [selectedSkills, setSelectedSkills] =
+    useState<skillProficienciesType[]>(skillProficiencies);
 
   //TODO -
   // [X] 1. Heratige and subclass
@@ -89,6 +95,8 @@ export default function Home() {
           ancestralParagon={ancestralParagon}
           selectedFeats={selectedFeats}
           setSelectedFeats={setSelectedFeats}
+          selectedSkills={selectedSkills}
+          setSelectedSkills={setSelectedSkills}
         />
       </div>
     </main>

@@ -10,7 +10,7 @@ import {
 import { skillIncreaseLevels } from "@/data";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { skillProficienciesType, skillTypes } from "@/types";
+import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
 
 interface SkillIncreaseProps {
   currentLevel: number;
@@ -36,6 +36,10 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       (level) => level <= currentLevel
     );
 
+    //TODO - Disable reducing the skills proficiency level unless the boost was applied to the applicable skill
+    //TODO - Add the ability to remove a skill proficiency level
+    //TODO - Only allow increasing or reducing 1 step
+
     switch (boostsAtCurrentLevel.length) {
       case 0:
         return "Untrained";
@@ -51,18 +55,69 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         return "Untrained";
     }
   }
+  //TODO - If we try to add a level already in the array, remove it.
 
+  // Adds the levels the skill was boosted at in order to the array.
   const handleRadioChange = (skill: skillTypes | "") => {
     setSelectedSkills((prevSkills) =>
       prevSkills.map((skillBoost) =>
         skillBoost.skill === skill
           ? {
               ...skillBoost,
-              LevelsBoosted: [...skillBoost.LevelsBoosted, currentLevel],
+              LevelsBoosted: [...skillBoost.LevelsBoosted, currentLevel].sort(
+                (a, b) => a - b
+              ),
             }
           : skillBoost
       )
     );
+
+    console.log(selectedSkills);
+  };
+
+  const handleDisabled = (
+    trainingLevel: TrainingType,
+    skillBoosts: skillProficienciesType
+  ) => {
+    if (trainingLevel === "Expert" && currentLevel < 3) {
+      return true;
+    }
+    if (trainingLevel === "Master" && currentLevel < 7) {
+      return true;
+    }
+    if (trainingLevel === "Legendary" && currentLevel < 15) {
+      return true;
+    }
+
+    if (
+      trainingLevel === "Untrained" &&
+      skillBoosts.LevelsBoosted.length >= 1 &&
+      !skillBoosts.LevelsBoosted.includes(currentLevel)
+    ) {
+      return true;
+    }
+    if (
+      trainingLevel === "Trained" &&
+      skillBoosts.LevelsBoosted.length >= 2 &&
+      !skillBoosts.LevelsBoosted.includes(currentLevel)
+    ) {
+      return true;
+    }
+    if (
+      trainingLevel === "Expert" &&
+      skillBoosts.LevelsBoosted.length >= 3 &&
+      !skillBoosts.LevelsBoosted.includes(currentLevel)
+    ) {
+      return true;
+    }
+    if (trainingLevel === "Master")
+      if (
+        (skillBoosts.LevelsBoosted.length >= 4 &&
+          !skillBoosts.LevelsBoosted.includes(currentLevel)) ||
+        skillBoosts.LevelsBoosted.length < 2
+      ) {
+        return true;
+      }
   };
 
   return (
@@ -81,26 +136,34 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                     defaultValue={findDefaultValue(skillBoost.LevelsBoosted)}
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Untrained" id="Untrained" />
+                      <RadioGroupItem
+                        value="Untrained"
+                        id="Untrained"
+                        disabled={handleDisabled("Untrained", skillBoost)}
+                      />
                       <Label htmlFor="option-one">Untrained</Label>
-                      <RadioGroupItem value="Trained" id="Trained" />
+                      <RadioGroupItem
+                        value="Trained"
+                        id="Trained"
+                        disabled={handleDisabled("Trained", skillBoost)}
+                      />
                       <Label htmlFor="option-two">Trained</Label>
                       <RadioGroupItem
                         value="Expert"
                         id="Expert"
-                        disabled={currentLevel < 3}
+                        disabled={handleDisabled("Expert", skillBoost)}
                       />
                       <Label htmlFor="option-two">Expert</Label>
                       <RadioGroupItem
                         value="Master"
                         id="Master"
-                        disabled={currentLevel < 7}
+                        disabled={handleDisabled("Master", skillBoost)}
                       />
                       <Label htmlFor="option-two">Master</Label>
                       <RadioGroupItem
                         value="Legendary"
                         id="Legendary"
-                        disabled={currentLevel < 15}
+                        disabled={handleDisabled("Legendary", skillBoost)}
                       />
                       <Label htmlFor="option-two">Legendary</Label>
                     </div>

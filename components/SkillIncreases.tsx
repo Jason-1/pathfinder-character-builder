@@ -48,6 +48,8 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
+  const [boostCounter, setBoostCounter] = React.useState(0);
+
   function findDefaultValue(LevelsBoosted: number[]) {
     const boostsAtCurrentLevel = LevelsBoosted.filter(
       (level) => level <= currentLevel
@@ -74,7 +76,17 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   }
 
   // Adds the levels the skill was boosted at in order to the array. If the level is already in the array, it is removed.
-  const handleRadioChange = (skill: skillTypes | "") => {
+  // Increment boostCounter if the skill is being boosted, decrement if it is being unboosted
+  const handleRadioChange = (
+    skill: skillTypes | "",
+    levelsBoosted: number[]
+  ) => {
+    if (levelsBoosted.includes(currentLevel)) {
+      setBoostCounter(boostCounter - 1);
+    } else {
+      setBoostCounter(boostCounter + 1);
+    }
+
     setSelectedSkills((prevSkills) =>
       prevSkills.map((skillBoost) =>
         skillBoost.skill === skill
@@ -122,7 +134,10 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       }
     }
     if (currentButtonProficiency === "Trained") {
-      if (currentTrainingLevel === "Untrained") {
+      if (
+        currentTrainingLevel === "Untrained" &&
+        boostCounter < availableBoosts
+      ) {
         return false;
       }
       if (
@@ -135,7 +150,8 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     if (currentButtonProficiency === "Expert") {
       if (
         currentTrainingLevel === "Trained" &&
-        !skillBoosts.LevelsBoosted.includes(currentLevel)
+        !skillBoosts.LevelsBoosted.includes(currentLevel) &&
+        boostCounter < availableBoosts
       ) {
         return false;
       }
@@ -149,7 +165,8 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     if (currentButtonProficiency === "Master") {
       if (
         currentTrainingLevel === "Expert" &&
-        !skillBoosts.LevelsBoosted.includes(currentLevel)
+        !skillBoosts.LevelsBoosted.includes(currentLevel) &&
+        boostCounter < availableBoosts
       ) {
         return false;
       }
@@ -163,7 +180,8 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     if (currentButtonProficiency === "Legendary") {
       if (
         currentTrainingLevel === "Master" &&
-        !skillBoosts.LevelsBoosted.includes(currentLevel)
+        !skillBoosts.LevelsBoosted.includes(currentLevel) &&
+        boostCounter < availableBoosts
       ) {
         return false;
       }
@@ -184,7 +202,12 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                 <div key={skillBoost.skill} className="mt-4">
                   {skillBoost.skill}{" "}
                   <RadioGroup
-                    onValueChange={() => handleRadioChange(skillBoost.skill)}
+                    onValueChange={() =>
+                      handleRadioChange(
+                        skillBoost.skill,
+                        skillBoost.LevelsBoosted
+                      )
+                    }
                     defaultValue={findDefaultValue(skillBoost.LevelsBoosted)}
                   >
                     <div className="flex items-center space-x-2">

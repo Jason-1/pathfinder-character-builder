@@ -188,7 +188,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
               currentLevel={level}
               selectedBackground={selectedBackground}
               selectedClass={selectedClass}
-              availableBoosts={3}
+              availableBoosts={2}
               selectedSkills={selectedSkills}
               setSelectedSkills={setSelectedSkills}
             />

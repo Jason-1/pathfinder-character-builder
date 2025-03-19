@@ -1,5 +1,14 @@
 import { skillProficienciesType } from "@/types";
 import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface SkillShowcaseProps {
   selectedLevel: number;
@@ -28,16 +37,28 @@ const SkillShowcase: React.FC<SkillShowcaseProps> = ({
   }
 
   return (
-    <div>
-      {selectedSkills.map((skill) => (
-        <div key={skill.skill}>
-          {skill.skill} {": "}{" "}
-          {findTrainingLevel(
-            skill.LevelsBoosted.filter((level) => level <= selectedLevel).length
-          )}
-        </div>
-      ))}
-    </div>
+    <Table>
+      <TableCaption>Current Skill Proficiencies</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-48">Skill</TableHead>
+          <TableHead>Proficiency</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {selectedSkills.map((skill) => (
+          <TableRow>
+            <TableCell className="font-medium">{skill.skill}</TableCell>
+            <TableCell>
+              {findTrainingLevel(
+                skill.LevelsBoosted.filter((level) => level <= selectedLevel)
+                  .length
+              )}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

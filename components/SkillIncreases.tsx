@@ -125,8 +125,20 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       if (currentTrainingLevel === "Untrained") {
         return false;
       }
+      if (
+        currentTrainingLevel === "Expert" &&
+        skillBoosts.LevelsBoosted.includes(currentLevel)
+      ) {
+        return false;
+      }
     }
     if (currentButtonProficiency === "Expert") {
+      if (
+        currentTrainingLevel === "Trained" &&
+        !skillBoosts.LevelsBoosted.includes(currentLevel)
+      ) {
+        return false;
+      }
     }
     if (currentButtonProficiency === "Master") {
     }

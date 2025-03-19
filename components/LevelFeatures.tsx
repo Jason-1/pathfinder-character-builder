@@ -149,7 +149,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     );
   }
 
-  //Get Initial Proficiencies working
+  //show skill increases only at applicable levels
+  //pass in the correct number of available boosts
+  //restrict boosts only to allowed ones where applicable
 
   return (
     <div className="mt-6">
@@ -184,14 +186,28 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
           </CardHeader>
 
           <CardContent>
-            <SkillIncreases
-              currentLevel={level}
-              selectedBackground={selectedBackground}
-              selectedClass={selectedClass}
-              availableBoosts={2}
-              selectedSkills={selectedSkills}
-              setSelectedSkills={setSelectedSkills}
-            />
+            {level === 1 && (
+              <SkillIncreases
+                currentLevel={level}
+                selectedBackground={selectedBackground}
+                selectedClass={selectedClass}
+                availableBoosts={3}
+                selectedSkills={selectedSkills}
+                setSelectedSkills={setSelectedSkills}
+                increaseHeaderText="Initial skill proficiencies"
+              />
+            )}
+            {skillIncreaseLevels.includes(level) && (
+              <SkillIncreases
+                currentLevel={level}
+                selectedBackground={selectedBackground}
+                selectedClass={selectedClass}
+                availableBoosts={1}
+                selectedSkills={selectedSkills}
+                setSelectedSkills={setSelectedSkills}
+                increaseHeaderText={`Level ${level} skill proficiency`}
+              />
+            )}
 
             {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>
               feat.type === "Martial" &&

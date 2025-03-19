@@ -21,6 +21,7 @@ interface SkillIncreaseProps {
   setSelectedSkills: React.Dispatch<
     React.SetStateAction<skillProficienciesType[]>
   >;
+  increaseHeaderText: string;
 }
 
 const SkillIncreases: React.FC<SkillIncreaseProps> = ({
@@ -30,6 +31,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   availableBoosts,
   selectedSkills,
   setSelectedSkills,
+  increaseHeaderText,
 }) => {
   function findTrainingLevel(numericalTraining: number) {
     switch (numericalTraining) {
@@ -196,7 +198,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   return (
     <>
       <Dialog>
-        <DialogTrigger>Initial Skill Proficiencies</DialogTrigger>
+        <DialogTrigger>{increaseHeaderText}</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Allocate Skill Proficiencies</DialogTitle>

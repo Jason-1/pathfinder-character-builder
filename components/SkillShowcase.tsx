@@ -37,8 +37,7 @@ const SkillShowcase: React.FC<SkillShowcaseProps> = ({
   }
 
   return (
-    <Table>
-      <TableCaption>Current Skill Proficiencies</TableCaption>
+    <Table className="mt-4">
       <TableHeader>
         <TableRow>
           <TableHead className="w-48">Skill</TableHead>
@@ -47,7 +46,7 @@ const SkillShowcase: React.FC<SkillShowcaseProps> = ({
       </TableHeader>
       <TableBody>
         {selectedSkills.map((skill) => (
-          <TableRow>
+          <TableRow key={skill.skill}>
             <TableCell className="font-medium">{skill.skill}</TableCell>
             <TableCell>
               {findTrainingLevel(

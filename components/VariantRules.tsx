@@ -16,7 +16,7 @@ const VariantRules: React.FC<VariantRulesProps> = ({
   setAncestralParagon,
 }) => {
   return (
-    <div>
+    <div className="mt-4">
       <div className="flex items-center space-x-2">
         <Switch
           id="free-archetype"

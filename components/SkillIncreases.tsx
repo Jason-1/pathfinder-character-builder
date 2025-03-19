@@ -139,10 +139,34 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       ) {
         return false;
       }
+      if (
+        currentTrainingLevel === "Master" &&
+        skillBoosts.LevelsBoosted.includes(currentLevel)
+      ) {
+        return false;
+      }
     }
     if (currentButtonProficiency === "Master") {
+      if (
+        currentTrainingLevel === "Expert" &&
+        !skillBoosts.LevelsBoosted.includes(currentLevel)
+      ) {
+        return false;
+      }
+      if (
+        currentTrainingLevel === "Legendary" &&
+        skillBoosts.LevelsBoosted.includes(currentLevel)
+      ) {
+        return false;
+      }
     }
     if (currentButtonProficiency === "Legendary") {
+      if (
+        currentTrainingLevel === "Master" &&
+        !skillBoosts.LevelsBoosted.includes(currentLevel)
+      ) {
+        return false;
+      }
     }
 
     return true;

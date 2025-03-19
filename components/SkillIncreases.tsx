@@ -77,6 +77,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
 
   // Adds the levels the skill was boosted at in order to the array. If the level is already in the array, it is removed.
   // Increment boostCounter if the skill is being boosted, decrement if it is being unboosted
+  // Currently it is able to exceed 4 boosts if earlier boosts are removed
   const handleRadioChange = (
     skill: skillTypes | "",
     levelsBoosted: number[]
@@ -104,6 +105,8 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       )
     );
   };
+
+  // Potentilly disallow removing a boost if one has been applied at a higher level
 
   const handleDisabled = (
     currentButtonProficiency: TrainingType,

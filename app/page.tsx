@@ -8,6 +8,7 @@ import LevelFeatures from "@/components/LevelFeatures";
 import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
 import VariantRules from "@/components/VariantRules";
+import SkillShowcase from "@/components/SkillShowcase";
 import { Feats, InitialAttributeBoosts, skillProficiencies } from "@/data";
 import {
   AttributeBoostsType,
@@ -43,6 +44,7 @@ export default function Home() {
   // [X] 2. Selectable feats
   // 2.1 - Implement Archetype feats
   // 3. Skills.
+  // 3.1 Display all skills and their training level
   // 4. Save Character
   // 5. Load Character
   // 6. Equipment
@@ -79,6 +81,10 @@ export default function Home() {
           selectedBackground={selectedBackground}
           attributeBoostCategories={attributeBoostCategories}
           setAttributeBoostCategories={setAttributeBoostCategories}
+        />
+        <SkillShowcase
+          selectedLevel={selectedLevel}
+          selectedSkills={selectedSkills}
         />
         <VariantRules
           freeArchetype={freeArchetype}

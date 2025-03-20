@@ -93,6 +93,33 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     return i;
   }
 
+  function intelligenceBoosted(level: number) {
+    const boostForCurrentLevel = attributeBoostCategories.find(
+      (boost) => boost.name === `Level${level}`
+    );
+    let initialBoostCount = 4;
+    let currentBoostCount = level / 5 + initialBoostCount;
+    let totalBoosts = 0;
+    let partial = false;
+    //Check we boosted intelligence at this level
+    if (boostForCurrentLevel?.boosts.includes("Intelligence")) {
+      //Check if it was a partial boost
+      for (let i = 0; i < currentBoostCount; i++) {
+        if (attributeBoostCategories[i].boosts.includes("Intelligence")) {
+          if (totalBoosts >= 4 && !partial) {
+            partial = true;
+          } else {
+            totalBoosts++;
+            partial = false;
+          }
+        }
+      }
+      console.log(partial);
+      //Only allow a skill increase if we boosted intelligence at this level and it wasnt a partial boost
+      return !partial;
+    }
+  }
+
   function displayFeatType(featType: string) {
     switch (featType) {
       case "Martial":
@@ -269,7 +296,19 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
               />
             )}
 
-            {/* Get higher level intelligence boosts working */}
+            {intelligenceBoosted(level) && (
+              <SkillIncreases
+                currentLevel={level}
+                selectedBackground={selectedBackground}
+                selectedClass={selectedClass}
+                availableBoosts={1}
+                selectedSkills={selectedSkills}
+                setSelectedSkills={setSelectedSkills}
+                increaseHeaderText={`Level ${level} intelligence boost`}
+                boostType="Intelligence"
+                attributeBoostCategories={attributeBoostCategories}
+              />
+            )}
 
             {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>
               feat.type === "Martial" &&

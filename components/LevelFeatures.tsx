@@ -75,6 +75,24 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     (classItem) => classItem.name === selectedClass
   );
 
+  function level1Intelligence() {
+    let i = 0;
+    attributeBoostCategories.forEach((boost) => {
+      if (boost.boosts.includes("Intelligence")) {
+        if (
+          boost.name === "Level5" ||
+          boost.name === "Level10" ||
+          boost.name === "Level15" ||
+          boost.name === "Level20"
+        ) {
+          return;
+        }
+        i++;
+      }
+    });
+    return i;
+  }
+
   function displayFeatType(featType: string) {
     switch (featType) {
       case "Martial":
@@ -225,37 +243,16 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   currentLevel={level}
                   selectedBackground={selectedBackground}
                   selectedClass={selectedClass}
-                  availableBoosts={selectedClassData?.skills.additional ?? 0}
+                  availableBoosts={
+                    (selectedClassData?.skills?.additional ?? 0) +
+                    level1Intelligence()
+                  }
                   selectedSkills={selectedSkills}
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Initial skill proficiencies"
                   boostType="Initial"
                   attributeBoostCategories={attributeBoostCategories}
                 />
-
-                {attributeBoostCategories
-                  .filter(
-                    (boostCategory) =>
-                      boostCategory.name !== "Level5" &&
-                      boostCategory.name !== "Level10" &&
-                      boostCategory.name !== "Level15" &&
-                      boostCategory.name !== "Level20"
-                  )
-                  .map((boost) =>
-                    boost.boosts.includes("Intelligence") ? (
-                      <SkillIncreases
-                        currentLevel={level}
-                        selectedBackground={selectedBackground}
-                        selectedClass={selectedClass}
-                        availableBoosts={1}
-                        selectedSkills={selectedSkills}
-                        setSelectedSkills={setSelectedSkills}
-                        increaseHeaderText={`Intelligence Training`}
-                        boostType="Intelligence"
-                        attributeBoostCategories={attributeBoostCategories}
-                      />
-                    ) : null
-                  )}
               </div>
             )}
             {skillIncreaseLevels.includes(level) && (

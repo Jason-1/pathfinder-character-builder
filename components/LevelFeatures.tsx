@@ -31,7 +31,11 @@ import {
   skillProficiencies,
   skillIncreaseLevels,
 } from "@/data";
-import { FeatsType, skillProficienciesType } from "@/types";
+import {
+  AttributeBoostsType,
+  FeatsType,
+  skillProficienciesType,
+} from "@/types";
 import SkillIncreases from "./SkillIncreases";
 
 interface LevelFeaturesProps {
@@ -47,7 +51,10 @@ interface LevelFeaturesProps {
   setSelectedSkills: React.Dispatch<
     React.SetStateAction<skillProficienciesType[]>
   >;
+  attributeBoostCategories: AttributeBoostsType[];
 }
+
+//use attributeBoostCategories to check if the current level has boosted intelligence. If it has allow a single skill increase
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
@@ -62,12 +69,11 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   setSelectedFeats,
   selectedSkills,
   setSelectedSkills,
+  attributeBoostCategories,
 }) => {
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
-
-  //import attributeBoostCategories and check if the current level has boosted intelligence. If it has allow a single skill increase
 
   function displayFeatType(featType: string) {
     switch (featType) {
@@ -202,6 +208,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Background skill proficiencies"
                   boostType="Background"
+                  attributeBoostCategories={attributeBoostCategories}
                 />
                 <SkillIncreases
                   currentLevel={level}
@@ -212,6 +219,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Class skill proficiencies"
                   boostType="Class"
+                  attributeBoostCategories={attributeBoostCategories}
                 />
                 <SkillIncreases
                   currentLevel={level}
@@ -222,7 +230,32 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Initial skill proficiencies"
                   boostType="Initial"
+                  attributeBoostCategories={attributeBoostCategories}
                 />
+
+                {attributeBoostCategories
+                  .filter(
+                    (boostCategory) =>
+                      boostCategory.name !== "Level5" &&
+                      boostCategory.name !== "Level10" &&
+                      boostCategory.name !== "Level15" &&
+                      boostCategory.name !== "Level20"
+                  )
+                  .map((boost) =>
+                    boost.boosts.includes("Intelligence") ? (
+                      <SkillIncreases
+                        currentLevel={level}
+                        selectedBackground={selectedBackground}
+                        selectedClass={selectedClass}
+                        availableBoosts={1}
+                        selectedSkills={selectedSkills}
+                        setSelectedSkills={setSelectedSkills}
+                        increaseHeaderText={`Intelligence Training`}
+                        boostType="Intelligence"
+                        attributeBoostCategories={attributeBoostCategories}
+                      />
+                    ) : null
+                  )}
               </div>
             )}
             {skillIncreaseLevels.includes(level) && (
@@ -235,8 +268,11 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 setSelectedSkills={setSelectedSkills}
                 increaseHeaderText={`Level ${level} skill proficiency`}
                 boostType="Level"
+                attributeBoostCategories={attributeBoostCategories}
               />
             )}
+
+            {/* Get higher level intelligence boosts working */}
 
             {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>
               feat.type === "Martial" &&

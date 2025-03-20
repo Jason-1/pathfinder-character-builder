@@ -10,7 +10,12 @@ import {
 import { Backgrounds, Classes, skillIncreaseLevels } from "@/data";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
+import {
+  AttributeBoostsType,
+  skillProficienciesType,
+  skillTypes,
+  TrainingType,
+} from "@/types";
 
 interface SkillIncreaseProps {
   currentLevel: number;
@@ -23,6 +28,7 @@ interface SkillIncreaseProps {
   >;
   increaseHeaderText: string;
   boostType: string;
+  attributeBoostCategories: AttributeBoostsType[];
 }
 
 const SkillIncreases: React.FC<SkillIncreaseProps> = ({
@@ -34,6 +40,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   setSelectedSkills,
   increaseHeaderText,
   boostType,
+  attributeBoostCategories,
 }) => {
   function findTrainingLevel(numericalTraining: number) {
     switch (numericalTraining) {
@@ -66,10 +73,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     const boostsAtCurrentLevel = LevelsBoosted.filter(
       (level) => level <= currentLevel
     );
-
-    //TODO - Disable reducing the skills proficiency level unless the boost was applied to the applicable skill
-    //TODO - Add the ability to remove a skill proficiency level
-    //TODO - Only allow increasing or reducing 1 step
 
     switch (boostsAtCurrentLevel.length) {
       case 0:
@@ -124,13 +127,22 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     currentButtonProficiency: TrainingType,
     skillBoosts: skillProficienciesType
   ) => {
-    if (currentButtonProficiency === "Expert" && currentLevel < 3) {
+    if (
+      currentButtonProficiency === "Expert" &&
+      (currentLevel < 3 || boostType === "Intelligence")
+    ) {
       return true;
     }
-    if (currentButtonProficiency === "Master" && currentLevel < 7) {
+    if (
+      currentButtonProficiency === "Master" &&
+      (currentLevel < 7 || boostType === "Intelligence")
+    ) {
       return true;
     }
-    if (currentButtonProficiency === "Legendary" && currentLevel < 15) {
+    if (
+      currentButtonProficiency === "Legendary" &&
+      (currentLevel < 15 || boostType === "Intelligence")
+    ) {
       return true;
     }
 

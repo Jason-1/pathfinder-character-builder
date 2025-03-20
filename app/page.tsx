@@ -50,6 +50,8 @@ export default function Home() {
   // 6. Equipment
   // 7. Calculate defence and offence
 
+  //Address code smell
+
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
       <div className="max-w-7xl w-full">
@@ -103,6 +105,7 @@ export default function Home() {
           setSelectedFeats={setSelectedFeats}
           selectedSkills={selectedSkills}
           setSelectedSkills={setSelectedSkills}
+          attributeBoostCategories={attributeBoostCategories}
         />
       </div>
     </main>

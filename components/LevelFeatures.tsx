@@ -149,7 +149,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     );
   }
 
-  //show skill increases only at applicable levels
   //pass in the correct number of available boosts
   //restrict boosts only to allowed ones where applicable
 
@@ -185,17 +184,44 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
             )}
           </CardHeader>
 
+          {/* Pass in the classes additional skill proficiencies */}
+          {/* Add a new training every time an intelligence boost occurs */}
+
+          {/* Additional class boosts, class, background, int */}
           <CardContent>
             {level === 1 && (
-              <SkillIncreases
-                currentLevel={level}
-                selectedBackground={selectedBackground}
-                selectedClass={selectedClass}
-                availableBoosts={3}
-                selectedSkills={selectedSkills}
-                setSelectedSkills={setSelectedSkills}
-                increaseHeaderText="Initial skill proficiencies"
-              />
+              <div className="flex flex-col justify-start items-start">
+                <SkillIncreases
+                  currentLevel={level}
+                  selectedBackground={selectedBackground}
+                  selectedClass={selectedClass}
+                  availableBoosts={selectedClassData?.skills.additional ?? 0}
+                  selectedSkills={selectedSkills}
+                  setSelectedSkills={setSelectedSkills}
+                  increaseHeaderText="Initial skill proficiencies"
+                  boostType="Initial"
+                />
+                <SkillIncreases
+                  currentLevel={level}
+                  selectedBackground={selectedBackground}
+                  selectedClass={selectedClass}
+                  availableBoosts={1}
+                  selectedSkills={selectedSkills}
+                  setSelectedSkills={setSelectedSkills}
+                  increaseHeaderText="Background skill proficiencies"
+                  boostType="Background"
+                />
+                <SkillIncreases
+                  currentLevel={level}
+                  selectedBackground={selectedBackground}
+                  selectedClass={selectedClass}
+                  availableBoosts={1}
+                  selectedSkills={selectedSkills}
+                  setSelectedSkills={setSelectedSkills}
+                  increaseHeaderText="Class skill proficiencies"
+                  boostType="Class"
+                />
+              </div>
             )}
             {skillIncreaseLevels.includes(level) && (
               <SkillIncreases
@@ -206,6 +232,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 selectedSkills={selectedSkills}
                 setSelectedSkills={setSelectedSkills}
                 increaseHeaderText={`Level ${level} skill proficiency`}
+                boostType="Level"
               />
             )}
 

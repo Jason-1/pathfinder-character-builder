@@ -51,9 +51,15 @@ export type skillTypes =
   | "Survival"
   | "Thievery";
 
-export type AncestryBackgroundType = {
+export type AncestryType = {
   name: string;
   Attributes: AttributesType[];
+};
+
+export type BackgroundType = {
+  name: string;
+  Attributes: AttributesType[];
+  skills: skillTypes[];
 };
 
 export type ClassType = {
@@ -66,22 +72,22 @@ export type ClassType = {
     will: TrainingType;
   };
   skills: {
-    acrobatics?: TrainingType;
-    arcana?: TrainingType;
-    athletics?: TrainingType;
-    crafting?: TrainingType;
-    deception?: TrainingType;
-    diplomacy?: TrainingType;
-    intimidation?: TrainingType;
-    medicine?: TrainingType;
-    nature?: TrainingType;
-    occultism?: TrainingType;
-    performance?: TrainingType;
-    religion?: TrainingType;
-    society?: TrainingType;
-    stealth?: TrainingType;
-    survival?: TrainingType;
-    thievery?: TrainingType;
+    Acrobatics?: TrainingType;
+    Arcana?: TrainingType;
+    Athletics?: TrainingType;
+    Crafting?: TrainingType;
+    Deception?: TrainingType;
+    Diplomacy?: TrainingType;
+    Intimidation?: TrainingType;
+    Medicine?: TrainingType;
+    Nature?: TrainingType;
+    Occultism?: TrainingType;
+    Performance?: TrainingType;
+    Religion?: TrainingType;
+    Society?: TrainingType;
+    Stealth?: TrainingType;
+    Survival?: TrainingType;
+    Thievery?: TrainingType;
     additional: number;
   };
   attacks: {

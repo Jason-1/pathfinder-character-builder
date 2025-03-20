@@ -1,24 +1,37 @@
 import {
-  AncestryBackgroundType,
+  AncestryType,
   AttributeBoostsType,
   AttributesType,
+  BackgroundType,
   ClassType,
   FeatsType,
   skillProficienciesType,
 } from "@/types";
 
-export const Ancestries: AncestryBackgroundType[] = [
+export const Ancestries: AncestryType[] = [
   { name: "Human", Attributes: ["Free"] },
   { name: "Elf", Attributes: ["Dexterity", "Intelligence"] },
   { name: "Dwarf", Attributes: ["Constitution", "Wisdom"] },
   { name: "Halfling", Attributes: ["Dexterity", "Wisdom"] },
 ];
 
-export const Backgrounds: AncestryBackgroundType[] = [
-  { name: "Barkeep", Attributes: ["Constitution", "Charisma"] },
-  { name: "Hunter", Attributes: ["Dexterity", "Wisdom"] },
-  { name: "Hermit", Attributes: ["Constitution", "Intelligence"] },
-  { name: "Field Medic", Attributes: ["Constitution", "Wisdom"] },
+export const Backgrounds: BackgroundType[] = [
+  {
+    name: "Barkeep",
+    Attributes: ["Constitution", "Charisma"],
+    skills: ["Diplomacy"],
+  },
+  { name: "Hunter", Attributes: ["Dexterity", "Wisdom"], skills: ["Survival"] },
+  {
+    name: "Hermit",
+    Attributes: ["Constitution", "Intelligence"],
+    skills: ["Nature", "Occultism"],
+  },
+  {
+    name: "Field Medic",
+    Attributes: ["Constitution", "Wisdom"],
+    skills: ["Medicine"],
+  },
 ];
 
 export const Classes: ClassType[] = [
@@ -32,8 +45,8 @@ export const Classes: ClassType[] = [
       will: "Trained",
     },
     skills: {
-      acrobatics: "Trained",
-      athletics: "Trained",
+      Acrobatics: "Trained",
+      Athletics: "Trained",
       additional: 3,
     },
     attacks: {
@@ -161,7 +174,7 @@ export const Classes: ClassType[] = [
       will: "Expert",
     },
     skills: {
-      arcana: "Trained",
+      Arcana: "Trained",
       additional: 3,
     },
     attacks: {

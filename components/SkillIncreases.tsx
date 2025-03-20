@@ -208,7 +208,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   return (
     <>
       <Dialog>
-        <DialogTrigger>{increaseHeaderText}</DialogTrigger>
+        <DialogTrigger className="mt-4">{increaseHeaderText}</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Allocate Skill Proficiencies</DialogTitle>
@@ -276,8 +276,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
           </DialogHeader>
         </DialogContent>
       </Dialog>
-
-      {skillIncreaseLevels.includes(currentLevel) && <div>Skill Increase</div>}
     </>
   );
 };

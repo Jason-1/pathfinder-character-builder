@@ -67,6 +67,8 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     (classItem) => classItem.name === selectedClass
   );
 
+  //import attributeBoostCategories and check if the current level has boosted intelligence. If it has allow a single skill increase
+
   function displayFeatType(featType: string) {
     switch (featType) {
       case "Martial":
@@ -195,16 +197,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   currentLevel={level}
                   selectedBackground={selectedBackground}
                   selectedClass={selectedClass}
-                  availableBoosts={selectedClassData?.skills.additional ?? 0}
-                  selectedSkills={selectedSkills}
-                  setSelectedSkills={setSelectedSkills}
-                  increaseHeaderText="Initial skill proficiencies"
-                  boostType="Initial"
-                />
-                <SkillIncreases
-                  currentLevel={level}
-                  selectedBackground={selectedBackground}
-                  selectedClass={selectedClass}
                   availableBoosts={1}
                   selectedSkills={selectedSkills}
                   setSelectedSkills={setSelectedSkills}
@@ -220,6 +212,16 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Class skill proficiencies"
                   boostType="Class"
+                />
+                <SkillIncreases
+                  currentLevel={level}
+                  selectedBackground={selectedBackground}
+                  selectedClass={selectedClass}
+                  availableBoosts={selectedClassData?.skills.additional ?? 0}
+                  selectedSkills={selectedSkills}
+                  setSelectedSkills={setSelectedSkills}
+                  increaseHeaderText="Initial skill proficiencies"
+                  boostType="Initial"
                 />
               </div>
             )}
@@ -244,7 +246,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 (feat.type === "Paragon" && !ancestralParagon) ? null : (
                 <div key={feat.type}>
                   <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger className="mt-4">
                       {displayFeatName(level, feat.type)
                         ? displayFeatName(level, feat.type)
                         : displayFeatType(feat.type)}

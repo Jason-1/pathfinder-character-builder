@@ -88,10 +88,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
-  // Adds the levels the skill was boosted at in order to the array. If the level is already in the array, it is removed.
-  // Increment boostCounter if the skill is being boosted, decrement if it is being unboosted
-  // Currently it is able to exceed 4 boosts if earlier boosts are removed
-  // If an early boost is added or removed, delete all boosts at a higher level
   const handleRadioChange = (
     skill: skillTypes | "",
     levelsBoosted: number[]
@@ -105,17 +101,19 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                 ? skillBoost.LevelsBoosted.filter(
                     (level) => level < currentLevel
                   )
-                : [...skillBoost.LevelsBoosted, currentLevel].sort(
-                    (a, b) => a - b
-                  ),
+                : [
+                    ...skillBoost.LevelsBoosted.filter(
+                      (level) => level <= currentLevel
+                    ),
+                    currentLevel,
+                  ].sort((a, b) => a - b),
             }
           : skillBoost
       )
     );
   };
 
-  // Loop through all arrays in selectedSkills and calculate the number of times currentlevel appears. Return that as the current number of boosts
-  function calculateCurrentBoosts() {
+  function currentBoostsUsed() {
     const instances = selectedSkills.filter((skillBoost) =>
       skillBoost.LevelsBoosted.includes(currentLevel)
     ).length;
@@ -163,7 +161,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     if (currentButtonProficiency === "Trained") {
       if (
         currentTrainingLevel === "Untrained" &&
-        calculateCurrentBoosts() < availableBoosts
+        currentBoostsUsed() < availableBoosts
       ) {
         return false;
       }
@@ -178,7 +176,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       if (
         currentTrainingLevel === "Trained" &&
         !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        calculateCurrentBoosts() < availableBoosts
+        currentBoostsUsed() < availableBoosts
       ) {
         return false;
       }
@@ -193,7 +191,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       if (
         currentTrainingLevel === "Expert" &&
         !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        calculateCurrentBoosts() < availableBoosts
+        currentBoostsUsed() < availableBoosts
       ) {
         return false;
       }
@@ -208,7 +206,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       if (
         currentTrainingLevel === "Master" &&
         !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        calculateCurrentBoosts() < availableBoosts
+        currentBoostsUsed() < availableBoosts
       ) {
         return false;
       }

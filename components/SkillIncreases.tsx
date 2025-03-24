@@ -59,8 +59,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
-  const [boostCounter, setBoostCounter] = React.useState(0);
-
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
@@ -93,16 +91,11 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   // Adds the levels the skill was boosted at in order to the array. If the level is already in the array, it is removed.
   // Increment boostCounter if the skill is being boosted, decrement if it is being unboosted
   // Currently it is able to exceed 4 boosts if earlier boosts are removed
+  // If an early boost is added or removed, delete all boosts at a higher level
   const handleRadioChange = (
     skill: skillTypes | "",
     levelsBoosted: number[]
   ) => {
-    if (levelsBoosted.includes(currentLevel)) {
-      setBoostCounter(boostCounter - 1);
-    } else {
-      setBoostCounter(boostCounter + 1);
-    }
-
     setSelectedSkills((prevSkills) =>
       prevSkills.map((skillBoost) =>
         skillBoost.skill === skill
@@ -110,7 +103,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
               ...skillBoost,
               LevelsBoosted: skillBoost.LevelsBoosted.includes(currentLevel)
                 ? skillBoost.LevelsBoosted.filter(
-                    (level) => level !== currentLevel
+                    (level) => level < currentLevel
                   )
                 : [...skillBoost.LevelsBoosted, currentLevel].sort(
                     (a, b) => a - b
@@ -121,7 +114,14 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     );
   };
 
-  // Potentilly disallow removing a boost if one has been applied at a higher level
+  // Loop through all arrays in selectedSkills and calculate the number of times currentlevel appears. Return that as the current number of boosts
+  function calculateCurrentBoosts() {
+    const instances = selectedSkills.filter((skillBoost) =>
+      skillBoost.LevelsBoosted.includes(currentLevel)
+    ).length;
+
+    return instances;
+  }
 
   const handleDisabled = (
     currentButtonProficiency: TrainingType,
@@ -163,7 +163,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     if (currentButtonProficiency === "Trained") {
       if (
         currentTrainingLevel === "Untrained" &&
-        boostCounter < availableBoosts
+        calculateCurrentBoosts() < availableBoosts
       ) {
         return false;
       }
@@ -178,7 +178,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       if (
         currentTrainingLevel === "Trained" &&
         !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        boostCounter < availableBoosts
+        calculateCurrentBoosts() < availableBoosts
       ) {
         return false;
       }
@@ -193,7 +193,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       if (
         currentTrainingLevel === "Expert" &&
         !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        boostCounter < availableBoosts
+        calculateCurrentBoosts() < availableBoosts
       ) {
         return false;
       }
@@ -208,7 +208,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       if (
         currentTrainingLevel === "Master" &&
         !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        boostCounter < availableBoosts
+        calculateCurrentBoosts() < availableBoosts
       ) {
         return false;
       }
@@ -216,9 +216,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
 
     return true;
   };
-
-  // Add background skill in background then remove it in initial proficiencies, it cant be re-added in background
-  // Maybe set Background and class to level 0 boosts?
 
   return (
     <>

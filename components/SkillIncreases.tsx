@@ -7,15 +7,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Backgrounds, Classes, skillIncreaseLevels } from "@/data";
-import { Label } from "@/components/ui/label";
+import { Backgrounds, Classes } from "@/data";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  AttributeBoostsType,
-  skillProficienciesType,
-  skillTypes,
-  TrainingType,
-} from "@/types";
+import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
 
 interface SkillIncreaseProps {
   currentLevel: number;
@@ -28,7 +22,6 @@ interface SkillIncreaseProps {
   >;
   increaseHeaderText: string;
   boostType: string;
-  attributeBoostCategories: AttributeBoostsType[];
 }
 
 const SkillIncreases: React.FC<SkillIncreaseProps> = ({
@@ -40,7 +33,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   setSelectedSkills,
   increaseHeaderText,
   boostType,
-  attributeBoostCategories,
 }) => {
   function findTrainingLevel(numericalTraining: number) {
     switch (numericalTraining) {

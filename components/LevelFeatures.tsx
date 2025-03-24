@@ -253,7 +253,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Background skill proficiencies"
                   boostType="Background"
-                  attributeBoostCategories={attributeBoostCategories}
                 />
                 <SkillIncreases
                   currentLevel={0}
@@ -264,7 +263,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Class skill proficiencies"
                   boostType="Class"
-                  attributeBoostCategories={attributeBoostCategories}
                 />
                 <SkillIncreases
                   currentLevel={level}
@@ -278,7 +276,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   setSelectedSkills={setSelectedSkills}
                   increaseHeaderText="Initial skill proficiencies"
                   boostType="Initial"
-                  attributeBoostCategories={attributeBoostCategories}
                 />
               </div>
             )}
@@ -292,7 +289,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 setSelectedSkills={setSelectedSkills}
                 increaseHeaderText={`Level ${level} skill proficiency`}
                 boostType="Level"
-                attributeBoostCategories={attributeBoostCategories}
               />
             )}
 
@@ -306,7 +302,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 setSelectedSkills={setSelectedSkills}
                 increaseHeaderText={`Level ${level} intelligence boost`}
                 boostType="Intelligence"
-                attributeBoostCategories={attributeBoostCategories}
               />
             )}
 

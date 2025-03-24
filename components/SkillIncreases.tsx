@@ -80,6 +80,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
+  //Add 0 for Background and class boosts
   const handleRadioChange = (
     skill: skillTypes | "",
     levelsBoosted: number[]

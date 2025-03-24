@@ -245,7 +245,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
             {level === 1 && (
               <div className="flex flex-col justify-start items-start">
                 <SkillIncreases
-                  currentLevel={level}
+                  currentLevel={0}
                   selectedBackground={selectedBackground}
                   selectedClass={selectedClass}
                   availableBoosts={1}
@@ -256,7 +256,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                   attributeBoostCategories={attributeBoostCategories}
                 />
                 <SkillIncreases
-                  currentLevel={level}
+                  currentLevel={0}
                   selectedBackground={selectedBackground}
                   selectedClass={selectedClass}
                   availableBoosts={1}

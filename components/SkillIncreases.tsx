@@ -227,11 +227,11 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
             <div className="grid grid-cols-8 items-center gap-x-4">
               <p className="col-span-2"></p>
               <div className="flex items-center justify-between col-span-6">
-                <p className="text-center">U</p>
-                <p className="text-center">T</p>
-                <p className="text-center">E</p>
-                <p className="text-center">M</p>
-                <p className="text-center">L</p>
+                <p className="w-[24px] text-center">U</p>
+                <p className="w-[24px] text-center">T</p>
+                <p className="w-[24px] text-center">E</p>
+                <p className="w-[24px] text-center">M</p>
+                <p className="w-[24px] text-center">L</p>
               </div>
             </div>
 
@@ -263,7 +263,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                       )
                     }
                     defaultValue={findDefaultValue(skillBoost.LevelsBoosted)}
-                    className="col-span-6 flex items-center justify-between"
+                    className="col-span-6 flex items-center justify-between pr-28"
                   >
                     <RadioGroupItem
                       value="Untrained"

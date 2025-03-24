@@ -221,16 +221,18 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     <>
       <Dialog>
         <DialogTrigger className="mt-4">{increaseHeaderText}</DialogTrigger>
-        <DialogContent>
+        <DialogContent className="w-full max-w-xl ">
           <DialogHeader>
             <DialogTitle>Allocate Skill Proficiencies</DialogTitle>
-            <div className="grid grid-cols-6 gap-x-12">
-              <p></p>
-              <p className="text-center">U</p>
-              <p className="text-center">T</p>
-              <p className="text-center">E</p>
-              <p className="text-center">M</p>
-              <p className="text-center">L</p>
+            <div className="grid grid-cols-8 items-center gap-x-4">
+              <p className="col-span-2"></p>
+              <div className="flex items-center justify-between col-span-6">
+                <p className="text-center">U</p>
+                <p className="text-center">T</p>
+                <p className="text-center">E</p>
+                <p className="text-center">M</p>
+                <p className="text-center">L</p>
+              </div>
             </div>
 
             {selectedSkills
@@ -248,9 +250,11 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
               .map((skillBoost) => (
                 <div
                   key={skillBoost.skill}
-                  className="grid grid-cols-6 gap-20 mt-2"
+                  className="grid grid-cols-8 items-center gap-x-4 mt-2"
                 >
-                  <span>{skillBoost.skill}</span>
+                  <span className="col-span-2 text-center">
+                    {skillBoost.skill}
+                  </span>
                   <RadioGroup
                     onValueChange={() =>
                       handleRadioChange(
@@ -259,38 +263,33 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                       )
                     }
                     defaultValue={findDefaultValue(skillBoost.LevelsBoosted)}
+                    className="col-span-6 flex items-center justify-between"
                   >
-                    <div className="flex items-center space-x-2 gap-x-12 ">
-                      <RadioGroupItem
-                        value="Untrained"
-                        id="Untrained"
-                        disabled={handleDisabled("Untrained", skillBoost)}
-                      />
-
-                      <RadioGroupItem
-                        value="Trained"
-                        id="Trained"
-                        disabled={handleDisabled("Trained", skillBoost)}
-                      />
-
-                      <RadioGroupItem
-                        value="Expert"
-                        id="Expert"
-                        disabled={handleDisabled("Expert", skillBoost)}
-                      />
-
-                      <RadioGroupItem
-                        value="Master"
-                        id="Master"
-                        disabled={handleDisabled("Master", skillBoost)}
-                      />
-
-                      <RadioGroupItem
-                        value="Legendary"
-                        id="Legendary"
-                        disabled={handleDisabled("Legendary", skillBoost)}
-                      />
-                    </div>
+                    <RadioGroupItem
+                      value="Untrained"
+                      id="Untrained"
+                      disabled={handleDisabled("Untrained", skillBoost)}
+                    />
+                    <RadioGroupItem
+                      value="Trained"
+                      id="Trained"
+                      disabled={handleDisabled("Trained", skillBoost)}
+                    />
+                    <RadioGroupItem
+                      value="Expert"
+                      id="Expert"
+                      disabled={handleDisabled("Expert", skillBoost)}
+                    />
+                    <RadioGroupItem
+                      value="Master"
+                      id="Master"
+                      disabled={handleDisabled("Master", skillBoost)}
+                    />
+                    <RadioGroupItem
+                      value="Legendary"
+                      id="Legendary"
+                      disabled={handleDisabled("Legendary", skillBoost)}
+                    />
                   </RadioGroup>
                 </div>
               ))}

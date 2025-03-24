@@ -217,6 +217,9 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     return true;
   };
 
+  // Add background skill in background then remove it in initial proficiencies, it cant be re-added in background
+  // Maybe set Background and class to level 0 boosts?
+
   return (
     <>
       <Dialog>
@@ -252,9 +255,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                   key={skillBoost.skill}
                   className="grid grid-cols-8 items-center gap-x-4 mt-2"
                 >
-                  <span className="col-span-2 text-center">
-                    {skillBoost.skill}
-                  </span>
+                  <span className="col-span-2 ">{skillBoost.skill}</span>
                   <RadioGroup
                     onValueChange={() =>
                       handleRadioChange(
@@ -263,7 +264,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                       )
                     }
                     defaultValue={findDefaultValue(skillBoost.LevelsBoosted)}
-                    className="col-span-6 flex items-center justify-between pr-28"
+                    className="col-span-6 flex items-center justify-between"
                   >
                     <RadioGroupItem
                       value="Untrained"

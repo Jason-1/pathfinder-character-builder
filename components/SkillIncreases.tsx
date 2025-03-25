@@ -151,12 +151,9 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   }
 
   function checkIntelligenceBoosted() {
-    selectedSkills.forEach((skillBoost) => {
-      if (skillBoost.IntBoost === currentLevel) {
-        return true;
-      }
-    });
-    return false;
+    return selectedSkills.some(
+      (skillBoost) => skillBoost.IntBoost === currentLevel
+    );
   }
 
   const handleDisabled = (
@@ -203,8 +200,11 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       ) {
         if (checkIntelligenceBoosted() && boostType === "Intelligence") {
           return true;
+        } else {
+          console.log(checkIntelligenceBoosted());
+          console.log(boostType);
+          return false;
         }
-        return false;
       }
       if (
         currentTrainingLevel === "Expert" &&

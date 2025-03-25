@@ -52,6 +52,9 @@ export default function Home() {
 
   //Address code smell
 
+  //BUG: Skill proficiency and intelligence boost at the same level are mutually exclusive
+  // Need to differentiate them somehow while keeping them associated with the same level.
+
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
       <div className="max-w-7xl w-full">

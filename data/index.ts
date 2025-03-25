@@ -205,23 +205,24 @@ export const Classes: ClassType[] = [
   },
 ];
 
+//Add intelligenceBoosted as a new item in the object. Can then check and update it the same way as the other boosts without infinite rerenders. Likely need the level associated with when int was boosted
 export const skillProficiencies: skillProficienciesType[] = [
-  { skill: "Acrobatics", LevelsBoosted: [] },
-  { skill: "Arcana", LevelsBoosted: [] },
-  { skill: "Athletics", LevelsBoosted: [] },
-  { skill: "Crafting", LevelsBoosted: [] },
-  { skill: "Deception", LevelsBoosted: [] },
-  { skill: "Diplomacy", LevelsBoosted: [] },
-  { skill: "Intimidation", LevelsBoosted: [] },
-  { skill: "Medicine", LevelsBoosted: [] },
-  { skill: "Nature", LevelsBoosted: [] },
-  { skill: "Occultism", LevelsBoosted: [] },
-  { skill: "Performance", LevelsBoosted: [] },
-  { skill: "Religion", LevelsBoosted: [] },
-  { skill: "Society", LevelsBoosted: [] },
-  { skill: "Stealth", LevelsBoosted: [] },
-  { skill: "Survival", LevelsBoosted: [] },
-  { skill: "Thievery", LevelsBoosted: [] },
+  { skill: "Acrobatics", LevelsBoosted: [], IntBoost: null },
+  { skill: "Arcana", LevelsBoosted: [], IntBoost: null },
+  { skill: "Athletics", LevelsBoosted: [], IntBoost: null },
+  { skill: "Crafting", LevelsBoosted: [], IntBoost: null },
+  { skill: "Deception", LevelsBoosted: [], IntBoost: null },
+  { skill: "Diplomacy", LevelsBoosted: [], IntBoost: null },
+  { skill: "Intimidation", LevelsBoosted: [], IntBoost: null },
+  { skill: "Medicine", LevelsBoosted: [], IntBoost: null },
+  { skill: "Nature", LevelsBoosted: [], IntBoost: null },
+  { skill: "Occultism", LevelsBoosted: [], IntBoost: null },
+  { skill: "Performance", LevelsBoosted: [], IntBoost: null },
+  { skill: "Religion", LevelsBoosted: [], IntBoost: null },
+  { skill: "Society", LevelsBoosted: [], IntBoost: null },
+  { skill: "Stealth", LevelsBoosted: [], IntBoost: null },
+  { skill: "Survival", LevelsBoosted: [], IntBoost: null },
+  { skill: "Thievery", LevelsBoosted: [], IntBoost: null },
 ];
 
 export const Feats: FeatsType[] = [

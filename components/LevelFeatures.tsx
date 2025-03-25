@@ -114,7 +114,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
           }
         }
       }
-      console.log(partial);
       //Only allow a skill increase if we boosted intelligence at this level and it wasnt a partial boost
       return !partial;
     }

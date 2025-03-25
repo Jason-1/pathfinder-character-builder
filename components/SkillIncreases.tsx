@@ -59,12 +59,20 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     (backgroundItem) => backgroundItem.name === selectedBackground
   );
 
-  function findDefaultValue(LevelsBoosted: number[]) {
-    const boostsAtCurrentLevel = LevelsBoosted.filter(
+  // Check the IntBoost state for the current level as well
+  function findDefaultValue(skillBoost: skillProficienciesType) {
+    var totalBoosts: number = 0;
+
+    if (skillBoost.IntBoost === currentLevel) {
+      totalBoosts += 1;
+    }
+
+    const boostsAtCurrentLevel = skillBoost.LevelsBoosted.filter(
       (level) => level <= currentLevel
     );
+    totalBoosts += boostsAtCurrentLevel.length;
 
-    switch (boostsAtCurrentLevel.length) {
+    switch (totalBoosts) {
       case 0:
         return "Untrained";
       case 1:
@@ -80,38 +88,73 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
+  // X Remove intelligenceBoosted state
+  // X Write function to check if IntBoost has been set to the current level for any state
+  // If an int boost is applied, set that to the current level
+  // If an int boost is removed, set the one that was set to the current level back to null
+  // Update currentBoostsUsed and handleDisabled to check the new function instead of intelligenceBoosted
+
   //Add 0 for Background and class boosts
   const handleRadioChange = (
     skill: skillTypes | "",
     levelsBoosted: number[]
   ) => {
-    setSelectedSkills((prevSkills) =>
-      prevSkills.map((skillBoost) =>
-        skillBoost.skill === skill
-          ? {
-              ...skillBoost,
-              LevelsBoosted: skillBoost.LevelsBoosted.includes(currentLevel)
-                ? skillBoost.LevelsBoosted.filter(
-                    (level) => level < currentLevel
-                  )
-                : [
-                    ...skillBoost.LevelsBoosted.filter(
-                      (level) => level <= currentLevel
-                    ),
-                    currentLevel,
-                  ].sort((a, b) => a - b),
-            }
-          : skillBoost
-      )
-    );
+    if (boostType === "Intelligence") {
+      setSelectedSkills((prevSkills) =>
+        prevSkills.map((skillBoost) =>
+          skillBoost.skill === skill
+            ? {
+                ...skillBoost,
+                IntBoost:
+                  skillBoost.IntBoost === currentLevel ? null : currentLevel,
+              }
+            : skillBoost
+        )
+      );
+    } else {
+      setSelectedSkills((prevSkills) =>
+        prevSkills.map((skillBoost) =>
+          skillBoost.skill === skill
+            ? {
+                ...skillBoost,
+                LevelsBoosted: skillBoost.LevelsBoosted.includes(currentLevel)
+                  ? skillBoost.LevelsBoosted.filter(
+                      (level) => level < currentLevel
+                    )
+                  : [
+                      ...skillBoost.LevelsBoosted.filter(
+                        (level) => level <= currentLevel
+                      ),
+                      currentLevel,
+                    ].sort((a, b) => a - b),
+              }
+            : skillBoost
+        )
+      );
+    }
+
+    console.log(selectedSkills);
   };
 
+  //Allow 1 extra boost for intelligence
+  //Reduce instances by 1 only if an int boost has been applied
   function currentBoostsUsed() {
-    const instances = selectedSkills.filter((skillBoost) =>
+    var instances = selectedSkills.filter((skillBoost) =>
       skillBoost.LevelsBoosted.includes(currentLevel)
     ).length;
-
+    if (checkIntelligenceBoosted() || boostType === "Intelligence") {
+      instances -= 1;
+    }
     return instances;
+  }
+
+  function checkIntelligenceBoosted() {
+    selectedSkills.forEach((skillBoost) => {
+      if (skillBoost.IntBoost === currentLevel) {
+        return true;
+      }
+    });
+    return false;
   }
 
   const handleDisabled = (
@@ -156,6 +199,9 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         currentTrainingLevel === "Untrained" &&
         currentBoostsUsed() < availableBoosts
       ) {
+        if (checkIntelligenceBoosted() && boostType === "Intelligence") {
+          return true;
+        }
         return false;
       }
       if (
@@ -251,7 +297,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                         skillBoost.LevelsBoosted
                       )
                     }
-                    defaultValue={findDefaultValue(skillBoost.LevelsBoosted)}
+                    defaultValue={findDefaultValue(skillBoost)}
                     className="col-span-6 flex items-center justify-between"
                   >
                     <RadioGroupItem

@@ -90,12 +90,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
-  // X Remove intelligenceBoosted state
-  // X Write function to check if IntBoost has been set to the current level for any state
-  // If an int boost is applied, set that to the current level
-  // If an int boost is removed, set the one that was set to the current level back to null
-  // Update currentBoostsUsed and handleDisabled to check the new function instead of intelligenceBoosted
-
   //Add 0 for Background and class boosts
   const handleRadioChange = (
     skill: skillTypes | "",
@@ -134,19 +128,13 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         )
       );
     }
-
-    console.log(selectedSkills);
   };
 
-  //Allow 1 extra boost for intelligence
-  //Reduce instances by 1 only if an int boost has been applied
   function currentBoostsUsed() {
     var instances = selectedSkills.filter((skillBoost) =>
       skillBoost.LevelsBoosted.includes(currentLevel)
     ).length;
-    if (checkIntelligenceBoosted() || boostType === "Intelligence") {
-      instances -= 1;
-    }
+
     return instances;
   }
 
@@ -156,6 +144,148 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     );
   }
 
+  const handleDisabled = (
+    currentButtonProficiency: TrainingType,
+    skillBoosts: skillProficienciesType
+  ) => {
+    //If this is an int boost or we arent at the minimum level for the proficiency dont allow higher levels than trained
+    if (
+      currentButtonProficiency === "Expert" &&
+      (currentLevel < 3 || boostType === "Intelligence")
+    ) {
+      return true;
+    }
+    if (
+      currentButtonProficiency === "Master" &&
+      (currentLevel < 7 || boostType === "Intelligence")
+    ) {
+      return true;
+    }
+    if (
+      currentButtonProficiency === "Legendary" &&
+      (currentLevel < 15 || boostType === "Intelligence")
+    ) {
+      return true;
+    }
+
+    //Calculate the current training level, factoring in intelligence boosts
+    const intTraining = skillBoosts.IntBoost ? 1 : 0;
+    const numericalTrainingLevel = skillBoosts.LevelsBoosted.filter(
+      (level) => level <= currentLevel
+    ).length;
+    const currentTrainingLevel = findTrainingLevel(
+      numericalTrainingLevel + intTraining
+    );
+
+    //If this is an intelligence boost, it doesn't add to the boost limit, and can only be trained or untrained
+    if (boostType === "Intelligence") {
+      //Are there are intelligence boosts at this level?
+      const hasIntBoostAtCurrentLevel = selectedSkills.some(
+        (skillBoost) => skillBoost.IntBoost === currentLevel
+      );
+
+      //CURRENTLY ONLY CHECKS FOR INT BOOSTS, UPDATE TO INCLUDE LEVEL BOOSTS
+      if (currentButtonProficiency === "Untrained" && !skillBoosts.IntBoost) {
+        return true;
+      }
+
+      //if there are intelligence boosts at this level, disallow trained on all skills and only allow untrained on the boosted skill
+      if (hasIntBoostAtCurrentLevel) {
+        if (currentButtonProficiency === "Trained") {
+          return true;
+        }
+        if (
+          currentButtonProficiency === "Untrained" &&
+          skillBoosts.IntBoost === currentLevel
+        ) {
+          return false;
+        }
+      }
+      //There are no intelligence boosts at this level, allow trained on all skills that are currently untrained
+      else {
+        //Need to check if the skill is higher than untrained, if so disallow the boost
+        if (currentTrainingLevel !== "Untrained") {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+
+    //
+    //
+    //
+    //Now we know we're not in an int boost, we can check the other boosts and need to abide by the boost limit
+    //Need a check for if this skill was already int boosted this level
+    if (currentButtonProficiency === "Untrained") {
+      //Can only select Untrained if the skill is currently trained and has been boosted this level
+      if (currentTrainingLevel === "Trained") {
+        if (skillBoosts.LevelsBoosted.includes(currentLevel)) {
+          return false;
+        }
+      }
+    }
+    if (currentButtonProficiency === "Trained") {
+      //If training level is one lower and we have a boost to spend, allow an increase
+      if (currentTrainingLevel === "Untrained") {
+        if (currentBoostsUsed() < availableBoosts) {
+          return false;
+        }
+      }
+      ///If training level is one higher and we have boosted this level, allow decrease
+      if (currentTrainingLevel === "Expert") {
+        if (skillBoosts.LevelsBoosted.includes(currentLevel)) {
+          return false;
+        }
+      }
+    }
+    if (currentButtonProficiency === "Expert") {
+      //If training level is one lower and we have a boost to spend, allow an increase
+      if (currentTrainingLevel === "Trained") {
+        if (currentBoostsUsed() < availableBoosts) {
+          if (intTraining === 0) {
+            return false;
+          }
+        }
+      }
+      ///If training level is one higher and we have boosted this level, allow decrease
+      if (currentTrainingLevel === "Master") {
+        if (skillBoosts.LevelsBoosted.includes(currentLevel)) {
+          return false;
+        }
+      }
+    }
+    if (currentButtonProficiency === "Master") {
+      //If training level is one lower and we have a boost to spend, allow an increase
+      if (currentTrainingLevel === "Expert") {
+        if (currentBoostsUsed() < availableBoosts) {
+          if (intTraining === 0) {
+            return false;
+          }
+        }
+      }
+      ///If training level is one higher and we have boosted this level, allow decrease
+      if (currentTrainingLevel === "Legendary") {
+        if (skillBoosts.LevelsBoosted.includes(currentLevel)) {
+          return false;
+        }
+      }
+    }
+    if (currentButtonProficiency === "Legendary") {
+      //If training level is one lower and we have a boost to spend, allow an increase
+      if (currentTrainingLevel === "Master") {
+        if (currentBoostsUsed() < availableBoosts) {
+          if (intTraining === 0) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  };
+
+  /**
   const handleDisabled = (
     currentButtonProficiency: TrainingType,
     skillBoosts: skillProficienciesType
@@ -179,30 +309,36 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       return true;
     }
 
-    const numericalTrainingLevel = skillBoosts.LevelsBoosted.filter(
+    var numericalTrainingLevel = 0;
+
+    if (skillBoosts.IntBoost) {
+      if (skillBoosts.IntBoost <= currentLevel) {
+        numericalTrainingLevel += 1;
+      }
+    }
+
+    numericalTrainingLevel += skillBoosts.LevelsBoosted.filter(
       (level) => level <= currentLevel
     ).length;
+
     const currentTrainingLevel = findTrainingLevel(numericalTrainingLevel);
 
     //disable if training is trained or higher and the skill has not been allocated this level
     if (currentButtonProficiency === "Untrained") {
-      if (
-        currentTrainingLevel === "Trained" &&
-        skillBoosts.LevelsBoosted.includes(currentLevel)
-      ) {
-        return false;
+      if (currentTrainingLevel === "Trained") {
+        if (skillBoosts.LevelsBoosted.includes(currentLevel)) {
+          return false;
+        }
+        if (boostType === "Intelligence" && checkIntelligenceBoosted()) {
+          return false;
+        }
       }
     }
     if (currentButtonProficiency === "Trained") {
-      if (
-        currentTrainingLevel === "Untrained" &&
-        currentBoostsUsed() < availableBoosts
-      ) {
-        if (checkIntelligenceBoosted() && boostType === "Intelligence") {
-          return true;
-        } else {
-          console.log(checkIntelligenceBoosted());
-          console.log(boostType);
+      if (currentTrainingLevel === "Untrained") {
+        if (boostType === "Intelligence" && !checkIntelligenceBoosted()) {
+          return false;
+        } else if (currentBoostsUsed() < availableBoosts) {
           return false;
         }
       }
@@ -255,14 +391,14 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
 
     return true;
   };
-
+  */
   return (
     <>
       <Dialog>
         <DialogTrigger className="mt-4">{increaseHeaderText}</DialogTrigger>
         <DialogContent className="w-full max-w-xl ">
           <DialogHeader>
-            <DialogTitle>Allocate Skill Proficiencies</DialogTitle>
+            <DialogTitle>{increaseHeaderText}</DialogTitle>
             <div className="grid grid-cols-8 items-center gap-x-4">
               <p className="col-span-2"></p>
               <div className="flex items-center justify-between col-span-6">

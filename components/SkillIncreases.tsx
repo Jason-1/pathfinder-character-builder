@@ -59,7 +59,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     (backgroundItem) => backgroundItem.name === selectedBackground
   );
 
-  // Check the IntBoost state for the current level as well
   function findDefaultValue(skillBoost: skillProficienciesType) {
     var totalBoosts: number = 0;
 
@@ -90,7 +89,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
-  //Add 0 for Background and class boosts
   const handleRadioChange = (
     skill: skillTypes | "",
     levelsBoosted: number[]
@@ -184,7 +182,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         (skillBoost) => skillBoost.IntBoost === currentLevel
       );
 
-      //CURRENTLY ONLY CHECKS FOR INT BOOSTS, UPDATE TO INCLUDE LEVEL BOOSTS
       if (currentButtonProficiency === "Untrained" && !skillBoosts.IntBoost) {
         return true;
       }
@@ -212,11 +209,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       }
     }
 
-    //
-    //
-    //
     //Now we know we're not in an int boost, we can check the other boosts and need to abide by the boost limit
-    //Need a check for if this skill was already int boosted this level
     if (currentButtonProficiency === "Untrained") {
       //Can only select Untrained if the skill is currently trained and has been boosted this level
       if (currentTrainingLevel === "Trained") {
@@ -285,113 +278,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     return true;
   };
 
-  /**
-  const handleDisabled = (
-    currentButtonProficiency: TrainingType,
-    skillBoosts: skillProficienciesType
-  ) => {
-    if (
-      currentButtonProficiency === "Expert" &&
-      (currentLevel < 3 || boostType === "Intelligence")
-    ) {
-      return true;
-    }
-    if (
-      currentButtonProficiency === "Master" &&
-      (currentLevel < 7 || boostType === "Intelligence")
-    ) {
-      return true;
-    }
-    if (
-      currentButtonProficiency === "Legendary" &&
-      (currentLevel < 15 || boostType === "Intelligence")
-    ) {
-      return true;
-    }
-
-    var numericalTrainingLevel = 0;
-
-    if (skillBoosts.IntBoost) {
-      if (skillBoosts.IntBoost <= currentLevel) {
-        numericalTrainingLevel += 1;
-      }
-    }
-
-    numericalTrainingLevel += skillBoosts.LevelsBoosted.filter(
-      (level) => level <= currentLevel
-    ).length;
-
-    const currentTrainingLevel = findTrainingLevel(numericalTrainingLevel);
-
-    //disable if training is trained or higher and the skill has not been allocated this level
-    if (currentButtonProficiency === "Untrained") {
-      if (currentTrainingLevel === "Trained") {
-        if (skillBoosts.LevelsBoosted.includes(currentLevel)) {
-          return false;
-        }
-        if (boostType === "Intelligence" && checkIntelligenceBoosted()) {
-          return false;
-        }
-      }
-    }
-    if (currentButtonProficiency === "Trained") {
-      if (currentTrainingLevel === "Untrained") {
-        if (boostType === "Intelligence" && !checkIntelligenceBoosted()) {
-          return false;
-        } else if (currentBoostsUsed() < availableBoosts) {
-          return false;
-        }
-      }
-      if (
-        currentTrainingLevel === "Expert" &&
-        skillBoosts.LevelsBoosted.includes(currentLevel)
-      ) {
-        return false;
-      }
-    }
-    if (currentButtonProficiency === "Expert") {
-      if (
-        currentTrainingLevel === "Trained" &&
-        !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        currentBoostsUsed() < availableBoosts
-      ) {
-        return false;
-      }
-      if (
-        currentTrainingLevel === "Master" &&
-        skillBoosts.LevelsBoosted.includes(currentLevel)
-      ) {
-        return false;
-      }
-    }
-    if (currentButtonProficiency === "Master") {
-      if (
-        currentTrainingLevel === "Expert" &&
-        !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        currentBoostsUsed() < availableBoosts
-      ) {
-        return false;
-      }
-      if (
-        currentTrainingLevel === "Legendary" &&
-        skillBoosts.LevelsBoosted.includes(currentLevel)
-      ) {
-        return false;
-      }
-    }
-    if (currentButtonProficiency === "Legendary") {
-      if (
-        currentTrainingLevel === "Master" &&
-        !skillBoosts.LevelsBoosted.includes(currentLevel) &&
-        currentBoostsUsed() < availableBoosts
-      ) {
-        return false;
-      }
-    }
-
-    return true;
-  };
-  */
   return (
     <>
       <Dialog>

@@ -136,12 +136,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     return instances;
   }
 
-  function checkIntelligenceBoosted() {
-    return selectedSkills.some(
-      (skillBoost) => skillBoost.IntBoost === currentLevel
-    );
-  }
-
   const handleDisabled = (
     currentButtonProficiency: TrainingType,
     skillBoosts: skillProficienciesType
@@ -236,7 +230,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       //If training level is one lower and we have a boost to spend, allow an increase
       if (currentTrainingLevel === "Trained") {
         if (currentBoostsUsed() < availableBoosts) {
-          if (intTraining === 0) {
+          if (skillBoosts.IntBoost !== currentLevel) {
             return false;
           }
         }
@@ -252,7 +246,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       //If training level is one lower and we have a boost to spend, allow an increase
       if (currentTrainingLevel === "Expert") {
         if (currentBoostsUsed() < availableBoosts) {
-          if (intTraining === 0) {
+          if (skillBoosts.IntBoost !== currentLevel) {
             return false;
           }
         }
@@ -268,7 +262,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       //If training level is one lower and we have a boost to spend, allow an increase
       if (currentTrainingLevel === "Master") {
         if (currentBoostsUsed() < availableBoosts) {
-          if (intTraining === 0) {
+          if (skillBoosts.IntBoost !== currentLevel) {
             return false;
           }
         }

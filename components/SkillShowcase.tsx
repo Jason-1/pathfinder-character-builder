@@ -19,8 +19,14 @@ const SkillShowcase: React.FC<SkillShowcaseProps> = ({
   selectedLevel,
   selectedSkills,
 }) => {
-  function findTrainingLevel(numericalTraining: number) {
-    switch (numericalTraining) {
+  function findTrainingLevel(skill: skillProficienciesType) {
+    const intTraining = skill.IntBoost ? 1 : 0;
+    const numericalTrainingLevel = skill.LevelsBoosted.filter(
+      (level) => level <= selectedLevel
+    ).length;
+    const currentTrainingLevel = numericalTrainingLevel + intTraining;
+
+    switch (currentTrainingLevel) {
       case 0:
         return "Untrained";
       case 1:
@@ -48,12 +54,7 @@ const SkillShowcase: React.FC<SkillShowcaseProps> = ({
         {selectedSkills.map((skill) => (
           <TableRow key={skill.skill}>
             <TableCell className="font-medium">{skill.skill}</TableCell>
-            <TableCell>
-              {findTrainingLevel(
-                skill.LevelsBoosted.filter((level) => level <= selectedLevel)
-                  .length
-              )}
-            </TableCell>
+            <TableCell>{findTrainingLevel(skill)}</TableCell>
           </TableRow>
         ))}
       </TableBody>

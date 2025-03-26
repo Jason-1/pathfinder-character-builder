@@ -279,16 +279,19 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
               </div>
             )}
             {skillIncreaseLevels.includes(level) && (
-              <SkillIncreases
-                currentLevel={level}
-                selectedBackground={selectedBackground}
-                selectedClass={selectedClass}
-                availableBoosts={1}
-                selectedSkills={selectedSkills}
-                setSelectedSkills={setSelectedSkills}
-                increaseHeaderText={`Level ${level} skill proficiency`}
-                boostType="Level"
-              />
+              <>
+                <SkillIncreases
+                  currentLevel={level}
+                  selectedBackground={selectedBackground}
+                  selectedClass={selectedClass}
+                  availableBoosts={1}
+                  selectedSkills={selectedSkills}
+                  setSelectedSkills={setSelectedSkills}
+                  increaseHeaderText={`Level ${level} skill proficiency`}
+                  boostType="Level"
+                />
+                <br />
+              </>
             )}
 
             {intelligenceBoosted(level) && (

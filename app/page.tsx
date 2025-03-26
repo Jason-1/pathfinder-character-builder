@@ -38,10 +38,8 @@ export default function Home() {
     useState<skillProficienciesType[]>(skillProficiencies);
 
   //TODO -
-  // [X] 1. Heratige and subclass
-  // [X] 1.1 - Add the ability to select a heritage and subclass
-  // [X] 1.2 - Give the description of the heritage and subclass when being selected]
-  // [X] 2. Selectable feats
+  // If class is changed, reset all skill selections
+  // Make skill proficiency selection red if none selected
   // 2.1 - Implement Archetype feats
   // 3. Skills.
   // 3.1 Display all skills and their training level
@@ -51,9 +49,6 @@ export default function Home() {
   // 7. Calculate defence and offence
 
   //Address code smell
-
-  //BUG: Skill proficiency and intelligence boost at the same level are mutually exclusive
-  // Need to differentiate them somehow while keeping them associated with the same level.
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">

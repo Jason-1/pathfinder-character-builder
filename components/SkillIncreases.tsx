@@ -73,22 +73,10 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     );
     totalBoosts += boostsAtCurrentLevel.length;
 
-    switch (totalBoosts) {
-      case 0:
-        return "Untrained";
-      case 1:
-        return "Trained";
-      case 2:
-        return "Expert";
-      case 3:
-        return "Master";
-      case 4:
-        return "Legendary";
-      default:
-        return "Untrained";
-    }
+    return findTrainingLevel(totalBoosts);
   }
 
+  // Need to reset skillboosts > current level when int boost is applied
   const handleRadioChange = (
     skill: skillTypes | "",
     levelsBoosted: number[]
@@ -101,6 +89,9 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                 ...skillBoost,
                 IntBoost:
                   skillBoost.IntBoost === currentLevel ? null : currentLevel,
+                LevelsBoosted: skillBoost.LevelsBoosted.filter(
+                  (level) => level < currentLevel // Reset levels >= currentLevel only for the current skill
+                ),
               }
             : skillBoost
         )

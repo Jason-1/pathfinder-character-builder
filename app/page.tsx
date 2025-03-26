@@ -39,7 +39,6 @@ export default function Home() {
 
   //TODO -
   // If class is changed, reset all skill selections
-  // Make skill proficiency selection red if none selected
   // 2.1 - Implement Archetype feats
   // 3. Skills.
   // 3.1 Display all skills and their training level

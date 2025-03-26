@@ -266,7 +266,25 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   return (
     <>
       <Dialog>
-        <DialogTrigger className="mt-4">{increaseHeaderText}</DialogTrigger>
+        <DialogTrigger
+          className={`mt-4 ${
+            boostType === "Intelligence"
+              ? selectedSkills.some(
+                  (skillBoost) => skillBoost.IntBoost === currentLevel
+                )
+                ? "text-green-500"
+                : "text-red-500"
+              : selectedSkills.some((skillBoost) =>
+                  skillBoost.LevelsBoosted.includes(currentLevel)
+                )
+              ? currentBoostsUsed() < availableBoosts
+                ? "text-blue-500"
+                : "text-green-500"
+              : "text-red-500"
+          }`}
+        >
+          {increaseHeaderText}
+        </DialogTrigger>
         <DialogContent className="w-full max-w-xl ">
           <DialogHeader>
             <DialogTitle>{increaseHeaderText}</DialogTitle>

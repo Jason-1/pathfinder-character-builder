@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { Attributes, InitialAttributeBoosts } from "@/data";
+import { Attributes } from "@/data";
 import { Button } from "./ui/button";
+import { useSelector } from "react-redux";
 
 import {
   Dialog,
@@ -14,7 +15,6 @@ import AttributeButtons from "./AttributeButtons";
 import { AttributeBoostsType, AttributesType } from "@/types";
 
 interface LevelSelectorProps {
-  selectedLevel: number;
   selectedClass: string;
   selectedAncestry: string;
   selectedBackground: string;
@@ -25,13 +25,14 @@ interface LevelSelectorProps {
 }
 
 const Abilities: React.FC<LevelSelectorProps> = ({
-  selectedLevel,
   selectedClass,
   selectedAncestry,
   selectedBackground,
   attributeBoostCategories,
   setAttributeBoostCategories,
 }) => {
+  const currentLevel = useSelector((state: any) => state.level.level);
+
   const ResetAttributeBoosts = (selectedAttributeBoosts: string) => {
     setAttributeBoostCategories((prev) =>
       prev.map((boost) =>
@@ -63,10 +64,10 @@ const Abilities: React.FC<LevelSelectorProps> = ({
     attributeBoostCategories.forEach((boost) => {
       if (boost.boosts.includes(attributeName)) {
         if (
-          (boost.name === "Level5" && selectedLevel < 5) ||
-          (boost.name === "Level10" && selectedLevel < 10) ||
-          (boost.name === "Level15" && selectedLevel < 15) ||
-          (boost.name === "Level20" && selectedLevel < 20)
+          (boost.name === "Level5" && currentLevel < 5) ||
+          (boost.name === "Level10" && currentLevel < 10) ||
+          (boost.name === "Level15" && currentLevel < 15) ||
+          (boost.name === "Level20" && currentLevel < 20)
         ) {
           return;
         }

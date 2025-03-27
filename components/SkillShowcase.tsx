@@ -1,5 +1,6 @@
 import { skillProficienciesType } from "@/types";
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   Table,
   TableBody,
@@ -11,18 +12,16 @@ import {
 } from "@/components/ui/table";
 
 interface SkillShowcaseProps {
-  selectedLevel: number;
   selectedSkills: skillProficienciesType[];
 }
 
-const SkillShowcase: React.FC<SkillShowcaseProps> = ({
-  selectedLevel,
-  selectedSkills,
-}) => {
+const SkillShowcase: React.FC<SkillShowcaseProps> = ({ selectedSkills }) => {
+  const currentLevel = useSelector((state: any) => state.level.level);
+
   function findTrainingLevel(skill: skillProficienciesType) {
     const intTraining = skill.IntBoost ? 1 : 0;
     const numericalTrainingLevel = skill.LevelsBoosted.filter(
-      (level) => level <= selectedLevel
+      (level) => level <= currentLevel
     ).length;
     const currentTrainingLevel = numericalTrainingLevel + intTraining;
 

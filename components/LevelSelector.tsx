@@ -7,21 +7,12 @@ import { setLevel } from "@/app/levelSlice";
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
-interface LevelSelectorProps {
-  selectedLevel: number;
-  setSelectedLevel: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const LevelSelector: React.FC<LevelSelectorProps> = ({
-  selectedLevel,
-  setSelectedLevel,
-}) => {
+const LevelSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   const currentLevel = useSelector((state: any) => state.level.level);
 
   const handleSetLevel = (level: number) => {
-    setSelectedLevel(level);
     dispatch(setLevel({ level }));
   };
 
@@ -32,7 +23,7 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({
           variant="default"
           key={level}
           className={`col-span-1 ${
-            level <= selectedLevel
+            level <= currentLevel
               ? "opacity-100 border-black text-white"
               : "opacity-80"
           }`}
@@ -41,8 +32,6 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({
           {level}
         </Button>
       ))}
-
-      <h1 className="text-center">{currentLevel}</h1>
     </div>
   );
 };

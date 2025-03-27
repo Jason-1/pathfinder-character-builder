@@ -18,7 +18,6 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedLevel, setSelectedLevel] = useState<number>(1);
   const [selectedAncestry, setSelectedAncestry] =
     useState<string>("Select Ancestry");
   const [selectedHeritage, setSelectedHeritage] =
@@ -53,10 +52,7 @@ export default function Home() {
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
       <div className="max-w-7xl w-full">
         <Name />
-        <LevelSelector
-          selectedLevel={selectedLevel}
-          setSelectedLevel={setSelectedLevel}
-        />
+        <LevelSelector />
         <AncestrySelector
           selectedAncestry={selectedAncestry}
           setSelectedAncestry={setSelectedAncestry}
@@ -74,17 +70,13 @@ export default function Home() {
           setSelectedSubclass={setSelectedSubclass}
         />
         <Abilities
-          selectedLevel={selectedLevel}
           selectedClass={selectedClass}
           selectedAncestry={selectedAncestry}
           selectedBackground={selectedBackground}
           attributeBoostCategories={attributeBoostCategories}
           setAttributeBoostCategories={setAttributeBoostCategories}
         />
-        <SkillShowcase
-          selectedLevel={selectedLevel}
-          selectedSkills={selectedSkills}
-        />
+        <SkillShowcase selectedSkills={selectedSkills} />
         <VariantRules
           freeArchetype={freeArchetype}
           setFreeArchetype={setFreeArchetype}
@@ -92,7 +84,6 @@ export default function Home() {
           setAncestralParagon={setAncestralParagon}
         />
         <LevelFeatures
-          selectedLevel={selectedLevel}
           selectedAncestry={selectedAncestry}
           selectedBackground={selectedBackground}
           selectedClass={selectedClass}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 
 import {
   Card,
@@ -39,7 +40,6 @@ import {
 import SkillIncreases from "./SkillIncreases";
 
 interface LevelFeaturesProps {
-  selectedLevel: number;
   selectedAncestry: string;
   selectedBackground: string;
   selectedClass: string;
@@ -59,7 +59,6 @@ interface LevelFeaturesProps {
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const LevelFeatures: React.FC<LevelFeaturesProps> = ({
-  selectedLevel,
   selectedAncestry,
   selectedBackground,
   selectedClass,
@@ -71,6 +70,8 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   setSelectedSkills,
   attributeBoostCategories,
 }) => {
+  const currentLevel = useSelector((state: any) => state.level.level);
+
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
@@ -209,7 +210,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
       {levels.map((level) => (
         <Card
           className={`mt-4 ${
-            level <= selectedLevel ? "opacity-100 " : "opacity-50"
+            level <= currentLevel ? "opacity-100 " : "opacity-50"
           }`}
           key={level}
         >

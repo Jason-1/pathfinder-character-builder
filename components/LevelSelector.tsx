@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useSelector, useDispatch } from "react-redux";
-import { setLevel } from "@/app/levelSlice";
+import { setLevel } from "@/app/Slices/levelSlice";
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 

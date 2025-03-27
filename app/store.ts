@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import levelSlice from "./levelSlice";
+import levelSlice from "./Slices/levelSlice";
 
 export const store = configureStore({
   reducer: {

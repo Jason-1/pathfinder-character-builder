@@ -16,7 +16,6 @@ import { AttributeBoostsType, AttributesType } from "@/types";
 
 interface LevelSelectorProps {
   selectedClass: string;
-  selectedAncestry: string;
   selectedBackground: string;
   attributeBoostCategories: AttributeBoostsType[];
   setAttributeBoostCategories: React.Dispatch<
@@ -26,12 +25,12 @@ interface LevelSelectorProps {
 
 const Abilities: React.FC<LevelSelectorProps> = ({
   selectedClass,
-  selectedAncestry,
   selectedBackground,
   attributeBoostCategories,
   setAttributeBoostCategories,
 }) => {
   const currentLevel = useSelector((state: any) => state.level.level);
+  const currentAncestry = useSelector((state: any) => state.ancestry.ancestry);
 
   const ResetAttributeBoosts = (selectedAttributeBoosts: string) => {
     setAttributeBoostCategories((prev) =>
@@ -46,7 +45,7 @@ const Abilities: React.FC<LevelSelectorProps> = ({
   //Reset Ancestry boosts when a new class is selected
   useEffect(() => {
     ResetAttributeBoosts("Ancestry");
-  }, [selectedAncestry]);
+  }, [currentAncestry]);
 
   //Reset Background boosts when a new class is selected
   useEffect(() => {
@@ -103,7 +102,6 @@ const Abilities: React.FC<LevelSelectorProps> = ({
           <AttributeButtons
             attributeBoostCategories={attributeBoostCategories}
             setAttributeBoostCategories={setAttributeBoostCategories}
-            selectedAncestry={selectedAncestry}
             selectedBackground={selectedBackground}
             selectedClass={selectedClass}
           />

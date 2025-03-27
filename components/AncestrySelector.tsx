@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setAncestry } from "@/app/Slices/ancestrySlice";
 
 import {
   Card,
@@ -29,28 +31,32 @@ import { heritiges } from "@/data/heritiges";
 import { Button } from "./ui/button";
 
 interface AncestrySelectorProps {
-  selectedAncestry: string;
-  setSelectedAncestry: React.Dispatch<React.SetStateAction<string>>;
   selectedHeritage: string;
   setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AncestrySelector: React.FC<AncestrySelectorProps> = ({
-  selectedAncestry,
-  setSelectedAncestry,
   selectedHeritage,
   setSelectedHeritage,
 }) => {
+  const dispatch = useDispatch();
+
+  const currentAncestry = useSelector((state: any) => state.ancestry.ancestry);
+
+  const handleSetAncestry = (ancestry: string) => {
+    dispatch(setAncestry({ ancestry }));
+  };
+
   const availableHeritiges = heritiges.filter(
-    (heritigeItem) => heritigeItem.ancestryName === selectedAncestry
+    (heritigeItem) => heritigeItem.ancestryName === currentAncestry
   );
 
   return (
     <div className="mt-6 flex flex-col">
       <Dialog>
         <DialogTrigger>
-          {selectedAncestry === "Select Ancestry" ? "" : "Ancestry: "}
-          {selectedAncestry}
+          {currentAncestry === "Select Ancestry" ? "" : "Ancestry: "}
+          {currentAncestry}
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -74,7 +80,7 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
                         <DialogClose asChild>
                           <Button
                             onClick={() => {
-                              setSelectedAncestry(ancestryItem.name);
+                              handleSetAncestry(ancestryItem.name);
                               setSelectedHeritage("Select Heritage");
                             }}
                           >

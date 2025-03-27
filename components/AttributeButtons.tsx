@@ -8,6 +8,7 @@ import {
 import React, { use, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";
+import { useSelector } from "react-redux";
 
 const BoostLimits = {
   Ancestry: 2,
@@ -25,7 +26,6 @@ interface LevelSelectorProps {
   setAttributeBoostCategories: React.Dispatch<
     React.SetStateAction<AttributeBoostsType[]>
   >;
-  selectedAncestry: string;
   selectedBackground: string;
   selectedClass: string;
 }
@@ -33,10 +33,11 @@ interface LevelSelectorProps {
 const AttributeButtons: React.FC<LevelSelectorProps> = ({
   attributeBoostCategories,
   setAttributeBoostCategories,
-  selectedAncestry,
   selectedBackground,
   selectedClass,
 }) => {
+  const currentAncestry = useSelector((state: any) => state.ancestry.ancestry);
+
   //Set this true when an ancestry boost is selected that is not on the Ancestry array
   const [restrictAncestryBoosts, setRestrictAncestryBoosts] =
     useState<boolean>(false);
@@ -50,8 +51,8 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     setRestrictBackgroundBoosts(false);
   };
 
-  const currentAncestry = Ancestries.find(
-    (ancestryItem) => ancestryItem.name === selectedAncestry
+  const selectedAncestry = Ancestries.find(
+    (ancestryItem) => ancestryItem.name === currentAncestry
   );
 
   const currentBackground = Backgrounds.find(
@@ -72,8 +73,8 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
       //Check if we have selected an ancestry boost that is not in the Ancestry array.
       if (
         currentBoostCategory.name === "Ancestry" &&
-        !currentAncestry?.Attributes.includes(attribute) &&
-        !currentAncestry?.Attributes.includes("Free")
+        !selectedAncestry?.Attributes.includes(attribute) &&
+        !selectedAncestry?.Attributes.includes("Free")
       ) {
         setRestrictAncestryBoosts(true);
       }
@@ -121,7 +122,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     );
     if (
       boostsType === "Ancestry" &&
-      !currentAncestry?.Attributes.includes(boostedAttribute)
+      !selectedAncestry?.Attributes.includes(boostedAttribute)
     ) {
       setRestrictAncestryBoosts(false);
     }
@@ -153,9 +154,9 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
         ] ||
       (currentAttributeBoostCategory.name === "Ancestry" &&
         restrictAncestryBoosts &&
-        !currentAncestry?.Attributes.includes(attribute.name)) ||
+        !selectedAncestry?.Attributes.includes(attribute.name)) ||
       (currentAttributeBoostCategory.name === "Ancestry" &&
-        selectedAncestry === "Select Ancestry") ||
+        currentAncestry === "Select Ancestry") ||
       (currentAttributeBoostCategory.name === "Background" &&
         restrictBackgroundBoosts &&
         !currentBackground?.Attributes.includes(attribute.name)) ||
@@ -173,7 +174,8 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     switch (attributeName) {
       case "Ancestry":
         return (
-          currentAncestry?.Attributes?.map((attribute) => " " + attribute) || []
+          selectedAncestry?.Attributes?.map((attribute) => " " + attribute) ||
+          []
         );
       case "Background":
         return (

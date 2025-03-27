@@ -40,7 +40,6 @@ import {
 import SkillIncreases from "./SkillIncreases";
 
 interface LevelFeaturesProps {
-  selectedAncestry: string;
   selectedBackground: string;
   selectedClass: string;
   freeArchetype: boolean;
@@ -59,7 +58,6 @@ interface LevelFeaturesProps {
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const LevelFeatures: React.FC<LevelFeaturesProps> = ({
-  selectedAncestry,
   selectedBackground,
   selectedClass,
   freeArchetype,
@@ -71,6 +69,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   attributeBoostCategories,
 }) => {
   const currentLevel = useSelector((state: any) => state.level.level);
+  const currentAncestry = useSelector((state: any) => state.ancestry.ancestry);
 
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
@@ -140,9 +139,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
       case "Archetype":
         return "Archetype";
       case "Ancestry":
-        return selectedAncestry;
+        return currentAncestry;
       case "Paragon":
-        return selectedAncestry;
+        return currentAncestry;
       case "Skill":
         return "Skill";
       case "General":
@@ -218,10 +217,10 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
             <CardTitle>Level {level}</CardTitle>
             {level === 1 && (
               <CardDescription>
-                {selectedAncestry === "Select Ancestry" ? (
+                {currentAncestry === "Select Ancestry" ? (
                   <span className="text-red-700">No Ancestry selected </span>
                 ) : (
-                  selectedAncestry
+                  currentAncestry
                 )}{" "}
                 {selectedBackground === "Select Background" ? (
                   <span className="text-red-700">No Background selected </span>

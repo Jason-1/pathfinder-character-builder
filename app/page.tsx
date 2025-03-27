@@ -18,8 +18,6 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedAncestry, setSelectedAncestry] =
-    useState<string>("Select Ancestry");
   const [selectedHeritage, setSelectedHeritage] =
     useState<string>("Select Heritage");
   const [selectedBackground, setSelectedBackground] =
@@ -54,8 +52,6 @@ export default function Home() {
         <Name />
         <LevelSelector />
         <AncestrySelector
-          selectedAncestry={selectedAncestry}
-          setSelectedAncestry={setSelectedAncestry}
           selectedHeritage={selectedHeritage}
           setSelectedHeritage={setSelectedHeritage}
         />
@@ -71,7 +67,6 @@ export default function Home() {
         />
         <Abilities
           selectedClass={selectedClass}
-          selectedAncestry={selectedAncestry}
           selectedBackground={selectedBackground}
           attributeBoostCategories={attributeBoostCategories}
           setAttributeBoostCategories={setAttributeBoostCategories}
@@ -84,7 +79,6 @@ export default function Home() {
           setAncestralParagon={setAncestralParagon}
         />
         <LevelFeatures
-          selectedAncestry={selectedAncestry}
           selectedBackground={selectedBackground}
           selectedClass={selectedClass}
           freeArchetype={freeArchetype}

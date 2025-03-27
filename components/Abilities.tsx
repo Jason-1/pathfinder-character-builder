@@ -15,7 +15,6 @@ import AttributeButtons from "./AttributeButtons";
 import { AttributeBoostsType, AttributesType } from "@/types";
 
 interface LevelSelectorProps {
-  selectedClass: string;
   selectedBackground: string;
   attributeBoostCategories: AttributeBoostsType[];
   setAttributeBoostCategories: React.Dispatch<
@@ -24,13 +23,13 @@ interface LevelSelectorProps {
 }
 
 const Abilities: React.FC<LevelSelectorProps> = ({
-  selectedClass,
   selectedBackground,
   attributeBoostCategories,
   setAttributeBoostCategories,
 }) => {
-  const currentLevel = useSelector((state: any) => state.level.level);
-  const currentAncestry = useSelector((state: any) => state.ancestry.ancestry);
+  const selectedLevel = useSelector((state: any) => state.level.level);
+  const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
+  const selectedClass = useSelector((state: any) => state.class.class);
 
   const ResetAttributeBoosts = (selectedAttributeBoosts: string) => {
     setAttributeBoostCategories((prev) =>
@@ -45,7 +44,7 @@ const Abilities: React.FC<LevelSelectorProps> = ({
   //Reset Ancestry boosts when a new class is selected
   useEffect(() => {
     ResetAttributeBoosts("Ancestry");
-  }, [currentAncestry]);
+  }, [selectedAncestry]);
 
   //Reset Background boosts when a new class is selected
   useEffect(() => {
@@ -63,10 +62,10 @@ const Abilities: React.FC<LevelSelectorProps> = ({
     attributeBoostCategories.forEach((boost) => {
       if (boost.boosts.includes(attributeName)) {
         if (
-          (boost.name === "Level5" && currentLevel < 5) ||
-          (boost.name === "Level10" && currentLevel < 10) ||
-          (boost.name === "Level15" && currentLevel < 15) ||
-          (boost.name === "Level20" && currentLevel < 20)
+          (boost.name === "Level5" && selectedLevel < 5) ||
+          (boost.name === "Level10" && selectedLevel < 10) ||
+          (boost.name === "Level15" && selectedLevel < 15) ||
+          (boost.name === "Level20" && selectedLevel < 20)
         ) {
           return;
         }
@@ -103,7 +102,6 @@ const Abilities: React.FC<LevelSelectorProps> = ({
             attributeBoostCategories={attributeBoostCategories}
             setAttributeBoostCategories={setAttributeBoostCategories}
             selectedBackground={selectedBackground}
-            selectedClass={selectedClass}
           />
         </DialogContent>
       </Dialog>

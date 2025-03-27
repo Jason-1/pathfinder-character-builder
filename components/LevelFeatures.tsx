@@ -41,7 +41,6 @@ import SkillIncreases from "./SkillIncreases";
 
 interface LevelFeaturesProps {
   selectedBackground: string;
-  selectedClass: string;
   freeArchetype: boolean;
   ancestralParagon: boolean;
   selectedFeats: FeatsType[];
@@ -59,7 +58,6 @@ const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   selectedBackground,
-  selectedClass,
   freeArchetype,
   ancestralParagon,
   selectedFeats,
@@ -68,8 +66,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   setSelectedSkills,
   attributeBoostCategories,
 }) => {
-  const currentLevel = useSelector((state: any) => state.level.level);
-  const currentAncestry = useSelector((state: any) => state.ancestry.ancestry);
+  const selectedlevel = useSelector((state: any) => state.level.level);
+  const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
+  const selectedClass = useSelector((state: any) => state.class.class);
 
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
@@ -139,9 +138,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
       case "Archetype":
         return "Archetype";
       case "Ancestry":
-        return currentAncestry;
+        return selectedAncestry;
       case "Paragon":
-        return currentAncestry;
+        return selectedAncestry;
       case "Skill":
         return "Skill";
       case "General":
@@ -209,7 +208,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
       {levels.map((level) => (
         <Card
           className={`mt-4 ${
-            level <= currentLevel ? "opacity-100 " : "opacity-50"
+            level <= selectedlevel ? "opacity-100 " : "opacity-50"
           }`}
           key={level}
         >
@@ -217,10 +216,10 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
             <CardTitle>Level {level}</CardTitle>
             {level === 1 && (
               <CardDescription>
-                {currentAncestry === "Select Ancestry" ? (
+                {selectedAncestry === "Select Ancestry" ? (
                   <span className="text-red-700">No Ancestry selected </span>
                 ) : (
-                  currentAncestry
+                  selectedAncestry
                 )}{" "}
                 {selectedBackground === "Select Background" ? (
                   <span className="text-red-700">No Background selected </span>
@@ -246,7 +245,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 <SkillIncreases
                   currentLevel={-1}
                   selectedBackground={selectedBackground}
-                  selectedClass={selectedClass}
                   availableBoosts={1}
                   selectedSkills={selectedSkills}
                   setSelectedSkills={setSelectedSkills}
@@ -256,7 +254,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 <SkillIncreases
                   currentLevel={0}
                   selectedBackground={selectedBackground}
-                  selectedClass={selectedClass}
                   availableBoosts={1}
                   selectedSkills={selectedSkills}
                   setSelectedSkills={setSelectedSkills}
@@ -266,7 +263,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 <SkillIncreases
                   currentLevel={level}
                   selectedBackground={selectedBackground}
-                  selectedClass={selectedClass}
                   availableBoosts={
                     (selectedClassData?.skills?.additional ?? 0) +
                     level1Intelligence()
@@ -283,7 +279,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
                 <SkillIncreases
                   currentLevel={level}
                   selectedBackground={selectedBackground}
-                  selectedClass={selectedClass}
                   availableBoosts={1}
                   selectedSkills={selectedSkills}
                   setSelectedSkills={setSelectedSkills}
@@ -298,7 +293,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
               <SkillIncreases
                 currentLevel={level}
                 selectedBackground={selectedBackground}
-                selectedClass={selectedClass}
                 availableBoosts={1}
                 selectedSkills={selectedSkills}
                 setSelectedSkills={setSelectedSkills}

@@ -18,11 +18,8 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedHeritage, setSelectedHeritage] =
-    useState<string>("Select Heritage");
   const [selectedBackground, setSelectedBackground] =
     useState<string>("Select Background");
-  const [selectedClass, setSelectedClass] = useState<string>("Select Class");
   const [selectedSubclass, setSelectedSubclass] =
     useState<string>("Select Subclass");
   const [attributeBoostCategories, setAttributeBoostCategories] = useState<
@@ -46,27 +43,23 @@ export default function Home() {
 
   //Address code smell
 
+  //Resetting attributes needs to reset int skill boosts
+
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
       <div className="max-w-7xl w-full">
         <Name />
         <LevelSelector />
-        <AncestrySelector
-          selectedHeritage={selectedHeritage}
-          setSelectedHeritage={setSelectedHeritage}
-        />
+        <AncestrySelector />
         <BackgroundSelector
           selectedBackground={selectedBackground}
           setSelectedBackground={setSelectedBackground}
         />
         <ClassSelector
-          selectedClass={selectedClass}
-          setSelectedClass={setSelectedClass}
           selectedSubclass={selectedSubclass}
           setSelectedSubclass={setSelectedSubclass}
         />
         <Abilities
-          selectedClass={selectedClass}
           selectedBackground={selectedBackground}
           attributeBoostCategories={attributeBoostCategories}
           setAttributeBoostCategories={setAttributeBoostCategories}
@@ -80,7 +73,6 @@ export default function Home() {
         />
         <LevelFeatures
           selectedBackground={selectedBackground}
-          selectedClass={selectedClass}
           freeArchetype={freeArchetype}
           ancestralParagon={ancestralParagon}
           selectedFeats={selectedFeats}

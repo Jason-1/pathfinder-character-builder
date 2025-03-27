@@ -3,6 +3,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setAncestry } from "@/app/Slices/ancestrySlice";
+import { setHeritage } from "@/app/Slices/heritageSlice";
 
 import {
   Card,
@@ -30,33 +31,30 @@ import { Ancestries } from "@/data";
 import { heritiges } from "@/data/heritiges";
 import { Button } from "./ui/button";
 
-interface AncestrySelectorProps {
-  selectedHeritage: string;
-  setSelectedHeritage: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const AncestrySelector: React.FC<AncestrySelectorProps> = ({
-  selectedHeritage,
-  setSelectedHeritage,
-}) => {
+const AncestrySelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const currentAncestry = useSelector((state: any) => state.ancestry.ancestry);
+  const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
+  const selectedHeritage = useSelector((state: any) => state.heritage.heritage);
 
   const handleSetAncestry = (ancestry: string) => {
     dispatch(setAncestry({ ancestry }));
   };
 
+  const handleSetHeritage = (heritage: string) => {
+    dispatch(setHeritage({ heritage }));
+  };
+
   const availableHeritiges = heritiges.filter(
-    (heritigeItem) => heritigeItem.ancestryName === currentAncestry
+    (heritigeItem) => heritigeItem.ancestryName === selectedAncestry
   );
 
   return (
     <div className="mt-6 flex flex-col">
       <Dialog>
         <DialogTrigger>
-          {currentAncestry === "Select Ancestry" ? "" : "Ancestry: "}
-          {currentAncestry}
+          {selectedAncestry === "Select Ancestry" ? "" : "Ancestry: "}
+          {selectedAncestry}
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -81,7 +79,7 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
                           <Button
                             onClick={() => {
                               handleSetAncestry(ancestryItem.name);
-                              setSelectedHeritage("Select Heritage");
+                              handleSetHeritage("Select Heritage");
                             }}
                           >
                             Confirm Selection
@@ -124,7 +122,7 @@ const AncestrySelector: React.FC<AncestrySelectorProps> = ({
                         <DialogClose asChild>
                           <Button
                             onClick={() =>
-                              setSelectedHeritage(heritigeItem.heritageName)
+                              handleSetHeritage(heritigeItem.heritageName)
                             }
                           >
                             Confirm Selection

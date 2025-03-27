@@ -26,20 +26,26 @@ import {
 
 import { Classes } from "@/data";
 import { Button } from "./ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import { setClass } from "@/app/Slices/classSlice";
 
 interface ClassSelectorProps {
-  selectedClass: string;
-  setSelectedClass: React.Dispatch<React.SetStateAction<string>>;
   selectedSubclass: string;
   setSelectedSubclass: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ClassSelector: React.FC<ClassSelectorProps> = ({
-  selectedClass,
-  setSelectedClass,
   selectedSubclass,
   setSelectedSubclass,
 }) => {
+  const dispatch = useDispatch();
+
+  const selectedClass = useSelector((state: any) => state.class.class);
+
+  const handleSetClass = (classString: string) => {
+    dispatch(setClass({ class: classString }));
+  };
+
   const currentClass = Classes.find(
     (currentClass) => currentClass.name === selectedClass
   );
@@ -70,7 +76,7 @@ const ClassSelector: React.FC<ClassSelectorProps> = ({
                         <DialogClose asChild>
                           <Button
                             onClick={() => {
-                              setSelectedClass(`${classItem.name}`);
+                              handleSetClass(classItem.name);
                               setSelectedSubclass("Select Subclass");
                             }}
                           >

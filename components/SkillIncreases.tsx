@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +15,6 @@ import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
 interface SkillIncreaseProps {
   currentLevel: number;
   selectedBackground: string;
-  selectedClass: string;
   availableBoosts: number;
   selectedSkills: skillProficienciesType[];
   setSelectedSkills: React.Dispatch<
@@ -27,13 +27,14 @@ interface SkillIncreaseProps {
 const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   currentLevel,
   selectedBackground,
-  selectedClass,
   availableBoosts,
   selectedSkills,
   setSelectedSkills,
   increaseHeaderText,
   boostType,
 }) => {
+  const selectedClass = useSelector((state: any) => state.class.class);
+
   function findTrainingLevel(numericalTraining: number) {
     switch (numericalTraining) {
       case 0:

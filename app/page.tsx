@@ -22,8 +22,6 @@ export default function Home() {
     AttributeBoostsType[]
   >(InitialAttributeBoosts);
   const [selectedFeats, setSelectedFeats] = useState<FeatsType[]>(Feats);
-  const [freeArchetype, setFreeArchetype] = useState<boolean>(false);
-  const [ancestralParagon, setAncestralParagon] = useState<boolean>(false);
   const [selectedSkills, setSelectedSkills] =
     useState<skillProficienciesType[]>(skillProficiencies);
 
@@ -54,15 +52,8 @@ export default function Home() {
           setAttributeBoostCategories={setAttributeBoostCategories}
         />
         <SkillShowcase selectedSkills={selectedSkills} />
-        <VariantRules
-          freeArchetype={freeArchetype}
-          setFreeArchetype={setFreeArchetype}
-          ancestralParagon={ancestralParagon}
-          setAncestralParagon={setAncestralParagon}
-        />
+        <VariantRules />
         <LevelFeatures
-          freeArchetype={freeArchetype}
-          ancestralParagon={ancestralParagon}
           selectedFeats={selectedFeats}
           setSelectedFeats={setSelectedFeats}
           selectedSkills={selectedSkills}

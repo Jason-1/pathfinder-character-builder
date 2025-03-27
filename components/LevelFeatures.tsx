@@ -40,8 +40,6 @@ import {
 import SkillIncreases from "./SkillIncreases";
 
 interface LevelFeaturesProps {
-  freeArchetype: boolean;
-  ancestralParagon: boolean;
   selectedFeats: FeatsType[];
   setSelectedFeats: React.Dispatch<React.SetStateAction<FeatsType[]>>;
   selectedSkills: skillProficienciesType[];
@@ -56,8 +54,6 @@ interface LevelFeaturesProps {
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const LevelFeatures: React.FC<LevelFeaturesProps> = ({
-  freeArchetype,
-  ancestralParagon,
   selectedFeats,
   setSelectedFeats,
   selectedSkills,
@@ -69,6 +65,13 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   const selectedClass = useSelector((state: any) => state.class.class);
   const selectedBackground = useSelector(
     (state: any) => state.background.background
+  );
+  const freeArchetype = useSelector(
+    (state: any) => state.freeArchetype.freeArchetype
+  );
+
+  const ancestralParagon = useSelector(
+    (state: any) => state.ancestralParagon.ancestralParagon
   );
 
   const selectedClassData = Classes.find(

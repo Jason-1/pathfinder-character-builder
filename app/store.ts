@@ -5,6 +5,8 @@ import heritageSlice from "./Slices/heritageSlice";
 import classSlice from "./Slices/classSlice";
 import backgroundSlice from "./Slices/backgroundSlice";
 import subclassSlice from "./Slices/subclassSlice";
+import freeArchetypeSlice from "./Slices/freeArchetypeSlice";
+import ancestralParagonSlice from "./Slices/ancestralParagonSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +16,7 @@ export const store = configureStore({
     class: classSlice,
     background: backgroundSlice,
     subclass: subclassSlice,
+    freeArchetype: freeArchetypeSlice,
+    ancestralParagon: ancestralParagonSlice,
   },
 });

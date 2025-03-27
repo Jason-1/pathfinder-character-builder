@@ -18,8 +18,6 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedBackground, setSelectedBackground] =
-    useState<string>("Select Background");
   const [selectedSubclass, setSelectedSubclass] =
     useState<string>("Select Subclass");
   const [attributeBoostCategories, setAttributeBoostCategories] = useState<
@@ -51,16 +49,12 @@ export default function Home() {
         <Name />
         <LevelSelector />
         <AncestrySelector />
-        <BackgroundSelector
-          selectedBackground={selectedBackground}
-          setSelectedBackground={setSelectedBackground}
-        />
+        <BackgroundSelector />
         <ClassSelector
           selectedSubclass={selectedSubclass}
           setSelectedSubclass={setSelectedSubclass}
         />
         <Abilities
-          selectedBackground={selectedBackground}
           attributeBoostCategories={attributeBoostCategories}
           setAttributeBoostCategories={setAttributeBoostCategories}
         />
@@ -72,7 +66,6 @@ export default function Home() {
           setAncestralParagon={setAncestralParagon}
         />
         <LevelFeatures
-          selectedBackground={selectedBackground}
           freeArchetype={freeArchetype}
           ancestralParagon={ancestralParagon}
           selectedFeats={selectedFeats}

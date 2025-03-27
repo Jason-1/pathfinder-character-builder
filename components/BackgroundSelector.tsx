@@ -25,16 +25,20 @@ import {
 } from "@/components/ui/accordion";
 import { Backgrounds } from "@/data";
 import { Button } from "./ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import { setBackground } from "@/app/Slices/backgroundSlice";
 
-interface BackgroundSelectorProps {
-  selectedBackground: string;
-  setSelectedBackground: React.Dispatch<React.SetStateAction<string>>;
-}
+const BackgroundSelector: React.FC = ({}) => {
+  const dispatch = useDispatch();
 
-const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
-  selectedBackground,
-  setSelectedBackground,
-}) => {
+  const selectedBackground = useSelector(
+    (state: any) => state.background.background
+  );
+
+  const handleSetBackground = (background: string) => {
+    dispatch(setBackground({ background }));
+  };
+
   return (
     <div className="mt-6 flex flex-col">
       <Dialog>
@@ -64,7 +68,7 @@ const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
                         <DialogClose asChild>
                           <Button
                             onClick={() =>
-                              setSelectedBackground(backgroundItem.name)
+                              handleSetBackground(backgroundItem.name)
                             }
                           >
                             Confirm Selection
@@ -84,3 +88,6 @@ const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
 };
 
 export default BackgroundSelector;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}

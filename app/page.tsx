@@ -18,8 +18,6 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedSubclass, setSelectedSubclass] =
-    useState<string>("Select Subclass");
   const [attributeBoostCategories, setAttributeBoostCategories] = useState<
     AttributeBoostsType[]
   >(InitialAttributeBoosts);
@@ -50,10 +48,7 @@ export default function Home() {
         <LevelSelector />
         <AncestrySelector />
         <BackgroundSelector />
-        <ClassSelector
-          selectedSubclass={selectedSubclass}
-          setSelectedSubclass={setSelectedSubclass}
-        />
+        <ClassSelector />
         <Abilities
           attributeBoostCategories={attributeBoostCategories}
           setAttributeBoostCategories={setAttributeBoostCategories}

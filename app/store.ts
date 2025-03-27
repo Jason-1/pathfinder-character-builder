@@ -4,6 +4,7 @@ import ancestrySlice from "./Slices/ancestrySlice";
 import heritageSlice from "./Slices/heritageSlice";
 import classSlice from "./Slices/classSlice";
 import backgroundSlice from "./Slices/backgroundSlice";
+import subclassSlice from "./Slices/subclassSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     heritage: heritageSlice,
     class: classSlice,
     background: backgroundSlice,
+    subclass: subclassSlice,
   },
 });

@@ -28,22 +28,20 @@ import { Classes } from "@/data";
 import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/Slices/classSlice";
+import { setSubclass } from "@/app/Slices/subclassSlice";
 
-interface ClassSelectorProps {
-  selectedSubclass: string;
-  setSelectedSubclass: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const ClassSelector: React.FC<ClassSelectorProps> = ({
-  selectedSubclass,
-  setSelectedSubclass,
-}) => {
+const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   const selectedClass = useSelector((state: any) => state.class.class);
+  const selectedSubclass = useSelector((state: any) => state.subclass.subclass);
 
   const handleSetClass = (classString: string) => {
     dispatch(setClass({ class: classString }));
+  };
+
+  const handleSetSubclass = (subclass: string) => {
+    dispatch(setSubclass({ subclass: subclass }));
   };
 
   const currentClass = Classes.find(
@@ -77,7 +75,7 @@ const ClassSelector: React.FC<ClassSelectorProps> = ({
                           <Button
                             onClick={() => {
                               handleSetClass(classItem.name);
-                              setSelectedSubclass("Select Subclass");
+                              handleSetSubclass("Select Subclass");
                             }}
                           >
                             Confirm Selection
@@ -117,7 +115,7 @@ const ClassSelector: React.FC<ClassSelectorProps> = ({
                           <DialogClose asChild>
                             <Button
                               onClick={() => {
-                                setSelectedSubclass(`${subClass}`);
+                                handleSetSubclass(`${subClass}`);
                               }}
                             >
                               Confirm Selection

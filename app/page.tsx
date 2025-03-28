@@ -18,7 +18,6 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedFeats, setSelectedFeats] = useState<FeatsType[]>(Feats);
   const [selectedSkills, setSelectedSkills] =
     useState<skillProficienciesType[]>(skillProficiencies);
 
@@ -49,8 +48,6 @@ export default function Home() {
         <SkillShowcase selectedSkills={selectedSkills} />
         <VariantRules />
         <LevelFeatures
-          selectedFeats={selectedFeats}
-          setSelectedFeats={setSelectedFeats}
           selectedSkills={selectedSkills}
           setSelectedSkills={setSelectedSkills}
         />

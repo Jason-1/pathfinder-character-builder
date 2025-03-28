@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Card,
@@ -33,10 +33,9 @@ import {
   skillProficienciesType,
 } from "@/types";
 import SkillIncreases from "./SkillIncreases";
+import { updateFeat } from "@/app/Slices/selectedFeatsSlice";
 
 interface LevelFeaturesProps {
-  selectedFeats: FeatsType[];
-  setSelectedFeats: React.Dispatch<React.SetStateAction<FeatsType[]>>;
   selectedSkills: skillProficienciesType[];
   setSelectedSkills: React.Dispatch<
     React.SetStateAction<skillProficienciesType[]>
@@ -48,11 +47,12 @@ interface LevelFeaturesProps {
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const LevelFeatures: React.FC<LevelFeaturesProps> = ({
-  selectedFeats,
-  setSelectedFeats,
   selectedSkills,
   setSelectedSkills,
 }) => {
+  const dispatch = useDispatch();
+
+  //Get required states
   const selectedlevel = useSelector((state: any) => state.level.level);
   const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
   const selectedClass = useSelector((state: any) => state.class.class);
@@ -62,11 +62,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   const freeArchetype = useSelector(
     (state: any) => state.freeArchetype.freeArchetype
   );
-
   const ancestralParagon = useSelector(
     (state: any) => state.ancestralParagon.ancestralParagon
   );
-
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
@@ -74,9 +72,10 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories
   );
-  const selectedFeatsREDUX = useSelector(
+  const selectedFeats = useSelector(
     (state: { selectedFeats: FeatsType[] }) => state.selectedFeats
   );
+  //------------------------------------------------------------------------------//
 
   function level1Intelligence() {
     let i = 0;
@@ -177,31 +176,20 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     }
   }
 
-  //TODO - Set the feat when handleClick is called
+  const handleSetFeats = (
+    level: number,
+    featType: string,
+    featName: string
+  ) => {
+    dispatch(updateFeat({ level, featType, featName }));
+  };
+
   function handleClick(
     level: number,
     featType: string,
     featName: string
   ): void {
-    setSelectedFeats((prev) =>
-      prev.map((currentLevel) => {
-        if (currentLevel.level === level) {
-          return {
-            ...currentLevel,
-            feats: currentLevel.feats.map((feat) => {
-              if (feat.type === featType) {
-                // Return updated feat with new selected value
-                return { ...feat, selected: featName };
-              }
-              // Return original feat if type doesn't match
-              return feat;
-            }),
-          };
-        }
-        // Return original level if level doesn't match
-        return currentLevel;
-      })
-    );
+    handleSetFeats(level, featType, featName);
   }
 
   //pass in the correct number of available boosts

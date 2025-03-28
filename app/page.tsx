@@ -20,8 +20,11 @@ export default function Home() {
   // 6. Equipment
   // 7. Calculate defence and offence
 
+  // Look into RootState
+
   //BUGFIXES
-  //Resetting attributes needs to reset int skill boosts
+  // Basic states using the any type
+  // Resetting attributes needs to reset int skill boosts
   // If class is changed, reset all skill selections
   // Changing Background or class should reset skill proficiency
 

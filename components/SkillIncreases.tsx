@@ -97,7 +97,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     } else {
       handleUpdateSkillIncrease(skill);
     }
-    console.log(selectedSkills);
   };
 
   function currentBoostsUsed() {

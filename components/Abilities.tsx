@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Attributes } from "@/data";
 import { Button } from "./ui/button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Dialog,
@@ -12,19 +12,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import AttributeButtons from "./AttributeButtons";
-import { AttributeBoostsType, AttributesType } from "@/types";
+import { AttributeBoostsType, AttributesType, Category } from "@/types";
+import { resetSpecificAttributeBoost } from "@/app/Slices/attributeBoostCategoriesSlice";
 
-interface LevelSelectorProps {
-  attributeBoostCategories: AttributeBoostsType[];
-  setAttributeBoostCategories: React.Dispatch<
-    React.SetStateAction<AttributeBoostsType[]>
-  >;
-}
+const Abilities: React.FC = ({}) => {
+  const dispatch = useDispatch();
 
-const Abilities: React.FC<LevelSelectorProps> = ({
-  attributeBoostCategories,
-  setAttributeBoostCategories,
-}) => {
   const selectedLevel = useSelector((state: any) => state.level.level);
   const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
   const selectedClass = useSelector((state: any) => state.class.class);
@@ -32,35 +25,34 @@ const Abilities: React.FC<LevelSelectorProps> = ({
     (state: any) => state.background.background
   );
 
-  const ResetAttributeBoosts = (selectedAttributeBoosts: string) => {
-    setAttributeBoostCategories((prev) =>
-      prev.map((boost) =>
-        boost.name === selectedAttributeBoosts
-          ? { ...boost, boosts: [] }
-          : boost
-      )
-    );
+  const attributeBoosts = useSelector(
+    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
+      state.attributeBoostCategories
+  );
+
+  const handleResetAttributes = (attribute: Category) => {
+    dispatch(resetSpecificAttributeBoost(attribute));
   };
 
   //Reset Ancestry boosts when a new class is selected
   useEffect(() => {
-    ResetAttributeBoosts("Ancestry");
+    handleResetAttributes("Ancestry");
   }, [selectedAncestry]);
 
   //Reset Background boosts when a new class is selected
   useEffect(() => {
-    ResetAttributeBoosts("Background");
+    handleResetAttributes("Background");
   }, [selectedBackground]);
 
   //Reset Class boosts when a new class is selected
   useEffect(() => {
-    ResetAttributeBoosts("Class");
+    handleResetAttributes("Class");
   }, [selectedClass]);
 
   const currentAttributeBoosts = (attributeName: AttributesType): number => {
     let i = 0;
     let partial = false;
-    attributeBoostCategories.forEach((boost) => {
+    attributeBoosts.forEach((boost) => {
       if (boost.boosts.includes(attributeName)) {
         if (
           (boost.name === "Level5" && selectedLevel < 5) ||
@@ -99,11 +91,7 @@ const Abilities: React.FC<LevelSelectorProps> = ({
               Click on the attribute to increase it.
             </DialogDescription>
           </DialogHeader>
-          <AttributeButtons
-            attributeBoostCategories={attributeBoostCategories}
-            setAttributeBoostCategories={setAttributeBoostCategories}
-            selectedBackground={selectedBackground}
-          />
+          <AttributeButtons />
         </DialogContent>
       </Dialog>
     </div>

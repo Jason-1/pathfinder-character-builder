@@ -46,7 +46,6 @@ interface LevelFeaturesProps {
   setSelectedSkills: React.Dispatch<
     React.SetStateAction<skillProficienciesType[]>
   >;
-  attributeBoostCategories: AttributeBoostsType[];
 }
 
 //use attributeBoostCategories to check if the current level has boosted intelligence. If it has allow a single skill increase
@@ -58,7 +57,6 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   setSelectedFeats,
   selectedSkills,
   setSelectedSkills,
-  attributeBoostCategories,
 }) => {
   const selectedlevel = useSelector((state: any) => state.level.level);
   const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
@@ -77,10 +75,14 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
+  const attributeBoosts = useSelector(
+    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
+      state.attributeBoostCategories
+  );
 
   function level1Intelligence() {
     let i = 0;
-    attributeBoostCategories.forEach((boost) => {
+    attributeBoosts.forEach((boost) => {
       if (boost.boosts.includes("Intelligence")) {
         if (
           boost.name === "Level5" ||
@@ -97,7 +99,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   }
 
   function intelligenceBoosted(level: number) {
-    const boostForCurrentLevel = attributeBoostCategories.find(
+    const boostForCurrentLevel = attributeBoosts.find(
       (boost) => boost.name === `Level${level}`
     );
     let initialBoostCount = 4;
@@ -108,7 +110,7 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
     if (boostForCurrentLevel?.boosts.includes("Intelligence")) {
       //Check if it was a partial boost
       for (let i = 0; i < currentBoostCount; i++) {
-        if (attributeBoostCategories[i].boosts.includes("Intelligence")) {
+        if (attributeBoosts[i].boosts.includes("Intelligence")) {
           if (totalBoosts >= 4 && !partial) {
             partial = true;
           } else {

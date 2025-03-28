@@ -7,6 +7,7 @@ import backgroundSlice from "./Slices/backgroundSlice";
 import subclassSlice from "./Slices/subclassSlice";
 import freeArchetypeSlice from "./Slices/freeArchetypeSlice";
 import ancestralParagonSlice from "./Slices/ancestralParagonSlice";
+import attributeBoostCategoriesSlice from "./Slices/attributeBoostCategoriesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     subclass: subclassSlice,
     freeArchetype: freeArchetypeSlice,
     ancestralParagon: ancestralParagonSlice,
+    attributeBoostCategories: attributeBoostCategoriesSlice,
   },
 });

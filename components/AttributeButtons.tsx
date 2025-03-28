@@ -1,14 +1,13 @@
-import {
-  Ancestries,
-  Attributes,
-  Backgrounds,
-  Classes,
-  InitialAttributeBoosts,
-} from "@/data";
-import React, { use, useEffect, useState } from "react";
+import { Ancestries, Attributes, Backgrounds, Classes } from "@/data";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeAttributeBoost,
+  resetAttributeBoosts,
+  setAttributeBoost,
+} from "@/app/Slices/attributeBoostCategoriesSlice";
 
 const BoostLimits = {
   Ancestry: 2,
@@ -21,19 +20,9 @@ const BoostLimits = {
   Level20: 4,
 };
 
-interface LevelSelectorProps {
-  attributeBoostCategories: AttributeBoostsType[];
-  setAttributeBoostCategories: React.Dispatch<
-    React.SetStateAction<AttributeBoostsType[]>
-  >;
-  selectedBackground: string;
-}
+const AttributeButtons: React.FC = ({}) => {
+  const dispatch = useDispatch();
 
-const AttributeButtons: React.FC<LevelSelectorProps> = ({
-  attributeBoostCategories,
-  setAttributeBoostCategories,
-  selectedBackground,
-}) => {
   //Set this true when an ancestry boost is selected that is not on the Ancestry array
   const [restrictAncestryBoosts, setRestrictAncestryBoosts] =
     useState<boolean>(false);
@@ -42,13 +31,34 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     useState<boolean>(false);
 
   const ResetAllAttributeBoosts = () => {
-    setAttributeBoostCategories(InitialAttributeBoosts);
+    dispatch(resetAttributeBoosts());
     setRestrictAncestryBoosts(false);
     setRestrictBackgroundBoosts(false);
   };
 
   const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
+  const selectedBackground = useSelector(
+    (state: any) => state.background.background
+  );
   const selectedClass = useSelector((state: any) => state.class.class);
+  const attributeBoosts = useSelector(
+    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
+      state.attributeBoostCategories
+  );
+
+  const handleSetAttributes = (
+    boostType: Category,
+    attribute: AttributesType
+  ) => {
+    dispatch(setAttributeBoost({ boostType, attribute }));
+  };
+
+  const handleRemoveAttribute = (
+    boostType: Category,
+    attribute: AttributesType
+  ) => {
+    dispatch(removeAttributeBoost({ boostType, attribute }));
+  };
 
   const currentAncestry = Ancestries.find(
     (ancestryItem) => ancestryItem.name === selectedAncestry
@@ -63,7 +73,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
   );
 
   function handleClick(attribute: AttributesType, boostsType: Category): void {
-    const currentBoostCategory = attributeBoostCategories.find(
+    const currentBoostCategory = attributeBoosts.find(
       ({ name }) => name === boostsType
     );
 
@@ -91,34 +101,20 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
         !currentBoostCategory.boosts.includes(attribute) &&
         currentBoostCategory.boosts.length < BoostLimits[boostsType]
       ) {
-        setAttributeBoostCategories((prev) =>
-          prev.map((boost) =>
-            boost.name === boostsType
-              ? { ...boost, boosts: [...boost.boosts, attribute] }
-              : boost
-          )
-        );
+        handleSetAttributes(boostsType, attribute);
+
         //if we select an attribute that is already boosted, remove it
       } else if (currentBoostCategory.boosts.includes(attribute)) {
-        handleBoostRemoval(attribute, boostsType);
+        handleBoostRemoval(boostsType, attribute);
       }
     }
   }
 
   function handleBoostRemoval(
-    boostedAttribute: AttributesType,
-    boostsType: Category
+    boostsType: Category,
+    boostedAttribute: AttributesType
   ): void {
-    setAttributeBoostCategories((prev) =>
-      prev.map((boost) =>
-        boost.name === boostsType
-          ? {
-              ...boost,
-              boosts: boost.boosts.filter((b) => b !== boostedAttribute),
-            }
-          : boost
-      )
-    );
+    handleRemoveAttribute(boostsType, boostedAttribute);
     if (
       boostsType === "Ancestry" &&
       !currentAncestry?.Attributes.includes(boostedAttribute)
@@ -138,7 +134,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
     attribute: { name: AttributesType }
   ): boolean {
     if (
-      attributeBoostCategories.find(
+      attributeBoosts.find(
         ({ name, boosts }) =>
           name === currentAttributeBoostCategory.name &&
           boosts.includes(attribute.name)
@@ -195,7 +191,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
       <Button className="max-w-44" onClick={ResetAllAttributeBoosts}>
         Reset Attributes
       </Button>
-      {attributeBoostCategories.map((currentAttributeBoostCategory) => (
+      {attributeBoosts.map((currentAttributeBoostCategory) => (
         <React.Fragment key={currentAttributeBoostCategory.name}>
           <p
             className="mt-6"
@@ -214,7 +210,7 @@ const AttributeButtons: React.FC<LevelSelectorProps> = ({
                 key={attribute.name}
                 disabled={isDisabled(currentAttributeBoostCategory, attribute)}
                 className={`col-span-1 ${
-                  attributeBoostCategories.find(
+                  attributeBoosts.find(
                     ({ name, boosts }) =>
                       name === currentAttributeBoostCategory.name &&
                       boosts.includes(attribute.name)

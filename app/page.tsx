@@ -18,9 +18,6 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [attributeBoostCategories, setAttributeBoostCategories] = useState<
-    AttributeBoostsType[]
-  >(InitialAttributeBoosts);
   const [selectedFeats, setSelectedFeats] = useState<FeatsType[]>(Feats);
   const [selectedSkills, setSelectedSkills] =
     useState<skillProficienciesType[]>(skillProficiencies);
@@ -47,10 +44,7 @@ export default function Home() {
         <AncestrySelector />
         <BackgroundSelector />
         <ClassSelector />
-        <Abilities
-          attributeBoostCategories={attributeBoostCategories}
-          setAttributeBoostCategories={setAttributeBoostCategories}
-        />
+        <Abilities />
         <SkillShowcase selectedSkills={selectedSkills} />
         <VariantRules />
         <LevelFeatures
@@ -58,7 +52,6 @@ export default function Home() {
           setSelectedFeats={setSelectedFeats}
           selectedSkills={selectedSkills}
           setSelectedSkills={setSelectedSkills}
-          attributeBoostCategories={attributeBoostCategories}
         />
       </div>
     </main>

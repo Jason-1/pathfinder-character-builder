@@ -23,7 +23,6 @@ export default function Home() {
     useState<skillProficienciesType[]>(skillProficiencies);
 
   //TODO -
-  // If class is changed, reset all skill selections
   // 2.1 - Implement Archetype feats
   // 3. Skills.
   // 3.1 Display all skills and their training level
@@ -34,7 +33,9 @@ export default function Home() {
 
   //Address code smell
 
+  //BUGFIXES
   //Resetting attributes needs to reset int skill boosts
+  // If class is changed, reset all skill selections
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">

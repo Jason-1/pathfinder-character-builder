@@ -26,12 +26,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ClassFeats } from "@/data/classFeats";
-import {
-  Classes,
-  Feats,
-  skillProficiencies,
-  skillIncreaseLevels,
-} from "@/data";
+import { Classes, Feats, skillIncreaseLevels } from "@/data";
 import {
   AttributeBoostsType,
   FeatsType,
@@ -78,6 +73,9 @@ const LevelFeatures: React.FC<LevelFeaturesProps> = ({
   const attributeBoosts = useSelector(
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories
+  );
+  const selectedFeatsREDUX = useSelector(
+    (state: { selectedFeats: FeatsType[] }) => state.selectedFeats
   );
 
   function level1Intelligence() {

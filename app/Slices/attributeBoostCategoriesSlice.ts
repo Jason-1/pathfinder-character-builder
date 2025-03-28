@@ -37,7 +37,7 @@ const attributeBoostCategoriesSlice = createSlice({
         }
       }
     },
-    resetAttributeBoosts: (state) => {
+    resetAttributeBoosts: () => {
       return initialState;
     },
     resetSpecificAttributeBoost: (state, action) => {

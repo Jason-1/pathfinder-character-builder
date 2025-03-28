@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Dialog,
   DialogContent,
@@ -11,29 +11,42 @@ import {
 import { Backgrounds, Classes } from "@/data";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
+import {
+  updateIntelligenceSkillBoost,
+  updateSkillBoost,
+} from "@/app/Slices/selectedSkillsSlice";
 
 interface SkillIncreaseProps {
   currentLevel: number;
-  selectedBackground: string;
   availableBoosts: number;
-  selectedSkills: skillProficienciesType[];
-  setSelectedSkills: React.Dispatch<
-    React.SetStateAction<skillProficienciesType[]>
-  >;
   increaseHeaderText: string;
   boostType: string;
 }
 
 const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   currentLevel,
-  selectedBackground,
   availableBoosts,
-  selectedSkills,
-  setSelectedSkills,
   increaseHeaderText,
   boostType,
 }) => {
+  const dispatch = useDispatch();
+
+  const selectedBackground = useSelector(
+    (state: any) => state.background.background
+  );
   const selectedClass = useSelector((state: any) => state.class.class);
+  const selectedSkills = useSelector(
+    (state: { selectedSkills: skillProficienciesType[] }) =>
+      state.selectedSkills
+  );
+
+  const handleUpdateSkillIncrease = (skill: skillTypes | "") => {
+    dispatch(updateSkillBoost({ skill, currentLevel }));
+  };
+
+  const handleUpdateIntelligenceSkillIncrease = (skill: skillTypes | "") => {
+    dispatch(updateIntelligenceSkillBoost({ skill, currentLevel }));
+  };
 
   function findTrainingLevel(numericalTraining: number) {
     switch (numericalTraining) {
@@ -78,46 +91,13 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   }
 
   // Need to reset skillboosts > current level when int boost is applied
-  const handleRadioChange = (
-    skill: skillTypes | "",
-    levelsBoosted: number[]
-  ) => {
+  const handleRadioChange = (skill: skillTypes | "") => {
     if (boostType === "Intelligence") {
-      setSelectedSkills((prevSkills) =>
-        prevSkills.map((skillBoost) =>
-          skillBoost.skill === skill
-            ? {
-                ...skillBoost,
-                IntBoost:
-                  skillBoost.IntBoost === currentLevel ? null : currentLevel,
-                LevelsBoosted: skillBoost.LevelsBoosted.filter(
-                  (level) => level < currentLevel // Reset levels >= currentLevel only for the current skill
-                ),
-              }
-            : skillBoost
-        )
-      );
+      handleUpdateIntelligenceSkillIncrease(skill);
     } else {
-      setSelectedSkills((prevSkills) =>
-        prevSkills.map((skillBoost) =>
-          skillBoost.skill === skill
-            ? {
-                ...skillBoost,
-                LevelsBoosted: skillBoost.LevelsBoosted.includes(currentLevel)
-                  ? skillBoost.LevelsBoosted.filter(
-                      (level) => level < currentLevel
-                    )
-                  : [
-                      ...skillBoost.LevelsBoosted.filter(
-                        (level) => level <= currentLevel
-                      ),
-                      currentLevel,
-                    ].sort((a, b) => a - b),
-              }
-            : skillBoost
-        )
-      );
+      handleUpdateSkillIncrease(skill);
     }
+    console.log(selectedSkills);
   };
 
   function currentBoostsUsed() {
@@ -319,12 +299,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                 >
                   <span className="col-span-2 ">{skillBoost.skill}</span>
                   <RadioGroup
-                    onValueChange={() =>
-                      handleRadioChange(
-                        skillBoost.skill,
-                        skillBoost.LevelsBoosted
-                      )
-                    }
+                    onValueChange={() => handleRadioChange(skillBoost.skill)}
                     defaultValue={findDefaultValue(skillBoost)}
                     className="col-span-6 flex items-center justify-between"
                   >

@@ -11,12 +11,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface SkillShowcaseProps {
-  selectedSkills: skillProficienciesType[];
-}
-
-const SkillShowcase: React.FC<SkillShowcaseProps> = ({ selectedSkills }) => {
+const SkillShowcase: React.FC = ({}) => {
   const currentLevel = useSelector((state: any) => state.level.level);
+  const selectedSkills = useSelector(
+    (state: { selectedSkills: skillProficienciesType[] }) =>
+      state.selectedSkills
+  );
 
   function findTrainingLevel(skill: skillProficienciesType) {
     const intTraining = skill.IntBoost ? 1 : 0;

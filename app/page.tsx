@@ -9,18 +9,8 @@ import LevelSelector from "@/components/LevelSelector";
 import Name from "@/components/Name";
 import VariantRules from "@/components/VariantRules";
 import SkillShowcase from "@/components/SkillShowcase";
-import { Feats, InitialAttributeBoosts, skillProficiencies } from "@/data";
-import {
-  AttributeBoostsType,
-  FeatsType,
-  skillProficienciesType,
-} from "@/types";
-import { useState } from "react";
 
 export default function Home() {
-  const [selectedSkills, setSelectedSkills] =
-    useState<skillProficienciesType[]>(skillProficiencies);
-
   //TODO -
   // 2.1 - Implement Archetype feats
   // 3. Skills.
@@ -30,11 +20,10 @@ export default function Home() {
   // 6. Equipment
   // 7. Calculate defence and offence
 
-  //Address code smell
-
   //BUGFIXES
   //Resetting attributes needs to reset int skill boosts
   // If class is changed, reset all skill selections
+  // Changing Background or class should reset skill proficiency
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
@@ -45,12 +34,9 @@ export default function Home() {
         <BackgroundSelector />
         <ClassSelector />
         <Abilities />
-        <SkillShowcase selectedSkills={selectedSkills} />
+        <SkillShowcase />
         <VariantRules />
-        <LevelFeatures
-          selectedSkills={selectedSkills}
-          setSelectedSkills={setSelectedSkills}
-        />
+        <LevelFeatures />
       </div>
     </main>
   );

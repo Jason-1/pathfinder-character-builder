@@ -23,8 +23,6 @@ export default function Home() {
   // Look into RootState
 
   //BUGFIXES
-  // If class is changed, reset all skill selections
-  // Changing Background or class should reset skill proficiency
 
   return (
     <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">

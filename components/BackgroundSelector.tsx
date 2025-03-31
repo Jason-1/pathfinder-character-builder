@@ -27,6 +27,7 @@ import { Backgrounds } from "@/data";
 import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setBackground } from "@/app/Slices/backgroundSlice";
+import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
 
 const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -36,8 +37,10 @@ const BackgroundSelector: React.FC = ({}) => {
       state.background.background
   );
 
-  const handleSetBackground = (background: string) => {
+  const handleChangeBackground = (background: string) => {
+    //When a Background is set also reset skill proficiencies for it
     dispatch(setBackground({ background }));
+    dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -1 }));
   };
 
   return (
@@ -69,7 +72,7 @@ const BackgroundSelector: React.FC = ({}) => {
                         <DialogClose asChild>
                           <Button
                             onClick={() =>
-                              handleSetBackground(backgroundItem.name)
+                              handleChangeBackground(backgroundItem.name)
                             }
                           >
                             Confirm Selection

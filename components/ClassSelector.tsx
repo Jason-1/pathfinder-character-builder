@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Card,
@@ -29,7 +29,7 @@ import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/Slices/classSlice";
 import { setSubclass } from "@/app/Slices/subclassSlice";
-import { updateSkillBoost } from "@/app/Slices/selectedSkillsSlice";
+import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -41,9 +41,10 @@ const ClassSelector: React.FC = ({}) => {
     (state: { subclass: { subclass: string } }) => state.subclass.subclass
   );
 
-  const handleSetClass = (classString: string) => {
+  const handleChangeClass = (classString: string) => {
     //When a class is set also reset skill proficiencies for it
     dispatch(setClass({ class: classString }));
+    dispatch(resetAllSkillBoostsAtLevel({ currentLevel: 0 }));
   };
 
   const handleSetSubclass = (subclass: string) => {
@@ -80,7 +81,7 @@ const ClassSelector: React.FC = ({}) => {
                         <DialogClose asChild>
                           <Button
                             onClick={() => {
-                              handleSetClass(classItem.name);
+                              handleChangeClass(classItem.name);
                               handleSetSubclass("Select Subclass");
                             }}
                           >

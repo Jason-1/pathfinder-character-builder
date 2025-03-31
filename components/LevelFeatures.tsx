@@ -27,11 +27,7 @@ import {
 } from "@/components/ui/accordion";
 import { ClassFeats } from "@/data/classFeats";
 import { Classes, Feats, skillIncreaseLevels } from "@/data";
-import {
-  AttributeBoostsType,
-  FeatsType,
-  skillProficienciesType,
-} from "@/types";
+import { AttributeBoostsType, FeatsType } from "@/types";
 import SkillIncreases from "./SkillIncreases";
 import { updateFeat } from "@/app/Slices/selectedFeatsSlice";
 

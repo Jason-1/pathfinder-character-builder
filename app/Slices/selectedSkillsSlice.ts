@@ -51,7 +51,20 @@ const selectedSkillsSlice = createSlice({
     resetAllSkillBoosts: () => {
       return skillProficiencies;
     },
-
+    resetAllSkillBoostsAtLevel: (
+      state,
+      action: PayloadAction<{ currentLevel: number }>
+    ) => {
+      const { currentLevel } = action.payload;
+      state.forEach((skillBoost) => {
+        skillBoost.LevelsBoosted = skillBoost.LevelsBoosted.filter(
+          (level) => level !== currentLevel
+        );
+        if (skillBoost.IntBoost === currentLevel) {
+          skillBoost.IntBoost = null;
+        }
+      });
+    },
     resetAllIntelligenceBoosts: (state) => {
       state.forEach((skillBoost) => {
         skillBoost.IntBoost = null;
@@ -65,5 +78,6 @@ export const {
   updateIntelligenceSkillBoost,
   resetAllSkillBoosts,
   resetAllIntelligenceBoosts,
+  resetAllSkillBoostsAtLevel,
 } = selectedSkillsSlice.actions;
 export default selectedSkillsSlice.reducer;

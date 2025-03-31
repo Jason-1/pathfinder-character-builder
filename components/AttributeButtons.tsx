@@ -8,6 +8,10 @@ import {
   resetAttributeBoosts,
   setAttributeBoost,
 } from "@/app/Slices/attributeBoostCategoriesSlice";
+import {
+  resetAllIntelligenceBoosts,
+  resetAllSkillBoosts,
+} from "@/app/Slices/selectedSkillsSlice";
 
 const BoostLimits = {
   Ancestry: 2,
@@ -32,6 +36,7 @@ const AttributeButtons: React.FC = ({}) => {
 
   const ResetAllAttributeBoosts = () => {
     dispatch(resetAttributeBoosts());
+    dispatch(resetAllSkillBoosts());
     setRestrictAncestryBoosts(false);
     setRestrictBackgroundBoosts(false);
   };
@@ -120,6 +125,7 @@ const AttributeButtons: React.FC = ({}) => {
     boostedAttribute: AttributesType
   ): void {
     handleRemoveAttribute(boostsType, boostedAttribute);
+
     if (
       boostsType === "Ancestry" &&
       !currentAncestry?.Attributes.includes(boostedAttribute)
@@ -131,6 +137,19 @@ const AttributeButtons: React.FC = ({}) => {
       !currentBackground?.Attributes.includes(boostedAttribute)
     ) {
       setRestrictBackgroundBoosts(false);
+    }
+    //if the removed boost is intelligence and is level5 or later, just remove int boosts. If it is earlier we need to reset skills
+    if (boostedAttribute === "Intelligence") {
+      if (
+        boostsType === "Level5" ||
+        boostsType === "Level10" ||
+        boostsType === "Level15" ||
+        boostsType === "Level20"
+      ) {
+        dispatch(resetAllIntelligenceBoosts());
+      } else {
+        dispatch(resetAllSkillBoosts());
+      }
     }
   }
 

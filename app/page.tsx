@@ -23,8 +23,6 @@ export default function Home() {
   // Look into RootState
 
   //BUGFIXES
-  // Basic states using the any type
-  // Resetting attributes needs to reset int skill boosts
   // If class is changed, reset all skill selections
   // Changing Background or class should reset skill proficiency
 

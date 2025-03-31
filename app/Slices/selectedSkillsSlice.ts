@@ -47,9 +47,23 @@ const selectedSkillsSlice = createSlice({
         }
       });
     },
+
+    resetAllSkillBoosts: () => {
+      return skillProficiencies;
+    },
+
+    resetAllIntelligenceBoosts: (state) => {
+      state.forEach((skillBoost) => {
+        skillBoost.IntBoost = null;
+      });
+    },
   },
 });
 
-export const { updateSkillBoost, updateIntelligenceSkillBoost } =
-  selectedSkillsSlice.actions;
+export const {
+  updateSkillBoost,
+  updateIntelligenceSkillBoost,
+  resetAllSkillBoosts,
+  resetAllIntelligenceBoosts,
+} = selectedSkillsSlice.actions;
 export default selectedSkillsSlice.reducer;

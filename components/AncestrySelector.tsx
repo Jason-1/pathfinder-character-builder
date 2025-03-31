@@ -34,8 +34,12 @@ import { Button } from "./ui/button";
 const AncestrySelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
-  const selectedHeritage = useSelector((state: any) => state.heritage.heritage);
+  const selectedAncestry = useSelector(
+    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
+  );
+  const selectedHeritage = useSelector(
+    (state: { heritage: { heritage: string } }) => state.heritage.heritage
+  );
 
   const handleSetAncestry = (ancestry: string) => {
     dispatch(setAncestry({ ancestry }));

@@ -18,11 +18,18 @@ import { resetSpecificAttributeBoost } from "@/app/Slices/attributeBoostCategori
 const Abilities: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedLevel = useSelector((state: any) => state.level.level);
-  const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
-  const selectedClass = useSelector((state: any) => state.class.class);
+  const selectedLevel = useSelector(
+    (state: { level: { level: number } }) => state.level.level
+  );
+  const selectedAncestry = useSelector(
+    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
+  );
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
   const selectedBackground = useSelector(
-    (state: any) => state.background.background
+    (state: { background: { background: string } }) =>
+      state.background.background
   );
 
   const attributeBoosts = useSelector(

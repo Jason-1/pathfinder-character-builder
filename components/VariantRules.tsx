@@ -11,11 +11,13 @@ const VariantRules: React.FC<VariantRulesProps> = ({}) => {
   const dispatch = useDispatch();
 
   const freeArchetype = useSelector(
-    (state: any) => state.freeArchetype.freeArchetype
+    (state: { freeArchetype: { freeArchetype: boolean } }) =>
+      state.freeArchetype.freeArchetype
   );
 
   const ancestralParagon = useSelector(
-    (state: any) => state.ancestralParagon.ancestralParagon
+    (state: { ancestralParagon: { ancestralParagon: boolean } }) =>
+      state.ancestralParagon.ancestralParagon
   );
 
   const handletoggleFreeArchetype = () => {

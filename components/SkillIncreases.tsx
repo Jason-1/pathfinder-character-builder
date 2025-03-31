@@ -32,9 +32,12 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   const dispatch = useDispatch();
 
   const selectedBackground = useSelector(
-    (state: any) => state.background.background
+    (state: { background: { background: string } }) =>
+      state.background.background
   );
-  const selectedClass = useSelector((state: any) => state.class.class);
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
   const selectedSkills = useSelector(
     (state: { selectedSkills: skillProficienciesType[] }) =>
       state.selectedSkills

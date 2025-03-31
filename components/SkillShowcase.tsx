@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/table";
 
 const SkillShowcase: React.FC = ({}) => {
-  const currentLevel = useSelector((state: any) => state.level.level);
+  const currentLevel = useSelector(
+    (state: { level: { level: number } }) => state.level.level
+  );
   const selectedSkills = useSelector(
     (state: { selectedSkills: skillProficienciesType[] }) =>
       state.selectedSkills

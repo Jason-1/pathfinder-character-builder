@@ -10,7 +10,9 @@ const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 const LevelSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const currentLevel = useSelector((state: any) => state.level.level);
+  const currentLevel = useSelector(
+    (state: { level: { level: number } }) => state.level.level
+  );
 
   const handleSetLevel = (level: number) => {
     dispatch(setLevel({ level }));

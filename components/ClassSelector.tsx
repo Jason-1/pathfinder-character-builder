@@ -33,8 +33,12 @@ import { setSubclass } from "@/app/Slices/subclassSlice";
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedClass = useSelector((state: any) => state.class.class);
-  const selectedSubclass = useSelector((state: any) => state.subclass.subclass);
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
+  const selectedSubclass = useSelector(
+    (state: { subclass: { subclass: string } }) => state.subclass.subclass
+  );
 
   const handleSetClass = (classString: string) => {
     dispatch(setClass({ class: classString }));

@@ -43,17 +43,26 @@ const LevelFeatures: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   //Get required states
-  const selectedlevel = useSelector((state: any) => state.level.level);
-  const selectedAncestry = useSelector((state: any) => state.ancestry.ancestry);
-  const selectedClass = useSelector((state: any) => state.class.class);
+  const selectedlevel = useSelector(
+    (state: { level: { level: number } }) => state.level.level
+  );
+  const selectedAncestry = useSelector(
+    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
+  );
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
   const selectedBackground = useSelector(
-    (state: any) => state.background.background
+    (state: { background: { background: string } }) =>
+      state.background.background
   );
   const freeArchetype = useSelector(
-    (state: any) => state.freeArchetype.freeArchetype
+    (state: { freeArchetype: { freeArchetype: string } }) =>
+      state.freeArchetype.freeArchetype
   );
   const ancestralParagon = useSelector(
-    (state: any) => state.ancestralParagon.ancestralParagon
+    (state: { ancestralParagon: { ancestralParagon: string } }) =>
+      state.ancestralParagon.ancestralParagon
   );
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass

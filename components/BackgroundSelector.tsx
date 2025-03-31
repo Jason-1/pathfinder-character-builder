@@ -32,7 +32,8 @@ const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   const selectedBackground = useSelector(
-    (state: any) => state.background.background
+    (state: { background: { background: string } }) =>
+      state.background.background
   );
 
   const handleSetBackground = (background: string) => {
@@ -88,6 +89,3 @@ const BackgroundSelector: React.FC = ({}) => {
 };
 
 export default BackgroundSelector;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}

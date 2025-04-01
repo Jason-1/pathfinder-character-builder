@@ -13,8 +13,8 @@ import SkillShowcase from "@/components/SkillShowcase";
 export default function Home() {
   //TODO -
   // 2.1 - Implement Archetype feats
-  // 3. Skills.
-  // 3.1 Display all skills and their training level
+  // X 3. Skills.
+  // X 3.1 Display all skills and their training level
   // 4. Save Character
   // 5. Load Character
   // 6. Equipment
@@ -25,8 +25,8 @@ export default function Home() {
   //BUGFIXES
 
   return (
-    <main className="relative flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
-      <div className="max-w-7xl w-full">
+    <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">
+      <div className="w-full">
         <Name />
         <LevelSelector />
         <AncestrySelector />

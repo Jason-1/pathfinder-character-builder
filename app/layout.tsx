@@ -5,6 +5,9 @@ import "./globals.css";
 import { store } from "./store";
 import { Provider } from "react-redux";
 
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,11 +25,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Provider store={store}>{children}</Provider>
-      </body>
+      <Provider store={store}>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <SidebarProvider>
+            <div className="flex w-full h-full">
+              <AppSidebar />
+              <SidebarTrigger />
+              <div className="flex-grow">{children}</div>
+            </div>
+          </SidebarProvider>
+        </body>
+      </Provider>
     </html>
   );
 }

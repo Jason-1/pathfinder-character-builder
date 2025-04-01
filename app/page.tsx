@@ -35,7 +35,6 @@ export default function Home() {
         <Abilities />
         <SkillShowcase />
         <VariantRules />
-        <LevelFeatures />
       </div>
     </main>
   );

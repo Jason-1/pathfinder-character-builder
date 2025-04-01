@@ -5,14 +5,19 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import AncestrySelector from "./AncestrySelector";
+import BackgroundSelector from "./BackgroundSelector";
+import ClassSelector from "./ClassSelector";
+import LevelFeatures from "./LevelFeatures";
 
 export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader />
       <SidebarContent>
-        <SidebarGroup />
-        <SidebarGroup />
+        <SidebarGroup>
+          <LevelFeatures />
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter />
     </Sidebar>

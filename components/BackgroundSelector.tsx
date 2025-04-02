@@ -44,11 +44,13 @@ const BackgroundSelector: React.FC = ({}) => {
   };
 
   return (
-    <div className="mt-6 flex flex-col">
+    <div className="mt-6 flex justify-start">
       <Dialog>
         <DialogTrigger>
-          {selectedBackground === "Select Background" ? "" : "Background: "}
-          {selectedBackground}
+          <div className="inline-block border rounded-sm hover:border-red-700 p-2 ">
+            {selectedBackground === "Select Background" ? "" : "Background: "}
+            {selectedBackground}
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

@@ -54,11 +54,13 @@ const AncestrySelector: React.FC = ({}) => {
   );
 
   return (
-    <div className="mt-6 flex flex-col">
+    <div className="mt-6 flex justify-start">
       <Dialog>
         <DialogTrigger>
-          {selectedAncestry === "Select Ancestry" ? "" : "Ancestry: "}
-          {selectedAncestry}
+          <div className="inline-block border rounded-sm hover:border-red-700 p-2 ">
+            {selectedAncestry === "Select Ancestry" ? "" : "Ancestry: "}
+            {selectedAncestry}
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -101,8 +103,12 @@ const AncestrySelector: React.FC = ({}) => {
 
       <Dialog>
         <DialogTrigger>
-          {selectedHeritage === "Select Heritage" ? "" : "Heritage: "}
-          {selectedHeritage}
+          {" "}
+          <div className="inline-block border hover:border-red-700 p-2 ">
+            {" "}
+            {selectedHeritage === "Select Heritage" ? "" : "Heritage: "}
+            {selectedHeritage}
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

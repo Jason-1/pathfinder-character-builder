@@ -56,11 +56,13 @@ const ClassSelector: React.FC = ({}) => {
   );
 
   return (
-    <div className="mt-6 flex flex-col">
+    <div className="mt-6 flex justify-start">
       <Dialog>
         <DialogTrigger>
-          {selectedClass === "Select Class" ? "" : "Class: "}
-          {selectedClass}
+          <div className="inline-block border rounded-sm hover:border-red-700 p-2 ">
+            {selectedClass === "Select Class" ? "" : "Class: "}
+            {selectedClass}
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -100,8 +102,10 @@ const ClassSelector: React.FC = ({}) => {
 
       <Dialog>
         <DialogTrigger>
-          {selectedSubclass === "Select Subclass" ? "" : "Subclass: "}
-          {selectedSubclass}
+          <div className="inline-block border rounded-sm hover:border-red-700 p-2 ">
+            {selectedSubclass === "Select Subclass" ? "" : "Subclass: "}
+            {selectedSubclass}
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

@@ -201,25 +201,6 @@ const LevelFeatures: React.FC = ({}) => {
         >
           <CardHeader>
             <CardTitle>Level {level}</CardTitle>
-            {level === 1 && (
-              <CardDescription>
-                {selectedAncestry === "Select Ancestry" ? (
-                  <span className="text-red-700">No Ancestry selected </span>
-                ) : (
-                  selectedAncestry
-                )}{" "}
-                {selectedBackground === "Select Background" ? (
-                  <span className="text-red-700">No Background selected </span>
-                ) : (
-                  selectedBackground
-                )}{" "}
-                {selectedClass === "Select Class" ? (
-                  <span className="text-red-700">No Class selected </span>
-                ) : (
-                  selectedClass
-                )}{" "}
-              </CardDescription>
-            )}
           </CardHeader>
 
           {/* Pass in the classes additional skill proficiencies */}

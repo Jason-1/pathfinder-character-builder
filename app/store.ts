@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import nameSlice from "./Slices/nameSlice";
 import levelSlice from "./Slices/levelSlice";
 import ancestrySlice from "./Slices/ancestrySlice";
 import heritageSlice from "./Slices/heritageSlice";
@@ -13,6 +14,7 @@ import selectedSkillsSlice from "./Slices/selectedSkillsSlice";
 
 export const store = configureStore({
   reducer: {
+    name: nameSlice,
     level: levelSlice,
     ancestry: ancestrySlice,
     heritage: heritageSlice,

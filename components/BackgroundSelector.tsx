@@ -44,10 +44,10 @@ const BackgroundSelector: React.FC = ({}) => {
   };
 
   return (
-    <div className="mt-6 flex justify-start">
+    <div className="grid grid-cols-2 gap-10 items-center justify-between">
       <Dialog>
         <DialogTrigger>
-          <div className="inline-block border rounded-sm hover:border-red-700 p-2 ">
+          <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">
             {selectedBackground === "Select Background" ? "" : "Background: "}
             {selectedBackground}
           </div>

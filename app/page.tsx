@@ -26,15 +26,21 @@ export default function Home() {
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">
-      <div className="w-full">
-        <Name />
-        <LevelSelector />
-        <AncestrySelector />
-        <BackgroundSelector />
-        <ClassSelector />
-        <Abilities />
-        <SkillShowcase />
-        <VariantRules />
+      <div className="w-full grid grid-cols-4 gap-16">
+        <div className="grid col-span-1">
+          <div className="grid grid-cols-2 items-center gap-10">
+            <LevelSelector />
+            <Name />
+          </div>
+          <AncestrySelector />
+          <BackgroundSelector />
+          <ClassSelector />
+          <Abilities />
+          <VariantRules />
+        </div>
+        <div className="grid col-span-3">
+          <SkillShowcase />
+        </div>
       </div>
     </main>
   );

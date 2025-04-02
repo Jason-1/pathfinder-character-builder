@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLevel } from "@/app/Slices/levelSlice";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -27,32 +28,34 @@ const LevelSelector: React.FC = ({}) => {
   };
 
   return (
-    <div className="mt-6 flex justify-start">
+    <div className="flex justify-center">
       <Dialog>
-        <DialogTrigger className="inline-block">
-          <div className="inline-block border rounded-sm hover:border-red-700 p-2 ">
+        <DialogTrigger className="inline-block w-full">
+          <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">
             Level {currentLevel}
           </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Select Level</DialogTitle>
-            <div className="grid grid-cols-4 gap-1 mt-6">
-              {levels.map((level) => (
-                <Button
-                  variant="default"
-                  key={level}
-                  className={`col-span-1 ${
-                    level <= currentLevel
-                      ? "opacity-100 border-black text-white"
-                      : "opacity-80"
-                  }`}
-                  onClick={() => handleSetLevel(level)}
-                >
-                  {level}
-                </Button>
-              ))}
-            </div>
+            <DialogClose asChild>
+              <div className="grid grid-cols-4 gap-1 mt-6">
+                {levels.map((level) => (
+                  <Button
+                    variant="default"
+                    key={level}
+                    className={`col-span-1 ${
+                      level <= currentLevel
+                        ? "opacity-100 border-black text-white"
+                        : "opacity-80"
+                    }`}
+                    onClick={() => handleSetLevel(level)}
+                  >
+                    {level}
+                  </Button>
+                ))}
+              </div>
+            </DialogClose>
           </DialogHeader>
         </DialogContent>
       </Dialog>

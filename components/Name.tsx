@@ -13,7 +13,7 @@ const Name = () => {
     dispatch(setName(event.target.value)); // Dispatch the action to update the name
   };
   return (
-    <div className="mt-6">
+    <div className="flex justify-center">
       <Input
         value={name}
         onChange={handleInputChange}

@@ -81,11 +81,14 @@ const Abilities: React.FC = ({}) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-1 mt-6">
+    <div className="grid grid-cols-3 gap-1 mt-6">
       {Attributes.map((attribute) => (
-        <Button variant="default" key={attribute.name} className="col-span-1">
-          {attribute.name}: {currentAttributeBoosts(attribute.name)}
-        </Button>
+        <div key={attribute.name} className="col-span-1">
+          <div className="flex justify-center">{attribute.name}</div>
+          <div className="flex justify-center">
+            {currentAttributeBoosts(attribute.name)}
+          </div>
+        </div>
       ))}
       <Dialog>
         <DialogTrigger>Modify Attributes</DialogTrigger>

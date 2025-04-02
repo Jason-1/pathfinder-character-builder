@@ -103,7 +103,7 @@ const AncestrySelector: React.FC = ({}) => {
 
       <Dialog>
         <DialogTrigger>
-          <div className="inline-block border hover:border-red-700 p-2">
+          <div className="inline-block border hover:border-red-700 p-2 w-full">
             {selectedHeritage === "Select Heritage" ? "" : "Heritage: "}
             {selectedHeritage}
           </div>

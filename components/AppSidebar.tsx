@@ -7,6 +7,9 @@ import {
 } from "@/components/ui/sidebar";
 import LevelFeatures from "./LevelFeatures";
 import { useSelector } from "react-redux";
+import AncestrySelector from "./AncestrySelector";
+import BackgroundSelector from "./BackgroundSelector";
+import ClassSelector from "./ClassSelector";
 
 export function AppSidebar() {
   const name = useSelector(
@@ -30,6 +33,11 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent>
+        <SidebarGroup>
+          <AncestrySelector />
+          <BackgroundSelector />
+          <ClassSelector />
+        </SidebarGroup>
         <SidebarGroup>
           <LevelFeatures />
         </SidebarGroup>

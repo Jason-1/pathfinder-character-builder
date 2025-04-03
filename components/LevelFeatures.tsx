@@ -191,7 +191,7 @@ const LevelFeatures: React.FC = ({}) => {
   //restrict boosts only to allowed ones where applicable
 
   return (
-    <div className="mt-6">
+    <div>
       {levels.map((level) => (
         <Card
           className={`mt-4 ${

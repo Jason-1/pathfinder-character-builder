@@ -14,6 +14,7 @@ import {
 import AttributeButtons from "./AttributeButtons";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";
 import { resetSpecificAttributeBoost } from "@/app/Slices/attributeBoostCategoriesSlice";
+import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 
 const Abilities: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -56,42 +57,30 @@ const Abilities: React.FC = ({}) => {
     handleResetAttributes("Class");
   }, [selectedClass]);
 
-  const currentAttributeBoosts = (attributeName: AttributesType): number => {
-    let i = 0;
-    let partial = false;
-    attributeBoosts.forEach((boost) => {
-      if (boost.boosts.includes(attributeName)) {
-        if (
-          (boost.name === "Level5" && selectedLevel < 5) ||
-          (boost.name === "Level10" && selectedLevel < 10) ||
-          (boost.name === "Level15" && selectedLevel < 15) ||
-          (boost.name === "Level20" && selectedLevel < 20)
-        ) {
-          return;
-        }
-        if (i >= 4 && !partial) {
-          partial = true;
-        } else {
-          i++;
-          partial = false;
-        }
-      }
-    });
-    return i;
-  };
-
   return (
-    <div className="grid grid-cols-3 gap-1 mt-6">
+    <div className="grid grid-cols-3 gap-1">
       {Attributes.map((attribute) => (
-        <div key={attribute.name} className="col-span-1">
-          <div className="flex justify-center">{attribute.name}</div>
-          <div className="flex justify-center">
-            {currentAttributeBoosts(attribute.name)}
+        <div
+          key={attribute.name}
+          className="col-span-1 flex flex-col items-center justify-center h-8"
+        >
+          <div>{attribute.name}</div>
+          <div>
+            {"+"}
+            {calculateCurrentAttributeBoost(
+              attributeBoosts,
+              selectedLevel,
+              attribute.name
+            )}
           </div>
         </div>
       ))}
       <Dialog>
-        <DialogTrigger>Modify Attributes</DialogTrigger>
+        <DialogTrigger>
+          <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">
+            Modify Attributes
+          </div>
+        </DialogTrigger>
         <DialogContent
           className={"lg:max-w-screen-lg overflow-y-scroll max-h-screen"}
         >

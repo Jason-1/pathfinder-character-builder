@@ -3,6 +3,8 @@ import { Shield } from "lucide-react";
 import { useSelector } from "react-redux";
 import { AttributeBoostsType } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
+import { FaDiceD20 } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const Defences = () => {
   const currentLevel = useSelector(
@@ -19,6 +21,7 @@ const Defences = () => {
     const dexCap = 5; // TODO: Add dex cap bonus
 
     const Base = 10;
+    const proficiency = 2; // TODO: Add proficiency bonus
     const item = 0; // TODO: Add item bonus
     const rune = 0; // TODO: Add rune bonus
     const dexterity = Math.min(
@@ -32,6 +35,7 @@ const Defences = () => {
     const shield = 0; // TODO: Add shield bonus
 
     AC += Base;
+    AC += proficiency;
     AC += currentLevel;
     AC += item;
     AC += shield;
@@ -59,6 +63,66 @@ const Defences = () => {
     return HP;
   }
 
+  function calculateFortitude() {
+    var Fortitude = 0;
+    const proficiency = 2; // TODO: Add proficiency bonus
+    const item = 0; // TODO: Add item bonus
+    const rune = 0; // TODO: Add rune bonus
+    const constitution = calculateCurrentAttributeBoost(
+      attributeBoosts,
+      currentLevel,
+      "Constitution"
+    );
+
+    Fortitude += proficiency;
+    Fortitude += currentLevel;
+    Fortitude += item;
+    Fortitude += rune;
+    Fortitude += constitution;
+
+    return Fortitude;
+  }
+
+  function calculateReflex() {
+    var Fortitude = 0;
+    const proficiency = 2; // TODO: Add proficiency bonus
+    const item = 0; // TODO: Add item bonus
+    const rune = 0; // TODO: Add rune bonus
+    const dexterity = calculateCurrentAttributeBoost(
+      attributeBoosts,
+      currentLevel,
+      "Dexterity"
+    );
+
+    Fortitude += proficiency;
+    Fortitude += currentLevel;
+    Fortitude += item;
+    Fortitude += rune;
+    Fortitude += dexterity;
+
+    return Fortitude;
+  }
+
+  function calculateWill() {
+    var Fortitude = 0;
+    const proficiency = 2; // TODO: Add proficiency bonus
+    const item = 0; // TODO: Add item bonus
+    const rune = 0; // TODO: Add rune bonus
+    const wisdom = calculateCurrentAttributeBoost(
+      attributeBoosts,
+      currentLevel,
+      "Wisdom"
+    );
+
+    Fortitude += proficiency;
+    Fortitude += currentLevel;
+    Fortitude += item;
+    Fortitude += rune;
+    Fortitude += wisdom;
+
+    return Fortitude;
+  }
+
   return (
     <div className="flex flex-row items-center gap-4">
       <div className="relative inline-block w-24 h-24">
@@ -73,6 +137,31 @@ const Defences = () => {
         <span className="text-white text-md font-bold">
           {"HP"} {calculateHP()}
         </span>
+      </div>
+      <div className="flex flex-col gap-1">
+        <div className=" flex flex-row items-center gap-2">
+          <span className="border px-2 rounded-full border-red-500 bg-red-600">
+            T {/* Get training levels from class */}
+          </span>
+          <motion.div>
+            <FaDiceD20 size={"20"} />
+          </motion.div>
+          <span>Fortitude: +{calculateFortitude()}</span>
+        </div>
+        <div className=" flex flex-row items-center gap-2">
+          <span className="border px-2 rounded-full border-red-500 bg-red-600">
+            T
+          </span>
+          <FaDiceD20 size={"20"} />
+          <span>Reflex: +{calculateReflex()}</span>
+        </div>
+        <div className=" flex flex-row items-center gap-2">
+          <span className="border px-2 rounded-full border-red-500 bg-red-600">
+            T
+          </span>
+          <FaDiceD20 size={"20"} />
+          <span>Will: +{calculateWill()}</span>
+        </div>
       </div>
     </div>
   );

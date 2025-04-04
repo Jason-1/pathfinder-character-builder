@@ -211,7 +211,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
               </div>
             </DialogTitle>
 
-            <div className="overflow-y-auto max-h-96 py-2">
+            <div className="overflow-y-auto h-[40vh]">
               {roll?.map((result, index) => (
                 <div key={index} className={`flex `}>
                   <span className="mr-1">{"Result:"} </span>

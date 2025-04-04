@@ -51,6 +51,8 @@ export type skillTypes =
   | "Survival"
   | "Thievery";
 
+export type diceTypes = "d4" | "d6" | "d8" | "d10" | "d12" | "d20";
+
 export type AncestryType = {
   name: string;
   Attributes: AttributesType[];

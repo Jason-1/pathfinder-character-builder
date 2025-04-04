@@ -5,6 +5,7 @@ import { AttributeBoostsType } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import { FaDiceD20 } from "react-icons/fa";
 import { motion } from "motion/react";
+import DiceRoller from "./DiceRoller";
 
 const Defences = () => {
   const currentLevel = useSelector(
@@ -143,23 +144,21 @@ const Defences = () => {
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
             T {/* Get training levels from class */}
           </span>
-          <motion.div>
-            <FaDiceD20 size={"20"} />
-          </motion.div>
+          <DiceRoller diceType="d20" modifier={calculateFortitude()} />
           <span>Fortitude: +{calculateFortitude()}</span>
         </div>
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
             T
           </span>
-          <FaDiceD20 size={"20"} />
+          <DiceRoller diceType="d20" modifier={calculateReflex()} />
           <span>Reflex: +{calculateReflex()}</span>
         </div>
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
             T
           </span>
-          <FaDiceD20 size={"20"} />
+          <DiceRoller diceType="d20" modifier={calculateWill()} />
           <span>Will: +{calculateWill()}</span>
         </div>
       </div>

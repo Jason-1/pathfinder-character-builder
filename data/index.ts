@@ -376,3 +376,35 @@ export const InitialAttributeBoosts: AttributeBoostsType[] = [
 ];
 
 export const skillIncreaseLevels = [3, 5, 7, 9, 11, 13, 15, 17, 19];
+
+export const DCbyLevel: Record<number, number> = {
+  1: 15,
+  2: 16,
+  3: 18,
+  4: 19,
+  5: 20,
+  6: 22,
+  7: 23,
+  8: 24,
+  9: 26,
+  10: 27,
+  11: 28,
+  12: 30,
+  13: 31,
+  14: 32,
+  15: 34,
+  16: 35,
+  17: 36,
+  18: 38,
+  19: 39,
+  20: 40,
+};
+
+export const DCAdjustments = {
+  incrediblyEasy: -10,
+  veryEasy: -5,
+  easy: -2,
+  hard: 2,
+  veryHard: 5,
+  incrediblyHard: 10,
+};

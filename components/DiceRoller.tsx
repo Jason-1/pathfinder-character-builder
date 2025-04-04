@@ -8,28 +8,52 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { diceTypes } from "@/types";
 import { motion } from "motion/react";
 import { FaDiceD6, FaDiceD20 } from "react-icons/fa";
 import { GiD4, GiD10, GiD12 } from "react-icons/gi";
 import { Button } from "./ui/button";
-import { current } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { DCbyLevel } from "@/data";
+import { DCAdjustments, DCbyLevel } from "@/data";
+import { Input } from "./ui/input";
 interface DiceRollerProps {
   diceType: diceTypes;
   modifier: number;
 }
 
 const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
+  const [adjustment, setAdjustment] = useState<string>("");
+
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
 
-  const calculateDC = () => {
-    const DC = DCbyLevel[currentLevel] || 0;
+  /*
+  export const DCAdjustments = {
+    incrediblyEasy: -10,
+    veryEasy: -5,
+    easy: -2,
+    hard: 2,
+    veryHard: 5,
+    incrediblyHard: 10,
+  };*/
 
+  const calculateDC = () => {
+    var DC = DCbyLevel[currentLevel] || 0;
+    var currentDCAdjustment = 0;
     // Add any adjustments selected here
+    if (adjustment) {
+      currentDCAdjustment = DCAdjustments[adjustment];
+    }
+    DC = DC + currentDCAdjustment;
 
     return DC;
   };
@@ -95,29 +119,74 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
             {diceType === "d20" ? <FaDiceD20 size={"20"} /> : null}
           </motion.div>
         </DialogTrigger>
-        <DialogContent className="h-1/2">
+        <DialogContent className="h-1/2 max-w-full w-1/2">
           <DialogHeader>
             <DialogTitle>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span>Dice Roller</span>
+                <Input />
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="font-normal">
+                    DC Adjustment:{" "}
+                    {adjustment === "incrediblyEasy"
+                      ? "Incredibly Easy"
+                      : adjustment === "veryEasy"
+                      ? "Very Easy"
+                      : adjustment === "easy"
+                      ? "Easy"
+                      : adjustment === "hard"
+                      ? "Hard"
+                      : adjustment === "veryHard"
+                      ? "Very Hard"
+                      : adjustment === "incrediblyHard"
+                      ? "Incredibly Hard"
+                      : "Normal"}
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem
+                      onClick={() => setAdjustment("incrediblyEasy")}
+                    >
+                      Incredibly Easy
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAdjustment("veryEasy")}>
+                      Very Easy
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAdjustment("easy")}>
+                      Easy
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAdjustment("")}>
+                      Normal
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAdjustment("hard")}>
+                      Hard
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAdjustment("veryHard")}>
+                      Very Hard
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => setAdjustment("incrediblyHard")}
+                    >
+                      Incredibly Hard
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Button onClick={rollDice}>Roll Dice</Button>
               </div>
             </DialogTitle>
 
-            <div className="overflow-y-auto max-h-96 ">
+            <div className="overflow-y-auto max-h-96 py-2">
               {roll?.map((result, index) => (
                 <div key={index} className={`flex `}>
                   <span className="mr-1">{"Result:"} </span>
                   <span
-                    className={`mr-1 ${
+                    className={`mr-1  ${
                       result === 1
-                        ? "text-red-500"
+                        ? "text-red-700"
                         : result === max
                         ? "text-green-500"
                         : ""
                     }`}
                   >
-                    {" "}
                     {result}
                   </span>
                   <span className="mr-1">+ {modifier} =</span>

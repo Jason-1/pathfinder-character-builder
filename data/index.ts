@@ -400,7 +400,7 @@ export const DCbyLevel: Record<number, number> = {
   20: 40,
 };
 
-export const DCAdjustments = {
+export const DCAdjustments: Record<string, number> = {
   incrediblyEasy: -10,
   veryEasy: -5,
   easy: -2,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -31,36 +31,37 @@ interface DiceRollerProps {
 
 const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
   const [adjustment, setAdjustment] = useState<string>("");
+  const [DC, setDC] = useState<number>(0);
+  const [manualDC, setManualDC] = useState(false);
 
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
 
-  /*
-  export const DCAdjustments = {
-    incrediblyEasy: -10,
-    veryEasy: -5,
-    easy: -2,
-    hard: 2,
-    veryHard: 5,
-    incrediblyHard: 10,
-  };*/
+  useEffect(() => {
+    if (!manualDC) {
+      let baseDC = DCbyLevel[currentLevel] || 0;
 
-  const calculateDC = () => {
-    var DC = DCbyLevel[currentLevel] || 0;
-    var currentDCAdjustment = 0;
-    // Add any adjustments selected here
-    if (adjustment) {
-      currentDCAdjustment = DCAdjustments[adjustment];
+      let currentDCAdjustment = 0;
+      // Add any adjustments selected here
+      if (adjustment) {
+        currentDCAdjustment = DCAdjustments[adjustment];
+      }
+      baseDC = baseDC + currentDCAdjustment;
+
+      setDC(baseDC);
     }
-    DC = DC + currentDCAdjustment;
+  }),
+    [adjustment, currentLevel];
 
-    return DC;
+  const handleDCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setManualDC(true);
+    setDC(Number(e.target.value) || 0);
   };
 
   const calculateSuccessLevel = (roll: number) => {
-    var successLevel = 0;
-    const DC = calculateDC();
+    let successLevel = 0;
+
     if (roll + modifier < DC - 10) {
       successLevel = 1;
     } else if (roll + modifier < DC) {
@@ -124,7 +125,12 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
             <DialogTitle>
               <div className="flex justify-between items-center">
                 <span>Dice Roller</span>
-                <Input />
+                <Input
+                  type="number"
+                  value={DC}
+                  onChange={handleDCChange}
+                  className="w-40"
+                />
                 <DropdownMenu>
                   <DropdownMenuTrigger className="font-normal">
                     DC Adjustment:{" "}
@@ -144,27 +150,58 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuItem
-                      onClick={() => setAdjustment("incrediblyEasy")}
+                      onClick={() => {
+                        setManualDC(false);
+                        setAdjustment("incrediblyEasy");
+                      }}
                     >
                       Incredibly Easy
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setAdjustment("veryEasy")}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setManualDC(false);
+                        setAdjustment("veryEasy");
+                      }}
+                    >
                       Very Easy
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setAdjustment("easy")}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setManualDC(false);
+                        setAdjustment("easy");
+                      }}
+                    >
                       Easy
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setAdjustment("")}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setManualDC(false);
+                        setAdjustment("");
+                      }}
+                    >
                       Normal
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setAdjustment("hard")}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setManualDC(false);
+                        setAdjustment("hard");
+                      }}
+                    >
                       Hard
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setAdjustment("veryHard")}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setManualDC(false);
+                        setAdjustment("veryHard");
+                      }}
+                    >
                       Very Hard
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onClick={() => setAdjustment("incrediblyHard")}
+                      onClick={() => {
+                        setManualDC(false);
+                        setAdjustment("incrediblyHard");
+                      }}
                     >
                       Incredibly Hard
                     </DropdownMenuItem>

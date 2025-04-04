@@ -134,7 +134,7 @@ const Defences = () => {
         </span>
       </div>
 
-      <div className="w-48 h-8 bg-red-500 flex items-center px-4">
+      <div className="w-32 h-8 bg-red-500 flex items-center px-4">
         <span className="text-white text-md font-bold">
           {"HP"} {calculateHP()}
         </span>

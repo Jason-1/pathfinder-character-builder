@@ -28,19 +28,27 @@ interface DiceRollerProps {
   diceType: diceTypes;
   modifier: number;
 }
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
-  const [adjustment, setAdjustment] = useState<string>("");
-  const [DC, setDC] = useState<number>(0);
-  const [manualDC, setManualDC] = useState(false);
-
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
 
+  const [adjustment, setAdjustment] = useState<string>("");
+  const [DC, setDC] = useState<number>(0);
+  const [level, setLevel] = useState<number>(currentLevel);
+  const [manualDC, setManualDC] = useState(false);
+  const [manualLevel, setManualLevel] = useState(false);
+
   useEffect(() => {
     if (!manualDC) {
-      let baseDC = DCbyLevel[currentLevel] || 0;
+      let baseDC = DCbyLevel[level] || 0;
 
       let currentDCAdjustment = 0;
       // Add any adjustments selected here
@@ -50,6 +58,9 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
       baseDC = baseDC + currentDCAdjustment;
 
       setDC(baseDC);
+      if (!manualLevel) {
+        setLevel(currentLevel);
+      }
     }
   }),
     [adjustment, currentLevel];
@@ -57,6 +68,16 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
   const handleDCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setManualDC(true);
     setDC(Number(e.target.value) || 0);
+  };
+
+  const handleLevelChange = (level: number) => {
+    if (level === 0) {
+      setManualLevel(false);
+      setLevel(currentLevel);
+    } else {
+      setManualLevel(true);
+      setLevel(level);
+    }
   };
 
   const calculateSuccessLevel = (roll: number) => {
@@ -125,13 +146,43 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
             <DialogTitle>
               <div className="flex justify-between items-center">
                 <span>Dice Roller</span>
-                <Input
-                  type="number"
-                  value={DC}
-                  onChange={handleDCChange}
-                  className="w-40"
-                />
+                <Popover>
+                  <PopoverTrigger className="font-normal">
+                    Current DC Level: {level}
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverClose asChild>
+                      <div className="grid grid-cols-5 justify-between items-center text-center cursor-pointer gap-1">
+                        <Button
+                          variant={"outline"}
+                          className="flex justify-center items-center mt-2 col-span-5"
+                          onClick={() => handleLevelChange(0)}
+                        >
+                          Current Level
+                        </Button>
+
+                        {Array.from({ length: 20 }, (_, i) => (
+                          <Button
+                            variant={"outline"}
+                            className="flex justify-center items-center mt-2 col-span-1"
+                            onClick={() => handleLevelChange(i + 1)}
+                          >
+                            {i + 1}
+                          </Button>
+                        ))}
+                      </div>
+                    </PopoverClose>
+                  </PopoverContent>
+                </Popover>
+
                 <DropdownMenu>
+                  <Input
+                    type="number"
+                    value={DC}
+                    onChange={handleDCChange}
+                    className="w-40"
+                  />
+
                   <DropdownMenuTrigger className="font-normal">
                     DC Adjustment:{" "}
                     {adjustment === "incrediblyEasy"

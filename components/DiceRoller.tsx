@@ -71,6 +71,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
   };
 
   const handleLevelChange = (level: number) => {
+    setManualDC(false);
     if (level === 0) {
       setManualLevel(false);
       setLevel(currentLevel);
@@ -175,15 +176,16 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
                     </div>
                   </PopoverContent>
                 </Popover>
-
-                <DropdownMenu>
+                <div className="flex items-center gap-2">
+                  <label className="font-normal">DC: </label>
                   <Input
                     type="number"
                     value={DC}
                     onChange={handleDCChange}
                     className="w-40"
                   />
-
+                </div>
+                <DropdownMenu>
                   <DropdownMenuTrigger className="font-normal">
                     DC Adjustment:{" "}
                     {adjustment === "incrediblyEasy"

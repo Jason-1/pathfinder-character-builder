@@ -151,27 +151,28 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
                     Current DC Level: {level}
                   </PopoverTrigger>
                   <PopoverContent>
-                    <PopoverClose asChild>
-                      <div className="grid grid-cols-5 justify-between items-center text-center cursor-pointer gap-1">
+                    <div className="grid grid-cols-5 justify-between items-center text-center gap-1">
+                      <PopoverClose asChild>
                         <Button
                           variant={"outline"}
-                          className="flex justify-center items-center mt-2 col-span-5"
+                          className="flex justify-center items-center mt-1 col-span-5 cursor-pointer"
                           onClick={() => handleLevelChange(0)}
                         >
                           Current Level
                         </Button>
-
-                        {Array.from({ length: 20 }, (_, i) => (
+                      </PopoverClose>
+                      {Array.from({ length: 20 }, (_, i) => (
+                        <PopoverClose key={i} asChild>
                           <Button
                             variant={"outline"}
-                            className="flex justify-center items-center mt-2 col-span-1"
+                            className="flex justify-center items-center mt-1 col-span-1 cursor-pointer"
                             onClick={() => handleLevelChange(i + 1)}
                           >
                             {i + 1}
                           </Button>
-                        ))}
-                      </div>
-                    </PopoverClose>
+                        </PopoverClose>
+                      ))}
+                    </div>
                   </PopoverContent>
                 </Popover>
 

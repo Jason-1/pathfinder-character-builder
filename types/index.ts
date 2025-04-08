@@ -53,6 +53,8 @@ export type skillTypes =
 
 export type saveTypes = "fortitude" | "reflex" | "will";
 
+export type armourTypes = "unarmoured" | "light" | "medium" | "heavy";
+
 export type diceTypes = "d4" | "d6" | "d8" | "d10" | "d12" | "d20";
 
 export type AncestryType = {

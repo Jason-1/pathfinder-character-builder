@@ -71,7 +71,7 @@ const Defences = () => {
       return 0;
     }
 
-    const dexCap = selectedArmourData.dexCap; // TODO: Add dex cap bonus
+    const dexCap = selectedArmourData.dexCap;
 
     const Base = 10;
     const proficiency = calculateArmourProficiencyBonus(
@@ -93,7 +93,11 @@ const Defences = () => {
 
     AC += Base;
     AC += proficiency;
-    AC += currentLevel;
+
+    //if the character is not proficient in the selecter armour, they can't add their level to AC
+    if (proficiency > 0) {
+      AC += currentLevel;
+    }
     AC += item;
     AC += shield;
     AC += rune;
@@ -104,7 +108,7 @@ const Defences = () => {
 
   function calculateHP() {
     var HP = 0;
-    const base = 10; // TODO: Add base HP bonus
+    const classHP = 10; // TODO: Add base HP bonus
     const ancestry = 8; // TODO: Add ancestry HP bonus
     const constitution = calculateCurrentAttributeBoost(
       attributeBoosts,
@@ -114,7 +118,7 @@ const Defences = () => {
     const bonus = 0; // TODO: Add bonus HP from items or feats
 
     HP += ancestry;
-    HP += base * currentLevel;
+    HP += classHP * currentLevel;
     HP += constitution * currentLevel;
 
     return HP;

@@ -1,4 +1,4 @@
-import { skillProficienciesType } from "@/types";
+import { AttributeBoostsType, skillProficienciesType } from "@/types";
 import React from "react";
 import { useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import DiceRoller from "./DiceRoller";
+import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 
 const SkillShowcase: React.FC = ({}) => {
   const currentLevel = useSelector(
@@ -20,6 +21,12 @@ const SkillShowcase: React.FC = ({}) => {
     (state: { selectedSkills: skillProficienciesType[] }) =>
       state.selectedSkills
   );
+  const attributeBoosts = useSelector(
+    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
+      state.attributeBoostCategories
+  );
+
+  //------------------------------------------------------------------------------//
 
   function findTrainingLevel(skill: skillProficienciesType) {
     const intTraining = skill.IntBoost ? 1 : 0;
@@ -44,6 +51,27 @@ const SkillShowcase: React.FC = ({}) => {
     }
   }
 
+  const calculateSkillModifier = (skill: skillProficienciesType) => {
+    let skillModifier = 0;
+
+    const proficiency =
+      skill.LevelsBoosted.filter((level) => level <= currentLevel).length * 2;
+    skillModifier += proficiency;
+    if (proficiency > 0) {
+      skillModifier += currentLevel;
+    }
+
+    const abilityModifier = calculateCurrentAttributeBoost(
+      attributeBoosts,
+      currentLevel,
+      skill.attribute
+    );
+
+    skillModifier += abilityModifier;
+
+    return skillModifier;
+  };
+
   return (
     <Table className="mt-4">
       <TableHeader>
@@ -58,7 +86,11 @@ const SkillShowcase: React.FC = ({}) => {
           <TableRow key={skill.skill}>
             <TableCell className="font-medium">{skill.skill}</TableCell>
             <TableCell className="font-medium flex items-center gap-2">
-              4 <DiceRoller diceType="d20" modifier={4} />
+              {calculateSkillModifier(skill)}
+              <DiceRoller
+                diceType="d20"
+                modifier={calculateSkillModifier(skill)}
+              />
             </TableCell>
             <TableCell
               className={`${

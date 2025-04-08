@@ -228,22 +228,97 @@ export const Classes: ClassType[] = [
 
 //Add intelligenceBoosted as a new item in the object. Can then check and update it the same way as the other boosts without infinite rerenders. Likely need the level associated with when int was boosted
 export const skillProficiencies: skillProficienciesType[] = [
-  { skill: "Acrobatics", LevelsBoosted: [], IntBoost: null },
-  { skill: "Arcana", LevelsBoosted: [], IntBoost: null },
-  { skill: "Athletics", LevelsBoosted: [], IntBoost: null },
-  { skill: "Crafting", LevelsBoosted: [], IntBoost: null },
-  { skill: "Deception", LevelsBoosted: [], IntBoost: null },
-  { skill: "Diplomacy", LevelsBoosted: [], IntBoost: null },
-  { skill: "Intimidation", LevelsBoosted: [], IntBoost: null },
-  { skill: "Medicine", LevelsBoosted: [], IntBoost: null },
-  { skill: "Nature", LevelsBoosted: [], IntBoost: null },
-  { skill: "Occultism", LevelsBoosted: [], IntBoost: null },
-  { skill: "Performance", LevelsBoosted: [], IntBoost: null },
-  { skill: "Religion", LevelsBoosted: [], IntBoost: null },
-  { skill: "Society", LevelsBoosted: [], IntBoost: null },
-  { skill: "Stealth", LevelsBoosted: [], IntBoost: null },
-  { skill: "Survival", LevelsBoosted: [], IntBoost: null },
-  { skill: "Thievery", LevelsBoosted: [], IntBoost: null },
+  {
+    skill: "Acrobatics",
+    attribute: "Dexterity",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Arcana",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Athletics",
+    attribute: "Strength",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Crafting",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Deception",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Diplomacy",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Intimidation",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Medicine",
+    attribute: "Wisdom",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  { skill: "Nature", attribute: "Wisdom", LevelsBoosted: [], IntBoost: null },
+  {
+    skill: "Occultism",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Performance",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Religion",
+    attribute: "Wisdom",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Society",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Stealth",
+    attribute: "Dexterity",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Survival",
+    attribute: "Wisdom",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Thievery",
+    attribute: "Dexterity",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
 ];
 
 export const Feats: FeatsType[] = [

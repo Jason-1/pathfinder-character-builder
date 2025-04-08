@@ -21,9 +21,13 @@ export default function Home() {
   // AC breakdown when hovering over AC
   // Calculate and display skill bonus
 
+  //BUGFIXES
+  // Fix the layout being too bunched up
+  // Mobile layout
+
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">
-      <div className="w-full grid grid-cols-12 gap-16">
+      <div className="w-full grid grid-cols-12 gap-16 items-start">
         <div className="grid col-span-4">
           <div className="grid grid-cols-2 items-center gap-10">
             <LevelSelector />

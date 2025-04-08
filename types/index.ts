@@ -124,6 +124,7 @@ export type ClassType = {
 
 export type skillProficienciesType = {
   skill: skillTypes | "";
+  attribute: AttributesType;
   LevelsBoosted: number[];
   IntBoost: number | null;
 };

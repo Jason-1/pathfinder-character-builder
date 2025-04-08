@@ -2,6 +2,7 @@ import { Classes } from "@/data";
 import { armourTypes } from "@/types";
 import React from "react";
 import { useSelector } from "react-redux";
+import TrainingIcon from "../Icons/TrainingIcon";
 
 const Armour = () => {
   const currentLevel = useSelector(
@@ -54,27 +55,21 @@ const Armour = () => {
     <div className="flex flex-row gap-4 justify-between">
       <div className="flex flex-row gap-2">
         <p>Unarmoured</p>
-        <span className="border px-2 rounded-full border-red-500 bg-red-600 h-6 w-6 flex items-center justify-center">
+        <TrainingIcon>
           {calculateArmourProficiencyLevel("unarmoured")}
-        </span>
+        </TrainingIcon>
       </div>
       <div className="flex flex-row gap-2">
         <p>Light</p>
-        <span className="border px-2 rounded-full border-red-500 bg-red-600 h-6 w-6 flex items-center justify-center">
-          {calculateArmourProficiencyLevel("light")}
-        </span>
+        <TrainingIcon>{calculateArmourProficiencyLevel("light")}</TrainingIcon>
       </div>
       <div className="flex flex-row gap-2">
         <p>Medium</p>
-        <span className="border px-2 rounded-full border-red-500 bg-red-600 h-6 w-6 flex items-center justify-center">
-          {calculateArmourProficiencyLevel("medium")}
-        </span>
+        <TrainingIcon>{calculateArmourProficiencyLevel("medium")}</TrainingIcon>
       </div>
       <div className="flex flex-row gap-2">
         <p>Heavy</p>
-        <span className="border px-2 rounded-full border-red-500 bg-red-600 h-6 w-6 flex items-center justify-center">
-          {calculateArmourProficiencyLevel("heavy")}
-        </span>
+        <TrainingIcon>{calculateArmourProficiencyLevel("heavy")}</TrainingIcon>
       </div>
     </div>
   );

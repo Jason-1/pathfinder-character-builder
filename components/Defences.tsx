@@ -5,6 +5,7 @@ import { AttributeBoostsType, saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
 import { Classes } from "@/data";
+import TrainingIcon from "./Icons/TrainingIcon";
 
 const Defences = () => {
   const currentLevel = useSelector(
@@ -158,9 +159,9 @@ const Defences = () => {
       </div>
       <div className="flex flex-col gap-1">
         <div className=" flex flex-row gap-2 items-center align-middle">
-          <span className="border px-2 rounded-full border-red-500 bg-red-600 h-6 w-6 flex items-center justify-center">
+          <TrainingIcon>
             {calculateSaveProficiencyLevel("fortitude")}
-          </span>
+          </TrainingIcon>
           <DiceRoller
             diceType="d20"
             modifier={calculateSaveBonus("fortitude")}
@@ -168,16 +169,12 @@ const Defences = () => {
           <span>Fortitude: +{calculateSaveBonus("fortitude")}</span>
         </div>
         <div className=" flex flex-row gap-2 items-center">
-          <span className="border px-2 rounded-full border-red-500 bg-red-600 h-6 w-6 flex items-center justify-center">
-            {calculateSaveProficiencyLevel("reflex")}
-          </span>
+          <TrainingIcon>{calculateSaveProficiencyLevel("reflex")}</TrainingIcon>
           <DiceRoller diceType="d20" modifier={calculateSaveBonus("reflex")} />
           <span>Reflex: +{calculateSaveBonus("reflex")}</span>
         </div>
         <div className=" flex flex-row gap-2 items-center">
-          <span className="border px-2 rounded-full border-red-500 bg-red-600 h-6 w-6 flex items-center justify-center">
-            {calculateSaveProficiencyLevel("will")}
-          </span>
+          <TrainingIcon>{calculateSaveProficiencyLevel("will")}</TrainingIcon>
           <DiceRoller diceType="d20" modifier={calculateSaveBonus("will")} />
           <span>Will: +{calculateSaveBonus("will")}</span>
         </div>

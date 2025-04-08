@@ -95,16 +95,16 @@ export type ClassType = {
     additional: number;
   };
   attacks: {
-    simple: TrainingType;
-    martial: TrainingType;
-    advanced: TrainingType;
-    unarmed: TrainingType;
+    simple: number[];
+    martial: number[];
+    advanced: number[];
+    unarmed: number[];
   };
   defences: {
-    unarmoured: TrainingType;
-    light: TrainingType;
-    medium: TrainingType;
-    heavy: TrainingType;
+    unarmoured: number[];
+    light: number[];
+    medium: number[];
+    heavy: number[];
   };
   DC: TrainingType;
   Attributes: AttributesType[];

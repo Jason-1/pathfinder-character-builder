@@ -6,6 +6,7 @@ import Name from "@/components/Name";
 import VariantRules from "@/components/VariantRules";
 import SkillShowcase from "@/components/SkillShowcase";
 import Defences from "@/components/Defences";
+import Equipment from "@/components/EquipmentSection/Equipment";
 
 export default function Home() {
   //TODO -
@@ -29,6 +30,9 @@ export default function Home() {
         </div>
         <div className="grid col-span-3">
           <SkillShowcase />
+        </div>
+        <div className="grid col-span-5">
+          <Equipment />
         </div>
       </div>
     </main>

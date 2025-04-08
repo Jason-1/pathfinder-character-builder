@@ -11,13 +11,13 @@ const TrainingIcon: React.FC<TrainingIconProps> = ({ trainingLevel }) => {
         trainingLevel === "U"
           ? "border-gray-500 bg-gray-600"
           : trainingLevel === "T"
-          ? "border-red-500 bg-red-600"
-          : trainingLevel === "E"
-          ? "border-green-500 bg-green-600"
-          : trainingLevel === "M"
           ? "border-blue-500 bg-blue-600"
-          : trainingLevel === "L"
+          : trainingLevel === "E"
           ? "border-purple-500 bg-purple-600"
+          : trainingLevel === "M"
+          ? "border-yellow-500 bg-yellow-600"
+          : trainingLevel === "L"
+          ? "border-red-500 bg-red-600"
           : ""
       } `}
     >

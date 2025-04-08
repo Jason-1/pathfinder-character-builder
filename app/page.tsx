@@ -17,6 +17,8 @@ export default function Home() {
   // Load Character
 
   // Change Training Icon colour based on proficiency
+  // Add HP to class and ancestry, calculate HP
+  // AC breakdown when hovering over AC
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

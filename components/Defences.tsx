@@ -24,7 +24,7 @@ const Defences = () => {
       state.attributeBoostCategories
   );
 
-  const calculateProficiencyBonus = (saveType: saveTypes) => {
+  const calculateSaveProficiencyBonus = (saveType: saveTypes) => {
     if (!selectedClassData) {
       return 0;
     }
@@ -40,8 +40,8 @@ const Defences = () => {
     return proficiency;
   };
 
-  const calculateProficiencyLevel = (saveType: saveTypes) => {
-    const proficiency = calculateProficiencyBonus(saveType);
+  const calculateSaveProficiencyLevel = (saveType: saveTypes) => {
+    const proficiency = calculateSaveProficiencyBonus(saveType);
     switch (proficiency) {
       case 0:
         return "U";
@@ -104,64 +104,41 @@ const Defences = () => {
     return HP;
   }
 
-  function calculateFortitude() {
-    var Fortitude = 0;
-    const proficiency = calculateProficiencyBonus("fortitude"); // TODO: Add proficiency bonus
+  function calculateSaveBonus(saveType: saveTypes) {
+    let saveBonus = 0;
+    const proficiency = calculateSaveProficiencyBonus(saveType);
     const item = 0; // TODO: Add item bonus
     const rune = 0; // TODO: Add rune bonus
-    const constitution = calculateCurrentAttributeBoost(
-      attributeBoosts,
-      currentLevel,
-      "Constitution"
-    );
+    let attribute = 0; // TODO: Add attribute bonus
+    if (saveType === "fortitude") {
+      attribute = calculateCurrentAttributeBoost(
+        attributeBoosts,
+        currentLevel,
+        "Constitution"
+      );
+    }
+    if (saveType === "reflex") {
+      attribute = calculateCurrentAttributeBoost(
+        attributeBoosts,
+        currentLevel,
+        "Dexterity"
+      );
+    }
+    if (saveType === "will") {
+      attribute = calculateCurrentAttributeBoost(
+        attributeBoosts,
+        currentLevel,
+        "Wisdom"
+      );
+    }
 
-    Fortitude += proficiency;
-    Fortitude += currentLevel;
-    Fortitude += item;
-    Fortitude += rune;
-    Fortitude += constitution;
+    saveBonus += proficiency;
+    saveBonus += currentLevel;
+    saveBonus += item;
+    saveBonus += rune;
+    saveBonus += attribute;
 
-    return Fortitude;
-  }
-
-  function calculateReflex() {
-    var Fortitude = 0;
-    const proficiency = calculateProficiencyBonus("reflex"); // TODO: Add proficiency bonus
-    const item = 0; // TODO: Add item bonus
-    const rune = 0; // TODO: Add rune bonus
-    const dexterity = calculateCurrentAttributeBoost(
-      attributeBoosts,
-      currentLevel,
-      "Dexterity"
-    );
-
-    Fortitude += proficiency;
-    Fortitude += currentLevel;
-    Fortitude += item;
-    Fortitude += rune;
-    Fortitude += dexterity;
-
-    return Fortitude;
-  }
-
-  function calculateWill() {
-    var Fortitude = 0;
-    const proficiency = calculateProficiencyBonus("will"); // TODO: Add proficiency bonus
-    const item = 0; // TODO: Add item bonus
-    const rune = 0; // TODO: Add rune bonus
-    const wisdom = calculateCurrentAttributeBoost(
-      attributeBoosts,
-      currentLevel,
-      "Wisdom"
-    );
-
-    Fortitude += proficiency;
-    Fortitude += currentLevel;
-    Fortitude += item;
-    Fortitude += rune;
-    Fortitude += wisdom;
-
-    return Fortitude;
+    return saveBonus;
   }
 
   return (
@@ -182,24 +159,27 @@ const Defences = () => {
       <div className="flex flex-col gap-1">
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
-            {calculateProficiencyLevel("fortitude")}
+            {calculateSaveProficiencyLevel("fortitude")}
           </span>
-          <DiceRoller diceType="d20" modifier={calculateFortitude()} />
-          <span>Fortitude: +{calculateFortitude()}</span>
+          <DiceRoller
+            diceType="d20"
+            modifier={calculateSaveBonus("fortitude")}
+          />
+          <span>Fortitude: +{calculateSaveBonus("fortitude")}</span>
         </div>
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
-            {calculateProficiencyLevel("reflex")}
+            {calculateSaveProficiencyLevel("reflex")}
           </span>
-          <DiceRoller diceType="d20" modifier={calculateReflex()} />
-          <span>Reflex: +{calculateReflex()}</span>
+          <DiceRoller diceType="d20" modifier={calculateSaveBonus("reflex")} />
+          <span>Reflex: +{calculateSaveBonus("reflex")}</span>
         </div>
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
-            {calculateProficiencyLevel("will")}
+            {calculateSaveProficiencyLevel("will")}
           </span>
-          <DiceRoller diceType="d20" modifier={calculateWill()} />
-          <span>Will: +{calculateWill()}</span>
+          <DiceRoller diceType="d20" modifier={calculateSaveBonus("will")} />
+          <span>Will: +{calculateSaveBonus("will")}</span>
         </div>
       </div>
     </div>

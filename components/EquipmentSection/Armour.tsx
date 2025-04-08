@@ -36,6 +36,8 @@ const Armour = () => {
 
   //------------------------------------------------------------------------------//
 
+  //Implement runes
+
   const handleSetArmour = (armour: string) => {
     dispatch(setArmour({ armour }));
   };
@@ -71,36 +73,37 @@ const Armour = () => {
       <div className="flex flex-row gap-4 justify-between">
         <div className="flex flex-row gap-2">
           <p>Unarmoured</p>
-          <TrainingIcon>
-            {calculateArmourProficiencyLevel("unarmoured")}
-          </TrainingIcon>
+          <TrainingIcon
+            trainingLevel={calculateArmourProficiencyLevel("unarmoured")}
+          />
         </div>
         <div className="flex flex-row gap-2">
           <p>Light</p>
-          <TrainingIcon>
-            {calculateArmourProficiencyLevel("light")}
-          </TrainingIcon>
+          <TrainingIcon
+            trainingLevel={calculateArmourProficiencyLevel("light")}
+          />
         </div>
         <div className="flex flex-row gap-2">
           <p>Medium</p>
-          <TrainingIcon>
-            {calculateArmourProficiencyLevel("medium")}
-          </TrainingIcon>
+          <TrainingIcon
+            trainingLevel={calculateArmourProficiencyLevel("medium")}
+          />
         </div>
         <div className="flex flex-row gap-2">
           <p>Heavy</p>
-          <TrainingIcon>
-            {calculateArmourProficiencyLevel("heavy")}
-          </TrainingIcon>
+          <TrainingIcon
+            trainingLevel={calculateArmourProficiencyLevel("heavy")}
+          />
         </div>
       </div>
 
       <div className="flex flex-row gap-2 mt-8">
-        <TrainingIcon>
-          {calculateArmourProficiencyLevel(
+        <TrainingIcon
+          trainingLevel={calculateArmourProficiencyLevel(
             selectedArmourData?.type || "unarmoured"
           )}
-        </TrainingIcon>
+        />
+
         <Dialog>
           <DialogTrigger>{selectedArmour}</DialogTrigger>
           <DialogContent>

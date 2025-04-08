@@ -174,9 +174,9 @@ const Defences = () => {
       </div>
       <div className="flex flex-col gap-1">
         <div className=" flex flex-row gap-2 items-center align-middle">
-          <TrainingIcon>
-            {calculateSaveProficiencyLevel("fortitude")}
-          </TrainingIcon>
+          <TrainingIcon
+            trainingLevel={calculateSaveProficiencyLevel("fortitude")}
+          />
           <DiceRoller
             diceType="d20"
             modifier={calculateSaveBonus("fortitude")}
@@ -184,12 +184,14 @@ const Defences = () => {
           <span>Fortitude: +{calculateSaveBonus("fortitude")}</span>
         </div>
         <div className=" flex flex-row gap-2 items-center">
-          <TrainingIcon>{calculateSaveProficiencyLevel("reflex")}</TrainingIcon>
+          <TrainingIcon
+            trainingLevel={calculateSaveProficiencyLevel("reflex")}
+          />
           <DiceRoller diceType="d20" modifier={calculateSaveBonus("reflex")} />
           <span>Reflex: +{calculateSaveBonus("reflex")}</span>
         </div>
         <div className=" flex flex-row gap-2 items-center">
-          <TrainingIcon>{calculateSaveProficiencyLevel("will")}</TrainingIcon>
+          <TrainingIcon trainingLevel={calculateSaveProficiencyLevel("will")} />
           <DiceRoller diceType="d20" modifier={calculateSaveBonus("will")} />
           <span>Will: +{calculateSaveBonus("will")}</span>
         </div>

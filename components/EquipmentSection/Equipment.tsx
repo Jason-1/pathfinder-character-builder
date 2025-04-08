@@ -23,7 +23,7 @@ const Equipment = () => {
   };
 
   return (
-    <Card className="mt-8">
+    <Card className="mt-8 h-full">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <Button

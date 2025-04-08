@@ -58,7 +58,7 @@ const Abilities: React.FC = ({}) => {
   }, [selectedClass]);
 
   return (
-    <div className="grid grid-cols-3 gap-1">
+    <div className="grid grid-cols-3 gap-8 mt-4">
       {Attributes.map((attribute) => (
         <div
           key={attribute.name}

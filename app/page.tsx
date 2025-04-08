@@ -19,21 +19,21 @@ export default function Home() {
   // AC breakdown when hovering over AC
 
   //BUGFIXES
-  // Fix the layout being too bunched up
   // Mobile layout
-  // Import redux states into calculateCurrentAttributeBoost and calculateArmourProficiencyBonus so they don't need to be passed in as props
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">
       <div className="w-full grid grid-cols-12 gap-16 items-start">
         <div className="grid col-span-4">
-          <div className="grid grid-cols-2 items-center gap-10">
+          <div className="grid grid-cols-2 items-center gap-10 mt-8">
             <LevelSelector />
             <Name />
           </div>
-          <Defences />
-          <Abilities />
-          <VariantRules />
+          <div className="mt-8 flex flex-col gap-8">
+            <Defences />
+            <Abilities />
+            <VariantRules />
+          </div>
         </div>
         <div className="grid col-span-3">
           <SkillShowcase />

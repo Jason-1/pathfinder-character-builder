@@ -132,8 +132,8 @@ const DiceRoller: React.FC<DiceRollerProps> = ({ diceType, modifier }) => {
   return (
     <div>
       <Dialog onOpenChange={handleDialogClose}>
-        <DialogTrigger>
-          <motion.div>
+        <DialogTrigger asChild>
+          <motion.div className="hover:cursor-pointer">
             {diceType === "d4" ? <GiD4 size={"22"} /> : null}
             {diceType === "d6" ? <FaDiceD6 size={"20"} /> : null}
             {diceType === "d8" ? <GiD10 size={"24"} /> : null}

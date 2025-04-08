@@ -18,6 +18,7 @@ export default function Home() {
 
   //BUGFIXES
   // Mobile layout
+  // Implement shields
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

@@ -18,6 +18,8 @@ const ACBreakdown = () => {
     (state: { potency: { potency: number } }) => state.potency.potency
   );
 
+  //------------------------------------------------------------------------------//
+
   if (!selectedArmourData) {
     return <p>No armour selected</p>;
   }

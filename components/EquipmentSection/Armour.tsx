@@ -48,18 +48,24 @@ const Armour = () => {
 
   //------------------------------------------------------------------------------//
 
-  //Implement runes
-
   const handleSetArmour = (armour: string) => {
     dispatch(setArmour({ armour }));
+    if (armour === "Unarmoured") {
+      dispatch(setPotency({ potency: 0 }));
+      dispatch(setResilient({ resilient: 0 }));
+    }
   };
 
   const handleSetPotency = (potency: number) => {
-    dispatch(setPotency({ potency }));
+    if (selectedArmour !== "Unarmoured") {
+      dispatch(setPotency({ potency }));
+    }
   };
 
   const handleSetResilient = (resilient: number) => {
-    dispatch(setResilient({ resilient }));
+    if (selectedArmour !== "Unarmoured") {
+      dispatch(setResilient({ resilient }));
+    }
   };
 
   const calculateArmourProficiencyLevel = (armourType: armourTypes) => {

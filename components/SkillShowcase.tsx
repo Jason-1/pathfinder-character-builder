@@ -54,18 +54,22 @@ const SkillShowcase: React.FC = ({}) => {
   const calculateSkillModifier = (skill: skillProficienciesType) => {
     let skillModifier = 0;
 
-    const proficiency =
+    let proficiency =
       skill.LevelsBoosted.filter((level) => level <= currentLevel).length * 2;
+
+    //if an int boost is applied to the skill, add 1 to the proficiency
+    if (skill.IntBoost) {
+      proficiency++;
+    }
+
     skillModifier += proficiency;
+
+    //if the skill is trained, add the current level to the proficiency
     if (proficiency > 0) {
       skillModifier += currentLevel;
     }
 
-    const abilityModifier = calculateCurrentAttributeBoost(
-      attributeBoosts,
-      currentLevel,
-      skill.attribute
-    );
+    const abilityModifier = calculateCurrentAttributeBoost(skill.attribute);
 
     skillModifier += abilityModifier;
 

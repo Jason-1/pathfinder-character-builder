@@ -6,7 +6,7 @@ import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost
 import DiceRoller from "./DiceRoller";
 import { Ancestries, armourData, Classes } from "@/data";
 import TrainingIcon from "./Icons/TrainingIcon";
-import calculateArmourProficiencyBonus from "@/lib/calculateArmourProficiencyBonus";
+import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 
 const Defences = () => {
   const currentLevel = useSelector(
@@ -29,10 +29,6 @@ const Defences = () => {
   );
   const selectedAncestryData = Ancestries.find(
     (ancestryItem) => ancestryItem.name === selectedAncestry
-  );
-  const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
   );
 
   //------------------------------------------------------------------------------//
@@ -80,19 +76,13 @@ const Defences = () => {
     const dexCap = selectedArmourData.dexCap;
 
     const Base = 10;
-    const proficiency = calculateArmourProficiencyBonus(
-      selectedArmourData.type,
-      selectedClassData,
-      currentLevel
+    const proficiency = calculateCurrentArmourProficiencyBonus(
+      selectedArmourData.type
     );
     const item = selectedArmourData.ACBonus;
     const rune = 0; // TODO: Add rune bonus
     const dexterity = Math.min(
-      calculateCurrentAttributeBoost(
-        attributeBoosts,
-        currentLevel,
-        "Dexterity"
-      ),
+      calculateCurrentAttributeBoost("Dexterity"),
       dexCap
     );
     const shield = 0; // TODO: Add shield bonus
@@ -120,11 +110,7 @@ const Defences = () => {
     let HP = 0;
     const classHP = selectedClassData.hp;
     const ancestry = selectedAncestryData.hp; // TODO: Add ancestry HP bonus
-    const constitution = calculateCurrentAttributeBoost(
-      attributeBoosts,
-      currentLevel,
-      "Constitution"
-    );
+    const constitution = calculateCurrentAttributeBoost("Constitution");
     const bonus = 0; // TODO: Add bonus HP from items or feats
 
     HP += ancestry;
@@ -141,25 +127,13 @@ const Defences = () => {
     const rune = 0; // TODO: Add rune bonus
     let attribute = 0; // TODO: Add attribute bonus
     if (saveType === "fortitude") {
-      attribute = calculateCurrentAttributeBoost(
-        attributeBoosts,
-        currentLevel,
-        "Constitution"
-      );
+      attribute = calculateCurrentAttributeBoost("Constitution");
     }
     if (saveType === "reflex") {
-      attribute = calculateCurrentAttributeBoost(
-        attributeBoosts,
-        currentLevel,
-        "Dexterity"
-      );
+      attribute = calculateCurrentAttributeBoost("Dexterity");
     }
     if (saveType === "will") {
-      attribute = calculateCurrentAttributeBoost(
-        attributeBoosts,
-        currentLevel,
-        "Wisdom"
-      );
+      attribute = calculateCurrentAttributeBoost("Wisdom");
     }
 
     saveBonus += proficiency;

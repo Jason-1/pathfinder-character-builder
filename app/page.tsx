@@ -16,14 +16,12 @@ export default function Home() {
   // Save Character
   // Load Character
 
-  // Change Training Icon colour based on proficiency
-  // Add HP to class and ancestry, calculate HP
   // AC breakdown when hovering over AC
-  // Calculate and display skill bonus
 
   //BUGFIXES
   // Fix the layout being too bunched up
   // Mobile layout
+  // Import redux states into calculateCurrentAttributeBoost and calculateArmourProficiencyBonus so they don't need to be passed in as props
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

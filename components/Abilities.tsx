@@ -67,11 +67,7 @@ const Abilities: React.FC = ({}) => {
           <div>{attribute.name}</div>
           <div>
             {"+"}
-            {calculateCurrentAttributeBoost(
-              attributeBoosts,
-              selectedLevel,
-              attribute.name
-            )}
+            {calculateCurrentAttributeBoost(attribute.name)}
           </div>
         </div>
       ))}

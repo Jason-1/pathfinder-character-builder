@@ -13,6 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { setArmour } from "@/app/Slices/armourSlice";
+import calculateArmourProficiencyBonus from "@/lib/calculateArmourProficiencyBonus";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -39,24 +40,16 @@ const Armour = () => {
     dispatch(setArmour({ armour }));
   };
 
-  const calculateArmourProficiencyBonus = (armourType: armourTypes) => {
+  const calculateArmourProficiencyLevel = (armourType: armourTypes) => {
     if (!selectedClassData) {
-      return 0;
+      return "U";
     }
 
-    var proficiency = 0;
-
-    selectedClassData.defences[armourType].forEach((level) => {
-      if (level <= currentLevel) {
-        proficiency += 2;
-      }
-    });
-
-    return proficiency;
-  };
-
-  const calculateArmourProficiencyLevel = (armourType: armourTypes) => {
-    const proficiency = calculateArmourProficiencyBonus(armourType);
+    const proficiency = calculateArmourProficiencyBonus(
+      armourType,
+      selectedClassData,
+      currentLevel
+    );
     switch (proficiency) {
       case 0:
         return "U";

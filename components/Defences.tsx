@@ -1,29 +1,35 @@
 import React from "react";
 import { Shield } from "lucide-react";
 import { useSelector } from "react-redux";
-import { AttributeBoostsType, saveTypes } from "@/types";
+import { armourTypes, AttributeBoostsType, saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
-import { Classes } from "@/data";
+import { armourData, Classes } from "@/data";
 import TrainingIcon from "./Icons/TrainingIcon";
+import calculateArmourProficiencyBonus from "@/lib/calculateArmourProficiencyBonus";
 
 const Defences = () => {
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
-
   const selectedClass = useSelector(
     (state: { class: { class: string } }) => state.class.class
   );
-
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
-
+  const selectedArmour = useSelector(
+    (state: { armour: { armour: string } }) => state.armour.armour
+  );
+  const selectedArmourData = armourData.find(
+    (armourItem) => armourItem.name === selectedArmour
+  );
   const attributeBoosts = useSelector(
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories
   );
+
+  //------------------------------------------------------------------------------//
 
   const calculateSaveProficiencyBonus = (saveType: saveTypes) => {
     if (!selectedClassData) {
@@ -58,13 +64,22 @@ const Defences = () => {
         return "U";
     }
   };
+
   function calculateAC() {
     var AC = 0;
-    const dexCap = 5; // TODO: Add dex cap bonus
+    if (!selectedArmourData || !selectedClassData) {
+      return 0;
+    }
+
+    const dexCap = selectedArmourData.dexCap; // TODO: Add dex cap bonus
 
     const Base = 10;
-    const proficiency = 2; // TODO: Add proficiency bonus
-    const item = 0; // TODO: Add item bonus
+    const proficiency = calculateArmourProficiencyBonus(
+      selectedArmourData.type,
+      selectedClassData,
+      currentLevel
+    );
+    const item = selectedArmourData.ACBonus;
     const rune = 0; // TODO: Add rune bonus
     const dexterity = Math.min(
       calculateCurrentAttributeBoost(

@@ -16,8 +16,6 @@ export default function Home() {
   // Save Character
   // Load Character
 
-  // AC breakdown when hovering over AC
-
   //BUGFIXES
   // Mobile layout
 

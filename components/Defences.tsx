@@ -7,6 +7,12 @@ import DiceRoller from "./DiceRoller";
 import { Ancestries, armourData, Classes } from "@/data";
 import TrainingIcon from "./Icons/TrainingIcon";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import ACBreakdown from "./ACBreakdown";
 
 const Defences = () => {
   const currentLevel = useSelector(
@@ -86,7 +92,7 @@ const Defences = () => {
       selectedArmourData.type
     );
     const item = selectedArmourData.ACBonus;
-    const rune = selectedPotency; // TODO: Add rune bonus
+    const rune = selectedPotency;
     const dexterity = Math.min(
       calculateCurrentAttributeBoost("Dexterity"),
       dexCap
@@ -153,13 +159,20 @@ const Defences = () => {
 
   return (
     <div className="flex flex-row items-center gap-4">
-      <div className="relative inline-block w-24 h-24">
-        <Shield className="w-full h-full text-gray-500" />
-        <span className="absolute inset-0 flex flex-col items-center justify-center text-white text-xl font-bold">
-          <span className="text-xs">AC</span>
-          {calculateAC()}
-        </span>
-      </div>
+      <HoverCard>
+        <HoverCardTrigger>
+          <div className="relative inline-block w-24 h-24">
+            <Shield className="w-full h-full text-gray-500" />
+            <span className="absolute inset-0 flex flex-col items-center justify-center text-white text-xl font-bold">
+              <span className="text-xs">AC</span>
+              {calculateAC()}
+            </span>
+          </div>
+        </HoverCardTrigger>
+        <HoverCardContent>
+          <ACBreakdown />
+        </HoverCardContent>
+      </HoverCard>
 
       <div className="w-32 h-8 bg-red-500 flex items-center px-4">
         <span className="text-white text-md font-bold">

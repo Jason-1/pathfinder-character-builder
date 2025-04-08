@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import DiceRoller from "./DiceRoller";
 
 const SkillShowcase: React.FC = ({}) => {
   const currentLevel = useSelector(
@@ -48,6 +49,7 @@ const SkillShowcase: React.FC = ({}) => {
       <TableHeader>
         <TableRow>
           <TableHead className="w-48">Skill</TableHead>
+          <TableHead>Modifier</TableHead>
           <TableHead>Proficiency</TableHead>
         </TableRow>
       </TableHeader>
@@ -55,6 +57,9 @@ const SkillShowcase: React.FC = ({}) => {
         {selectedSkills.map((skill) => (
           <TableRow key={skill.skill}>
             <TableCell className="font-medium">{skill.skill}</TableCell>
+            <TableCell className="font-medium flex items-center gap-2">
+              4 <DiceRoller diceType="d20" modifier={4} />
+            </TableCell>
             <TableCell
               className={`${
                 findTrainingLevel(skill) === "Untrained"

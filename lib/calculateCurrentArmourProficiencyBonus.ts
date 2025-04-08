@@ -1,5 +1,5 @@
 import { Classes } from "@/data";
-import { armourTypes, ClassType } from "@/types";
+import { armourTypes } from "@/types";
 import { useSelector } from "react-redux";
 
 export default function calculateCurrentArmourProficiencyBonus(

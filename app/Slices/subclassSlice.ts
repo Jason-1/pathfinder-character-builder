@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  subclass: "Select Ancestry",
+  subclass: "Select Subclass",
 };
 
 const subclassSlice = createSlice({

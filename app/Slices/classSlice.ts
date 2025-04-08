@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  class: "Select Class",
+  class: "Fighter",
 };
 
 const classSlice = createSlice({

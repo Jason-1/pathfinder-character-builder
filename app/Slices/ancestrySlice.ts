@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  ancestry: "Select Ancestry",
+  ancestry: "Human",
 };
 
 const ancestrySlice = createSlice({

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -14,6 +13,16 @@ import {
 } from "@/components/ui/dialog";
 import { setArmour } from "@/app/Slices/armourSlice";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { setPotency } from "@/app/Slices/potencySlice";
+import { setResilient } from "@/app/Slices/resilientSlice";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -30,6 +39,12 @@ const Armour = () => {
   const selectedArmourData = armourData.find(
     (armourItem) => armourItem.name === selectedArmour
   );
+  const selectedPotency = useSelector(
+    (state: { potency: { potency: number } }) => state.potency.potency
+  );
+  const selectedResilient = useSelector(
+    (state: { resilient: { resilient: number } }) => state.resilient.resilient
+  );
 
   //------------------------------------------------------------------------------//
 
@@ -37,6 +52,14 @@ const Armour = () => {
 
   const handleSetArmour = (armour: string) => {
     dispatch(setArmour({ armour }));
+  };
+
+  const handleSetPotency = (potency: number) => {
+    dispatch(setPotency({ potency }));
+  };
+
+  const handleSetResilient = (resilient: number) => {
+    dispatch(setResilient({ resilient }));
   };
 
   const calculateArmourProficiencyLevel = (armourType: armourTypes) => {
@@ -119,6 +142,86 @@ const Armour = () => {
         </Dialog>
         <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
         <p>Dex Cap +{selectedArmourData?.dexCap}</p>
+      </div>
+      <div className="flex flex-row gap-4 mt-8">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {selectedPotency === 0
+              ? "No Potency Rune"
+              : "+" + selectedPotency + " Potency"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetPotency(0);
+              }}
+            >
+              No Potency Rune
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetPotency(1);
+              }}
+            >
+              +1 Potency
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetPotency(2);
+              }}
+            >
+              +2 Potency
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetPotency(3);
+              }}
+            >
+              +3 Potency
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {selectedResilient === 0
+              ? "No Resilient Rune"
+              : selectedResilient === 1
+              ? "Resilient"
+              : selectedResilient === 2
+              ? "Resilient (Greater)"
+              : "Resilient (Major)"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetResilient(0);
+              }}
+            >
+              No Resilient Rune
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetResilient(1);
+              }}
+            >
+              Resilient
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetResilient(2);
+              }}
+            >
+              Resilient (Greater)
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetResilient(3);
+              }}
+            >
+              Resilient (Major)
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

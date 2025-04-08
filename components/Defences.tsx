@@ -30,6 +30,12 @@ const Defences = () => {
   const selectedAncestryData = Ancestries.find(
     (ancestryItem) => ancestryItem.name === selectedAncestry
   );
+  const selectedPotency = useSelector(
+    (state: { potency: { potency: number } }) => state.potency.potency
+  );
+  const selectedResilient = useSelector(
+    (state: { resilient: { resilient: number } }) => state.resilient.resilient
+  );
 
   //------------------------------------------------------------------------------//
 
@@ -80,7 +86,7 @@ const Defences = () => {
       selectedArmourData.type
     );
     const item = selectedArmourData.ACBonus;
-    const rune = 0; // TODO: Add rune bonus
+    const rune = selectedPotency; // TODO: Add rune bonus
     const dexterity = Math.min(
       calculateCurrentAttributeBoost("Dexterity"),
       dexCap
@@ -109,7 +115,7 @@ const Defences = () => {
 
     let HP = 0;
     const classHP = selectedClassData.hp;
-    const ancestry = selectedAncestryData.hp; // TODO: Add ancestry HP bonus
+    const ancestry = selectedAncestryData.hp;
     const constitution = calculateCurrentAttributeBoost("Constitution");
     const bonus = 0; // TODO: Add bonus HP from items or feats
 
@@ -124,8 +130,8 @@ const Defences = () => {
     let saveBonus = 0;
     const proficiency = calculateSaveProficiencyBonus(saveType);
     const item = 0; // TODO: Add item bonus
-    const rune = 0; // TODO: Add rune bonus
-    let attribute = 0; // TODO: Add attribute bonus
+    const rune = selectedResilient;
+    let attribute = 0;
     if (saveType === "fortitude") {
       attribute = calculateCurrentAttributeBoost("Constitution");
     }

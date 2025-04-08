@@ -12,6 +12,8 @@ import attributeBoostCategoriesSlice from "./Slices/attributeBoostCategoriesSlic
 import selectedFeatsSlice from "./Slices/selectedFeatsSlice";
 import selectedSkillsSlice from "./Slices/selectedSkillsSlice";
 import armourSlice from "./Slices/armourSlice";
+import potencySlice from "./Slices/potencySlice";
+import resilientSlice from "./Slices/resilientSlice";
 
 export const store = configureStore({
   reducer: {
@@ -28,5 +30,7 @@ export const store = configureStore({
     selectedFeats: selectedFeatsSlice,
     selectedSkills: selectedSkillsSlice,
     armour: armourSlice,
+    potency: potencySlice,
+    resilient: resilientSlice,
   },
 });

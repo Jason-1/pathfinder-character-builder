@@ -52,24 +52,42 @@ const Armour = () => {
   };
 
   return (
-    <div className="flex flex-row gap-4 justify-between">
-      <div className="flex flex-row gap-2">
-        <p>Unarmoured</p>
+    <div>
+      <div className="flex flex-row gap-4 justify-between">
+        <div className="flex flex-row gap-2">
+          <p>Unarmoured</p>
+          <TrainingIcon>
+            {calculateArmourProficiencyLevel("unarmoured")}
+          </TrainingIcon>
+        </div>
+        <div className="flex flex-row gap-2">
+          <p>Light</p>
+          <TrainingIcon>
+            {calculateArmourProficiencyLevel("light")}
+          </TrainingIcon>
+        </div>
+        <div className="flex flex-row gap-2">
+          <p>Medium</p>
+          <TrainingIcon>
+            {calculateArmourProficiencyLevel("medium")}
+          </TrainingIcon>
+        </div>
+        <div className="flex flex-row gap-2">
+          <p>Heavy</p>
+          <TrainingIcon>
+            {calculateArmourProficiencyLevel("heavy")}
+          </TrainingIcon>
+        </div>
+      </div>
+
+      <div className="flex flex-row gap-2 mt-8">
         <TrainingIcon>
           {calculateArmourProficiencyLevel("unarmoured")}
         </TrainingIcon>
-      </div>
-      <div className="flex flex-row gap-2">
-        <p>Light</p>
-        <TrainingIcon>{calculateArmourProficiencyLevel("light")}</TrainingIcon>
-      </div>
-      <div className="flex flex-row gap-2">
-        <p>Medium</p>
-        <TrainingIcon>{calculateArmourProficiencyLevel("medium")}</TrainingIcon>
-      </div>
-      <div className="flex flex-row gap-2">
-        <p>Heavy</p>
-        <TrainingIcon>{calculateArmourProficiencyLevel("heavy")}</TrainingIcon>
+        {/* Create state holding armour type and different armours */}
+        <p>Unarmoured</p>
+        <p>Item Bonus: +0</p>
+        <p>Dex Cap +5</p>
       </div>
     </div>
   );

@@ -16,6 +16,8 @@ export default function Home() {
   // Save Character
   // Load Character
 
+  // Change Training Icon colour based on proficiency
+
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">
       <div className="w-full grid grid-cols-12 gap-16">

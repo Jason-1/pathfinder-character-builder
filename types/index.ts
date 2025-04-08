@@ -133,3 +133,15 @@ export type AttributeBoostsType = {
   name: Category;
   boosts: AttributesType[];
 };
+
+export type armourItemType = {
+  name: string;
+  type: armourTypes;
+  ACBonus: number;
+  dexCap: number;
+  strength: number;
+  checkPenalty: number;
+  speedPenalty: number;
+  bulk: number | string;
+  group: string;
+};

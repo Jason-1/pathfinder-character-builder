@@ -55,7 +55,23 @@ const SkillShowcase: React.FC = ({}) => {
         {selectedSkills.map((skill) => (
           <TableRow key={skill.skill}>
             <TableCell className="font-medium">{skill.skill}</TableCell>
-            <TableCell>{findTrainingLevel(skill)}</TableCell>
+            <TableCell
+              className={`${
+                findTrainingLevel(skill) === "Untrained"
+                  ? "text-gray-600"
+                  : findTrainingLevel(skill) === "Trained"
+                  ? "text-blue-600"
+                  : findTrainingLevel(skill) === "Expert"
+                  ? "text-purple-700"
+                  : findTrainingLevel(skill) === "Master"
+                  ? "text-yellow-600"
+                  : findTrainingLevel(skill) === "Legendary"
+                  ? "text-red-600"
+                  : ""
+              } `}
+            >
+              {findTrainingLevel(skill)}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

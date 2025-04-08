@@ -51,6 +51,8 @@ export type skillTypes =
   | "Survival"
   | "Thievery";
 
+export type saveTypes = "fortitude" | "reflex" | "will";
+
 export type diceTypes = "d4" | "d6" | "d8" | "d10" | "d12" | "d20";
 
 export type AncestryType = {
@@ -69,9 +71,9 @@ export type ClassType = {
   type: string;
   perception: TrainingType;
   saves: {
-    fortitude: TrainingType;
-    reflex: TrainingType;
-    will: TrainingType;
+    fortitude: number[];
+    reflex: number[];
+    will: number[];
   };
   skills: {
     Acrobatics?: TrainingType;

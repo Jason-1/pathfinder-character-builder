@@ -1,15 +1,22 @@
 import React from "react";
 import { Shield } from "lucide-react";
 import { useSelector } from "react-redux";
-import { AttributeBoostsType } from "@/types";
+import { AttributeBoostsType, saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
-import { FaDiceD20 } from "react-icons/fa";
-import { motion } from "motion/react";
 import DiceRoller from "./DiceRoller";
+import { Classes } from "@/data";
 
 const Defences = () => {
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
+  );
+
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
+
+  const selectedClassData = Classes.find(
+    (classItem) => classItem.name === selectedClass
   );
 
   const attributeBoosts = useSelector(
@@ -17,6 +24,39 @@ const Defences = () => {
       state.attributeBoostCategories
   );
 
+  const calculateProficiencyBonus = (saveType: saveTypes) => {
+    if (!selectedClassData) {
+      return 0;
+    }
+
+    var proficiency = 0;
+
+    selectedClassData.saves[saveType].forEach((level) => {
+      if (level <= currentLevel) {
+        proficiency += 2;
+      }
+    });
+
+    return proficiency;
+  };
+
+  const calculateProficiencyLevel = (saveType: saveTypes) => {
+    const proficiency = calculateProficiencyBonus(saveType);
+    switch (proficiency) {
+      case 0:
+        return "U";
+      case 2:
+        return "T";
+      case 4:
+        return "E";
+      case 6:
+        return "M";
+      case 8:
+        return "L";
+      default:
+        return "U";
+    }
+  };
   function calculateAC() {
     var AC = 0;
     const dexCap = 5; // TODO: Add dex cap bonus
@@ -66,7 +106,7 @@ const Defences = () => {
 
   function calculateFortitude() {
     var Fortitude = 0;
-    const proficiency = 2; // TODO: Add proficiency bonus
+    const proficiency = calculateProficiencyBonus("fortitude"); // TODO: Add proficiency bonus
     const item = 0; // TODO: Add item bonus
     const rune = 0; // TODO: Add rune bonus
     const constitution = calculateCurrentAttributeBoost(
@@ -86,7 +126,7 @@ const Defences = () => {
 
   function calculateReflex() {
     var Fortitude = 0;
-    const proficiency = 2; // TODO: Add proficiency bonus
+    const proficiency = calculateProficiencyBonus("reflex"); // TODO: Add proficiency bonus
     const item = 0; // TODO: Add item bonus
     const rune = 0; // TODO: Add rune bonus
     const dexterity = calculateCurrentAttributeBoost(
@@ -106,7 +146,7 @@ const Defences = () => {
 
   function calculateWill() {
     var Fortitude = 0;
-    const proficiency = 2; // TODO: Add proficiency bonus
+    const proficiency = calculateProficiencyBonus("will"); // TODO: Add proficiency bonus
     const item = 0; // TODO: Add item bonus
     const rune = 0; // TODO: Add rune bonus
     const wisdom = calculateCurrentAttributeBoost(
@@ -142,21 +182,21 @@ const Defences = () => {
       <div className="flex flex-col gap-1">
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
-            T {/* Get training levels from class */}
+            {calculateProficiencyLevel("fortitude")}
           </span>
           <DiceRoller diceType="d20" modifier={calculateFortitude()} />
           <span>Fortitude: +{calculateFortitude()}</span>
         </div>
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
-            T
+            {calculateProficiencyLevel("reflex")}
           </span>
           <DiceRoller diceType="d20" modifier={calculateReflex()} />
           <span>Reflex: +{calculateReflex()}</span>
         </div>
         <div className=" flex flex-row items-center gap-2">
           <span className="border px-2 rounded-full border-red-500 bg-red-600">
-            T
+            {calculateProficiencyLevel("will")}
           </span>
           <DiceRoller diceType="d20" modifier={calculateWill()} />
           <span>Will: +{calculateWill()}</span>

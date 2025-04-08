@@ -40,9 +40,9 @@ export const Classes: ClassType[] = [
     type: "Martial",
     perception: "Expert",
     saves: {
-      fortitude: "Expert",
-      reflex: "Trained",
-      will: "Trained",
+      fortitude: [1, 1, 9],
+      reflex: [1, 1, 15],
+      will: [1, 3],
     },
     skills: {
       Acrobatics: "Trained",
@@ -169,9 +169,9 @@ export const Classes: ClassType[] = [
     type: "Caster",
     perception: "Trained",
     saves: {
-      fortitude: "Trained",
-      reflex: "Trained",
-      will: "Expert",
+      fortitude: [1, 9],
+      reflex: [1, 5],
+      will: [1, 1, 17],
     },
     skills: {
       Arcana: "Trained",

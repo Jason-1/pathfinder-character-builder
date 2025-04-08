@@ -1,21 +1,43 @@
-import { Classes } from "@/data";
+import { armourData, Classes } from "@/data";
 import { armourTypes } from "@/types";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { setArmour } from "@/app/Slices/armourSlice";
 
 const Armour = () => {
+  const dispatch = useDispatch();
+
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
-
   const selectedClass = useSelector(
     (state: { class: { class: string } }) => state.class.class
   );
-
+  const selectedArmour = useSelector(
+    (state: { armour: { armour: string } }) => state.armour.armour
+  );
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
+  const selectedArmourData = armourData.find(
+    (armourItem) => armourItem.name === selectedArmour
+  );
+
+  //------------------------------------------------------------------------------//
+
+  const handleSetArmour = (armour: string) => {
+    dispatch(setArmour({ armour }));
+  };
 
   const calculateArmourProficiencyBonus = (armourType: armourTypes) => {
     if (!selectedClassData) {
@@ -82,12 +104,32 @@ const Armour = () => {
 
       <div className="flex flex-row gap-2 mt-8">
         <TrainingIcon>
-          {calculateArmourProficiencyLevel("unarmoured")}
+          {calculateArmourProficiencyLevel(
+            selectedArmourData?.type || "unarmoured"
+          )}
         </TrainingIcon>
-        {/* Create state holding armour type and different armours */}
-        <p>Unarmoured</p>
-        <p>Item Bonus: +0</p>
-        <p>Dex Cap +5</p>
+        <Dialog>
+          <DialogTrigger>{selectedArmour}</DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Select Armour</DialogTitle>
+              {armourData.map((armourItem) => (
+                <div key={armourItem.name} className="flex flex-row gap-2">
+                  <DialogTrigger
+                    onClick={() => {
+                      handleSetArmour(armourItem.name);
+                    }}
+                  >
+                    {armourItem.name}
+                  </DialogTrigger>
+                </div>
+              ))}
+              <DialogDescription>Armour Description</DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+        <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
+        <p>Dex Cap +{selectedArmourData?.dexCap}</p>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import ancestralParagonSlice from "./Slices/ancestralParagonSlice";
 import attributeBoostCategoriesSlice from "./Slices/attributeBoostCategoriesSlice";
 import selectedFeatsSlice from "./Slices/selectedFeatsSlice";
 import selectedSkillsSlice from "./Slices/selectedSkillsSlice";
+import armourSlice from "./Slices/armourSlice";
 
 export const store = configureStore({
   reducer: {
@@ -26,5 +27,6 @@ export const store = configureStore({
     attributeBoostCategories: attributeBoostCategoriesSlice,
     selectedFeats: selectedFeatsSlice,
     selectedSkills: selectedSkillsSlice,
+    armour: armourSlice,
   },
 });

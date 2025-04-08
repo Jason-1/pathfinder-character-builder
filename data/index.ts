@@ -536,7 +536,7 @@ export const armourData: armourItemType[] = [
     name: "Full Plate",
     type: "heavy",
     ACBonus: 6,
-    dexCap: 1,
+    dexCap: 0,
     strength: 4,
     checkPenalty: 3,
     speedPenalty: 10,

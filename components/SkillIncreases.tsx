@@ -77,7 +77,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   );
 
   function findDefaultValue(skillBoost: skillProficienciesType) {
-    var totalBoosts: number = 0;
+    let totalBoosts: number = 0;
 
     if (skillBoost.IntBoost) {
       if (skillBoost.IntBoost <= currentLevel) {
@@ -103,7 +103,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   };
 
   function currentBoostsUsed() {
-    var instances = selectedSkills.filter((skillBoost) =>
+    let instances = selectedSkills.filter((skillBoost) =>
       skillBoost.LevelsBoosted.includes(currentLevel)
     ).length;
 

@@ -10,10 +10,28 @@ import {
 } from "@/types";
 
 export const Ancestries: AncestryType[] = [
-  { name: "Human", Attributes: ["Free"] },
-  { name: "Elf", Attributes: ["Dexterity", "Intelligence"] },
-  { name: "Dwarf", Attributes: ["Constitution", "Wisdom"] },
-  { name: "Halfling", Attributes: ["Dexterity", "Wisdom"] },
+  { name: "Human", Attributes: ["Free"], hp: 8, speed: 25, size: "medium" },
+  {
+    name: "Elf",
+    Attributes: ["Dexterity", "Intelligence"],
+    hp: 6,
+    speed: 30,
+    size: "medium",
+  },
+  {
+    name: "Dwarf",
+    Attributes: ["Constitution", "Wisdom"],
+    hp: 10,
+    speed: 20,
+    size: "medium",
+  },
+  {
+    name: "Halfling",
+    Attributes: ["Dexterity", "Wisdom"],
+    hp: 6,
+    speed: 25,
+    size: "small",
+  },
 ];
 
 export const Backgrounds: BackgroundType[] = [
@@ -63,6 +81,7 @@ export const Classes: ClassType[] = [
       heavy: [1, 11, 17],
     },
     DC: "Trained",
+    hp: 10,
     Attributes: ["Strength", "Dexterity"],
     subclasses: [],
     features: [
@@ -191,6 +210,7 @@ export const Classes: ClassType[] = [
       heavy: [],
     },
     DC: "Trained",
+    hp: 6,
     Attributes: ["Intelligence"],
     subclasses: [
       "Red Mantis Magic School",

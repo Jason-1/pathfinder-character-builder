@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { armourTypes, AttributeBoostsType, saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
-import { armourData, Classes } from "@/data";
+import { Ancestries, armourData, Classes } from "@/data";
 import TrainingIcon from "./Icons/TrainingIcon";
 import calculateArmourProficiencyBonus from "@/lib/calculateArmourProficiencyBonus";
 
@@ -24,6 +24,12 @@ const Defences = () => {
   const selectedArmourData = armourData.find(
     (armourItem) => armourItem.name === selectedArmour
   );
+  const selectedAncestry = useSelector(
+    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
+  );
+  const selectedAncestryData = Ancestries.find(
+    (ancestryItem) => ancestryItem.name === selectedAncestry
+  );
   const attributeBoosts = useSelector(
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories
@@ -36,7 +42,7 @@ const Defences = () => {
       return 0;
     }
 
-    var proficiency = 0;
+    let proficiency = 0;
 
     selectedClassData.saves[saveType].forEach((level) => {
       if (level <= currentLevel) {
@@ -66,7 +72,7 @@ const Defences = () => {
   };
 
   function calculateAC() {
-    var AC = 0;
+    let AC = 0;
     if (!selectedArmourData || !selectedClassData) {
       return 0;
     }
@@ -107,9 +113,13 @@ const Defences = () => {
   }
 
   function calculateHP() {
-    var HP = 0;
-    const classHP = 10; // TODO: Add base HP bonus
-    const ancestry = 8; // TODO: Add ancestry HP bonus
+    if (!selectedClassData || !selectedAncestryData) {
+      return 0;
+    }
+
+    let HP = 0;
+    const classHP = selectedClassData.hp;
+    const ancestry = selectedAncestryData.hp; // TODO: Add ancestry HP bonus
     const constitution = calculateCurrentAttributeBoost(
       attributeBoosts,
       currentLevel,

@@ -130,7 +130,6 @@ const Armour = () => {
           />
         </div>
       </div>
-
       <div className="flex flex-row gap-2 mt-8">
         <TrainingIcon
           trainingLevel={calculateArmourProficiencyLevel(
@@ -241,6 +240,7 @@ const Armour = () => {
         </DropdownMenu>
       </div>
       <Separator className="mt-8" />
+
       <div className="flex flex-row gap-2 mt-8">
         <Dialog>
           <DialogTrigger>{selectedShield}</DialogTrigger>
@@ -263,6 +263,9 @@ const Armour = () => {
         </Dialog>
         <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
         <p>Hardness: {selectedShieldData?.Hardness}</p>
+        <p>
+          HP(BT): {selectedShieldData?.hp}({selectedShieldData?.bt})
+        </p>
       </div>
     </div>
   );

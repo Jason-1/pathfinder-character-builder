@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Shield } from "lucide-react";
 import { useSelector } from "react-redux";
 import { armourTypes, AttributeBoostsType, saveTypes } from "@/types";
@@ -53,6 +53,10 @@ const Defences = () => {
   );
 
   //------------------------------------------------------------------------------//
+
+  useEffect(() => {
+    setShieldRaised(false);
+  }, [selectedShield]);
 
   const calculateSaveProficiencyBonus = (saveType: saveTypes) => {
     if (!selectedClassData) {
@@ -195,15 +199,17 @@ const Defences = () => {
             {"HP"} {calculateHP()}
           </span>
         </div>
-        <Button
-          className="mt-2"
-          variant={shieldRaised ? "default" : "secondary"}
-          onClick={() => {
-            setShieldRaised((prev) => !prev);
-          }}
-        >
-          Raise Shield
-        </Button>
+        {selectedShield !== "None" && (
+          <Button
+            className="mt-2"
+            variant={shieldRaised ? "default" : "secondary"}
+            onClick={() => {
+              setShieldRaised((prev) => !prev);
+            }}
+          >
+            Raise Shield
+          </Button>
+        )}
       </div>
       <div className="flex flex-col gap-1">
         <div className=" flex flex-row gap-2 items-center align-middle">

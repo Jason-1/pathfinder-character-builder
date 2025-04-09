@@ -25,6 +25,7 @@ import { setPotency } from "@/app/Slices/potencySlice";
 import { setResilient } from "@/app/Slices/resilientSlice";
 import { Separator } from "@/components/ui/separator";
 import { setShield } from "@/app/Slices/shieldSlice";
+import SelectorDialog from "../SelectorDialog";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -130,6 +131,7 @@ const Armour = () => {
           />
         </div>
       </div>
+      <div className="mt-8">{/*<SelectorDialog /> */}</div>
       <div className="flex flex-row gap-2 mt-8">
         <TrainingIcon
           trainingLevel={calculateArmourProficiencyLevel(
@@ -266,6 +268,17 @@ const Armour = () => {
         <p>
           HP(BT): {selectedShieldData?.hp}({selectedShieldData?.bt})
         </p>
+      </div>
+
+      <Separator className="mt-8" />
+
+      <div>
+        <SelectorDialog
+          itemType="Shield"
+          selectedItem={selectedShield}
+          data={shieldData}
+          onItemClick={(item) => handleSetShield(item.name)}
+        />
       </div>
     </div>
   );

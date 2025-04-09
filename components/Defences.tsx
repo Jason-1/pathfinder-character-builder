@@ -177,7 +177,7 @@ const Defences = () => {
     <div className="flex flex-row items-center gap-4">
       <HoverCard>
         <HoverCardTrigger>
-          <div className="relative inline-block w-24 h-24">
+          <div className="relative inline-block w-24 h-24 cursor-help">
             <Shield className="w-full h-full text-gray-500" />
             <span
               className={`absolute inset-0 flex flex-col items-center justify-center text-xl font-bold ${

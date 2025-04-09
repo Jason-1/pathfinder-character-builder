@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { armourTypes, AttributeBoostsType, saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
-import { Ancestries, armourData, Classes } from "@/data";
+import { Ancestries, armourData, Classes, shieldData } from "@/data";
 import TrainingIcon from "./Icons/TrainingIcon";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import {
@@ -13,8 +13,11 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import ACBreakdown from "./ACBreakdown";
+import { Button } from "./ui/button";
 
 const Defences = () => {
+  const [shieldRaised, setShieldRaised] = React.useState(false);
+
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
@@ -41,6 +44,12 @@ const Defences = () => {
   );
   const selectedResilient = useSelector(
     (state: { resilient: { resilient: number } }) => state.resilient.resilient
+  );
+  const selectedShield = useSelector(
+    (state: { shield: { shield: string } }) => state.shield.shield
+  );
+  const selectedShieldData = shieldData.find(
+    (shieldItem) => shieldItem.name === selectedShield
   );
 
   //------------------------------------------------------------------------------//
@@ -97,12 +106,15 @@ const Defences = () => {
       calculateCurrentAttributeBoost("Dexterity"),
       dexCap
     );
-    const shield = 0; // TODO: Add shield bonus
+    let shield = 0; // TODO: Add shield bonus
+    if (shieldRaised && selectedShieldData) {
+      shield = selectedShieldData.ACBonus;
+    }
 
     AC += Base;
     AC += proficiency;
 
-    //if the character is not proficient in the selecter armour, they can't add their level to AC
+    //if the character is not proficient in the selector armour, they can't add their level to AC
     if (proficiency > 0) {
       AC += currentLevel;
     }
@@ -163,21 +175,35 @@ const Defences = () => {
         <HoverCardTrigger>
           <div className="relative inline-block w-24 h-24">
             <Shield className="w-full h-full text-gray-500" />
-            <span className="absolute inset-0 flex flex-col items-center justify-center text-white text-xl font-bold">
+            <span
+              className={`absolute inset-0 flex flex-col items-center justify-center text-xl font-bold ${
+                shieldRaised ? "text-green-500" : ""
+              }`}
+            >
               <span className="text-xs">AC</span>
               {calculateAC()}
             </span>
           </div>
         </HoverCardTrigger>
         <HoverCardContent>
-          <ACBreakdown />
+          <ACBreakdown shieldRaised={shieldRaised} />
         </HoverCardContent>
       </HoverCard>
-
-      <div className="w-32 h-8 bg-red-500 flex items-center px-4">
-        <span className="text-white text-md font-bold">
-          {"HP"} {calculateHP()}
-        </span>
+      <div>
+        <div className="w-32 h-8 bg-red-500 flex items-center px-4">
+          <span className="text-white text-md font-bold">
+            {"HP"} {calculateHP()}
+          </span>
+        </div>
+        <Button
+          className="mt-2"
+          variant={shieldRaised ? "default" : "secondary"}
+          onClick={() => {
+            setShieldRaised((prev) => !prev);
+          }}
+        >
+          Raise Shield
+        </Button>
       </div>
       <div className="flex flex-col gap-1">
         <div className=" flex flex-row gap-2 items-center align-middle">

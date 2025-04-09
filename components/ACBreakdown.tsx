@@ -1,10 +1,14 @@
-import { armourData } from "@/data";
+import { armourData, shieldData } from "@/data";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const ACBreakdown = () => {
+interface ACBreakdownProps {
+  shieldRaised: boolean;
+}
+
+const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
@@ -16,6 +20,12 @@ const ACBreakdown = () => {
   );
   const selectedPotency = useSelector(
     (state: { potency: { potency: number } }) => state.potency.potency
+  );
+  const selectedShield = useSelector(
+    (state: { shield: { shield: string } }) => state.shield.shield
+  );
+  const selectedShieldData = shieldData.find(
+    (shieldItem) => shieldItem.name === selectedShield
   );
 
   //------------------------------------------------------------------------------//
@@ -41,6 +51,7 @@ const ACBreakdown = () => {
         selectedArmourData.dexCap
       )}
       <br />
+      Shield: {shieldRaised ? selectedShieldData?.ACBonus : 0} <br />
     </p>
   );
 };

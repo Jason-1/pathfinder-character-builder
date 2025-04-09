@@ -6,6 +6,7 @@ import {
   BackgroundType,
   ClassType,
   FeatsType,
+  shieldItemType,
   skillProficienciesType,
 } from "@/types";
 
@@ -637,5 +638,53 @@ export const armourData: armourItemType[] = [
     speedPenalty: 10,
     bulk: 4,
     group: "plate",
+  },
+];
+
+export const shieldData: shieldItemType[] = [
+  {
+    name: "None",
+    ACBonus: 0,
+    Hardness: 0,
+    speedPenalty: 0,
+    bulk: 0,
+    hp: 0,
+    bt: 0,
+  },
+  {
+    name: "Wooden Shield",
+    ACBonus: 2,
+    Hardness: 3,
+    speedPenalty: 0,
+    bulk: 1,
+    hp: 12,
+    bt: 6,
+  },
+  {
+    name: "Steel Shield",
+    ACBonus: 2,
+    Hardness: 5,
+    speedPenalty: 0,
+    bulk: 1,
+    hp: 20,
+    bt: 10,
+  },
+  {
+    name: "Tower Shield",
+    ACBonus: 2,
+    Hardness: 5,
+    speedPenalty: 5,
+    bulk: 4,
+    hp: 20,
+    bt: 10,
+  },
+  {
+    name: "Fortress Shield",
+    ACBonus: 3,
+    Hardness: 6,
+    speedPenalty: 10,
+    bulk: 4,
+    hp: 24,
+    bt: 12,
   },
 ];

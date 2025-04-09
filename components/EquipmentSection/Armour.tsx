@@ -1,4 +1,4 @@
-import { armourData, Classes } from "@/data";
+import { armourData, Classes, shieldData } from "@/data";
 import { armourTypes } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { setPotency } from "@/app/Slices/potencySlice";
 import { setResilient } from "@/app/Slices/resilientSlice";
+import { Separator } from "@/components/ui/separator";
+import { setShield } from "@/app/Slices/shieldSlice";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -45,6 +47,12 @@ const Armour = () => {
   const selectedResilient = useSelector(
     (state: { resilient: { resilient: number } }) => state.resilient.resilient
   );
+  const selectedShield = useSelector(
+    (state: { shield: { shield: string } }) => state.shield.shield
+  );
+  const selectedShieldData = shieldData.find(
+    (shieldItem) => shieldItem.name === selectedShield
+  );
 
   //------------------------------------------------------------------------------//
 
@@ -54,6 +62,10 @@ const Armour = () => {
       dispatch(setPotency({ potency: 0 }));
       dispatch(setResilient({ resilient: 0 }));
     }
+  };
+
+  const handleSetShield = (shield: string) => {
+    dispatch(setShield({ shield }));
   };
 
   const handleSetPotency = (potency: number) => {
@@ -142,7 +154,6 @@ const Armour = () => {
                   </DialogTrigger>
                 </div>
               ))}
-              <DialogDescription>Armour Description</DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>
@@ -228,6 +239,30 @@ const Armour = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+      <Separator className="mt-8" />
+      <div className="flex flex-row gap-2 mt-8">
+        <Dialog>
+          <DialogTrigger>{selectedShield}</DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Select Shield</DialogTitle>
+              {shieldData.map((shieldItem) => (
+                <div key={shieldItem.name} className="flex flex-row gap-2">
+                  <DialogTrigger
+                    onClick={() => {
+                      handleSetShield(shieldItem.name);
+                    }}
+                  >
+                    {shieldItem.name}
+                  </DialogTrigger>
+                </div>
+              ))}
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+        <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
+        <p>Hardness: {selectedShieldData?.Hardness}</p>
       </div>
     </div>
   );

@@ -28,8 +28,9 @@ const ACBreakdown = () => {
     <p>
       Base: 10 <br />
       Proficiency:{" "}
-      {selectedArmourData.type
-        ? calculateCurrentArmourProficiencyBonus(selectedArmourData.type)
+      {calculateCurrentArmourProficiencyBonus(selectedArmourData.type) > 0
+        ? calculateCurrentArmourProficiencyBonus(selectedArmourData.type) +
+          currentLevel
         : 0}
       <br />
       Item: {selectedArmourData.ACBonus} <br />
@@ -39,11 +40,6 @@ const ACBreakdown = () => {
         calculateCurrentAttributeBoost("Dexterity"),
         selectedArmourData.dexCap
       )}
-      <br />
-      Level:{" "}
-      {calculateCurrentArmourProficiencyBonus(selectedArmourData.type) > 0
-        ? currentLevel
-        : 0}
       <br />
     </p>
   );

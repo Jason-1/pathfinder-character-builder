@@ -14,6 +14,7 @@ import selectedSkillsSlice from "./Slices/selectedSkillsSlice";
 import armourSlice from "./Slices/armourSlice";
 import potencySlice from "./Slices/potencySlice";
 import resilientSlice from "./Slices/resilientSlice";
+import shieldSlice from "./Slices/shieldSlice";
 
 export const store = configureStore({
   reducer: {
@@ -32,5 +33,6 @@ export const store = configureStore({
     armour: armourSlice,
     potency: potencySlice,
     resilient: resilientSlice,
+    shield: shieldSlice,
   },
 });

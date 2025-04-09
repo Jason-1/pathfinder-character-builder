@@ -150,3 +150,13 @@ export type armourItemType = {
   bulk: number | string;
   group: string;
 };
+
+export type shieldItemType = {
+  name: string;
+  ACBonus: number;
+  Hardness: number;
+  speedPenalty: number;
+  bulk: number | string;
+  hp: number;
+  bt: number;
+};

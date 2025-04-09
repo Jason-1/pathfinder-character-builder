@@ -25,7 +25,7 @@ const Equipment = () => {
   return (
     <Card className="mt-8 h-full">
       <CardHeader>
-        <CardTitle className="flex justify-between items-center">
+        <CardTitle className="flex gap-4 items-center">
           <Button
             onClick={() => {
               setSelectedEquipment("Armour");

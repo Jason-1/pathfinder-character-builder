@@ -184,7 +184,6 @@ export const Classes: ClassType[] = [
       },
     ],
   },
-
   {
     name: "Wizard",
     type: "Caster",
@@ -222,6 +221,44 @@ export const Classes: ClassType[] = [
       "School of Protean Form",
       "School of the Boundary",
       "School of Unified Magical Theory",
+    ],
+    features: [],
+  },
+  {
+    name: "Champion",
+    type: "Martial",
+    perception: "Trained",
+    saves: {
+      fortitude: [1, 1, 9],
+      reflex: [1, 9],
+      will: [1, 1, 11],
+    },
+    skills: {
+      Religion: "Trained",
+      additional: 2,
+    },
+    attacks: {
+      simple: [1, 5, 13],
+      martial: [1, 5, 13],
+      advanced: [1, 5, 13],
+      unarmed: [1, 5, 13],
+    },
+    defences: {
+      unarmoured: [1, 7, 13, 17],
+      light: [1, 7, 13, 17],
+      medium: [1, 7, 13, 17],
+      heavy: [1, 7, 13, 17],
+    },
+    DC: "Trained",
+    hp: 10,
+    Attributes: ["Strength", "Dexterity"],
+    subclasses: [
+      "Desecration (Unholy)",
+      "Grandeur (Holy)",
+      "Justice",
+      "Liberation",
+      "Obedience",
+      "Redemption (Holy)",
     ],
     features: [],
   },

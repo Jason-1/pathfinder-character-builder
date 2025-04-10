@@ -139,25 +139,12 @@ const Armour = () => {
           )}
         />
 
-        <Dialog>
-          <DialogTrigger>{selectedArmour}</DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Select Armour</DialogTitle>
-              {armourData.map((armourItem) => (
-                <div key={armourItem.name} className="flex flex-row gap-2">
-                  <DialogTrigger
-                    onClick={() => {
-                      handleSetArmour(armourItem.name);
-                    }}
-                  >
-                    {armourItem.name}
-                  </DialogTrigger>
-                </div>
-              ))}
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+        <SelectorDialog
+          itemType="Armour"
+          selectedItem={selectedArmour}
+          data={armourData}
+          onItemClick={(item) => handleSetArmour(item.name)}
+        />
         <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
         <p>Dex Cap +{selectedArmourData?.dexCap}</p>
       </div>
@@ -244,41 +231,17 @@ const Armour = () => {
       <Separator className="mt-8" />
 
       <div className="flex flex-row gap-2 mt-8">
-        <Dialog>
-          <DialogTrigger>{selectedShield}</DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Select Shield</DialogTitle>
-              {shieldData.map((shieldItem) => (
-                <div key={shieldItem.name} className="flex flex-row gap-2">
-                  <DialogTrigger
-                    onClick={() => {
-                      handleSetShield(shieldItem.name);
-                    }}
-                  >
-                    {shieldItem.name}
-                  </DialogTrigger>
-                </div>
-              ))}
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-        <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
-        <p>Hardness: {selectedShieldData?.Hardness}</p>
-        <p>
-          HP(BT): {selectedShieldData?.hp}({selectedShieldData?.bt})
-        </p>
-      </div>
-
-      <Separator className="mt-8" />
-
-      <div>
         <SelectorDialog
           itemType="Shield"
           selectedItem={selectedShield}
           data={shieldData}
           onItemClick={(item) => handleSetShield(item.name)}
         />
+        <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
+        <p>Hardness: {selectedShieldData?.Hardness}</p>
+        <p>
+          HP(BT): {selectedShieldData?.hp}({selectedShieldData?.bt})
+        </p>
       </div>
     </div>
   );

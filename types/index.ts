@@ -149,6 +149,7 @@ export type armourItemType = {
   speedPenalty: number;
   bulk: number | string;
   group: string;
+  description: string;
 };
 
 export type shieldItemType = {
@@ -159,4 +160,5 @@ export type shieldItemType = {
   bulk: number | string;
   hp: number;
   bt: number;
+  description: string;
 };

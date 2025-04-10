@@ -554,6 +554,7 @@ export const armourData: armourItemType[] = [
     speedPenalty: 0,
     bulk: 0,
     group: "",
+    description: "No Armour",
   },
   {
     name: "Explorers Clothing",
@@ -565,6 +566,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 0,
     bulk: "light",
     group: "cloth",
+    description:
+      "Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with armor potency runes.",
   },
   {
     name: "Padded Armour",
@@ -576,6 +579,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 0,
     bulk: "light",
     group: "cloth",
+    description:
+      "This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep magic armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.",
   },
   {
     name: "Leather Armour",
@@ -587,6 +592,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 0,
     bulk: 1,
     group: "Leather",
+    description:
+      "A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.",
   },
   {
     name: "Chain Shirt",
@@ -598,6 +605,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 0,
     bulk: 1,
     group: "chain",
+    description:
+      "Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chainmail. However, it is much lighter than chainmail and protects only the torso, upper arms, and upper legs of its wearer.",
   },
   {
     name: "Hide Armour",
@@ -609,6 +618,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 5,
     bulk: "2",
     group: "leather",
+    description:
+      "A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.",
   },
   {
     name: "Scale Mail",
@@ -620,6 +631,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 5,
     bulk: "2",
     group: "composite",
+    description:
+      "Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.",
   },
   {
     name: "Chain Mail",
@@ -631,6 +644,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 5,
     bulk: "2",
     group: "chain",
+    description:
+      "A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.",
   },
   {
     name: "Breastplate",
@@ -642,6 +657,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 5,
     bulk: "2",
     group: "plate",
+    description:
+      "Though referred to as a breastplate, this type of armor consists of several pieces of plate or half-plate armor (see below) that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.",
   },
   {
     name: "Splint Mail",
@@ -653,6 +670,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 10,
     bulk: "3",
     group: "composite",
+    description:
+      "This type of armor is chain mail reinforced with flexible, interlocking metal plates, typically located on the wearer's torso, upper arms, and legs. A suit of this armor comes with an undercoat of padded armor (see above) and a pair of gauntlets.",
   },
   {
     name: "Half Plate",
@@ -664,6 +683,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 10,
     bulk: 3,
     group: "plate",
+    description:
+      "Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.",
   },
   {
     name: "Full Plate",
@@ -675,6 +696,8 @@ export const armourData: armourItemType[] = [
     speedPenalty: 10,
     bulk: 4,
     group: "plate",
+    description:
+      "Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.",
   },
 ];
 
@@ -687,6 +710,7 @@ export const shieldData: shieldItemType[] = [
     bulk: 0,
     hp: 0,
     bt: 0,
+    description: "No Shield",
   },
   {
     name: "Wooden Shield",
@@ -696,6 +720,8 @@ export const shieldData: shieldItemType[] = [
     bulk: 1,
     hp: 12,
     bt: 6,
+    description:
+      "Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.",
   },
   {
     name: "Steel Shield",
@@ -705,6 +731,8 @@ export const shieldData: shieldItemType[] = [
     bulk: 1,
     hp: 20,
     bt: 10,
+    description:
+      "Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.",
   },
   {
     name: "Tower Shield",
@@ -714,6 +742,8 @@ export const shieldData: shieldItemType[] = [
     bulk: 4,
     hp: 20,
     bt: 10,
+    description:
+      "These massive shields can be used to provide cover to nearly the entire body. Due to their size, they are typically made of wood reinforced with metal. 2 Getting the higher bonus for a tower shield requires using the Take Cover action while the shield is raised.",
   },
   {
     name: "Fortress Shield",
@@ -723,5 +753,7 @@ export const shieldData: shieldItemType[] = [
     bulk: 4,
     hp: 24,
     bt: 12,
+    description:
+      "Also known as portable walls, these thick and heavy shields are slightly larger than tower shields. Like tower shields, they're typically made from wood reinforced with metal, but many are made from larger amounts of metal or even stone. 2 Getting the higher bonus for a fortress shield requires using the Take Cover action while the shield is raised.",
   },
 ];

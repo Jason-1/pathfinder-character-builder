@@ -47,7 +47,15 @@ const AncestrySelector: React.FC = ({}) => {
         highlightedItemDescription={highlightedAncestry.description}
         onItemClick={(item) => handleSetAncestry(item)}
         setHighlightedItem={setHighlightedAncestry}
-      ></SelectorDialog>
+      >
+        {" "}
+        <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
+          <p>speed: {highlightedAncestry.speed}</p>
+          <p>Attributes: {highlightedAncestry.Attributes.join(", ")}</p>
+          <p>hp: {highlightedAncestry.hp}</p>
+          <p>size: {highlightedAncestry.size}</p>
+        </div>
+      </SelectorDialog>
       <SelectorDialog
         itemType="Heritage"
         selectedItem={selectedHeritage}

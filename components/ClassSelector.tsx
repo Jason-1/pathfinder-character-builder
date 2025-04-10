@@ -61,6 +61,23 @@ const ClassSelector: React.FC = ({}) => {
     Classes[0]
   );
 
+  const trainingLevel = (value: number) => {
+    switch (value) {
+      case 0:
+        return "Untrained";
+      case 1:
+        return "Trained";
+      case 2:
+        return "Expert";
+      case 3:
+        return "Master";
+      case 4:
+        return "Legendary";
+      default:
+        return "Untrained";
+    }
+  };
+
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
       <SelectorDialog
@@ -74,7 +91,35 @@ const ClassSelector: React.FC = ({}) => {
           handleSetSubclass("Select Subclass");
         }}
         setHighlightedItem={setHighlightedClass}
-      ></SelectorDialog>
+      >
+        <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
+          <p>Attributes: {highlightedClass.Attributes.join(", ")}</p>
+          <p>hp: {highlightedClass.hp}</p>
+          <p>
+            Fortitude:{" "}
+            {trainingLevel(
+              highlightedClass.saves.fortitude.filter(
+                (value: number) => value === 1
+              ).length
+            )}{" "}
+          </p>
+          <p>
+            Reflex:{" "}
+            {trainingLevel(
+              highlightedClass.saves.reflex.filter(
+                (value: number) => value === 1
+              ).length
+            )}{" "}
+          </p>
+          <p>
+            Will:{" "}
+            {trainingLevel(
+              highlightedClass.saves.will.filter((value: number) => value === 1)
+                .length
+            )}
+          </p>
+        </div>
+      </SelectorDialog>
 
       <Dialog>
         <DialogTrigger>

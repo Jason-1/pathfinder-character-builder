@@ -57,11 +57,11 @@ const Armour = () => {
 
   //------------------------------------------------------------------------------//
 
-  const [highlightedShield, setHighlightedShield] =
-    React.useState<shieldItemType>(shieldData[0]);
-
   const [highlightedArmour, setHighlightedArmour] =
     React.useState<armourItemType>(armourData[0]);
+
+  const [highlightedShield, setHighlightedShield] =
+    React.useState<shieldItemType>(shieldData[0]);
 
   const handleSetArmour = (armour: string) => {
     dispatch(setArmour({ armour }));
@@ -153,7 +153,18 @@ const Armour = () => {
           highlightedItemDescription={highlightedArmour.description}
           onItemClick={(item) => handleSetArmour(item)}
           setHighlightedItem={setHighlightedArmour}
-        ></SelectorDialog>
+        >
+          <div className="mt-4 flex flex-row gap-2 text-xs text-center">
+            <p>Type: {highlightedArmour.type}</p>
+            <p>AC Bonus: {highlightedArmour.ACBonus}</p>
+            <p>Dex Cap: {highlightedArmour.dexCap}</p>
+            <p>Strength: {highlightedArmour.strength}</p>
+            <p>Check Penalty: {highlightedArmour.checkPenalty}</p>
+            <p>Speed Penalty: {highlightedArmour.speedPenalty}</p>
+            <p>Bulk: {highlightedArmour.bulk}</p>
+            <p>Group: {highlightedArmour.group || "None"}</p>
+          </div>
+        </SelectorDialog>
 
         <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
         <p>Dex Cap +{selectedArmourData?.dexCap}</p>
@@ -249,7 +260,17 @@ const Armour = () => {
           highlightedItemDescription={highlightedShield.description}
           onItemClick={(item) => handleSetShield(item)}
           setHighlightedItem={setHighlightedShield}
-        ></SelectorDialog>
+        >
+          <div className="mt-4 flex flex-row gap-2 text-xs text-center">
+            <p>AC Bonus: {highlightedShield.ACBonus}</p>
+            <p>Hardness: {highlightedShield.Hardness}</p>
+            <p>Speed Penalty: {highlightedShield.speedPenalty}</p>
+            <p>Bulk: {highlightedShield.bulk}</p>
+            <p>
+              HP(BT): {highlightedShield.hp}({highlightedShield.bt})
+            </p>
+          </div>
+        </SelectorDialog>
         <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
         <p>Hardness: {selectedShieldData?.Hardness}</p>
         <p>

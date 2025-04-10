@@ -19,6 +19,7 @@ interface SelectorDialogProps<T> {
   highlightedItemDescription?: string;
   onItemClick: (item: string) => void;
   setHighlightedItem: (item: T) => void;
+  children?: React.ReactNode;
 }
 
 const SelectorDialog = <
@@ -31,6 +32,7 @@ const SelectorDialog = <
   highlightedItemDescription,
   onItemClick,
   setHighlightedItem,
+  children,
 }: SelectorDialogProps<T>) => {
   //const [highlightedItem, setHighlightedItem] = React.useState<T | null>(null);
 
@@ -63,6 +65,7 @@ const SelectorDialog = <
               ))}
             </div>
             <div className="col-span-2 self-start">
+              {children}
               <p className="mt-4">{highlightedItemDescription || ""}</p>
             </div>
           </div>

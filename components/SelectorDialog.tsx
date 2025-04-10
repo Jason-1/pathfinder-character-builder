@@ -15,7 +15,10 @@ interface SelectorDialogProps<T> {
   itemType: string;
   selectedItem: string;
   data: T[];
-  onItemClick: (item: T) => void;
+  highlightedItemName: string;
+  highlightedItemDescription?: string;
+  onItemClick: (item: string) => void;
+  setHighlightedItem: (item: T) => void;
 }
 
 const SelectorDialog = <
@@ -24,9 +27,12 @@ const SelectorDialog = <
   itemType,
   selectedItem,
   data,
+  highlightedItemName,
+  highlightedItemDescription,
   onItemClick,
+  setHighlightedItem,
 }: SelectorDialogProps<T>) => {
-  const [highlightedItem, setHighlightedItem] = React.useState<T | null>(null);
+  //const [highlightedItem, setHighlightedItem] = React.useState<T | null>(null);
 
   return (
     <Dialog>
@@ -36,7 +42,7 @@ const SelectorDialog = <
           <DialogTitle className="grid grid-cols-3 text-center items-start">
             <span className="col-span-1 self-start">Select {itemType}</span>
             <span className="col-span-2 self-start">
-              {highlightedItem?.name || ""}
+              {highlightedItemName || ""}
             </span>
           </DialogTitle>
 
@@ -46,7 +52,7 @@ const SelectorDialog = <
                 <div
                   key={item.name}
                   className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 ${
-                    highlightedItem?.name === item.name ? "bg-gray-400" : ""
+                    highlightedItemName === item.name ? "bg-gray-400" : ""
                   }`}
                   onClick={() => {
                     setHighlightedItem(item);
@@ -57,7 +63,29 @@ const SelectorDialog = <
               ))}
             </div>
             <div className="col-span-2 self-start">
-              {highlightedItem ? (
+              <p className="mt-4">{highlightedItemDescription || ""}</p>
+            </div>
+          </div>
+        </DialogHeader>
+        <DialogClose asChild className="w-1/3">
+          <Button
+            className="mt-auto"
+            variant="default"
+            onClick={() => {
+              onItemClick(highlightedItemName);
+            }}
+          >
+            Select {itemType}
+          </Button>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default SelectorDialog;
+
+/*highlightedItem ? (
                 <div>
                   {itemType === "Ancestry" && (
                     <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
@@ -65,6 +93,43 @@ const SelectorDialog = <
                       <p>Attributes: {highlightedItem.Attributes.join(", ")}</p>
                       <p>hp: {highlightedItem.hp}</p>
                       <p>size: {highlightedItem.size}</p>
+                    </div>
+                  )}
+                  {itemType === "Background" && (
+                    <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
+                      <p>Attributes: {highlightedItem.Attributes.join(", ")}</p>
+                      <p>Skills: {highlightedItem.skills.join(", ")}</p>
+                    </div>
+                  )}
+
+                  {itemType === "Class" && (
+                    <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
+                      <p>Attributes: {highlightedItem.Attributes.join(", ")}</p>
+                      <p>hp: {highlightedItem.hp}</p>
+                      <p>
+                        Fortitude:{" "}
+                        {trainingLevel(
+                          highlightedItem.saves.fortitude.filter(
+                            (value: number) => value === 1
+                          ).length
+                        )}{" "}
+                      </p>
+                      <p>
+                        Reflex:{" "}
+                        {trainingLevel(
+                          highlightedItem.saves.reflex.filter(
+                            (value: number) => value === 1
+                          ).length
+                        )}{" "}
+                      </p>
+                      <p>
+                        Will:{" "}
+                        {trainingLevel(
+                          highlightedItem.saves.will.filter(
+                            (value: number) => value === 1
+                          ).length
+                        )}
+                      </p>
                     </div>
                   )}
 
@@ -95,31 +160,4 @@ const SelectorDialog = <
                 </div>
               ) : (
                 <p>No item selected</p>
-              )}
-              <p className="mt-4">
-                {highlightedItem
-                  ? highlightedItem.description
-                  : "No Description"}
-              </p>
-            </div>
-          </div>
-        </DialogHeader>
-        <DialogClose asChild className="w-1/3">
-          <Button
-            className="mt-auto"
-            variant="default"
-            onClick={() => {
-              if (highlightedItem) {
-                onItemClick(highlightedItem);
-              }
-            }}
-          >
-            Select {itemType}
-          </Button>
-        </DialogClose>
-      </DialogContent>
-    </Dialog>
-  );
-};
-
-export default SelectorDialog;
+              )*/

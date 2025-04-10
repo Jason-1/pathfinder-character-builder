@@ -1,5 +1,5 @@
 import { armourData, Classes, shieldData } from "@/data";
-import { armourTypes } from "@/types";
+import { armourItemType, armourTypes, shieldItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
@@ -56,6 +56,12 @@ const Armour = () => {
   );
 
   //------------------------------------------------------------------------------//
+
+  const [highlightedShield, setHighlightedShield] =
+    React.useState<shieldItemType>(shieldData[0]);
+
+  const [highlightedArmour, setHighlightedArmour] =
+    React.useState<armourItemType>(armourData[0]);
 
   const handleSetArmour = (armour: string) => {
     dispatch(setArmour({ armour }));
@@ -143,8 +149,12 @@ const Armour = () => {
           itemType="Armour"
           selectedItem={selectedArmour}
           data={armourData}
-          onItemClick={(item) => handleSetArmour(item.name)}
-        />
+          highlightedItemName={highlightedArmour.name}
+          highlightedItemDescription={highlightedArmour.description}
+          onItemClick={(item) => handleSetArmour(item)}
+          setHighlightedItem={setHighlightedArmour}
+        ></SelectorDialog>
+
         <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
         <p>Dex Cap +{selectedArmourData?.dexCap}</p>
       </div>
@@ -235,8 +245,11 @@ const Armour = () => {
           itemType="Shield"
           selectedItem={selectedShield}
           data={shieldData}
-          onItemClick={(item) => handleSetShield(item.name)}
-        />
+          highlightedItemName={highlightedShield.name}
+          highlightedItemDescription={highlightedShield.description}
+          onItemClick={(item) => handleSetShield(item)}
+          setHighlightedItem={setHighlightedShield}
+        ></SelectorDialog>
         <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
         <p>Hardness: {selectedShieldData?.Hardness}</p>
         <p>

@@ -28,6 +28,8 @@ import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setBackground } from "@/app/Slices/backgroundSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
+import SelectorDialog from "./SelectorDialog";
+import { BackgroundType } from "@/types";
 
 const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -37,6 +39,9 @@ const BackgroundSelector: React.FC = ({}) => {
       state.background.background
   );
 
+  const [highlightedBackground, setHighlightedBackground] =
+    React.useState<BackgroundType>(Backgrounds[0]);
+
   const handleChangeBackground = (background: string) => {
     //When a Background is set also reset skill proficiencies for it
     dispatch(setBackground({ background }));
@@ -45,50 +50,15 @@ const BackgroundSelector: React.FC = ({}) => {
 
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
-      <Dialog>
-        <DialogTrigger>
-          <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">
-            {selectedBackground === "Select Background" ? "" : "Background: "}
-            {selectedBackground}
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Select a Background</DialogTitle>
-            <Accordion type="single" collapsible>
-              {Backgrounds.map((backgroundItem) => (
-                <AccordionItem
-                  value={backgroundItem.name}
-                  key={backgroundItem.name}
-                >
-                  <AccordionTrigger>{backgroundItem.name}</AccordionTrigger>
-                  <AccordionContent>
-                    <Card>
-                      <CardHeader>
-                        <CardDescription>
-                          {backgroundItem.Attributes}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent></CardContent>
-                      <CardFooter>
-                        <DialogClose asChild>
-                          <Button
-                            onClick={() =>
-                              handleChangeBackground(backgroundItem.name)
-                            }
-                          >
-                            Confirm Selection
-                          </Button>
-                        </DialogClose>
-                      </CardFooter>
-                    </Card>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <SelectorDialog
+        itemType="Background"
+        selectedItem={selectedBackground}
+        data={Backgrounds}
+        highlightedItemName={highlightedBackground.name}
+        highlightedItemDescription={highlightedBackground.description}
+        onItemClick={(item) => handleChangeBackground(item)}
+        setHighlightedItem={setHighlightedBackground}
+      ></SelectorDialog>
     </div>
   );
 };

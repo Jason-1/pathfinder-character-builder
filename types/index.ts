@@ -70,6 +70,7 @@ export type BackgroundType = {
   name: string;
   Attributes: AttributesType[];
   skills: skillTypes[];
+  description: string;
 };
 
 export type ClassType = {
@@ -121,6 +122,7 @@ export type ClassType = {
     level: number;
     description: string;
   }[];
+  description: string;
 };
 
 export type skillProficienciesType = {

@@ -54,17 +54,29 @@ export const Backgrounds: BackgroundType[] = [
     name: "Barkeep",
     Attributes: ["Constitution", "Charisma"],
     skills: ["Diplomacy"],
+    description:
+      "You have five specialties: hefting barrels, drinking, polishing steins, drinking, and drinking. You worked in a bar, where you learned how to hold your liquor and rowdily socialize.",
   },
-  { name: "Hunter", Attributes: ["Dexterity", "Wisdom"], skills: ["Survival"] },
+  {
+    name: "Hunter",
+    Attributes: ["Dexterity", "Wisdom"],
+    skills: ["Survival"],
+    description:
+      "You stalked and took down animals and other creatures of the wild. Skinning animals, harvesting their flesh, and cooking them were also part of your training, all of which can give you useful resources while you adventure.",
+  },
   {
     name: "Hermit",
     Attributes: ["Constitution", "Intelligence"],
     skills: ["Nature", "Occultism"],
+    description:
+      "In an isolated place—like a cave, remote oasis, or secluded mansion—you lived a life of solitude. Adventuring might represent your first foray out among other people in some time. This might be a welcome reprieve from solitude or an unwanted change, but in either case, you’re likely still rough around the edges.",
   },
   {
     name: "Field Medic",
     Attributes: ["Constitution", "Wisdom"],
     skills: ["Medicine"],
+    description:
+      "In the chaotic rush of battle, you learned to adapt to rapidly changing conditions as you administered to battle casualties. You patched up soldiers, guards, or other combatants, and learned a fair amount about the logistics of war.",
   },
 ];
 
@@ -106,6 +118,8 @@ export const Classes: ClassType[] = [
       "Redemption (Holy)",
     ],
     features: [],
+    description:
+      "You are an emissary of a deity, a devoted servant who has taken up a weighty mantle, and you devoutly pursue a cause that holds you apart from those around you. You have powerful defenses that you share freely with your allies and innocent bystanders, as well as divine power you use to end the threats your deity opposes.",
   },
   {
     name: "Fighter",
@@ -235,6 +249,8 @@ export const Classes: ClassType[] = [
           "You are nigh-unmatched with any weapon. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to legendary, and your proficiency rank for advanced weapons increases to master. Your proficiency rank for your fighter class DC increases to master.",
       },
     ],
+    description:
+      "Fighting for honor, greed, loyalty, or simply the thrill of battle, you are an undisputed master of weaponry and combat techniques. You combine your actions through clever combinations of opening moves, finishing strikes, and counterattacks whenever your foes are unwise enough to drop their guard. Whether you are a knight, mercenary, sharpshooter, or blade master, you have honed your martial skills into an art form and perform devastating critical attacks on your enemies.",
   },
   {
     name: "Wizard",
@@ -275,6 +291,8 @@ export const Classes: ClassType[] = [
       "School of Unified Magical Theory",
     ],
     features: [],
+    description:
+      "You are an eternal student of the secrets of the universe, using your mastery of magic to cast powerful spells. You treat magic like a science, cross-referencing the latest texts on practical spellcraft with ancient tomes to discover and understand arcane magic. Yet magical theory is vast, and there's no way you can study it all. Most wizards learn through formal schooling, with their curriculum informing a specific rubric, although particularly driven researchers sometimes piece together their own theories.",
   },
 ];
 

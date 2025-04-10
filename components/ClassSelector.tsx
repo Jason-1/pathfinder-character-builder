@@ -30,6 +30,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/Slices/classSlice";
 import { setSubclass } from "@/app/Slices/subclassSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
+import SelectorDialog from "./SelectorDialog";
+import { ClassType } from "@/types";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -55,50 +57,24 @@ const ClassSelector: React.FC = ({}) => {
     (currentClass) => currentClass.name === selectedClass
   );
 
+  const [highlightedClass, setHighlightedClass] = React.useState<ClassType>(
+    Classes[0]
+  );
+
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
-      <Dialog>
-        <DialogTrigger>
-          <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">
-            {selectedClass === "Select Class" ? "" : "Class: "}
-            {selectedClass}
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Select a Class</DialogTitle>
-            <Accordion type="single" collapsible>
-              {Classes.map((classItem) => (
-                <AccordionItem value={classItem.name} key={classItem.name}>
-                  <AccordionTrigger>{classItem.name}</AccordionTrigger>
-                  <AccordionContent>
-                    <Card>
-                      <CardHeader>
-                        <CardDescription>
-                          {classItem.Attributes}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent></CardContent>
-                      <CardFooter>
-                        <DialogClose asChild>
-                          <Button
-                            onClick={() => {
-                              handleChangeClass(classItem.name);
-                              handleSetSubclass("Select Subclass");
-                            }}
-                          >
-                            Confirm Selection
-                          </Button>
-                        </DialogClose>
-                      </CardFooter>
-                    </Card>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <SelectorDialog
+        itemType="Class"
+        selectedItem={selectedClass}
+        data={Classes}
+        highlightedItemName={highlightedClass.name}
+        highlightedItemDescription={highlightedClass.description}
+        onItemClick={(item) => {
+          handleChangeClass(item);
+          handleSetSubclass("Select Subclass");
+        }}
+        setHighlightedItem={setHighlightedClass}
+      ></SelectorDialog>
 
       <Dialog>
         <DialogTrigger>

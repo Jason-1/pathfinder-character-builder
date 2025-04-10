@@ -3,14 +3,6 @@ import { armourItemType, armourTypes, shieldItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { setArmour } from "@/app/Slices/armourSlice";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import {
@@ -26,6 +18,7 @@ import { setResilient } from "@/app/Slices/resilientSlice";
 import { Separator } from "@/components/ui/separator";
 import { setShield } from "@/app/Slices/shieldSlice";
 import SelectorDialog from "../SelectorDialog";
+import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmourProficiencyLevel";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -87,60 +80,38 @@ const Armour = () => {
     }
   };
 
-  const calculateArmourProficiencyLevel = (armourType: armourTypes) => {
-    if (!selectedClassData) {
-      return "U";
-    }
-
-    const proficiency = calculateCurrentArmourProficiencyBonus(armourType);
-    switch (proficiency) {
-      case 0:
-        return "U";
-      case 2:
-        return "T";
-      case 4:
-        return "E";
-      case 6:
-        return "M";
-      case 8:
-        return "L";
-      default:
-        return "U";
-    }
-  };
-
   return (
     <div>
       <div className="flex flex-row gap-4 justify-between">
         <div className="flex flex-row gap-2">
           <p>Unarmoured</p>
           <TrainingIcon
-            trainingLevel={calculateArmourProficiencyLevel("unarmoured")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel("unarmoured")}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Light</p>
           <TrainingIcon
-            trainingLevel={calculateArmourProficiencyLevel("light")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel("light")}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Medium</p>
           <TrainingIcon
-            trainingLevel={calculateArmourProficiencyLevel("medium")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel("medium")}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Heavy</p>
           <TrainingIcon
-            trainingLevel={calculateArmourProficiencyLevel("heavy")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel("heavy")}
           />
         </div>
       </div>
       <div className="mt-8">{/*<SelectorDialog /> */}</div>
       <div className="flex flex-row gap-2 mt-8">
         <TrainingIcon
-          trainingLevel={calculateArmourProficiencyLevel(
+          trainingLevel={calculateCurrentArmourProficiencyLevel(
             selectedArmourData?.type || "unarmoured"
           )}
         />

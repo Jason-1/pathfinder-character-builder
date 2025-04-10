@@ -47,7 +47,7 @@ const SelectorDialog = <T extends { name: string; description: string }>({
             {data.map((item) => (
               <div
                 key={item.name}
-                className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 ${
+                className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between ${
                   highlightedItemName === item.name ? "bg-gray-400" : ""
                 }`}
                 onClick={() => {

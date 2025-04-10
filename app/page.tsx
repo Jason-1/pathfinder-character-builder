@@ -18,9 +18,9 @@ export default function Home() {
 
   //BUGFIXES
   // Mobile layout
-  // Implement shields
 
-  // Get generic dialog SelectorDialog working
+  // Redo subclasses as their own datatype so I can create a selectorDialog for them
+  // Implement weapons
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

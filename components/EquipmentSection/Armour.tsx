@@ -154,7 +154,7 @@ const Armour = () => {
           onItemClick={(item) => handleSetArmour(item)}
           setHighlightedItem={setHighlightedArmour}
         >
-          <div className="mt-4 flex flex-row gap-2 text-xs text-center">
+          <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
             <p>Type: {highlightedArmour.type}</p>
             <p>AC Bonus: {highlightedArmour.ACBonus}</p>
             <p>Dex Cap: {highlightedArmour.dexCap}</p>
@@ -261,7 +261,7 @@ const Armour = () => {
           onItemClick={(item) => handleSetShield(item)}
           setHighlightedItem={setHighlightedShield}
         >
-          <div className="mt-4 flex flex-row gap-2 text-xs text-center">
+          <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
             <p>AC Bonus: {highlightedShield.ACBonus}</p>
             <p>Hardness: {highlightedShield.Hardness}</p>
             <p>Speed Penalty: {highlightedShield.speedPenalty}</p>

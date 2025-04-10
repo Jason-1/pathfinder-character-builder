@@ -3,8 +3,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -22,9 +20,7 @@ interface SelectorDialogProps<T> {
   children?: React.ReactNode;
 }
 
-const SelectorDialog = <
-  T extends { name: string; description: string; [key: string]: any }
->({
+const SelectorDialog = <T extends { name: string; description: string }>({
   itemType,
   selectedItem,
   data,
@@ -34,8 +30,6 @@ const SelectorDialog = <
   setHighlightedItem,
   children,
 }: SelectorDialogProps<T>) => {
-  //const [highlightedItem, setHighlightedItem] = React.useState<T | null>(null);
-
   return (
     <Dialog>
       <DialogTrigger>{selectedItem}</DialogTrigger>
@@ -87,80 +81,3 @@ const SelectorDialog = <
 };
 
 export default SelectorDialog;
-
-/*highlightedItem ? (
-                <div>
-                  {itemType === "Ancestry" && (
-                    <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
-                      <p>speed: {highlightedItem.speed}</p>
-                      <p>Attributes: {highlightedItem.Attributes.join(", ")}</p>
-                      <p>hp: {highlightedItem.hp}</p>
-                      <p>size: {highlightedItem.size}</p>
-                    </div>
-                  )}
-                  {itemType === "Background" && (
-                    <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
-                      <p>Attributes: {highlightedItem.Attributes.join(", ")}</p>
-                      <p>Skills: {highlightedItem.skills.join(", ")}</p>
-                    </div>
-                  )}
-
-                  {itemType === "Class" && (
-                    <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
-                      <p>Attributes: {highlightedItem.Attributes.join(", ")}</p>
-                      <p>hp: {highlightedItem.hp}</p>
-                      <p>
-                        Fortitude:{" "}
-                        {trainingLevel(
-                          highlightedItem.saves.fortitude.filter(
-                            (value: number) => value === 1
-                          ).length
-                        )}{" "}
-                      </p>
-                      <p>
-                        Reflex:{" "}
-                        {trainingLevel(
-                          highlightedItem.saves.reflex.filter(
-                            (value: number) => value === 1
-                          ).length
-                        )}{" "}
-                      </p>
-                      <p>
-                        Will:{" "}
-                        {trainingLevel(
-                          highlightedItem.saves.will.filter(
-                            (value: number) => value === 1
-                          ).length
-                        )}
-                      </p>
-                    </div>
-                  )}
-
-                  {itemType === "Armour" && (
-                    <div className="mt-4 flex flex-row gap-2 text-xs text-center">
-                      <p>Type: {highlightedItem.type}</p>
-                      <p>AC Bonus: {highlightedItem.ACBonus}</p>
-                      <p>Dex Cap: {highlightedItem.dexCap}</p>
-                      <p>Strength: {highlightedItem.strength}</p>
-                      <p>Check Penalty: {highlightedItem.checkPenalty}</p>
-                      <p>Speed Penalty: {highlightedItem.speedPenalty}</p>
-                      <p>Bulk: {highlightedItem.bulk}</p>
-                      <p>Group: {highlightedItem.group || "None"}</p>
-                    </div>
-                  )}
-
-                  {itemType === "Shield" && (
-                    <div className="mt-4 flex flex-row gap-2 text-xs text-center">
-                      <p>AC Bonus: {highlightedItem.ACBonus}</p>
-                      <p>Hardness: {highlightedItem.Hardness}</p>
-                      <p>Speed Penalty: {highlightedItem.speedPenalty}</p>
-                      <p>Bulk: {highlightedItem.bulk}</p>
-                      <p>
-                        HP(BT): {highlightedItem.hp}({highlightedItem.bt})
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <p>No item selected</p>
-              )*/

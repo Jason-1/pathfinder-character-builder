@@ -63,6 +63,7 @@ export type AncestryType = {
   hp: number;
   speed: number;
   size: string;
+  description: string;
 };
 
 export type BackgroundType = {

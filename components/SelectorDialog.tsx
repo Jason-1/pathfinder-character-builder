@@ -4,6 +4,7 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -30,15 +31,16 @@ const SelectorDialog = <
   return (
     <Dialog>
       <DialogTrigger>{selectedItem}</DialogTrigger>
-      <DialogContent className="w-3/4 max-w-4xl">
-        <DialogHeader>
-          <DialogTitle className="grid grid-cols-3 text-center">
-            <span className="col-span-1">Select {itemType}</span>{" "}
-            <span className="col-span-2">{highlightedItem?.name || ""}</span>
-          </DialogTitle>{" "}
-        </DialogHeader>
-        <div>
-          <div className="grid grid-cols-3 gap-10 items-center justify-between h-96">
+      <DialogContent className="w-3/4 max-w-4xl h-3/4">
+        <DialogHeader className="">
+          <DialogTitle className="grid grid-cols-3 text-center items-start">
+            <span className="col-span-1 self-start">Select {itemType}</span>
+            <span className="col-span-2 self-start">
+              {highlightedItem?.name || ""}
+            </span>
+          </DialogTitle>
+
+          <div className="grid grid-cols-3 gap-10 items-start justify-between h-96">
             <div className="border rounded-sm p-2 self-start h-full">
               {data.map((item) => (
                 <div
@@ -57,6 +59,15 @@ const SelectorDialog = <
             <div className="col-span-2 self-start">
               {highlightedItem ? (
                 <div>
+                  {itemType === "Ancestry" && (
+                    <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
+                      <p>speed: {highlightedItem.speed}</p>
+                      <p>Attributes: {highlightedItem.Attributes.join(", ")}</p>
+                      <p>hp: {highlightedItem.hp}</p>
+                      <p>size: {highlightedItem.size}</p>
+                    </div>
+                  )}
+
                   {itemType === "Armour" && (
                     <div className="mt-4 flex flex-row gap-2 text-xs text-center">
                       <p>Type: {highlightedItem.type}</p>
@@ -92,20 +103,20 @@ const SelectorDialog = <
               </p>
             </div>
           </div>
-          <DialogClose asChild className="w-1/3">
-            <Button
-              className="mt-4"
-              variant="default"
-              onClick={() => {
-                if (highlightedItem) {
-                  onItemClick(highlightedItem);
-                }
-              }}
-            >
-              Select {itemType}
-            </Button>
-          </DialogClose>
-        </div>
+        </DialogHeader>
+        <DialogClose asChild className="w-1/3">
+          <Button
+            className="mt-auto"
+            variant="default"
+            onClick={() => {
+              if (highlightedItem) {
+                onItemClick(highlightedItem);
+              }
+            }}
+          >
+            Select {itemType}
+          </Button>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

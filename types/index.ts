@@ -55,6 +55,8 @@ export type saveTypes = "fortitude" | "reflex" | "will";
 
 export type armourTypes = "unarmoured" | "light" | "medium" | "heavy";
 
+export type weaponTypes = "unarmed" | "simple" | "martial" | "advanced";
+
 export type diceTypes = "d4" | "d6" | "d8" | "d10" | "d12" | "d20";
 
 export type AncestryType = {
@@ -163,5 +165,19 @@ export type shieldItemType = {
   bulk: number | string;
   hp: number;
   bt: number;
+  description: string;
+};
+
+export type weaponItemType = {
+  name: string;
+  category: weaponTypes;
+  damage: string;
+  damageType: string;
+  bulk: number | string;
+  group: string;
+  hands: number | string;
+  type: string;
+  reload?: number;
+  range?: number;
   description: string;
 };

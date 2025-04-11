@@ -140,7 +140,7 @@ export const Classes: ClassType[] = [
       simple: [1, 1, 13, 19],
       martial: [1, 1, 13, 19],
       advanced: [1, 13, 19],
-      unarmed: [1, 13, 19],
+      unarmed: [1, 1, 13, 19],
     },
     defences: {
       unarmoured: [1, 11, 17],
@@ -848,7 +848,8 @@ export const weaponData: weaponItemType[] = [
     group: "polearm",
     hands: 2,
     type: "melee",
-    description: "",
+    description:
+      "Derived from a farming tool used to mow down long grains and cereals, this weapon has a long wooden shaft with protruding handles, capped with a curved blade set at a right angle.",
   },
   {
     name: "Greataxe",

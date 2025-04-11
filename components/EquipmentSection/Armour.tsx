@@ -1,36 +1,27 @@
-import { armourData, Classes, shieldData } from "@/data";
+import { armourData, shieldData } from "@/data";
 import { armourItemType, armourTypes, shieldItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
 import { setArmour } from "@/app/Slices/armourSlice";
-import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
+import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmourProficiencyLevel";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { setPotency } from "@/app/Slices/potencySlice";
+import { setPotency } from "@/app/Slices/armourPotencySlice";
 import { setResilient } from "@/app/Slices/resilientSlice";
 import { Separator } from "@/components/ui/separator";
 import { setShield } from "@/app/Slices/shieldSlice";
 import SelectorDialog from "../SelectorDialog";
-import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmourProficiencyLevel";
 
 const Armour = () => {
   const dispatch = useDispatch();
 
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
   const selectedArmour = useSelector(
     (state: { armour: { armour: string } }) => state.armour.armour
-  );
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
   );
   const selectedArmourData = armourData.find(
     (armourItem) => armourItem.name === selectedArmour

@@ -4,7 +4,7 @@ const initialState = {
   potency: 0,
 };
 
-const potencySlice = createSlice({
+const armourPotencySlice = createSlice({
   name: "potency",
   initialState: initialState,
   reducers: {
@@ -14,5 +14,5 @@ const potencySlice = createSlice({
   },
 });
 
-export const { setPotency } = potencySlice.actions;
-export default potencySlice.reducer;
+export const { setPotency } = armourPotencySlice.actions;
+export default armourPotencySlice.reducer;

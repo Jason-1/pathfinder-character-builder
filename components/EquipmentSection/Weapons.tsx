@@ -7,6 +7,7 @@ import TrainingIcon from "../Icons/TrainingIcon";
 import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
 import SelectorDialog from "../SelectorDialog";
 import { setWeapon } from "@/app/Slices/weaponSlice";
+import DiceRoller from "../DiceRoller";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -98,21 +99,29 @@ const Armour = () => {
               {highlightedWeapon.type.charAt(0).toUpperCase() +
                 highlightedWeapon.type.slice(1)}
             </p>
-            {highlightedWeapon.reload && (
+            {highlightedWeapon.reload != null && (
               <p>Reload: {highlightedWeapon.reload}</p>
             )}
-            {highlightedWeapon.range && <p>Range: {highlightedWeapon.range}</p>}
+            {highlightedWeapon.range && (
+              <p>Range: {highlightedWeapon.range}ft</p>
+            )}
           </div>
         </SelectorDialog>
 
         <p>
           Damage:{" "}
-          {highlightedWeapon.damage.charAt(0).toUpperCase() +
-            highlightedWeapon.damage.slice(1)}{" "}
-          {highlightedWeapon.damageType.charAt(0).toUpperCase() +
-            highlightedWeapon.damageType.slice(1)}
+          {(selectedWeaponData?.damage?.charAt(0).toUpperCase() ?? "") +
+            selectedWeaponData?.damage.slice(1)}{" "}
+          {selectedWeaponData?.damageType.charAt(0).toUpperCase() +
+            (selectedWeaponData?.damageType?.slice(1) ?? "")}
         </p>
+        {selectedWeaponData?.reload != null && (
+          <p>Reload: {highlightedWeapon.reload}</p>
+        )}
+        {selectedWeaponData?.range && <p>Range: {highlightedWeapon.range}ft</p>}
       </div>
+
+      <DiceRoller diceType={selectedWeaponData?.damage || "d4"} modifier={0} />
     </div>
   );
 };

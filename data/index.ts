@@ -795,7 +795,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Fist",
     category: "unarmed",
-    damage: "1d4",
+    damage: "d4",
     damageType: "bludgeoning",
     bulk: 0,
     group: "brawling",
@@ -806,7 +806,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Club",
     category: "simple",
-    damage: "1d6",
+    damage: "d6",
     damageType: "bludgeoning",
     bulk: 1,
     group: "club",
@@ -818,7 +818,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Dagger",
     category: "simple",
-    damage: "1d4",
+    damage: "d4",
     damageType: "piercing",
     bulk: "light",
     group: "knife",
@@ -830,7 +830,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Spear",
     category: "simple",
-    damage: "1d6",
+    damage: "d6",
     damageType: "piercing",
     bulk: 1,
     group: "spear",
@@ -842,7 +842,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Scythe",
     category: "martial",
-    damage: "1d10",
+    damage: "d10",
     damageType: "slashing",
     bulk: 2,
     group: "polearm",
@@ -854,7 +854,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Greataxe",
     category: "martial",
-    damage: "1d12",
+    damage: "d12",
     damageType: "slashing",
     bulk: 2,
     group: "axe",
@@ -866,7 +866,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Longsword",
     category: "martial",
-    damage: "1d8",
+    damage: "d8",
     damageType: "slashing",
     bulk: 1,
     group: "sword",
@@ -878,7 +878,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Falcata",
     category: "advanced",
-    damage: "1d8",
+    damage: "d8",
     damageType: "slashing",
     bulk: 1,
     group: "sword",
@@ -890,7 +890,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Hand Crossbow",
     category: "simple",
-    damage: "1d6",
+    damage: "d6",
     damageType: "piercing",
     bulk: "light",
     group: "crossbow",
@@ -904,7 +904,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Arbalest",
     category: "martial",
-    damage: "1d10",
+    damage: "d10",
     damageType: "piercing",
     bulk: 2,
     group: "crossbow",
@@ -918,7 +918,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Longbow",
     category: "martial",
-    damage: "1d8",
+    damage: "d8",
     damageType: "piercing",
     bulk: 2,
     group: "bow",
@@ -932,7 +932,7 @@ export const weaponData: weaponItemType[] = [
   {
     name: "Repeating Hand Crossbow",
     category: "advanced",
-    damage: "1d6",
+    damage: "d6",
     damageType: "piercing",
     bulk: "light",
     group: "crossbow",

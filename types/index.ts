@@ -171,7 +171,7 @@ export type shieldItemType = {
 export type weaponItemType = {
   name: string;
   category: weaponTypes;
-  damage: string;
+  damage: diceTypes;
   damageType: string;
   bulk: number | string;
   group: string;

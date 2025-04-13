@@ -20,7 +20,6 @@ export default function Home() {
   // Mobile layout
 
   // Redo subclasses as their own datatype so I can create a selectorDialog for them
-  // Implement weapons
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

@@ -8,6 +8,7 @@ import {
   FeatsType,
   shieldItemType,
   skillProficienciesType,
+  subclassType,
   weaponItemType,
 } from "@/types";
 
@@ -110,14 +111,6 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
-    subclasses: [
-      "Desecration (Unholy)",
-      "Grandeur (Holy)",
-      "Justice",
-      "Liberation",
-      "Obedience",
-      "Redemption (Holy)",
-    ],
     features: [],
     description:
       "You are an emissary of a deity, a devoted servant who has taken up a weighty mantle, and you devoutly pursue a cause that holds you apart from those around you. You have powerful defenses that you share freely with your allies and innocent bystanders, as well as divine power you use to end the threats your deity opposes.",
@@ -151,7 +144,6 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
-    subclasses: [],
     features: [
       {
         name: "reactive strike",
@@ -281,19 +273,82 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 6,
     Attributes: ["Intelligence"],
-    subclasses: [
-      "Red Mantis Magic School",
-      "School of Ars Grammatica",
-      "School of Battle Magic",
-      "School of Civic Wizardry",
-      "School of Mentalism",
-      "School of Protean Form",
-      "School of the Boundary",
-      "School of Unified Magical Theory",
-    ],
     features: [],
     description:
       "You are an eternal student of the secrets of the universe, using your mastery of magic to cast powerful spells. You treat magic like a science, cross-referencing the latest texts on practical spellcraft with ancient tomes to discover and understand arcane magic. Yet magical theory is vast, and there's no way you can study it all. Most wizards learn through formal schooling, with their curriculum informing a specific rubric, although particularly driven researchers sometimes piece together their own theories.",
+  },
+];
+
+export const subclasses: subclassType[] = [
+  {
+    name: "Desecration (Unholy)",
+    className: "Champion",
+    description: "",
+  },
+  {
+    name: "Grandeur (Holy)",
+    className: "Champion",
+    description: "",
+  },
+  {
+    name: "Justice",
+    className: "Champion",
+    description: "",
+  },
+  {
+    name: "Liberation",
+    className: "Champion",
+    description: "",
+  },
+  {
+    name: "Obedience",
+    className: "Champion",
+    description: "",
+  },
+  {
+    name: "Redemption (Holy)",
+    className: "Champion",
+    description: "",
+  },
+  {
+    name: "Red Mantis Magic School",
+    className: "Wizard",
+    description: "",
+  },
+  {
+    name: "School of Ars Grammatica",
+    className: "Wizard",
+    description: "",
+  },
+  {
+    name: "School of Battle Magic",
+    className: "Wizard",
+    description: "",
+  },
+  {
+    name: "School of Civic Wizardry",
+    className: "Wizard",
+    description: "",
+  },
+  {
+    name: "School of Mentalism",
+    className: "Wizard",
+    description: "",
+  },
+  {
+    name: "School of Protean Form",
+    className: "Wizard",
+    description: "",
+  },
+  {
+    name: "School of the Boundary",
+    className: "Wizard",
+    description: "",
+  },
+  {
+    name: "School of Unified Magical Theory",
+    className: "Wizard",
+    description: "",
   },
 ];
 

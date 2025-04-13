@@ -8,6 +8,13 @@ import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeapon
 import SelectorDialog from "../SelectorDialog";
 import { setWeapon } from "@/app/Slices/weaponSlice";
 import DiceRoller from "../DiceRoller";
+import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -23,6 +30,9 @@ const Armour = () => {
 
   const [highlightedWeapon, setHighlightedWeapon] =
     React.useState<weaponItemType>(weaponData[0]);
+
+  const [potencyRune, setPotencyRune] = React.useState<number>(0);
+  const [strikingRune, setStrikingRune] = React.useState<number>(0);
 
   const handleSetWeapon = (weapon: string) => {
     dispatch(setWeapon({ weapon }));
@@ -120,8 +130,101 @@ const Armour = () => {
         )}
         {selectedWeaponData?.range && <p>Range: {highlightedWeapon.range}ft</p>}
       </div>
+      <div className="mt-8">
+        <DiceRoller
+          diceType={selectedWeaponData?.damage || "d4"}
+          modifier={calculateCurrentAttributeBoost("Strength")}
+          diceCount={1}
+        />
+      </div>
 
-      <DiceRoller diceType={selectedWeaponData?.damage || "d4"} modifier={0} />
+      <div className="flex flex-row gap-4 mt-8">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {potencyRune === 0
+              ? "No Potency Rune"
+              : "+" + potencyRune + " Potency"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              onClick={() => {
+                setPotencyRune(0);
+              }}
+            >
+              No Potency Rune
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setPotencyRune(1);
+              }}
+            >
+              +1 Potency
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setPotencyRune(2);
+              }}
+            >
+              +2 Potency
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setPotencyRune(3);
+              }}
+            >
+              +3 Potency
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setPotencyRune(4);
+              }}
+            >
+              +4 Potency
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {strikingRune === 0
+              ? "No Striking Rune"
+              : strikingRune === 1
+              ? "Striking"
+              : strikingRune === 2
+              ? "Striking (Greater)"
+              : "Striking (Major)"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              onClick={() => {
+                setStrikingRune(0);
+              }}
+            >
+              No Striking Rune
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setStrikingRune(1);
+              }}
+            >
+              Striking
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setStrikingRune(2);
+              }}
+            >
+              Striking (Greater)
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setStrikingRune(3);
+              }}
+            >
+              Striking (Major)
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 };

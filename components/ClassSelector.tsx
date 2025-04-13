@@ -24,14 +24,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-import { Classes } from "@/data";
+import { Classes, subclasses } from "@/data";
 import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/Slices/classSlice";
 import { setSubclass } from "@/app/Slices/subclassSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
-import { ClassType } from "@/types";
+import { ClassType, subclassType } from "@/types";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -56,10 +56,15 @@ const ClassSelector: React.FC = ({}) => {
   const currentClass = Classes.find(
     (currentClass) => currentClass.name === selectedClass
   );
+  const availableSubclasses = subclasses.filter(
+    (subclassItem) => subclassItem.className === selectedClass
+  );
 
   const [highlightedClass, setHighlightedClass] = React.useState<ClassType>(
     Classes[0]
   );
+  const [highlightedSubclass, setHighlightedSubclass] =
+    React.useState<subclassType>(subclasses[0]);
 
   const trainingLevel = (value: number) => {
     switch (value) {
@@ -121,58 +126,17 @@ const ClassSelector: React.FC = ({}) => {
         </div>
       </SelectorDialog>
 
-      <Dialog>
-        <DialogTrigger>
-          <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">
-            {selectedSubclass === "Select Subclass" ? "" : "Subclass: "}
-            {selectedSubclass}
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Select a Subclass</DialogTitle>
-            <Accordion type="single" collapsible>
-              {currentClass?.subclasses &&
-              currentClass.subclasses.length > 0 ? (
-                currentClass.subclasses.map((subClass) => (
-                  <AccordionItem value={subClass} key={subClass}>
-                    <AccordionTrigger>{subClass}</AccordionTrigger>
-                    <AccordionContent>
-                      <Card>
-                        <CardHeader>
-                          <CardDescription>{subClass}</CardDescription>
-                        </CardHeader>
-                        <CardContent></CardContent>
-                        <CardFooter>
-                          <DialogClose asChild>
-                            <Button
-                              onClick={() => {
-                                handleSetSubclass(`${subClass}`);
-                              }}
-                            >
-                              Confirm Selection
-                            </Button>
-                          </DialogClose>
-                        </CardFooter>
-                      </Card>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))
-              ) : (
-                <Card>
-                  <CardHeader>
-                    <CardDescription>
-                      No subclasses available for this class.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent></CardContent>
-                  <CardFooter></CardFooter>
-                </Card>
-              )}
-            </Accordion>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <SelectorDialog
+        itemType="Sub-Class"
+        selectedItem={selectedSubclass}
+        data={availableSubclasses}
+        highlightedItemName={highlightedSubclass.name}
+        highlightedItemDescription={highlightedSubclass.description}
+        onItemClick={(item) => {
+          handleSetSubclass(item);
+        }}
+        setHighlightedItem={setHighlightedSubclass}
+      ></SelectorDialog>
     </div>
   );
 };

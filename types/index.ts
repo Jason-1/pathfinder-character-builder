@@ -118,12 +118,17 @@ export type ClassType = {
   DC: TrainingType;
   hp: number;
   Attributes: AttributesType[];
-  subclasses: string[];
   features: {
     name: string;
     level: number;
     description: string;
   }[];
+  description: string;
+};
+
+export type subclassType = {
+  name: string;
+  className: string;
   description: string;
 };
 

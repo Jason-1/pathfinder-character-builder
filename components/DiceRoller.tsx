@@ -28,6 +28,7 @@ interface DiceRollerProps {
   diceType: diceTypes;
   modifier: number;
   diceCount?: number;
+  damageModifier?: number;
 }
 import {
   Popover,
@@ -35,11 +36,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { PopoverClose } from "@radix-ui/react-popover";
+import { Span } from "next/dist/trace";
 
 const DiceRoller: React.FC<DiceRollerProps> = ({
   diceType,
   modifier,
   diceCount,
+  damageModifier,
 }) => {
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
@@ -50,6 +53,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   const [level, setLevel] = useState<number>(currentLevel);
   const [manualDC, setManualDC] = useState(false);
   const [manualLevel, setManualLevel] = useState(false);
+  const [roll, setRoll] = useState<number[][]>([[]]);
 
   useEffect(() => {
     if (!manualDC) {
@@ -122,16 +126,33 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
   const handleDialogClose = (isOpen: boolean) => {
     if (!isOpen) {
-      setRoll(null);
+      setRoll([]);
     }
   };
 
-  const [roll, setRoll] = useState<number[] | null>(null);
-  const max = parseInt(diceType.slice(1));
+  const maxDiceRoll = 20;
+  const maxDamageRoll = parseInt(diceType.slice(1));
 
   const rollDice = () => {
-    const result = Math.floor(Math.random() * max) + 1;
-    setRoll((prevRolls) => [...(prevRolls || []), result]);
+    // create an array and add 20 to it to identify it as a d20 roll
+    let rolls: number[] = [20];
+    // roll a number of dice equal to diceCount up to maxDamageRoll and add them to the rolls state
+
+    const result = Math.floor(Math.random() * maxDiceRoll) + 1;
+    rolls.push(result);
+
+    setRoll((prevRolls) => [...(prevRolls || []), rolls]);
+  };
+
+  const rollDamage = () => {
+    // create an empty array
+    let rolls: number[] = [];
+    // roll a number of dice equal to diceCount up to maxDamageRoll and add them to the rolls state
+    for (let i = 0; i < (diceCount || 1); i++) {
+      const result = Math.floor(Math.random() * maxDamageRoll) + 1;
+      rolls.push(result);
+    }
+    setRoll((prevRolls) => [...(prevRolls || []), rolls]);
   };
 
   return (
@@ -276,16 +297,57 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
           <div className="grid grid-cols-[1fr_auto] gap-4 items-start justify-between flex-grow h-full overflow-y-auto border border-red-600">
             <div className="border border-purple-600 h-full"></div>
-            <div className="border border-yellow-600 flex flex-col h-full overflow-y-auto w-[400px]">
+            <div className="border border-yellow-600 flex flex-col h-full overflow-y-auto xl:w-[400px]">
               <div className="flex-grow border border-green-500 overflow-y-auto">
-                {roll?.map((result, index) => (
+                {/* LOGIC IN HERE
+                
+                Check if the roll is a d20 or not
+                If it is a d20, check if the roll is a critical failure, failure, success, or critical success
+                */}
+                {roll?.map((results, index) => (
+                  <div key={index}>
+                    <span>Result: </span>
+                    {results[0] === 20 && (
+                      <span>
+                        {results.slice(1)} + {modifier} ={" "}
+                        {results[1] + modifier}
+                      </span>
+                    )}
+                    {results[0] !== 20 && (
+                      <span>
+                        {results.join(" + ")} + {damageModifier} ={" "}
+                        {results.reduce((a, b) => a + b, 0) +
+                          (damageModifier || 0)}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-2 flex justify-end gap-6">
+                {diceType !== "d20" && (
+                  <Button onClick={rollDamage}>Roll Damage</Button>
+                )}
+                <Button onClick={rollDice}>Roll Dice</Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
+{
+  /*
+  {roll?.map((result, index) => (
                   <div key={index} className={`flex `}>
                     <span className="mr-1">{"Result:"} </span>
                     <span
                       className={`mr-1  ${
                         result === 1
                           ? "text-red-700"
-                          : result === max
+                          : result === maxDiceRoll
                           ? "text-green-500"
                           : ""
                       }`}
@@ -313,16 +375,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                     </span>
                   </div>
                 ))}
-              </div>
-              <div className="mt-2 flex justify-end">
-                <Button onClick={rollDice}>Roll Dice</Button>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-};
+  */
+}
 
 export default DiceRoller;

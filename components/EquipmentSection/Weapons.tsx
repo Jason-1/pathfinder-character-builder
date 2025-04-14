@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import calculateCurrentWeaponProficiencyBonus from "@/lib/calculateCurrentWeaponProficiencyBonus";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ const Armour = () => {
   );
   const selectedWeaponData = weaponData.find(
     (weaponItem) => weaponItem.name === selectedWeapon
+  );
+  const currentLevel = useSelector(
+    (state: { level: { level: number } }) => state.level.level
   );
 
   //------------------------------------------------------------------------------//
@@ -38,6 +42,30 @@ const Armour = () => {
     dispatch(setWeapon({ weapon }));
     if (weapon === "Fist") {
     }
+  };
+
+  const calculateCurrentAttackModifier = () => {
+    let attackModifier = 0;
+
+    const proficiency = calculateCurrentWeaponProficiencyBonus(
+      selectedWeaponData?.category || "unarmed"
+    );
+    if (proficiency >= 0) {
+      attackModifier += currentLevel;
+    }
+    attackModifier += calculateCurrentAttributeBoost("Strength");
+    attackModifier += proficiency;
+    attackModifier += potencyRune;
+
+    return attackModifier;
+  };
+
+  const calculateCurrentDamageModifier = () => {
+    let damageModifier = 0;
+
+    damageModifier += calculateCurrentAttributeBoost("Strength");
+
+    return damageModifier;
   };
 
   return (
@@ -133,8 +161,9 @@ const Armour = () => {
       <div className="mt-8">
         <DiceRoller
           diceType={selectedWeaponData?.damage || "d4"}
-          modifier={calculateCurrentAttributeBoost("Strength")}
-          diceCount={1}
+          modifier={calculateCurrentAttackModifier()}
+          diceCount={strikingRune + 1}
+          damageModifier={calculateCurrentDamageModifier()}
         />
       </div>
 

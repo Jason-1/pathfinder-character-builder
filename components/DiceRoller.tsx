@@ -147,8 +147,8 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
             {diceType === "d20" ? <FaDiceD20 size={"20"} /> : null}
           </motion.div>
         </DialogTrigger>
-        <DialogContent className="h-1/2 max-w-full w-1/2">
-          <DialogHeader>
+        <DialogContent className="flex flex-col h-full max-w-full w-1/2 max-h-[55vh]">
+          <DialogHeader className="flex-grow">
             <DialogTitle>
               <div className="flex justify-between items-center">
                 <span>Dice Roller</span>
@@ -270,47 +270,55 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                     </DropdownMenu>
                   </>
                 )}
-                <Button onClick={rollDice}>Roll Dice</Button>
               </div>
             </DialogTitle>
+          </DialogHeader>
 
-            <div className="overflow-y-auto h-[40vh]">
-              {roll?.map((result, index) => (
-                <div key={index} className={`flex `}>
-                  <span className="mr-1">{"Result:"} </span>
-                  <span
-                    className={`mr-1  ${
-                      result === 1
-                        ? "text-red-700"
-                        : result === max
-                        ? "text-green-500"
-                        : ""
-                    }`}
-                  >
-                    {result}
-                  </span>
-                  <span className="mr-1">+ {modifier} =</span>
-                  <span
-                    className={`${
-                      diceType === "d20"
-                        ? calculateSuccessLevel(result) === "Critical Failure"
+          <div className="grid grid-cols-2 gap-4 items-start justify-between flex-grow h-full overflow-y-auto border border-red-600">
+            <div className="border border-purple-600 h-full"></div>
+            <div className="border border-yellow-600 flex flex-col h-full overflow-y-auto">
+              <div className="flex-grow border border-green-500 overflow-y-auto">
+                {roll?.map((result, index) => (
+                  <div key={index} className={`flex `}>
+                    <span className="mr-1">{"Result:"} </span>
+                    <span
+                      className={`mr-1  ${
+                        result === 1
                           ? "text-red-700"
-                          : calculateSuccessLevel(result) === "Failure"
-                          ? "text-red-400"
-                          : calculateSuccessLevel(result) === "Success"
-                          ? "text-blue-500"
-                          : calculateSuccessLevel(result) === "Critical Success"
+                          : result === max
                           ? "text-green-500"
                           : ""
-                        : ""
-                    }`}
-                  >
-                    {result + modifier}
-                  </span>
-                </div>
-              ))}
+                      }`}
+                    >
+                      {result}
+                    </span>
+                    <span className="mr-1">+ {modifier} =</span>
+                    <span
+                      className={`${
+                        diceType === "d20"
+                          ? calculateSuccessLevel(result) === "Critical Failure"
+                            ? "text-red-700"
+                            : calculateSuccessLevel(result) === "Failure"
+                            ? "text-red-400"
+                            : calculateSuccessLevel(result) === "Success"
+                            ? "text-blue-500"
+                            : calculateSuccessLevel(result) ===
+                              "Critical Success"
+                            ? "text-green-500"
+                            : ""
+                          : ""
+                      }`}
+                    >
+                      {result + modifier}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-2 flex justify-end">
+                <Button onClick={rollDice}>Roll Dice</Button>
+              </div>
             </div>
-          </DialogHeader>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

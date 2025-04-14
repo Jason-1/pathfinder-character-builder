@@ -32,14 +32,7 @@ const SelectorDialog = <T extends { name: string; description: string }>({
 }: SelectorDialogProps<T>) => {
   return (
     <Dialog>
-      <DialogTrigger>
-        <Button
-          className="flex items-center justify-between w-full text-center border hover:border-red-500"
-          variant={"outline"}
-        >
-          {selectedItem}
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger>{selectedItem}</DialogTrigger>
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
           <DialogTitle className="grid grid-cols-3 text-center items-start">
@@ -49,8 +42,8 @@ const SelectorDialog = <T extends { name: string; description: string }>({
             </span>
           </DialogTitle>
         </DialogHeader>
-        <div className="grid grid-cols-3 gap-10 items-start justify-between h-full">
-          <div className="border rounded-sm p-2 self-start h-full overflow-y-auto max-h-[60vh]">
+        <div className="grid grid-cols-3 gap-10 items-start justify-between flex-grow overflow-y-auto h-full">
+          <div className="border rounded-sm p-2 self-start h-full overflow-y-auto ">
             {data.map((item) => (
               <div
                 key={item.name}
@@ -69,7 +62,7 @@ const SelectorDialog = <T extends { name: string; description: string }>({
             {children}
             <p className="mt-4">{highlightedItemDescription || ""}</p>
           </div>
-        </div>{" "}
+        </div>
         <DialogClose asChild className="w-1/3">
           <Button
             className="mt-auto"

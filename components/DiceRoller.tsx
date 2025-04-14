@@ -147,7 +147,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
             {diceType === "d20" ? <FaDiceD20 size={"20"} /> : null}
           </motion.div>
         </DialogTrigger>
-        <DialogContent className="flex flex-col h-full max-w-full w-1/2 max-h-[55vh]">
+        <DialogContent className="flex flex-col h-full max-w-full w-1/2 max-h-[75vh]">
           <DialogHeader className="flex-grow">
             <DialogTitle>
               <div className="flex justify-between items-center">
@@ -274,9 +274,9 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
             </DialogTitle>
           </DialogHeader>
 
-          <div className="grid grid-cols-2 gap-4 items-start justify-between flex-grow h-full overflow-y-auto border border-red-600">
+          <div className="grid grid-cols-[1fr_auto] gap-4 items-start justify-between flex-grow h-full overflow-y-auto border border-red-600">
             <div className="border border-purple-600 h-full"></div>
-            <div className="border border-yellow-600 flex flex-col h-full overflow-y-auto">
+            <div className="border border-yellow-600 flex flex-col h-full overflow-y-auto w-[400px]">
               <div className="flex-grow border border-green-500 overflow-y-auto">
                 {roll?.map((result, index) => (
                   <div key={index} className={`flex `}>

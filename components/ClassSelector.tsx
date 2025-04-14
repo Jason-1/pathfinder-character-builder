@@ -2,30 +2,7 @@
 
 import React from "react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
 import { Classes, subclasses } from "@/data";
-import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/Slices/classSlice";
 import { setSubclass } from "@/app/Slices/subclassSlice";

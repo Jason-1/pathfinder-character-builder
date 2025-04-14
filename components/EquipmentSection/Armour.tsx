@@ -100,7 +100,7 @@ const Armour = () => {
         </div>
       </div>
       <div className="mt-8">{/*<SelectorDialog /> */}</div>
-      <div className="flex flex-row gap-2 mt-8">
+      <div className="flex flex-row gap-2 mt-8 items-center">
         <TrainingIcon
           trainingLevel={calculateCurrentArmourProficiencyLevel(
             selectedArmourData?.type || "unarmoured"
@@ -213,7 +213,7 @@ const Armour = () => {
       </div>
       <Separator className="mt-8" />
 
-      <div className="flex flex-row gap-2 mt-8">
+      <div className="flex flex-row gap-2 mt-8 items-center">
         <SelectorDialog
           itemType="Shield"
           selectedItem={selectedShield}

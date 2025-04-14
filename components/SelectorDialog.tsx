@@ -32,7 +32,14 @@ const SelectorDialog = <T extends { name: string; description: string }>({
 }: SelectorDialogProps<T>) => {
   return (
     <Dialog>
-      <DialogTrigger>{selectedItem}</DialogTrigger>
+      <DialogTrigger>
+        <Button
+          className="flex items-center justify-between w-full text-center border hover:border-red-500"
+          variant={"outline"}
+        >
+          {selectedItem}
+        </Button>
+      </DialogTrigger>
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
           <DialogTitle className="grid grid-cols-3 text-center items-start">

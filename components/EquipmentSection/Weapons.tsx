@@ -69,7 +69,7 @@ const Armour = () => {
         </div>
       </div>
 
-      <div className="flex flex-row gap-2 mt-8">
+      <div className="flex flex-row gap-2 mt-8 items-center">
         <TrainingIcon
           trainingLevel={calculateCurrentWeaponProficiencyLevel(
             selectedWeaponData?.category || "unarmed"

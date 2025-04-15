@@ -147,9 +147,7 @@ const Armour = () => {
         </SelectorDialog>
 
         <p>
-          Damage:{" "}
-          {(selectedWeaponData?.damage?.charAt(0).toUpperCase() ?? "") +
-            selectedWeaponData?.damage.slice(1)}{" "}
+          Damage: 1{selectedWeaponData?.damage ?? ""}{" "}
           {selectedWeaponData?.damageType.charAt(0).toUpperCase() +
             (selectedWeaponData?.damageType?.slice(1) ?? "")}
         </p>
@@ -165,7 +163,14 @@ const Armour = () => {
           diceCount={strikingRune + 1}
           damageModifier={calculateCurrentDamageModifier()}
         />
-        <span>ROLL</span>
+        <span>+{calculateCurrentAttackModifier()}</span>
+        <span>
+          {strikingRune + 1}
+          {selectedWeaponData?.damage || "d4"}
+          {" + "}
+          {calculateCurrentDamageModifier()}{" "}
+          {selectedWeaponData?.damageType || ""}
+        </span>
       </div>
 
       <div className="flex flex-row gap-4 mt-8">

@@ -25,7 +25,6 @@ const SkillShowcase: React.FC = ({}) => {
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories
   );
-
   //------------------------------------------------------------------------------//
 
   function findTrainingLevel(skill: skillProficienciesType) {
@@ -69,7 +68,11 @@ const SkillShowcase: React.FC = ({}) => {
       skillModifier += currentLevel;
     }
 
-    const abilityModifier = calculateCurrentAttributeBoost(skill.attribute);
+    const abilityModifier = calculateCurrentAttributeBoost(
+      skill.attribute,
+      currentLevel,
+      attributeBoosts
+    );
 
     skillModifier += abilityModifier;
 

@@ -51,6 +51,10 @@ const Defences = () => {
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
+  const attributeBoosts = useSelector(
+    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
+      state.attributeBoostCategories
+  );
 
   //------------------------------------------------------------------------------//
 
@@ -102,12 +106,18 @@ const Defences = () => {
 
     const Base = 10;
     const proficiency = calculateCurrentArmourProficiencyBonus(
-      selectedArmourData.type
+      selectedArmourData.type,
+      currentLevel,
+      selectedClassData
     );
     const item = selectedArmourData.ACBonus;
     const rune = selectedPotency;
     const dexterity = Math.min(
-      calculateCurrentAttributeBoost("Dexterity"),
+      calculateCurrentAttributeBoost(
+        "Dexterity",
+        currentLevel,
+        attributeBoosts
+      ),
       dexCap
     );
     let shield = 0; // TODO: Add shield bonus
@@ -138,7 +148,11 @@ const Defences = () => {
     let HP = 0;
     const classHP = selectedClassData.hp;
     const ancestry = selectedAncestryData.hp;
-    const constitution = calculateCurrentAttributeBoost("Constitution");
+    const constitution = calculateCurrentAttributeBoost(
+      "Constitution",
+      currentLevel,
+      attributeBoosts
+    );
     const bonus = 0; // TODO: Add bonus HP from items or feats
 
     HP += ancestry;
@@ -155,13 +169,25 @@ const Defences = () => {
     const rune = selectedResilient;
     let attribute = 0;
     if (saveType === "fortitude") {
-      attribute = calculateCurrentAttributeBoost("Constitution");
+      attribute = calculateCurrentAttributeBoost(
+        "Constitution",
+        currentLevel,
+        attributeBoosts
+      );
     }
     if (saveType === "reflex") {
-      attribute = calculateCurrentAttributeBoost("Dexterity");
+      attribute = calculateCurrentAttributeBoost(
+        "Dexterity",
+        currentLevel,
+        attributeBoosts
+      );
     }
     if (saveType === "will") {
-      attribute = calculateCurrentAttributeBoost("Wisdom");
+      attribute = calculateCurrentAttributeBoost(
+        "Wisdom",
+        currentLevel,
+        attributeBoosts
+      );
     }
 
     saveBonus += proficiency;

@@ -1,6 +1,7 @@
-import { armourData, shieldData } from "@/data";
+import { armourData, Classes, shieldData } from "@/data";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
+import { AttributeBoostsType } from "@/types";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -27,6 +28,16 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
+  const selectedClassData = Classes.find(
+    (classItem) => classItem.name === selectedClass
+  );
+  const attributeBoosts = useSelector(
+    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
+      state.attributeBoostCategories
+  );
 
   //------------------------------------------------------------------------------//
 
@@ -38,16 +49,27 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
     <p>
       Base: 10 <br />
       Proficiency:{" "}
-      {calculateCurrentArmourProficiencyBonus(selectedArmourData.type) > 0
-        ? calculateCurrentArmourProficiencyBonus(selectedArmourData.type) +
-          currentLevel
+      {calculateCurrentArmourProficiencyBonus(
+        selectedArmourData.type,
+        currentLevel,
+        selectedClassData
+      ) > 0
+        ? calculateCurrentArmourProficiencyBonus(
+            selectedArmourData.type,
+            currentLevel,
+            selectedClassData
+          ) + currentLevel
         : 0}
       <br />
       Item: {selectedArmourData.ACBonus} <br />
       Potency: {selectedPotency} <br />
       Dexterity:{" "}
       {Math.min(
-        calculateCurrentAttributeBoost("Dexterity"),
+        calculateCurrentAttributeBoost(
+          "Dexterity",
+          currentLevel,
+          attributeBoosts
+        ),
         selectedArmourData.dexCap
       )}
       <br />

@@ -1,23 +1,20 @@
-import { weaponTypes } from "@/types";
+import { ClassType, weaponTypes } from "@/types";
 import calculateCurrentWeaponProficiencyBonus from "./calculateCurrentWeaponProficiencyBonus";
-import { useSelector } from "react-redux";
-import { Classes } from "@/data";
 
 export default function calculateCurrentWeaponProficiencyLevel(
-  weaponType: weaponTypes
+  weaponType: weaponTypes,
+  currentLevel: number,
+  selectedClassData?: ClassType
 ): string {
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
-
   if (!selectedClassData) {
     return "U";
   }
 
-  const proficiency = calculateCurrentWeaponProficiencyBonus(weaponType);
+  const proficiency = calculateCurrentWeaponProficiencyBonus(
+    weaponType,
+    currentLevel,
+    selectedClassData
+  );
   switch (proficiency) {
     case 0:
       return "U";

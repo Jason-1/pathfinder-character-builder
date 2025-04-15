@@ -2,16 +2,13 @@ import { AttributeBoostsType, AttributesType } from "@/types";
 import { useSelector } from "react-redux";
 
 export default function calculateCurrentAttributeBoost(
-  attributeName: AttributesType
+  attributeName: AttributesType,
+  currentLevel: number,
+  attributeBoosts?: AttributeBoostsType[]
 ): number {
-  const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
-  );
-  const currentLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
-
+  if (!attributeBoosts) {
+    return 0;
+  }
   let i = 0;
   let partial = false;
   attributeBoosts.forEach((boost) => {

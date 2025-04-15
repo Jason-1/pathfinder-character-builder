@@ -42,6 +42,8 @@ const Abilities: React.FC = ({}) => {
     dispatch(resetSpecificAttributeBoost(attribute));
   };
 
+  //------------------------------------------------------------------------------//
+
   //Reset Ancestry boosts when a new class is selected
   useEffect(() => {
     handleResetAttributes("Ancestry");
@@ -67,7 +69,11 @@ const Abilities: React.FC = ({}) => {
           <div>{attribute.name}</div>
           <div>
             {"+"}
-            {calculateCurrentAttributeBoost(attribute.name)}
+            {calculateCurrentAttributeBoost(
+              attribute.name,
+              selectedLevel,
+              attributeBoosts
+            )}
           </div>
         </div>
       ))}

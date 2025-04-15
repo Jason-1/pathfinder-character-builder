@@ -1,23 +1,20 @@
-import { armourTypes } from "@/types";
+import { armourTypes, ClassType } from "@/types";
 import calculateCurrentArmourProficiencyBonus from "./calculateCurrentArmourProficiencyBonus";
-import { useSelector } from "react-redux";
-import { Classes } from "@/data";
 
 export default function calculateCurrentArmourProficiencyLevel(
-  armourType: armourTypes
+  armourType: armourTypes,
+  selectedLevel: number,
+  selectedClassData?: ClassType
 ): string {
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
-
   if (!selectedClassData) {
     return "U";
   }
 
-  const proficiency = calculateCurrentArmourProficiencyBonus(armourType);
+  const proficiency = calculateCurrentArmourProficiencyBonus(
+    armourType,
+    selectedLevel,
+    selectedClassData
+  );
   switch (proficiency) {
     case 0:
       return "U";

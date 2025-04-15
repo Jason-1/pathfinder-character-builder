@@ -1,5 +1,5 @@
-import { weaponData } from "@/data";
-import { weaponItemType } from "@/types";
+import { Classes, weaponData } from "@/data";
+import { AttributeBoostsType, weaponItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
@@ -29,7 +29,16 @@ const Armour = () => {
   const currentLevel = useSelector(
     (state: { level: { level: number } }) => state.level.level
   );
-
+  const attributeBoosts = useSelector(
+    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
+      state.attributeBoostCategories
+  );
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
+  const selectedClassData = Classes.find(
+    (classItem) => classItem.name === selectedClass
+  );
   //------------------------------------------------------------------------------//
 
   const [highlightedWeapon, setHighlightedWeapon] =
@@ -48,12 +57,18 @@ const Armour = () => {
     let attackModifier = 0;
 
     const proficiency = calculateCurrentWeaponProficiencyBonus(
-      selectedWeaponData?.category || "unarmed"
+      selectedWeaponData?.category || "unarmed",
+      currentLevel,
+      selectedClassData
     );
     if (proficiency >= 0) {
       attackModifier += currentLevel;
     }
-    attackModifier += calculateCurrentAttributeBoost("Strength");
+    attackModifier += calculateCurrentAttributeBoost(
+      "Strength",
+      currentLevel,
+      attributeBoosts
+    );
     attackModifier += proficiency;
     attackModifier += potencyRune;
 
@@ -63,7 +78,11 @@ const Armour = () => {
   const calculateCurrentDamageModifier = () => {
     let damageModifier = 0;
 
-    damageModifier += calculateCurrentAttributeBoost("Strength");
+    damageModifier += calculateCurrentAttributeBoost(
+      "Strength",
+      currentLevel,
+      attributeBoosts
+    );
 
     return damageModifier;
   };
@@ -74,25 +93,41 @@ const Armour = () => {
         <div className="flex flex-row gap-2">
           <p>Unarmed</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentWeaponProficiencyLevel("unarmed")}
+            trainingLevel={calculateCurrentWeaponProficiencyLevel(
+              "unarmed",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Simple</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentWeaponProficiencyLevel("simple")}
+            trainingLevel={calculateCurrentWeaponProficiencyLevel(
+              "simple",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Martial</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentWeaponProficiencyLevel("martial")}
+            trainingLevel={calculateCurrentWeaponProficiencyLevel(
+              "martial",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Advanced</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentWeaponProficiencyLevel("advanced")}
+            trainingLevel={calculateCurrentWeaponProficiencyLevel(
+              "advanced",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
       </div>
@@ -100,7 +135,9 @@ const Armour = () => {
       <div className="flex flex-row gap-2 mt-8 items-center">
         <TrainingIcon
           trainingLevel={calculateCurrentWeaponProficiencyLevel(
-            selectedWeaponData?.category || "unarmed"
+            selectedWeaponData?.category || "unarmed",
+            currentLevel,
+            selectedClassData
           )}
         />
 

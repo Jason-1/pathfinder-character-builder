@@ -1,4 +1,4 @@
-import { armourData, shieldData } from "@/data";
+import { armourData, Classes, shieldData } from "@/data";
 import { armourItemType, armourTypes, shieldItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,6 +37,15 @@ const Armour = () => {
   );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
+  );
+  const currentLevel = useSelector(
+    (state: { level: { level: number } }) => state.level.level
+  );
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
+  const selectedClassData = Classes.find(
+    (classItem) => classItem.name === selectedClass
   );
 
   //------------------------------------------------------------------------------//
@@ -77,25 +86,41 @@ const Armour = () => {
         <div className="flex flex-row gap-2">
           <p>Unarmoured</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentArmourProficiencyLevel("unarmoured")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel(
+              "unarmoured",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Light</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentArmourProficiencyLevel("light")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel(
+              "light",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Medium</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentArmourProficiencyLevel("medium")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel(
+              "medium",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
         <div className="flex flex-row gap-2">
           <p>Heavy</p>
           <TrainingIcon
-            trainingLevel={calculateCurrentArmourProficiencyLevel("heavy")}
+            trainingLevel={calculateCurrentArmourProficiencyLevel(
+              "heavy",
+              currentLevel,
+              selectedClassData
+            )}
           />
         </div>
       </div>
@@ -103,7 +128,9 @@ const Armour = () => {
       <div className="flex flex-row gap-2 mt-8 items-center">
         <TrainingIcon
           trainingLevel={calculateCurrentArmourProficiencyLevel(
-            selectedArmourData?.type || "unarmoured"
+            selectedArmourData?.type || "unarmoured",
+            currentLevel,
+            selectedClassData
           )}
         />
 

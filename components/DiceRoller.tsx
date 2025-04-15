@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -18,8 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { diceTypes } from "@/types";
 import { motion } from "motion/react";
-import { FaDiceD6, FaDiceD20 } from "react-icons/fa";
-import { GiD4, GiD10, GiD12 } from "react-icons/gi";
+import { FaDiceD20 } from "react-icons/fa";
 import { Button } from "./ui/button";
 import { useSelector } from "react-redux";
 import { DCAdjustments, DCbyLevel } from "@/data";
@@ -36,7 +33,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { PopoverClose } from "@radix-ui/react-popover";
-import { Span } from "next/dist/trace";
 
 const DiceRoller: React.FC<DiceRollerProps> = ({
   diceType,
@@ -53,7 +49,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   const [level, setLevel] = useState<number>(currentLevel);
   const [manualDC, setManualDC] = useState(false);
   const [manualLevel, setManualLevel] = useState(false);
-  const [roll, setRoll] = useState<number[][]>([[]]);
+  const [roll, setRoll] = useState<number[][]>([]);
 
   useEffect(() => {
     if (!manualDC) {
@@ -90,7 +86,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
     }
   };
 
-  const calculateSuccessLevel = (roll: number) => {
+  const calculateSuccessColour = (roll: number) => {
     let successLevel = 0;
 
     if (roll + modifier < DC - 10) {
@@ -112,15 +108,16 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
     switch (successLevel) {
       case 1:
-        return "Critical Failure";
+        return "text-red-700";
       case 2:
-        return "Failure";
+        return "text-red-400";
       case 3:
-        return "Success";
+        return "text-blue-500";
+
       case 4:
-        return "Critical Success";
+        return "text-green-500";
       default:
-        return "Success";
+        return "";
     }
   };
 
@@ -160,12 +157,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
       <Dialog onOpenChange={handleDialogClose}>
         <DialogTrigger asChild>
           <motion.div className="hover:cursor-pointer">
-            {diceType === "d4" ? <GiD4 size={"22"} /> : null}
-            {diceType === "d6" ? <FaDiceD6 size={"20"} /> : null}
-            {diceType === "d8" ? <GiD10 size={"24"} /> : null}
-            {diceType === "d10" ? <GiD10 size={"24"} /> : null}
-            {diceType === "d12" ? <GiD12 size={"24"} /> : null}
-            {diceType === "d20" ? <FaDiceD20 size={"20"} /> : null}
+            <FaDiceD20 size={"20"} />
           </motion.div>
         </DialogTrigger>
         <DialogContent className="flex flex-col h-full max-w-full w-1/2 max-h-[75vh]">
@@ -299,37 +291,86 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
             <div className="border border-purple-600 h-full"></div>
             <div className="border border-yellow-600 flex flex-col h-full overflow-y-auto xl:w-[400px]">
               <div className="flex-grow border border-green-500 overflow-y-auto">
-                {/* LOGIC IN HERE
-                
-                Check if the roll is a d20 or not
-                If it is a d20, check if the roll is a critical failure, failure, success, or critical success
-                */}
                 {roll?.map((results, index) => (
                   <div key={index}>
                     <span>Result: </span>
                     {results[0] === 20 && (
-                      <span>
-                        {results.slice(1)} + {modifier} ={" "}
-                        {results[1] + modifier}
-                      </span>
+                      <>
+                        <span
+                          className={`mr-1  ${
+                            results.slice(1)[0] === 1
+                              ? "text-red-700"
+                              : results.slice(1)[0] === maxDiceRoll
+                              ? "text-green-500"
+                              : ""
+                          }`}
+                        >
+                          {results.slice(1)}
+                        </span>
+                        <span>
+                          {"+ "}
+                          {modifier}
+                          {" = "}
+                        </span>
+                        <span
+                          className={`${
+                            diceType === "d20"
+                              ? calculateSuccessColour(results[1] + modifier)
+                              : ""
+                          }`}
+                        >
+                          {results[1] + modifier}
+                        </span>
+                      </>
                     )}
+
                     {results[0] !== 20 && (
-                      <span>
-                        {results.join(" + ")} + {damageModifier} ={" "}
-                        {results.reduce((a, b) => a + b, 0) +
-                          (damageModifier || 0)}
-                      </span>
+                      <>
+                        {results.map((result, i) => (
+                          <React.Fragment key={i}>
+                            <span
+                              className={`${
+                                result === 1
+                                  ? "text-red-700"
+                                  : result === maxDamageRoll
+                                  ? "text-green-500"
+                                  : ""
+                              }`}
+                            >
+                              {result}
+                            </span>
+                            <span>{" + "}</span>
+                          </React.Fragment>
+                        ))}
+                        <span>
+                          {damageModifier}
+                          {" = "}
+                          {results.reduce((a, b) => a + b, 0) +
+                            (damageModifier || 0)}
+                        </span>
+                      </>
                     )}
                   </div>
                 ))}
               </div>
-
-              <div className="mt-2 flex justify-end gap-6">
-                {diceType !== "d20" && (
-                  <Button onClick={rollDamage}>Roll Damage</Button>
-                )}
-                <Button onClick={rollDice}>Roll Dice</Button>
-              </div>
+              {diceType === "d20" && (
+                <div className="mt-2 flex justify-end gap-6">
+                  <Button onClick={rollDice}>Roll Dice</Button>
+                </div>
+              )}
+              {diceType !== "d20" && (
+                <div className="mt-2 flex flex-col justify-end gap-2">
+                  <div className=" flex flex-row justify-end gap-4">
+                    <Button onClick={rollDice}>Attack</Button>
+                    <Button onClick={rollDice}>MAP -5</Button>
+                    <Button onClick={rollDice}>MAP -10</Button>
+                  </div>
+                  <div className=" flex flex-row justify-end gap-4">
+                    <Button onClick={rollDamage}>Damage</Button>
+                    <Button onClick={rollDamage}>Critical</Button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </DialogContent>

@@ -158,13 +158,14 @@ const Armour = () => {
         )}
         {selectedWeaponData?.range && <p>Range: {highlightedWeapon.range}ft</p>}
       </div>
-      <div className="mt-8">
+      <div className="flex flex-row mt-8 gap-2">
         <DiceRoller
           diceType={selectedWeaponData?.damage || "d4"}
           modifier={calculateCurrentAttackModifier()}
           diceCount={strikingRune + 1}
           damageModifier={calculateCurrentDamageModifier()}
         />
+        <span>ROLL</span>
       </div>
 
       <div className="flex flex-row gap-4 mt-8">

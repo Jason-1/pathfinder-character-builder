@@ -29,19 +29,16 @@ const ClassSelector: React.FC = ({}) => {
   const handleSetSubclass = (subclass: string) => {
     dispatch(setSubclass({ subclass: subclass }));
   };
-
-  const currentClass = Classes.find(
-    (currentClass) => currentClass.name === selectedClass
-  );
   const availableSubclasses = subclasses.filter(
     (subclassItem) => subclassItem.className === selectedClass
   );
-
   const [highlightedClass, setHighlightedClass] = React.useState<ClassType>(
     Classes[0]
   );
   const [highlightedSubclass, setHighlightedSubclass] =
     React.useState<subclassType>(subclasses[0]);
+
+  //------------------------------------------------------------------------------//
 
   const trainingLevel = (value: number) => {
     switch (value) {

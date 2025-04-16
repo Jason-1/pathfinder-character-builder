@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFreeArchetype } from "@/app/Slices/freeArchetypeSlice";
 import { toggleAncestralParagon } from "@/app/Slices/ancestralParagonSlice";
 
-interface VariantRulesProps {}
-
-const VariantRules: React.FC<VariantRulesProps> = ({}) => {
+const VariantRules = ({}) => {
   const dispatch = useDispatch();
 
   const freeArchetype = useSelector(

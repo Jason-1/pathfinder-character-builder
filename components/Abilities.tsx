@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Attributes } from "@/data";
-import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -12,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import AttributeButtons from "./AttributeButtons";
-import { AttributeBoostsType, AttributesType, Category } from "@/types";
+import { AttributeBoostsType, Category } from "@/types";
 import { resetSpecificAttributeBoost } from "@/app/Slices/attributeBoostCategoriesSlice";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 
@@ -25,39 +24,34 @@ const Abilities: React.FC = ({}) => {
   const selectedAncestry = useSelector(
     (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
   );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
-  const selectedBackground = useSelector(
-    (state: { background: { background: string } }) =>
-      state.background.background
-  );
-
   const attributeBoosts = useSelector(
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories
   );
 
-  const handleResetAttributes = (attribute: Category) => {
-    dispatch(resetSpecificAttributeBoost(attribute));
-  };
-
   //------------------------------------------------------------------------------//
+
+  const handleResetAttributes = useCallback(
+    (attribute: Category) => {
+      dispatch(resetSpecificAttributeBoost(attribute));
+    },
+    [dispatch]
+  );
 
   //Reset Ancestry boosts when a new class is selected
   useEffect(() => {
     handleResetAttributes("Ancestry");
-  }, [selectedAncestry]);
+  }, [selectedAncestry, handleResetAttributes]);
 
   //Reset Background boosts when a new class is selected
   useEffect(() => {
     handleResetAttributes("Background");
-  }, [selectedBackground]);
+  }, [selectedAncestry, handleResetAttributes]);
 
   //Reset Class boosts when a new class is selected
   useEffect(() => {
     handleResetAttributes("Class");
-  }, [selectedClass]);
+  }, [selectedAncestry, handleResetAttributes]);
 
   return (
     <div className="grid grid-cols-3 gap-8 mt-4">

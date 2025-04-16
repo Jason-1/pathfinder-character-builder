@@ -14,7 +14,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -47,10 +46,6 @@ const LevelFeatures: React.FC = ({}) => {
   );
   const selectedClass = useSelector(
     (state: { class: { class: string } }) => state.class.class
-  );
-  const selectedBackground = useSelector(
-    (state: { background: { background: string } }) =>
-      state.background.background
   );
   const freeArchetype = useSelector(
     (state: { freeArchetype: { freeArchetype: string } }) =>
@@ -94,8 +89,8 @@ const LevelFeatures: React.FC = ({}) => {
     const boostForCurrentLevel = attributeBoosts.find(
       (boost) => boost.name === `Level${level}`
     );
-    let initialBoostCount = 4;
-    let currentBoostCount = level / 5 + initialBoostCount;
+    const initialBoostCount = 4;
+    const currentBoostCount = level / 5 + initialBoostCount;
     let totalBoosts = 0;
     let partial = false;
     //Check we boosted intelligence at this level

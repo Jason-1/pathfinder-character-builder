@@ -1,5 +1,5 @@
 import { armourData, Classes, shieldData } from "@/data";
-import { armourItemType, armourTypes, shieldItemType } from "@/types";
+import { armourItemType, shieldItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";

@@ -103,7 +103,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   };
 
   function currentBoostsUsed() {
-    let instances = selectedSkills.filter((skillBoost) =>
+    const instances = selectedSkills.filter((skillBoost) =>
       skillBoost.LevelsBoosted.includes(currentLevel)
     ).length;
 

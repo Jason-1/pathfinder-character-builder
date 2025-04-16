@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Shield } from "lucide-react";
 import { useSelector } from "react-redux";
-import { armourTypes, AttributeBoostsType, saveTypes } from "@/types";
+import { AttributeBoostsType, saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
 import { Ancestries, armourData, Classes, shieldData } from "@/data";
@@ -153,7 +153,7 @@ const Defences = () => {
       currentLevel,
       attributeBoosts
     );
-    const bonus = 0; // TODO: Add bonus HP from items or feats
+    //const bonus = 0; // TODO: Add bonus HP from items or feats
 
     HP += ancestry;
     HP += classHP * currentLevel;

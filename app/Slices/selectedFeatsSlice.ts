@@ -1,6 +1,6 @@
 import { Feats } from "@/data";
 import { FeatsType } from "@/types";
-import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: FeatsType[] = Feats;
 

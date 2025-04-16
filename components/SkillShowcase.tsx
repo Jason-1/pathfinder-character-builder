@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,

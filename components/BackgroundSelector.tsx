@@ -2,29 +2,7 @@
 
 import React from "react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Backgrounds } from "@/data";
-import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setBackground } from "@/app/Slices/backgroundSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";

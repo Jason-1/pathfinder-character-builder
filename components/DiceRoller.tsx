@@ -10,8 +10,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { diceTypes } from "@/types";
@@ -67,8 +65,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
         setLevel(currentLevel);
       }
     }
-  }),
-    [adjustment, currentLevel];
+  }, [adjustment, currentLevel]);
 
   const handleDCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setManualDC(true);
@@ -132,7 +129,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
   const rollDice = () => {
     // create an array and add 20 to it to identify it as a d20 roll
-    let rolls: number[] = [20];
+    const rolls: number[] = [20];
     // roll a number of dice equal to diceCount up to maxDamageRoll and add them to the rolls state
 
     const result = Math.floor(Math.random() * maxDiceRoll) + 1;
@@ -143,7 +140,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
   const rollDamage = () => {
     // create an empty array
-    let rolls: number[] = [];
+    const rolls: number[] = [];
     // roll a number of dice equal to diceCount up to maxDamageRoll and add them to the rolls state
     for (let i = 0; i < (diceCount || 1); i++) {
       const result = Math.floor(Math.random() * maxDamageRoll) + 1;

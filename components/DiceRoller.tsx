@@ -49,8 +49,11 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   const [manualDC, setManualDC] = useState(false);
   const [manualLevel, setManualLevel] = useState(false);
   const [roll, setRoll] = useState<
-    { dice: string; rolls: number[]; critical?: boolean }[] | null
+    { dice: string; rolls: number[]; critical?: boolean; MAP?: number }[] | null
   >(null);
+
+  const MAP1: number = 5;
+  const MAP2: number = 10;
 
   useEffect(() => {
     if (!manualDC) {
@@ -130,21 +133,25 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   const maxDiceRoll = 20;
   const maxDamageRoll = parseInt(diceType.slice(1));
 
-  const rollDice = () => {
-    // create an array and add 20 to it to identify it as a d20 roll
+  const rollDice = (MAP?: number) => {
     const rolls: number[] = [];
-    // roll a number of dice equal to diceCount up to maxDamageRoll and add them to the rolls state
 
     const result = Math.floor(Math.random() * maxDiceRoll) + 1;
     rolls.push(result);
 
-    setRoll((prevRolls) => [...(prevRolls || []), { dice: "d20", rolls }]);
+    //set Multiple Attack Penalty
+    if (!MAP) {
+      setRoll((prevRolls) => [...(prevRolls || []), { dice: "d20", rolls }]);
+    } else {
+      setRoll((prevRolls) => [
+        ...(prevRolls || []),
+        { dice: "d20", rolls, MAP: MAP === 1 ? MAP1 : MAP === 2 ? MAP2 : MAP },
+      ]);
+    }
   };
 
   const rollDamage = (critical: boolean) => {
-    // create an empty array
     const rolls: number[] = [];
-    // roll a number of dice equal to diceCount up to maxDamageRoll and add them to the rolls state
     for (let i = 0; i < (diceCount || 1); i++) {
       const result = Math.floor(Math.random() * maxDamageRoll) + 1;
       rolls.push(result);
@@ -314,7 +321,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                         </span>
                         <span>
                           {"+ "}
-                          {modifier}
+                          {modifier - (results.MAP || 0)}
                           {" = "}
                         </span>
                         <span
@@ -326,7 +333,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                               : ""
                           }`}
                         >
-                          {results.rolls[0] + modifier}
+                          {results.rolls[0] + modifier - (results.MAP || 0)}
                         </span>
                       </>
                     )}
@@ -364,15 +371,15 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
               </div>
               {diceType === "d20" && (
                 <div className="mt-2 flex justify-end gap-6">
-                  <Button onClick={rollDice}>Roll Dice</Button>
+                  <Button onClick={() => rollDice}>Roll Dice</Button>
                 </div>
               )}
               {diceType !== "d20" && (
                 <div className="mt-2 flex flex-col justify-end gap-2">
                   <div className=" flex flex-row justify-end gap-4">
-                    <Button onClick={rollDice}>Attack</Button>
-                    <Button onClick={rollDice}>MAP -5</Button>
-                    <Button onClick={rollDice}>MAP -10</Button>
+                    <Button onClick={() => rollDice(0)}>Attack</Button>
+                    <Button onClick={() => rollDice(1)}>MAP -5</Button>
+                    <Button onClick={() => rollDice(2)}>MAP -10</Button>
                   </div>
                   <div className=" flex flex-row justify-end gap-4">
                     <Button onClick={() => rollDamage(false)}>Damage</Button>

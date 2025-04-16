@@ -377,9 +377,16 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
               {diceType !== "d20" && (
                 <div className="mt-2 flex flex-col justify-end gap-2">
                   <div className=" flex flex-row justify-end gap-4">
-                    <Button onClick={() => rollDice(0)}>Attack</Button>
-                    <Button onClick={() => rollDice(1)}>MAP -5</Button>
-                    <Button onClick={() => rollDice(2)}>MAP -10</Button>
+                    <Button onClick={() => rollDice(0)}>
+                      Attack +{modifier}
+                    </Button>
+                    <Button onClick={() => rollDice(1)}>
+                      Attack +{modifier - MAP1}
+                    </Button>
+                    <Button onClick={() => rollDice(2)}>
+                      {" "}
+                      Attack +{modifier - MAP2}
+                    </Button>
                   </div>
                   <div className=" flex flex-row justify-end gap-4">
                     <Button onClick={() => rollDamage(false)}>Damage</Button>

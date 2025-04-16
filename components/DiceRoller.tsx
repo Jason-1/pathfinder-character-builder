@@ -65,7 +65,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
         setLevel(currentLevel);
       }
     }
-  }, [adjustment, currentLevel]);
+  }, [adjustment, currentLevel, level, manualDC, manualLevel]);
 
   const handleDCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setManualDC(true);

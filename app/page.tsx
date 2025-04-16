@@ -10,14 +10,14 @@ import Equipment from "@/components/EquipmentSection/Equipment";
 
 export default function Home() {
   //TODO -
-  // Add HP to class and ancestry, calculate HP
-  // Calculate defence and offence
   // Equipment
   // Save Character
   // Load Character
 
   //BUGFIXES
   // Mobile layout
+
+  //Diceroller should use an object instead of just a number array
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

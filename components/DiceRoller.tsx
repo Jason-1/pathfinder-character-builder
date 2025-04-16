@@ -47,7 +47,9 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   const [level, setLevel] = useState<number>(currentLevel);
   const [manualDC, setManualDC] = useState(false);
   const [manualLevel, setManualLevel] = useState(false);
-  const [roll, setRoll] = useState<number[][]>([]);
+  const [roll, setRoll] = useState<{ dice: string; rolls: number[] }[] | null>(
+    null
+  );
 
   useEffect(() => {
     if (!manualDC) {
@@ -83,23 +85,23 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
     }
   };
 
-  const calculateSuccessColour = (roll: number) => {
+  const calculateSuccessColour = (currentRoll: number) => {
     let successLevel = 0;
 
-    if (roll + modifier < DC - 10) {
+    if (currentRoll + modifier < DC - 10) {
       successLevel = 1;
-    } else if (roll + modifier < DC) {
+    } else if (currentRoll + modifier < DC) {
       successLevel = 2;
-    } else if (roll + modifier >= DC + 10) {
+    } else if (currentRoll + modifier >= DC + 10) {
       successLevel = 4;
     } else {
       successLevel = 3;
     }
 
-    if (roll === 20) {
+    if (currentRoll === 20) {
       successLevel = Math.min(successLevel + 1, 4);
     }
-    if (roll === 1) {
+    if (currentRoll === 1) {
       successLevel = Math.max(successLevel - 1, 1);
     }
 
@@ -120,7 +122,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
   const handleDialogClose = (isOpen: boolean) => {
     if (!isOpen) {
-      setRoll([]);
+      setRoll(null);
     }
   };
 
@@ -129,13 +131,13 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
   const rollDice = () => {
     // create an array and add 20 to it to identify it as a d20 roll
-    const rolls: number[] = [20];
+    const rolls: number[] = [];
     // roll a number of dice equal to diceCount up to maxDamageRoll and add them to the rolls state
 
     const result = Math.floor(Math.random() * maxDiceRoll) + 1;
     rolls.push(result);
 
-    setRoll((prevRolls) => [...(prevRolls || []), rolls]);
+    setRoll((prevRolls) => [...(prevRolls || []), { dice: "d20", rolls }]);
   };
 
   const rollDamage = () => {
@@ -146,7 +148,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
       const result = Math.floor(Math.random() * maxDamageRoll) + 1;
       rolls.push(result);
     }
-    setRoll((prevRolls) => [...(prevRolls || []), rolls]);
+    setRoll((prevRolls) => [...(prevRolls || []), { dice: diceType, rolls }]);
   };
 
   return (
@@ -291,18 +293,18 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                 {roll?.map((results, index) => (
                   <div key={index}>
                     <span>Result: </span>
-                    {results[0] === 20 && (
+                    {results.dice === "d20" && (
                       <>
                         <span
                           className={`mr-1  ${
-                            results.slice(1)[0] === 1
+                            results.rolls[0] === 1
                               ? "text-red-700"
-                              : results.slice(1)[0] === maxDiceRoll
+                              : results.rolls[0] === maxDiceRoll
                               ? "text-green-500"
                               : ""
                           }`}
                         >
-                          {results.slice(1)}
+                          {results.rolls}
                         </span>
                         <span>
                           {"+ "}
@@ -312,18 +314,20 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                         <span
                           className={`${
                             diceType === "d20"
-                              ? calculateSuccessColour(results[1] + modifier)
+                              ? calculateSuccessColour(
+                                  results.rolls[0] + modifier
+                                )
                               : ""
                           }`}
                         >
-                          {results[1] + modifier}
+                          {results.rolls[0] + modifier}
                         </span>
                       </>
                     )}
 
-                    {results[0] !== 20 && (
+                    {results.dice !== "d20" && (
                       <>
-                        {results.map((result, i) => (
+                        {results.rolls.map((result, i) => (
                           <React.Fragment key={i}>
                             <span
                               className={`${
@@ -342,7 +346,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                         <span>
                           {damageModifier}
                           {" = "}
-                          {results.reduce((a, b) => a + b, 0) +
+                          {results.rolls.reduce((a, b) => a + b, 0) +
                             (damageModifier || 0)}
                         </span>
                       </>
@@ -375,45 +379,5 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
     </div>
   );
 };
-
-{
-  /*
-  {roll?.map((result, index) => (
-                  <div key={index} className={`flex `}>
-                    <span className="mr-1">{"Result:"} </span>
-                    <span
-                      className={`mr-1  ${
-                        result === 1
-                          ? "text-red-700"
-                          : result === maxDiceRoll
-                          ? "text-green-500"
-                          : ""
-                      }`}
-                    >
-                      {result}
-                    </span>
-                    <span className="mr-1">+ {modifier} =</span>
-                    <span
-                      className={`${
-                        diceType === "d20"
-                          ? calculateSuccessLevel(result) === "Critical Failure"
-                            ? "text-red-700"
-                            : calculateSuccessLevel(result) === "Failure"
-                            ? "text-red-400"
-                            : calculateSuccessLevel(result) === "Success"
-                            ? "text-blue-500"
-                            : calculateSuccessLevel(result) ===
-                              "Critical Success"
-                            ? "text-green-500"
-                            : ""
-                          : ""
-                      }`}
-                    >
-                      {result + modifier}
-                    </span>
-                  </div>
-                ))}
-  */
-}
 
 export default DiceRoller;

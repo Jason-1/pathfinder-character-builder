@@ -64,11 +64,24 @@ const Armour = () => {
     if (proficiency >= 0) {
       attackModifier += currentLevel;
     }
-    attackModifier += calculateCurrentAttributeBoost(
-      "Strength",
-      currentLevel,
-      attributeBoosts
-    );
+
+    if (
+      selectedWeaponData?.type === "ranged" ||
+      selectedWeaponData?.traits.includes("finesse")
+    ) {
+      attackModifier += calculateCurrentAttributeBoost(
+        "Dexterity",
+        currentLevel,
+        attributeBoosts
+      );
+    } else {
+      attackModifier += calculateCurrentAttributeBoost(
+        "Strength",
+        currentLevel,
+        attributeBoosts
+      );
+    }
+
     attackModifier += proficiency;
     attackModifier += potencyRune;
 

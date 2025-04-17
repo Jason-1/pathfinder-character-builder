@@ -185,4 +185,5 @@ export type weaponItemType = {
   reload?: number;
   range?: number;
   description: string;
+  traits: string[];
 };

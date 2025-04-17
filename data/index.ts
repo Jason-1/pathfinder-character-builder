@@ -857,6 +857,7 @@ export const weaponData: weaponItemType[] = [
     hands: 1,
     type: "melee",
     description: "",
+    traits: ["agile", "finesse"],
   },
   {
     name: "Club",
@@ -869,6 +870,7 @@ export const weaponData: weaponItemType[] = [
     type: "melee",
     description:
       "This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.",
+    traits: [],
   },
   {
     name: "Dagger",
@@ -881,6 +883,7 @@ export const weaponData: weaponItemType[] = [
     type: "melee",
     description:
       "This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.",
+    traits: ["agile", "finesse"],
   },
   {
     name: "Spear",
@@ -893,6 +896,7 @@ export const weaponData: weaponItemType[] = [
     type: "melee",
     description:
       "A long metal shaft ending with a metal spike, a spear can be used one-handed as a melee weapon and can be thrown.",
+    traits: [],
   },
   {
     name: "Scythe",
@@ -905,6 +909,7 @@ export const weaponData: weaponItemType[] = [
     type: "melee",
     description:
       "Derived from a farming tool used to mow down long grains and cereals, this weapon has a long wooden shaft with protruding handles, capped with a curved blade set at a right angle.",
+    traits: [],
   },
   {
     name: "Greataxe",
@@ -917,6 +922,7 @@ export const weaponData: weaponItemType[] = [
     type: "melee",
     description:
       "This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often “bearded,” having a hook at the bottom to increase the strength of their chopping power.",
+    traits: [],
   },
   {
     name: "Longsword",
@@ -929,6 +935,7 @@ export const weaponData: weaponItemType[] = [
     type: "melee",
     description:
       "Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.",
+    traits: [],
   },
   {
     name: "Falcata",
@@ -941,6 +948,7 @@ export const weaponData: weaponItemType[] = [
     type: "melee",
     description:
       "The falcata is a heavy, one-handed sword with a single cutting edge, usually flaring to be wider towards the point of the weapon and narrower towards the hilt.",
+    traits: [],
   },
   {
     name: "Hand Crossbow",
@@ -955,6 +963,7 @@ export const weaponData: weaponItemType[] = [
     range: 60,
     description:
       "Sometimes referred to as an alley bow by rogues or ruffians, this small crossbow fires small bolts that are sometimes used to deliver poison to the target. It's small enough to be shot one-handed, but it still requires two hands to load.",
+    traits: [],
   },
   {
     name: "Arbalest",
@@ -969,6 +978,7 @@ export const weaponData: weaponItemType[] = [
     range: 110,
     description:
       "This large and well-made crossbow requires some training to use effectively, but it's assembled with a cutting-edge firing mechanism that maximizes its speed, power, and accuracy",
+    traits: [],
   },
   {
     name: "Longbow",
@@ -983,6 +993,7 @@ export const weaponData: weaponItemType[] = [
     range: 100,
     description:
       "This 5-foot-tall bow, usually made of a single piece of elm, hickory, or yew, has a powerful draw and is excellent at propelling arrows with great force and at an extreme distance. You must use two hands to fire a longbow, and it can't be used while mounted.",
+    traits: [],
   },
   {
     name: "Repeating Hand Crossbow",
@@ -997,5 +1008,6 @@ export const weaponData: weaponItemType[] = [
     range: 60,
     description:
       "This handheld crossbow features an ingeniously designed catch mechanism at the top of the flight groove, just in front of the latch, which automatically loads a bolt from a magazine and resets the string each time the weapon is fired. A typical repeating hand crossbow magazine holds five bolts.",
+    traits: [],
   },
 ];

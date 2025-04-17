@@ -371,7 +371,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
               </div>
               {diceType === "d20" && (
                 <div className="mt-2 flex justify-end gap-6">
-                  <Button onClick={() => rollDice}>Roll Dice</Button>
+                  <Button onClick={() => rollDice()}>Roll Dice</Button>
                 </div>
               )}
               {diceType !== "d20" && (

@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 import { FaDiceD20 } from "react-icons/fa";
 import { Button } from "./ui/button";
 import { useSelector } from "react-redux";
-import { DCAdjustments, DCbyLevel } from "@/data";
+import { DCAdjustments, DCbyLevel, weaponData } from "@/data";
 
 interface DiceRollerProps {
   diceType: diceTypes;
@@ -33,6 +33,13 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
     (state: { level: { level: number } }) => state.level.level
   );
 
+  const selectedWeapon = useSelector(
+    (state: { weapon: { weapon: string } }) => state.weapon.weapon
+  );
+  const selectedWeaponData = weaponData.find(
+    (weaponItem) => weaponItem.name === selectedWeapon
+  );
+
   const [adjustment, setAdjustment] = useState<string>("");
   const [DC, setDC] = useState<number>(0);
   const [level, setLevel] = useState<number>(currentLevel);
@@ -42,8 +49,10 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
     { dice: string; rolls: number[]; critical?: boolean; MAP?: number }[] | null
   >(null);
 
-  const MAP1: number = 5;
-  const MAP2: number = 10;
+  //------------------------------------------------------------------------------//
+
+  const MAP1: number = selectedWeaponData?.traits.includes("agile") ? 4 : 5;
+  const MAP2: number = selectedWeaponData?.traits.includes("agile") ? 8 : 10;
 
   useEffect(() => {
     if (!manualDC) {
@@ -261,14 +270,17 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                 <div className="mt-2 flex flex-col justify-end gap-2">
                   <div className=" flex flex-row justify-end gap-4">
                     <Button onClick={() => rollDice(0)}>
-                      Attack +{modifier}
+                      Attack {modifier >= 0 ? "+" : ""}
+                      {modifier}
                     </Button>
                     <Button onClick={() => rollDice(1)}>
-                      Attack +{modifier - MAP1}
+                      Attack {modifier - MAP1 >= 0 ? "+" : ""}
+                      {modifier - MAP1}
                     </Button>
                     <Button onClick={() => rollDice(2)}>
                       {" "}
-                      Attack +{modifier - MAP2}
+                      Attack {modifier - MAP2 >= 0 ? "+" : ""}
+                      {modifier - MAP2}
                     </Button>
                   </div>
                   <div className=" flex flex-row justify-end gap-4">

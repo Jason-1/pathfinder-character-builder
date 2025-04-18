@@ -115,7 +115,6 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
         return "text-red-400";
       case 3:
         return "text-blue-500";
-
       case 4:
         return "text-green-500";
       default:
@@ -219,9 +218,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                         <span
                           className={`${
                             diceType === "d20"
-                              ? calculateSuccessColour(
-                                  results.rolls[0] + modifier
-                                )
+                              ? calculateSuccessColour(results.rolls[0])
                               : ""
                           }`}
                         >

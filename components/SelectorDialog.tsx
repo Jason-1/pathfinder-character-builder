@@ -31,7 +31,15 @@ const SelectorDialog = <T extends { name: string; description: string }>({
   children,
 }: SelectorDialogProps<T>) => {
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (!open) {
+          setHighlightedItem(
+            data.find((item) => item.name === selectedItem) || data[0]
+          );
+        }
+      }}
+    >
       <DialogTrigger>{selectedItem}</DialogTrigger>
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">

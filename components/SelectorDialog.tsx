@@ -33,11 +33,9 @@ const SelectorDialog = <T extends { name: string; description: string }>({
   return (
     <Dialog
       onOpenChange={(open) => {
-        if (!open) {
-          setHighlightedItem(
-            data.find((item) => item.name === selectedItem) || data[0] || {}
-          );
-        }
+        setHighlightedItem(
+          data.find((item) => item.name === selectedItem) || data[0] || {}
+        );
       }}
     >
       <DialogTrigger>{selectedItem}</DialogTrigger>

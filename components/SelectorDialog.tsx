@@ -20,7 +20,9 @@ interface SelectorDialogProps<T> {
   children?: React.ReactNode;
 }
 
-const SelectorDialog = <T extends { name: string; description: string }>({
+const SelectorDialog = <
+  T extends { name: string; description: string; level?: number }
+>({
   itemType,
   selectedItem,
   data,
@@ -30,9 +32,24 @@ const SelectorDialog = <T extends { name: string; description: string }>({
   setHighlightedItem,
   children,
 }: SelectorDialogProps<T>) => {
+  // Tabs example for when they are implemented
+  const getLevelTabs = () => {
+    const levels: number[] = [];
+
+    for (let i = 0; i < data.length; i++) {
+      const level = data[i].level;
+      if (level !== undefined) {
+        if (!levels.includes(level)) {
+          levels.push(level);
+        }
+      }
+    }
+    return levels;
+  };
+
   return (
     <Dialog
-      onOpenChange={(open) => {
+      onOpenChange={() => {
         setHighlightedItem(
           data.find((item) => item.name === selectedItem) || data[0] || {}
         );
@@ -53,14 +70,19 @@ const SelectorDialog = <T extends { name: string; description: string }>({
             {data.map((item) => (
               <div
                 key={item.name}
-                className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between ${
+                className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between items-center ${
                   highlightedItemName === item.name ? "bg-gray-400" : ""
                 }`}
                 onClick={() => {
                   setHighlightedItem(item);
                 }}
               >
-                {item.name}
+                <span>{item.name}</span>
+                {item.level && (
+                  <span className="border px-2 rounded-md h-5 w-5 text-sm flex items-center justify-center border-blue-800 bg-blue-800">
+                    {`${item.level}`}
+                  </span>
+                )}
               </div>
             ))}
           </div>

@@ -187,3 +187,20 @@ export type weaponItemType = {
   description: string;
   traits: string[];
 };
+
+export type classFeatType = {
+  name: string;
+  pfs: string;
+  source: string;
+  rarity: string;
+  traits: string;
+  level: number;
+  prerequisites: string;
+  description: string;
+  "spoilers?": string;
+  link: string;
+  text: {
+    text: string;
+    action_cost?: string;
+  };
+};

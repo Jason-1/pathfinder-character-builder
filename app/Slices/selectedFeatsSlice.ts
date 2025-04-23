@@ -1,8 +1,8 @@
-import { Feats } from "@/data";
+import { FeatLevels } from "@/data";
 import { FeatsType } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: FeatsType[] = Feats;
+const initialState: FeatsType[] = FeatLevels;
 
 const selectedFeatsSlice = createSlice({
   name: "selectedFeats",

@@ -25,12 +25,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ClassFeats } from "@/data/classFeats";
-import { Classes, Feats, skillIncreaseLevels } from "@/data";
-import { AttributeBoostsType, FeatsType } from "@/types";
+import {
+  Classes,
+  FeatLevels,
+  initialHighlightedFeatData,
+  skillIncreaseLevels,
+} from "@/data";
+import { AttributeBoostsType, classFeatType, FeatsType } from "@/types";
 import SkillIncreases from "./SkillIncreases";
 import { updateFeat } from "@/app/Slices/selectedFeatsSlice";
+import SelectorDialog from "./SelectorDialog";
 
-//use attributeBoostCategories to check if the current level has boosted intelligence. If it has allow a single skill increase
+//Create an available feats object I can pass through to the selector dialog
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
@@ -164,6 +170,7 @@ const LevelFeatures: React.FC = ({}) => {
         return featItem.selected;
       }
     }
+    return "";
   }
 
   const handleSetFeats = (
@@ -182,8 +189,57 @@ const LevelFeatures: React.FC = ({}) => {
     handleSetFeats(level, featType, featName);
   }
 
-  //pass in the correct number of available boosts
-  //restrict boosts only to allowed ones where applicable
+  //------------------------------------------------------------------------//
+
+  //initialHighlightedFeatData done, implement modification of highlighted items and selected feats
+
+  type HighlightedItem = {
+    level: number;
+    featType: string;
+    featData: any;
+  };
+
+  const [highlightedItems, setHighlightedItems] = React.useState<
+    HighlightedItem[]
+  >(initialHighlightedFeatData);
+
+  const getFilteredFeats = (level: number, featTrait: string) => {
+    const filteredFeats = ClassFeats.filter(
+      (feats) =>
+        feats.level <= level && feats.traits.split(", ").includes(featTrait)
+    );
+    return filteredFeats;
+  };
+
+  const getHighlightedItemName = (level: number, featType: string) => {
+    const foundHighlightedItem = highlightedItems.find(
+      (item) => item.level === level && item.featType === featType
+    );
+
+    return foundHighlightedItem?.featData.name || null;
+  };
+
+  const getHighlightedItemDescription = (level: number, featType: string) => {
+    const foundHighlightedItem = highlightedItems.find(
+      (item) => item.level === level && item.featType === featType
+    );
+
+    return foundHighlightedItem?.featData.description || null;
+  };
+
+  const handleSetHighlightedItem = (
+    level: number,
+    featType: string,
+    featData: any
+  ) => {
+    setHighlightedItems((prev) =>
+      prev.map((item) =>
+        item.level === level && item.featType === featType
+          ? { ...item, featData }
+          : item
+      )
+    );
+  };
 
   return (
     <div>
@@ -249,66 +305,52 @@ const LevelFeatures: React.FC = ({}) => {
               />
             )}
 
-            {Feats.find((feat) => feat.level === level)?.feats?.map((feat) =>
-              feat.type === "Martial" &&
-              selectedClassData?.type !== "Martial" ? null : (feat.type ===
-                  "Archetype" &&
-                  !freeArchetype) ||
-                (feat.type === "Paragon" && !ancestralParagon) ? null : (
-                <div key={feat.type}>
-                  <Dialog>
-                    <DialogTrigger className="mt-4">
-                      {displayFeatName(level, feat.type)
-                        ? displayFeatName(level, feat.type)
-                        : displayFeatType(feat.type)}
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>
-                          Select a {selectTrait(feat.type)} feat
-                        </DialogTitle>
-                        <Accordion type="single" collapsible>
-                          {findCurrentFeats(feat.type, level).map((feats) => (
-                            <AccordionItem value={feats.name} key={feats.name}>
-                              <AccordionTrigger>
-                                {feats.name}
-                                <br />
-                                {" Level: "}
-                                {feats.level}
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <Card>
-                                  <CardHeader>
-                                    <CardDescription>
-                                      {feats.text.text}
-                                    </CardDescription>
-                                  </CardHeader>
-                                  <CardContent></CardContent>
-                                  <CardFooter>
-                                    <DialogClose asChild>
-                                      <Button
-                                        onClick={() =>
-                                          handleClick(
-                                            level,
-                                            feat.type,
-                                            feats.name
-                                          )
-                                        }
-                                      >
-                                        Confirm Selection
-                                      </Button>
-                                    </DialogClose>
-                                  </CardFooter>
-                                </Card>
-                              </AccordionContent>
-                            </AccordionItem>
-                          ))}
-                        </Accordion>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              )
+            {/* Loop through every time a feat can be allocated accounting for type of selected class and variant rules */}
+
+            {FeatLevels.find((feat) => feat.level === level)?.feats?.map(
+              (feat) =>
+                feat.type === "Martial" &&
+                selectedClassData?.type !== "Martial" ? null : (feat.type ===
+                    "Archetype" &&
+                    !freeArchetype) ||
+                  (feat.type === "Paragon" && !ancestralParagon) ? null : (
+                  <div key={feat.type}>
+                    {
+                      <SelectorDialog
+                        itemType="Feat"
+                        selectedItem={
+                          displayFeatName(level, feat.type)
+                            ? displayFeatName(level, feat.type)
+                            : displayFeatType(feat.type)
+                        }
+                        data={getFilteredFeats(
+                          level,
+                          feat.type === "Martial"
+                            ? selectedClass
+                            : feat.type === "Class"
+                            ? selectedClass
+                            : feat.type === "Ancestry"
+                            ? selectedAncestry
+                            : feat.type
+                        )}
+                        highlightedItemName={getHighlightedItemName(
+                          level,
+                          feat.type
+                        )}
+                        highlightedItemDescription={getHighlightedItemDescription(
+                          level,
+                          feat.type
+                        )}
+                        onItemClick={(item) =>
+                          handleClick(level, feat.type, item)
+                        }
+                        setHighlightedItem={(featData) =>
+                          handleSetHighlightedItem(level, feat.type, featData)
+                        }
+                      />
+                    }
+                  </div>
+                )
             )}
           </CardContent>
           <CardFooter>
@@ -334,3 +376,71 @@ const LevelFeatures: React.FC = ({}) => {
 };
 
 export default LevelFeatures;
+
+{
+  /*  {FeatLevels.find((feat) => feat.level === level)?.feats?.map(
+              (feat) =>
+                feat.type === "Martial" &&
+                selectedClassData?.type !== "Martial" ? null : (feat.type ===
+                    "Archetype" &&
+                    !freeArchetype) ||
+                  (feat.type === "Paragon" && !ancestralParagon) ? null : (
+                  <div key={feat.type}>
+                    <Dialog>
+                      <DialogTrigger className="mt-4">
+                        {displayFeatName(level, feat.type)
+                          ? displayFeatName(level, feat.type)
+                          : displayFeatType(feat.type)}
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>
+                            Select a {selectTrait(feat.type)} feat
+                          </DialogTitle>
+                          <Accordion type="single" collapsible>
+                            {findCurrentFeats(feat.type, level).map((feats) => (
+                              <AccordionItem
+                                value={feats.name}
+                                key={feats.name}
+                              >
+                                <AccordionTrigger>
+                                  {feats.name}
+                                  <br />
+                                  {" Level: "}
+                                  {feats.level}
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <Card>
+                                    <CardHeader>
+                                      <CardDescription>
+                                        {feats.text.text}
+                                      </CardDescription>
+                                    </CardHeader>
+                                    <CardContent></CardContent>
+                                    <CardFooter>
+                                      <DialogClose asChild>
+                                        <Button
+                                          onClick={() =>
+                                            handleClick(
+                                              level,
+                                              feat.type,
+                                              feats.name
+                                            )
+                                          }
+                                        >
+                                          Confirm Selection
+                                        </Button>
+                                      </DialogClose>
+                                    </CardFooter>
+                                  </Card>
+                                </AccordionContent>
+                              </AccordionItem>
+                            ))}
+                          </Accordion>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                )
+            )}*/
+}

@@ -35,7 +35,7 @@ const SelectorDialog = <T extends { name: string; description: string }>({
       onOpenChange={(open) => {
         if (!open) {
           setHighlightedItem(
-            data.find((item) => item.name === selectedItem) || data[0]
+            data.find((item) => item.name === selectedItem) || data[0] || {}
           );
         }
       }}

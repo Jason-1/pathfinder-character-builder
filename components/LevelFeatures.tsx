@@ -31,7 +31,12 @@ import {
   initialHighlightedFeatData,
   skillIncreaseLevels,
 } from "@/data";
-import { AttributeBoostsType, classFeatType, FeatsType } from "@/types";
+import {
+  AttributeBoostsType,
+  classFeatType,
+  FeatsType,
+  highlightedFeatData,
+} from "@/types";
 import SkillIncreases from "./SkillIncreases";
 import { updateFeat } from "@/app/Slices/selectedFeatsSlice";
 import SelectorDialog from "./SelectorDialog";
@@ -149,17 +154,6 @@ const LevelFeatures: React.FC = ({}) => {
     }
   }
 
-  function findCurrentFeats(featType: string, currentLevel: number) {
-    const selectedTrait = selectTrait(featType);
-    const currentFeats = ClassFeats.filter(
-      (featItem) =>
-        featItem.traits.split(", ").includes(selectedTrait) &&
-        featItem.level <= currentLevel
-    );
-
-    return currentFeats;
-  }
-
   function displayFeatName(selectedLevel: number, featType: string) {
     const feat = selectedFeats.find((feat) => feat.level === selectedLevel);
     if (feat) {
@@ -191,16 +185,8 @@ const LevelFeatures: React.FC = ({}) => {
 
   //------------------------------------------------------------------------//
 
-  //initialHighlightedFeatData done, implement modification of highlighted items and selected feats
-
-  type HighlightedItem = {
-    level: number;
-    featType: string;
-    featData: any;
-  };
-
   const [highlightedItems, setHighlightedItems] = React.useState<
-    HighlightedItem[]
+    highlightedFeatData[]
   >(initialHighlightedFeatData);
 
   const getFilteredFeats = (level: number, featTrait: string) => {
@@ -211,26 +197,38 @@ const LevelFeatures: React.FC = ({}) => {
     return filteredFeats;
   };
 
-  const getHighlightedItemName = (level: number, featType: string) => {
+  const getHighlightedItem = (level: number, featType: string) => {
     const foundHighlightedItem = highlightedItems.find(
       (item) => item.level === level && item.featType === featType
     );
 
-    return foundHighlightedItem?.featData.name || null;
-  };
+    if (foundHighlightedItem) {
+      return foundHighlightedItem.featData;
+    }
 
-  const getHighlightedItemDescription = (level: number, featType: string) => {
-    const foundHighlightedItem = highlightedItems.find(
-      (item) => item.level === level && item.featType === featType
-    );
-
-    return foundHighlightedItem?.featData.description || null;
+    // Return a valid fallback object
+    return {
+      name: "",
+      pfs: "",
+      source: "",
+      rarity: "",
+      traits: "",
+      level: 0,
+      prerequisites: "",
+      description: "",
+      "spoilers?": "",
+      link: "",
+      text: {
+        text: "",
+        action_cost: "",
+      },
+    };
   };
 
   const handleSetHighlightedItem = (
     level: number,
     featType: string,
-    featData: any
+    featData: classFeatType
   ) => {
     setHighlightedItems((prev) =>
       prev.map((item) =>
@@ -254,10 +252,6 @@ const LevelFeatures: React.FC = ({}) => {
             <CardTitle>Level {level}</CardTitle>
           </CardHeader>
 
-          {/* Pass in the classes additional skill proficiencies */}
-          {/* Add a new training every time an intelligence boost occurs */}
-
-          {/* Additional class boosts, class, background, int */}
           <CardContent>
             {level === 1 && (
               <div className="flex flex-col justify-start items-start">
@@ -333,21 +327,28 @@ const LevelFeatures: React.FC = ({}) => {
                             ? selectedAncestry
                             : feat.type
                         )}
-                        highlightedItemName={getHighlightedItemName(
-                          level,
-                          feat.type
-                        )}
-                        highlightedItemDescription={getHighlightedItemDescription(
-                          level,
-                          feat.type
-                        )}
+                        highlightedItemName={
+                          getHighlightedItem(level, feat.type).name ?? ""
+                        }
+                        highlightedItemDescription={
+                          getHighlightedItem(level, feat.type).description ?? ""
+                        }
                         onItemClick={(item) =>
                           handleClick(level, feat.type, item)
                         }
                         setHighlightedItem={(featData) =>
                           handleSetHighlightedItem(level, feat.type, featData)
                         }
-                      />
+                      >
+                        {getHighlightedItem(level, feat.type).name ? (
+                          <div>
+                            Level:{" "}
+                            {getHighlightedItem(level, feat.type).level || 0}
+                          </div>
+                        ) : (
+                          <div>Select a {selectTrait(feat.type)} feat</div>
+                        )}
+                      </SelectorDialog>
                     }
                   </div>
                 )
@@ -376,71 +377,3 @@ const LevelFeatures: React.FC = ({}) => {
 };
 
 export default LevelFeatures;
-
-{
-  /*  {FeatLevels.find((feat) => feat.level === level)?.feats?.map(
-              (feat) =>
-                feat.type === "Martial" &&
-                selectedClassData?.type !== "Martial" ? null : (feat.type ===
-                    "Archetype" &&
-                    !freeArchetype) ||
-                  (feat.type === "Paragon" && !ancestralParagon) ? null : (
-                  <div key={feat.type}>
-                    <Dialog>
-                      <DialogTrigger className="mt-4">
-                        {displayFeatName(level, feat.type)
-                          ? displayFeatName(level, feat.type)
-                          : displayFeatType(feat.type)}
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>
-                            Select a {selectTrait(feat.type)} feat
-                          </DialogTitle>
-                          <Accordion type="single" collapsible>
-                            {findCurrentFeats(feat.type, level).map((feats) => (
-                              <AccordionItem
-                                value={feats.name}
-                                key={feats.name}
-                              >
-                                <AccordionTrigger>
-                                  {feats.name}
-                                  <br />
-                                  {" Level: "}
-                                  {feats.level}
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                  <Card>
-                                    <CardHeader>
-                                      <CardDescription>
-                                        {feats.text.text}
-                                      </CardDescription>
-                                    </CardHeader>
-                                    <CardContent></CardContent>
-                                    <CardFooter>
-                                      <DialogClose asChild>
-                                        <Button
-                                          onClick={() =>
-                                            handleClick(
-                                              level,
-                                              feat.type,
-                                              feats.name
-                                            )
-                                          }
-                                        >
-                                          Confirm Selection
-                                        </Button>
-                                      </DialogClose>
-                                    </CardFooter>
-                                  </Card>
-                                </AccordionContent>
-                              </AccordionItem>
-                            ))}
-                          </Accordion>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-                )
-            )}*/
-}

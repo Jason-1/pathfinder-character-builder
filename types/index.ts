@@ -204,3 +204,9 @@ export type classFeatType = {
     action_cost?: string;
   };
 };
+
+export type highlightedFeatData = {
+  level: number;
+  featType: string;
+  featData: classFeatType;
+};

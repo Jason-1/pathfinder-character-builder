@@ -128,7 +128,7 @@ const Armour = () => {
       <div className="flex flex-row gap-2 mt-8 items-center">
         <TrainingIcon
           trainingLevel={calculateCurrentArmourProficiencyLevel(
-            selectedArmourData?.type || "unarmoured",
+            selectedArmourData?.category || "unarmoured",
             currentLevel,
             selectedClassData
           )}
@@ -144,7 +144,7 @@ const Armour = () => {
           setHighlightedItem={setHighlightedArmour}
         >
           <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
-            <p>Type: {highlightedArmour.type}</p>
+            <p>Type: {highlightedArmour.category}</p>
             <p>AC Bonus: {highlightedArmour.ACBonus}</p>
             <p>Dex Cap: {highlightedArmour.dexCap}</p>
             <p>Strength: {highlightedArmour.strength}</p>

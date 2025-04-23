@@ -151,7 +151,7 @@ export type AttributeBoostsType = {
 
 export type armourItemType = {
   name: string;
-  type: armourTypes;
+  category: armourTypes;
   ACBonus: number;
   dexCap: number;
   strength: number;

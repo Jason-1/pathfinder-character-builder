@@ -1578,7 +1578,7 @@ export const DCAdjustments: Record<string, number> = {
 export const armourData: armourItemType[] = [
   {
     name: "Unarmoured",
-    type: "unarmoured",
+    category: "unarmoured",
     ACBonus: 0,
     dexCap: 5,
     strength: 0,
@@ -1590,7 +1590,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Explorers Clothing",
-    type: "unarmoured",
+    category: "unarmoured",
     ACBonus: 0,
     dexCap: 5,
     strength: 0,
@@ -1603,7 +1603,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Padded Armour",
-    type: "light",
+    category: "light",
     ACBonus: 1,
     dexCap: 3,
     strength: 0,
@@ -1616,7 +1616,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Leather Armour",
-    type: "light",
+    category: "light",
     ACBonus: 1,
     dexCap: 4,
     strength: 0,
@@ -1629,7 +1629,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Chain Shirt",
-    type: "light",
+    category: "light",
     ACBonus: 2,
     dexCap: 3,
     strength: 1,
@@ -1642,7 +1642,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Hide Armour",
-    type: "medium",
+    category: "medium",
     ACBonus: 3,
     dexCap: 2,
     strength: 2,
@@ -1655,7 +1655,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Scale Mail",
-    type: "medium",
+    category: "medium",
     ACBonus: 3,
     dexCap: 2,
     strength: 2,
@@ -1668,7 +1668,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Chain Mail",
-    type: "medium",
+    category: "medium",
     ACBonus: 4,
     dexCap: 1,
     strength: 3,
@@ -1681,7 +1681,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Breastplate",
-    type: "medium",
+    category: "medium",
     ACBonus: 4,
     dexCap: 1,
     strength: 3,
@@ -1694,7 +1694,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Splint Mail",
-    type: "heavy",
+    category: "heavy",
     ACBonus: 5,
     dexCap: 1,
     strength: 3,
@@ -1707,7 +1707,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Half Plate",
-    type: "heavy",
+    category: "heavy",
     ACBonus: 5,
     dexCap: 1,
     strength: 3,
@@ -1720,7 +1720,7 @@ export const armourData: armourItemType[] = [
   },
   {
     name: "Full Plate",
-    type: "heavy",
+    category: "heavy",
     ACBonus: 6,
     dexCap: 0,
     strength: 4,

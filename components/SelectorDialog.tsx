@@ -21,7 +21,12 @@ interface SelectorDialogProps<T> {
 }
 
 const SelectorDialog = <
-  T extends { name: string; description: string; level?: number }
+  T extends {
+    name: string;
+    description: string;
+    level?: number;
+    category?: string;
+  }
 >({
   itemType,
   selectedItem,
@@ -32,19 +37,32 @@ const SelectorDialog = <
   setHighlightedItem,
   children,
 }: SelectorDialogProps<T>) => {
-  // Tabs example for when they are implemented
-  const getLevelTabs = () => {
-    const levels: number[] = [];
+  const [selectedTab, setSelectedTab] = React.useState<string>("All");
+
+  const handleButtonVariant = (button: string) => {
+    if (button === selectedTab) {
+      return "default";
+    } else {
+      return "secondary";
+    }
+  };
+
+  const getCategoryTabs = () => {
+    const categories: string[] = [];
 
     for (let i = 0; i < data.length; i++) {
-      const level = data[i].level;
-      if (level !== undefined) {
-        if (!levels.includes(level)) {
-          levels.push(level);
+      const category = data[i].category;
+      if (category !== undefined) {
+        if (!categories.includes(category)) {
+          categories.push(category);
         }
       }
     }
-    return levels;
+
+    if (categories.length > 0) {
+      categories.unshift("All");
+    }
+    return categories;
   };
 
   return (
@@ -58,6 +76,17 @@ const SelectorDialog = <
       <DialogTrigger>{selectedItem}</DialogTrigger>
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
+          <div className="flex flex-row gap-4 mb-2 justify-left">
+            {getCategoryTabs().map((category, index) => (
+              <Button
+                key={index}
+                variant={handleButtonVariant(category)}
+                onClick={() => setSelectedTab(category)}
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
           <DialogTitle className="grid grid-cols-3 text-center items-start">
             <span className="col-span-1 self-start">Select {itemType}</span>
             <span className="col-span-2 self-start">
@@ -67,24 +96,29 @@ const SelectorDialog = <
         </DialogHeader>
         <div className="grid grid-cols-3 gap-10 items-start justify-between flex-grow overflow-y-auto h-full">
           <div className="border rounded-sm p-2 self-start h-full overflow-y-auto ">
-            {data.map((item) => (
-              <div
-                key={item.name}
-                className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between items-center ${
-                  highlightedItemName === item.name ? "bg-gray-400" : ""
-                }`}
-                onClick={() => {
-                  setHighlightedItem(item);
-                }}
-              >
-                <span>{item.name}</span>
-                {item.level && (
-                  <span className="border px-2 rounded-md h-5 w-5 text-sm flex items-center justify-center border-blue-800 bg-blue-800">
-                    {`${item.level}`}
-                  </span>
-                )}
-              </div>
-            ))}
+            {data.map(
+              (item) =>
+                (item.category
+                  ? item.category === selectedTab || selectedTab === "All"
+                  : selectedTab === "All") && (
+                  <div
+                    key={item.name}
+                    className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between items-center ${
+                      highlightedItemName === item.name ? "bg-gray-400" : ""
+                    }`}
+                    onClick={() => {
+                      setHighlightedItem(item);
+                    }}
+                  >
+                    <span>{item.name}</span>
+                    {item.level && (
+                      <span className="border px-2 rounded-md h-5 w-5 text-sm flex items-center justify-center border-blue-800 bg-blue-800">
+                        {`${item.level}`}
+                      </span>
+                    )}
+                  </div>
+                )
+            )}
           </div>
           <div className="col-span-2 self-start">
             {children}

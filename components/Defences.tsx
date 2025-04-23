@@ -106,7 +106,7 @@ const Defences = () => {
 
     const Base = 10;
     const proficiency = calculateCurrentArmourProficiencyBonus(
-      selectedArmourData.type,
+      selectedArmourData.category,
       currentLevel,
       selectedClassData
     );

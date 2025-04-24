@@ -196,13 +196,11 @@ export type classFeatType = {
   traits: string;
   level: number;
   prerequisites: string;
-  description: string;
+  preview: string;
   "spoilers?": string;
   link: string;
-  text: {
-    text: string;
-    action_cost?: string;
-  };
+  description: string;
+  action_cost?: string;
 };
 
 export type highlightedFeatData = {

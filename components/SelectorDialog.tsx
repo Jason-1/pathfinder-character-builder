@@ -71,6 +71,7 @@ const SelectorDialog = <
         setHighlightedItem(
           data.find((item) => item.name === selectedItem) || data[0] || {}
         );
+        setSelectedTab("All");
       }}
     >
       <DialogTrigger>{selectedItem}</DialogTrigger>

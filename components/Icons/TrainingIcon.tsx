@@ -1,10 +1,11 @@
 import React from "react";
 
 interface TrainingIconProps {
-  trainingLevel: string | number;
+  trainingLevel: string;
+  size?: number;
 }
 
-const TrainingIcon: React.FC<TrainingIconProps> = ({ trainingLevel }) => {
+const TrainingIcon: React.FC<TrainingIconProps> = ({ trainingLevel, size }) => {
   const calculateColour = () => {
     switch (trainingLevel) {
       case "U":
@@ -24,7 +25,11 @@ const TrainingIcon: React.FC<TrainingIconProps> = ({ trainingLevel }) => {
 
   return (
     <span
-      className={`border px-2 rounded-full h-6 w-6 flex items-center justify-center ${calculateColour()}`}
+      className={`border px-2 rounded-full flex items-center justify-center h-${
+        size || 6
+      } w-${size || 6} ${calculateColour()} ${
+        size ? (size <= 4 ? "text-xs" : "text-sm") : "text-md"
+      }`}
     >
       {trainingLevel}
     </span>

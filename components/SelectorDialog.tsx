@@ -8,6 +8,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
+import capitaliseFirstLetter from "@/lib/capitaliseFirstLetter";
+import { useSelector } from "react-redux";
+import TrainingIcon from "./Icons/TrainingIcon";
+import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmourProficiencyLevel";
+import { Classes } from "@/data";
+import { armourTypes, weaponTypes } from "@/types";
+import calculateCurrentWeaponProficiencyBonus from "@/lib/calculateCurrentWeaponProficiencyBonus";
+import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
 
 interface SelectorDialogProps<T> {
   itemType: string;
@@ -38,6 +46,18 @@ const SelectorDialog = <
   children,
 }: SelectorDialogProps<T>) => {
   const [selectedTab, setSelectedTab] = React.useState<string>("All");
+
+  const selectedlevel = useSelector(
+    (state: { level: { level: number } }) => state.level.level
+  );
+  const selectedClass = useSelector(
+    (state: { class: { class: string } }) => state.class.class
+  );
+  const selectedClassData = Classes.find(
+    (classItem) => classItem.name === selectedClass
+  );
+
+  //------------------------------------------------------------------------------//
 
   const handleButtonVariant = (button: string) => {
     if (button === selectedTab) {
@@ -84,7 +104,7 @@ const SelectorDialog = <
                 variant={handleButtonVariant(category)}
                 onClick={() => setSelectedTab(category)}
               >
-                {category}
+                {capitaliseFirstLetter(category)}
               </Button>
             ))}
           </div>
@@ -117,6 +137,28 @@ const SelectorDialog = <
                         {`${item.level}`}
                       </span>
                     )}
+                    {item.category &&
+                      (itemType === "Armour" ? (
+                        <TrainingIcon
+                          trainingLevel={calculateCurrentArmourProficiencyLevel(
+                            item.category as armourTypes,
+                            selectedlevel,
+                            selectedClassData
+                          )}
+                          size={4}
+                        />
+                      ) : itemType === "Weapon" ? (
+                        <TrainingIcon
+                          trainingLevel={calculateCurrentWeaponProficiencyLevel(
+                            item.category as weaponTypes,
+                            selectedlevel,
+                            selectedClassData
+                          )}
+                          size={5}
+                        />
+                      ) : (
+                        ""
+                      ))}
                   </div>
                 )
             )}

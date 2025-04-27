@@ -18,6 +18,8 @@ export default function Home() {
   //BUGFIXES
   // Mobile layout
 
+  // pass height and width to the TrainingIcon component
+
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">
       <div className="w-full grid grid-cols-12 gap-16 items-start">

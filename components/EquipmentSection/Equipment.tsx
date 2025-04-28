@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import Armour from "./Armour";
 import Weapons from "./Weapons";
+import Spells from "./Spells";
+import Gear from "./Gear";
 
 const Equipment = () => {
   const [selectedEquipment, setSelectedEquipment] = React.useState("Armour");
@@ -35,11 +37,29 @@ const Equipment = () => {
           >
             Weapons
           </Button>
+          <Button
+            onClick={() => {
+              setSelectedEquipment("Gear");
+            }}
+            variant={handleButtonVariant("Gear")}
+          >
+            Gear
+          </Button>
+          <Button
+            onClick={() => {
+              setSelectedEquipment("Spells");
+            }}
+            variant={handleButtonVariant("Spells")}
+          >
+            Spellcasting
+          </Button>
         </CardTitle>
       </CardHeader>
       <CardContent>
         {selectedEquipment === "Armour" && <Armour />}
         {selectedEquipment === "Weapons" && <Weapons />}
+        {selectedEquipment === "Gear" && <Gear />}
+        {selectedEquipment === "Spells" && <Spells />}
       </CardContent>
     </Card>
   );

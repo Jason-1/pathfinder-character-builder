@@ -16,9 +16,6 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
   const selectedArmour = useSelector(
     (state: { armour: { armour: string } }) => state.armour.armour
   );
-  const selectedArmourData = armourData.find(
-    (armourItem) => armourItem.name === selectedArmour
-  );
   const selectedPotency = useSelector(
     (state: { potency: { potency: number } }) => state.potency.potency
   );
@@ -37,6 +34,10 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
   const attributeBoosts = useSelector(
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories
+  );
+
+  const selectedArmourData = armourData.find(
+    (armourItem) => armourItem.name === selectedArmour
   );
 
   //------------------------------------------------------------------------------//

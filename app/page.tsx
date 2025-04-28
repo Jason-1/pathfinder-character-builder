@@ -19,6 +19,9 @@ export default function Home() {
   // Mobile layout
 
   // combine useSelector calls into a single call
+  // display weapon traits
+  // Perception, classDC
+  // Spellcasting
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

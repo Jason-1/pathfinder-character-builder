@@ -115,6 +115,7 @@ export type ClassType = {
     medium: number[];
     heavy: number[];
   };
+  specialisation: number[];
   DC: TrainingType;
   hp: number;
   Attributes: AttributesType[];

@@ -18,7 +18,7 @@ export default function Home() {
   //BUGFIXES
   // Mobile layout
 
-  // implement bonus damage from weapon specialisation
+  // combine useSelector calls into a single call
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

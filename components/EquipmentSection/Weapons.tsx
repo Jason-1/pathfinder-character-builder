@@ -53,6 +53,44 @@ const Armour = () => {
     }
   };
 
+  const calculateWeaponSpecialisationDamage = () => {
+    // No weapon specialisation
+    if (!selectedClassData?.specialisation.length) {
+      return 0;
+    }
+    let specialisation = 0;
+    for (let i = 0; i < selectedClassData?.specialisation.length; i++) {
+      if (selectedClassData?.specialisation[i] <= currentLevel) {
+        specialisation += 1;
+      }
+    }
+
+    //get weapon training level
+    const weaponTrainingLevel = calculateCurrentWeaponProficiencyLevel(
+      selectedWeaponData?.category || "unarmed",
+      currentLevel,
+      selectedClassData
+    );
+    console.log("Weapon Training Level: ", weaponTrainingLevel);
+    console.log("specialisation: ", specialisation);
+    switch (weaponTrainingLevel) {
+      case "E":
+        specialisation = specialisation * 2;
+        break;
+      case "M":
+        specialisation = specialisation * 3;
+        break;
+      case "L":
+        specialisation = specialisation * 4;
+        break;
+      default:
+        specialisation = 0;
+    }
+
+    console.log("Modified specialisation: ", specialisation);
+    return specialisation;
+  };
+
   const calculateCurrentAttackModifier = () => {
     let attackModifier = 0;
 
@@ -96,6 +134,10 @@ const Armour = () => {
       currentLevel,
       attributeBoosts
     );
+
+    const specialisation = calculateWeaponSpecialisationDamage();
+
+    damageModifier += specialisation;
 
     return damageModifier;
   };

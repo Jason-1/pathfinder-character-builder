@@ -109,6 +109,7 @@ export const Classes: ClassType[] = [
       medium: [1, 7, 13, 17],
       heavy: [1, 7, 13, 17],
     },
+    specialisation: [7, 15],
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
@@ -142,9 +143,11 @@ export const Classes: ClassType[] = [
       medium: [1, 11, 17],
       heavy: [1, 11, 17],
     },
+    specialisation: [7, 15],
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
+
     features: [
       {
         name: "Reactive Strike",
@@ -271,6 +274,7 @@ export const Classes: ClassType[] = [
       medium: [],
       heavy: [],
     },
+    specialisation: [13],
     DC: "Trained",
     hp: 6,
     Attributes: ["Intelligence"],

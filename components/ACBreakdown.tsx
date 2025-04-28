@@ -50,12 +50,12 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
       Base: 10 <br />
       Proficiency:{" "}
       {calculateCurrentArmourProficiencyBonus(
-        selectedArmourData.type,
+        selectedArmourData.category,
         currentLevel,
         selectedClassData
       ) > 0
         ? calculateCurrentArmourProficiencyBonus(
-            selectedArmourData.type,
+            selectedArmourData.category,
             currentLevel,
             selectedClassData
           ) + currentLevel

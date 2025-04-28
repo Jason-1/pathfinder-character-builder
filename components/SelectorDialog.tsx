@@ -145,7 +145,7 @@ const SelectorDialog = <
                             selectedlevel,
                             selectedClassData
                           )}
-                          size={4}
+                          size={5}
                         />
                       ) : itemType === "Weapon" ? (
                         <TrainingIcon

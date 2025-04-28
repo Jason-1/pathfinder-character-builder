@@ -9,15 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "./ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import {
   Accordion,
   AccordionContent,
@@ -354,21 +345,23 @@ const LevelFeatures: React.FC = ({}) => {
                 )
             )}
           </CardContent>
+
           <CardFooter>
-            {selectedClass !== "Select Class" &&
-              selectedClassData?.features && (
-                <div>
-                  {selectedClassData?.features.map(
-                    (feature) =>
-                      level === feature.level && (
-                        <div key={feature.name}>
-                          <div>{feature.name}</div>
-                          <div>{feature.description}</div>
-                        </div>
-                      )
-                  )}
-                </div>
-              )}
+            <Accordion className="w-full" type="single" collapsible>
+              {selectedClass !== "Select Class" &&
+                selectedClassData?.features &&
+                selectedClassData?.features.map(
+                  (feature) =>
+                    level === feature.level && (
+                      <AccordionItem key={feature.name} value={feature.name}>
+                        <AccordionTrigger>{feature.name}</AccordionTrigger>
+                        <AccordionContent>
+                          {feature.description}
+                        </AccordionContent>
+                      </AccordionItem>
+                    )
+                )}
+            </Accordion>
           </CardFooter>
         </Card>
       ))}

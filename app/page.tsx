@@ -18,7 +18,7 @@ export default function Home() {
   //BUGFIXES
   // Mobile layout
 
-  // pass height and width to the TrainingIcon component
+  // implement bonus damage from weapon specialisation
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

@@ -147,7 +147,7 @@ export const Classes: ClassType[] = [
     Attributes: ["Strength", "Dexterity"],
     features: [
       {
-        name: "reactive strike",
+        name: "Reactive Strike",
         level: 1,
         description:
           "Ever watchful for weaknesses, you can quickly attack foes that leave an opening in their defenses. You gain the Reactive Strike reaction.",

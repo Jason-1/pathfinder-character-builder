@@ -71,8 +71,6 @@ const Armour = () => {
       currentLevel,
       selectedClassData
     );
-    console.log("Weapon Training Level: ", weaponTrainingLevel);
-    console.log("specialisation: ", specialisation);
     switch (weaponTrainingLevel) {
       case "E":
         specialisation = specialisation * 2;
@@ -87,7 +85,6 @@ const Armour = () => {
         specialisation = 0;
     }
 
-    console.log("Modified specialisation: ", specialisation);
     return specialisation;
   };
 
@@ -99,7 +96,8 @@ const Armour = () => {
       currentLevel,
       selectedClassData
     );
-    if (proficiency >= 0) {
+    console.log("Proficiency: ", proficiency);
+    if (proficiency > 0) {
       attackModifier += currentLevel;
     }
 

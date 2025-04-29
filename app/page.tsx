@@ -12,16 +12,13 @@ export default function Home() {
   //TODO -
   // Dice Tray
   // Equipment
-  // Save Character
-  // Load Character
-
-  //BUGFIXES
-  // Mobile layout
-
   // combine useSelector calls into a single call
   // display weapon traits
   // Perception, classDC
   // Spellcasting
+
+  //BUGFIXES
+  // Mobile layout
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

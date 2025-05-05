@@ -1,3 +1,5 @@
+import { selectACBreakdownData } from "@/app/selectors";
+import { RootState } from "@/app/store";
 import { armourData, Classes, shieldData } from "@/data";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
@@ -10,32 +12,21 @@ interface ACBreakdownProps {
 }
 
 const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
-  const currentLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
-  const selectedArmour = useSelector(
-    (state: { armour: { armour: string } }) => state.armour.armour
-  );
-  const selectedPotency = useSelector(
-    (state: { potency: { potency: number } }) => state.potency.potency
-  );
-  const selectedShield = useSelector(
-    (state: { shield: { shield: string } }) => state.shield.shield
-  );
+  const {
+    currentLevel,
+    selectedArmour,
+    selectedPotency,
+    selectedShield,
+    selectedClass,
+    attributeBoosts,
+  } = useSelector(selectACBreakdownData);
+
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
-  );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
   );
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
-  const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
-  );
-
   const selectedArmourData = armourData.find(
     (armourItem) => armourItem.name === selectedArmour
   );

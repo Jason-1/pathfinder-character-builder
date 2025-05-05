@@ -119,6 +119,7 @@ export type ClassType = {
   DC: TrainingType;
   hp: number;
   Attributes: AttributesType[];
+  spells: spellObjectType[];
   features: {
     name: string;
     level: number;
@@ -202,6 +203,12 @@ export type classFeatType = {
   link: string;
   description: string;
   action_cost?: string;
+};
+
+export type spellObjectType = {
+  level: number;
+  cantrips: number;
+  spellSlots: number[];
 };
 
 export type highlightedFeatData = {

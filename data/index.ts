@@ -113,6 +113,7 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
+    spells: [],
     features: [],
     description:
       "You are an emissary of a deity, a devoted servant who has taken up a weighty mantle, and you devoutly pursue a cause that holds you apart from those around you. You have powerful defenses that you share freely with your allies and innocent bystanders, as well as divine power you use to end the threats your deity opposes.",
@@ -147,7 +148,7 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
-
+    spells: [],
     features: [
       {
         name: "Reactive Strike",
@@ -278,6 +279,28 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 6,
     Attributes: ["Intelligence"],
+    spells: [
+      { level: 1, cantrips: 5, spellSlots: [2, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+      { level: 2, cantrips: 5, spellSlots: [3, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+      { level: 3, cantrips: 5, spellSlots: [3, 2, 0, 0, 0, 0, 0, 0, 0, 0] },
+      { level: 4, cantrips: 5, spellSlots: [3, 3, 0, 0, 0, 0, 0, 0, 0, 0] },
+      { level: 5, cantrips: 5, spellSlots: [3, 3, 2, 0, 0, 0, 0, 0, 0, 0] },
+      { level: 6, cantrips: 5, spellSlots: [3, 3, 3, 0, 0, 0, 0, 0, 0, 0] },
+      { level: 7, cantrips: 5, spellSlots: [3, 3, 3, 2, 0, 0, 0, 0, 0, 0] },
+      { level: 8, cantrips: 5, spellSlots: [3, 3, 3, 3, 0, 0, 0, 0, 0, 0] },
+      { level: 9, cantrips: 5, spellSlots: [3, 3, 3, 3, 2, 0, 0, 0, 0, 0] },
+      { level: 10, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 0, 0, 0, 0, 0] },
+      { level: 11, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 2, 0, 0, 0, 0] },
+      { level: 12, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 0, 0, 0, 0] },
+      { level: 13, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 2, 0, 0, 0] },
+      { level: 14, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 3, 0, 0, 0] },
+      { level: 15, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 3, 2, 0, 0] },
+      { level: 16, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 3, 3, 0, 0] },
+      { level: 17, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 3, 3, 2, 0] },
+      { level: 18, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 3, 3, 3, 0] },
+      { level: 19, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 3, 3, 3, 1] },
+      { level: 20, cantrips: 5, spellSlots: [3, 3, 3, 3, 3, 3, 3, 3, 3, 1] },
+    ],
     features: [],
     description:
       "You are an eternal student of the secrets of the universe, using your mastery of magic to cast powerful spells. You treat magic like a science, cross-referencing the latest texts on practical spellcraft with ancient tomes to discover and understand arcane magic. Yet magical theory is vast, and there's no way you can study it all. Most wizards learn through formal schooling, with their curriculum informing a specific rubric, although particularly driven researchers sometimes piece together their own theories.",

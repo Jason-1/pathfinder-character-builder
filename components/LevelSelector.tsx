@@ -12,14 +12,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { RootState } from "@/app/store";
+import { selectLevel } from "@/app/redux/selectors";
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const LevelSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const currentLevel = useSelector((state: RootState) => state.level.level);
+  const currentLevel = useSelector(selectLevel);
 
   //------------------------------------------------------------------------------//
 

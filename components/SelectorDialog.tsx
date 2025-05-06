@@ -15,7 +15,7 @@ import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmour
 import { Classes } from "@/data";
 import { armourTypes, weaponTypes } from "@/types";
 import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
-import { RootState } from "@/app/store";
+import { selectClass, selectLevel } from "@/app/redux/selectors";
 
 interface SelectorDialogProps<T> {
   itemType: string;
@@ -47,8 +47,8 @@ const SelectorDialog = <
 }: SelectorDialogProps<T>) => {
   const [selectedTab, setSelectedTab] = React.useState<string>("All");
 
-  const selectedlevel = useSelector((state: RootState) => state.level.level);
-  const selectedClass = useSelector((state: RootState) => state.class.class);
+  const selectedlevel = useSelector(selectLevel);
+  const selectedClass = useSelector(selectClass);
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );

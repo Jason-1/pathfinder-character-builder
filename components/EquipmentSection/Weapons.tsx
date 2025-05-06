@@ -3,7 +3,6 @@ import { weaponItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
-
 import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
 import SelectorDialog from "../SelectorDialog";
 import { setWeapon } from "@/app/redux/Slices/weaponSlice";
@@ -16,17 +15,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import calculateCurrentWeaponProficiencyBonus from "@/lib/calculateCurrentWeaponProficiencyBonus";
-import { RootState } from "@/app/store";
+import {
+  selectAttributeBoostCategories,
+  selectClass,
+  selectLevel,
+  selectWeapon,
+} from "@/app/redux/selectors";
 
 const Armour = () => {
   const dispatch = useDispatch();
 
-  const selectedWeapon = useSelector((state: RootState) => state.weapon.weapon);
-  const currentLevel = useSelector((state: RootState) => state.level.level);
-  const attributeBoosts = useSelector(
-    (state: RootState) => state.attributeBoostCategories
-  );
-  const selectedClass = useSelector((state: RootState) => state.class.class);
+  const [potencyRune, setPotencyRune] = React.useState<number>(0);
+  const [strikingRune, setStrikingRune] = React.useState<number>(0);
+
+  const selectedWeapon = useSelector(selectWeapon);
+  const currentLevel = useSelector(selectLevel);
+  const attributeBoosts = useSelector(selectAttributeBoostCategories);
+  const selectedClass = useSelector(selectClass);
 
   const selectedWeaponData = weaponData.find(
     (weaponItem) => weaponItem.name === selectedWeapon
@@ -34,13 +39,11 @@ const Armour = () => {
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
-  //------------------------------------------------------------------------------//
 
   const [highlightedWeapon, setHighlightedWeapon] =
     React.useState<weaponItemType>(weaponData[0]);
 
-  const [potencyRune, setPotencyRune] = React.useState<number>(0);
-  const [strikingRune, setStrikingRune] = React.useState<number>(0);
+  //------------------------------------------------------------------------------//
 
   const handleSetWeapon = (weapon: string) => {
     dispatch(setWeapon({ weapon }));

@@ -18,7 +18,7 @@ import {
   selectAncestry,
   selectAttributeBoostCategories,
   selectLevel,
-} from "@/app/redux/reducers";
+} from "@/app/redux/selectors";
 
 const Abilities: React.FC = ({}) => {
   const dispatch = useDispatch();

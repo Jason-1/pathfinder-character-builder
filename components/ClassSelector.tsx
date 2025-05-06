@@ -9,15 +9,25 @@ import { setSubclass } from "@/app/redux/Slices/subclassSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
-import { RootState } from "@/app/store";
+import { selectClass, selectSubclass } from "@/app/redux/selectors";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedClass = useSelector((state: RootState) => state.class.class);
-  const selectedSubclass = useSelector(
-    (state: RootState) => state.subclass.subclass
+  const [highlightedClass, setHighlightedClass] = React.useState<ClassType>(
+    Classes[0]
   );
+  const [highlightedSubclass, setHighlightedSubclass] =
+    React.useState<subclassType>(subclasses[0]);
+
+  const selectedClass = useSelector(selectClass);
+  const selectedSubclass = useSelector(selectSubclass);
+
+  const availableSubclasses = subclasses.filter(
+    (subclassItem) => subclassItem.className === selectedClass
+  );
+
+  //------------------------------------------------------------------------------//
 
   const handleChangeClass = (classString: string) => {
     //When a class is set also reset skill proficiencies for it
@@ -28,16 +38,6 @@ const ClassSelector: React.FC = ({}) => {
   const handleSetSubclass = (subclass: string) => {
     dispatch(setSubclass({ subclass: subclass }));
   };
-  const availableSubclasses = subclasses.filter(
-    (subclassItem) => subclassItem.className === selectedClass
-  );
-  const [highlightedClass, setHighlightedClass] = React.useState<ClassType>(
-    Classes[0]
-  );
-  const [highlightedSubclass, setHighlightedSubclass] =
-    React.useState<subclassType>(subclasses[0]);
-
-  //------------------------------------------------------------------------------//
 
   const trainingLevel = (value: number) => {
     switch (value) {

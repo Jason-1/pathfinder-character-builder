@@ -1,10 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -22,16 +20,19 @@ import {
   initialHighlightedFeatData,
   skillIncreaseLevels,
 } from "@/data";
-import {
-  AttributeBoostsType,
-  classFeatType,
-  FeatsType,
-  highlightedFeatData,
-} from "@/types";
+import { classFeatType, highlightedFeatData } from "@/types";
 import SkillIncreases from "./SkillIncreases";
 import { updateFeat } from "@/app/redux/Slices/selectedFeatsSlice";
 import SelectorDialog from "./SelectorDialog";
-import { RootState } from "@/app/store";
+import {
+  selectAncestralParagon,
+  selectAncestry,
+  selectAttributeBoostCategories,
+  selectClass,
+  selectFeats,
+  selectFreeArchetype,
+  selectLevel,
+} from "@/app/redux/selectors";
 
 //Create an available feats object I can pass through to the selector dialog
 
@@ -41,21 +42,13 @@ const LevelFeatures: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   //Get required states
-  const selectedlevel = useSelector((state: RootState) => state.level.level);
-  const selectedAncestry = useSelector(
-    (state: RootState) => state.ancestry.ancestry
-  );
-  const selectedClass = useSelector((state: RootState) => state.class.class);
-  const freeArchetype = useSelector(
-    (state: RootState) => state.freeArchetype.freeArchetype
-  );
-  const ancestralParagon = useSelector(
-    (state: RootState) => state.ancestralParagon.ancestralParagon
-  );
-  const attributeBoosts = useSelector(
-    (state: RootState) => state.attributeBoostCategories
-  );
-  const selectedFeats = useSelector((state: RootState) => state.selectedFeats);
+  const selectedlevel = useSelector(selectLevel);
+  const selectedAncestry = useSelector(selectAncestry);
+  const selectedClass = useSelector(selectClass);
+  const freeArchetype = useSelector(selectFreeArchetype);
+  const ancestralParagon = useSelector(selectAncestralParagon);
+  const attributeBoosts = useSelector(selectAttributeBoostCategories);
+  const selectedFeats = useSelector(selectFeats);
 
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass

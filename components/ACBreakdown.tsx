@@ -5,7 +5,7 @@ import {
   selectLevel,
   selectPotency,
   selectShield,
-} from "@/app/redux/reducers";
+} from "@/app/redux/selectors";
 import { armourData, Classes, shieldData } from "@/data";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";

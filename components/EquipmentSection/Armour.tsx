@@ -16,21 +16,24 @@ import { setResilient } from "@/app/redux/Slices/resilientSlice";
 import { Separator } from "@/components/ui/separator";
 import { setShield } from "@/app/redux/Slices/shieldSlice";
 import SelectorDialog from "../SelectorDialog";
-import { RootState } from "@/app/store";
+import {
+  selectArmour,
+  selectClass,
+  selectLevel,
+  selectPotency,
+  selectResilient,
+  selectShield,
+} from "@/app/redux/selectors";
 
 const Armour = () => {
   const dispatch = useDispatch();
 
-  const selectedArmour = useSelector((state: RootState) => state.armour.armour);
-  const selectedPotency = useSelector(
-    (state: RootState) => state.potency.potency
-  );
-  const selectedResilient = useSelector(
-    (state: RootState) => state.resilient.resilient
-  );
-  const selectedShield = useSelector((state: RootState) => state.shield.shield);
-  const currentLevel = useSelector((state: RootState) => state.level.level);
-  const selectedClass = useSelector((state: RootState) => state.class.class);
+  const selectedArmour = useSelector(selectArmour);
+  const selectedPotency = useSelector(selectPotency);
+  const selectedResilient = useSelector(selectResilient);
+  const selectedShield = useSelector(selectShield);
+  const currentLevel = useSelector(selectLevel);
+  const selectedClass = useSelector(selectClass);
 
   const selectedArmourData = armourData.find(
     (armourItem) => armourItem.name === selectedArmour

@@ -8,17 +8,15 @@ import { Ancestries } from "@/data";
 import { heritiges } from "@/data/heritiges";
 import SelectorDialog from "./SelectorDialog";
 import { AncestryType } from "@/types";
-import { RootState } from "@/app/store";
+import { selectAncestry, selectHeritage } from "@/app/redux/selectors";
 
 const AncestrySelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedAncestry = useSelector(
-    (state: RootState) => state.ancestry.ancestry
-  );
-  const selectedHeritage = useSelector(
-    (state: RootState) => state.heritage.heritage
-  );
+  const selectedAncestry = useSelector(selectAncestry);
+  const selectedHeritage = useSelector(selectHeritage);
+
+  //------------------------------------------------------------------------------//
 
   const handleSetAncestry = (ancestry: string) => {
     dispatch(setAncestry({ ancestry }));

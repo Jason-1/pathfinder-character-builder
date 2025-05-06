@@ -15,7 +15,11 @@ import {
   updateIntelligenceSkillBoost,
   updateSkillBoost,
 } from "@/app/redux/Slices/selectedSkillsSlice";
-import { RootState } from "@/app/store";
+import {
+  selectBackground,
+  selectClass,
+  selectSkills,
+} from "@/app/redux/selectors";
 
 interface SkillIncreaseProps {
   currentLevel: number;
@@ -32,13 +36,9 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const selectedBackground = useSelector(
-    (state: RootState) => state.background.background
-  );
-  const selectedClass = useSelector((state: RootState) => state.class.class);
-  const selectedSkills = useSelector(
-    (state: RootState) => state.selectedSkills
-  );
+  const selectedBackground = useSelector(selectBackground);
+  const selectedClass = useSelector(selectClass);
+  const selectedSkills = useSelector(selectSkills);
 
   //------------------------------------------------------------------------------//
 

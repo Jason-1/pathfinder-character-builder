@@ -8,17 +8,17 @@ import { setBackground } from "@/app/redux/Slices/backgroundSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { BackgroundType } from "@/types";
-import { RootState } from "@/app/store";
+import { selectBackground } from "@/app/redux/selectors";
 
 const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedBackground = useSelector(
-    (state: RootState) => state.background.background
-  );
+  const selectedBackground = useSelector(selectBackground);
 
   const [highlightedBackground, setHighlightedBackground] =
     React.useState<BackgroundType>(Backgrounds[0]);
+
+  //------------------------------------------------------------------------------//
 
   const handleChangeBackground = (background: string) => {
     //When a Background is set also reset skill proficiencies for it

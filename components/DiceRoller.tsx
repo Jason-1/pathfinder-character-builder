@@ -22,7 +22,7 @@ interface DiceRollerProps {
 
 import DiceTray from "./3dElements/DiceTray";
 import DCHeader from "./DCHeader";
-import { RootState } from "@/app/store";
+import { selectLevel, selectWeapon } from "@/app/redux/selectors";
 
 const DiceRoller: React.FC<DiceRollerProps> = ({
   diceType,
@@ -30,12 +30,8 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   diceCount,
   damageModifier,
 }) => {
-  const currentLevel = useSelector((state: RootState) => state.level.level);
-
-  const selectedWeapon = useSelector((state: RootState) => state.weapon.weapon);
-  const selectedWeaponData = weaponData.find(
-    (weaponItem) => weaponItem.name === selectedWeapon
-  );
+  const currentLevel = useSelector(selectLevel);
+  const selectedWeapon = useSelector(selectWeapon);
 
   const [adjustment, setAdjustment] = useState<string>("");
   const [DC, setDC] = useState<number>(0);
@@ -45,6 +41,10 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   const [roll, setRoll] = useState<
     { dice: string; rolls: number[]; critical?: boolean; MAP?: number }[] | null
   >(null);
+
+  const selectedWeaponData = weaponData.find(
+    (weaponItem) => weaponItem.name === selectedWeapon
+  );
 
   //------------------------------------------------------------------------------//
 

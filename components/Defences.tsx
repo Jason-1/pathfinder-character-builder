@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Shield } from "lucide-react";
 import { useSelector } from "react-redux";
-import { AttributeBoostsType, saveTypes } from "@/types";
+import { saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
 import { Ancestries, armourData, Classes, shieldData } from "@/data";
@@ -14,27 +14,28 @@ import {
 } from "@/components/ui/hover-card";
 import ACBreakdown from "./ACBreakdown";
 import { Button } from "./ui/button";
-import { RootState } from "@/app/store";
+import {
+  selectAncestry,
+  selectArmour,
+  selectAttributeBoostCategories,
+  selectClass,
+  selectLevel,
+  selectPotency,
+  selectResilient,
+  selectShield,
+} from "@/app/redux/selectors";
 
 const Defences = () => {
   const [shieldRaised, setShieldRaised] = React.useState(false);
 
-  const currentLevel = useSelector((state: RootState) => state.level.level);
-  const selectedClass = useSelector((state: RootState) => state.class.class);
-  const selectedArmour = useSelector((state: RootState) => state.armour.armour);
-  const selectedAncestry = useSelector(
-    (state: RootState) => state.ancestry.ancestry
-  );
-  const selectedPotency = useSelector(
-    (state: RootState) => state.potency.potency
-  );
-  const selectedResilient = useSelector(
-    (state: RootState) => state.resilient.resilient
-  );
-  const selectedShield = useSelector((state: RootState) => state.shield.shield);
-  const attributeBoosts = useSelector(
-    (state: RootState) => state.attributeBoostCategories
-  );
+  const currentLevel = useSelector(selectLevel);
+  const selectedClass = useSelector(selectClass);
+  const selectedArmour = useSelector(selectArmour);
+  const selectedAncestry = useSelector(selectAncestry);
+  const selectedPotency = useSelector(selectPotency);
+  const selectedResilient = useSelector(selectResilient);
+  const selectedShield = useSelector(selectShield);
+  const attributeBoosts = useSelector(selectAttributeBoostCategories);
 
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass

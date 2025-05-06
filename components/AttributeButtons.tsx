@@ -12,7 +12,12 @@ import {
   resetAllIntelligenceBoosts,
   resetAllSkillBoosts,
 } from "@/app/redux/Slices/selectedSkillsSlice";
-import { RootState } from "@/app/store";
+import {
+  selectAncestry,
+  selectAttributeBoostCategories,
+  selectBackground,
+  selectClass,
+} from "@/app/redux/selectors";
 
 const BoostLimits = {
   Ancestry: 2,
@@ -31,9 +36,15 @@ const AttributeButtons: React.FC = ({}) => {
   //Set this true when an ancestry boost is selected that is not on the Ancestry array
   const [restrictAncestryBoosts, setRestrictAncestryBoosts] =
     useState<boolean>(false);
-
   const [restrictBackgroundBoosts, setRestrictBackgroundBoosts] =
     useState<boolean>(false);
+
+  const selectedAncestry = useSelector(selectAncestry);
+  const selectedBackground = useSelector(selectBackground);
+  const selectedClass = useSelector(selectClass);
+  const attributeBoosts = useSelector(selectAttributeBoostCategories);
+
+  //------------------------------------------------------------------------------//
 
   const ResetAllAttributeBoosts = () => {
     dispatch(resetAttributeBoosts());
@@ -41,18 +52,6 @@ const AttributeButtons: React.FC = ({}) => {
     setRestrictAncestryBoosts(false);
     setRestrictBackgroundBoosts(false);
   };
-
-  const selectedAncestry = useSelector(
-    (state: RootState) => state.ancestry.ancestry
-  );
-  const selectedBackground = useSelector(
-    (state: RootState) => state.background.background
-  );
-  const selectedClass = useSelector((state: RootState) => state.class.class);
-  const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
-  );
 
   const handleSetAttributes = (
     boostType: Category,

@@ -10,14 +10,14 @@ import { useSelector } from "react-redux";
 import AncestrySelector from "./AncestrySelector";
 import BackgroundSelector from "./BackgroundSelector";
 import ClassSelector from "./ClassSelector";
-import { RootState } from "@/app/store";
+import { selectClass, selectLevel, selectName } from "@/app/redux/selectors";
 
 export function AppSidebar() {
-  const name = useSelector((state: RootState) => state.name.name);
+  const name = useSelector(selectName);
+  const currentLevel = useSelector(selectLevel);
+  const selectedClass = useSelector(selectClass);
 
-  const currentLevel = useSelector((state: RootState) => state.level.level);
-
-  const selectedClass = useSelector((state: RootState) => state.class.class);
+  //------------------------------------------------------------------------------//
 
   return (
     <Sidebar>

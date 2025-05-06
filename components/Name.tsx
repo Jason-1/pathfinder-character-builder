@@ -2,12 +2,12 @@ import React from "react";
 import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { setName } from "@/app/redux/Slices/nameSlice";
-import { RootState } from "@/app/store";
+import { selectName } from "@/app/redux/selectors";
 
 const Name = () => {
   const dispatch = useDispatch();
 
-  const name = useSelector((state: RootState) => state.name.name) || "";
+  const name = useSelector(selectName) || "";
 
   //------------------------------------------------------------------------------//
 

@@ -4,9 +4,9 @@ import React from "react";
 
 import { Classes, subclasses } from "@/data";
 import { useDispatch, useSelector } from "react-redux";
-import { setClass } from "@/app/Slices/classSlice";
-import { setSubclass } from "@/app/Slices/subclassSlice";
-import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
+import { setClass } from "@/app/redux/Slices/classSlice";
+import { setSubclass } from "@/app/redux/Slices/subclassSlice";
+import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
 import { RootState } from "@/app/store";

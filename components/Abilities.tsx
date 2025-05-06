@@ -12,20 +12,20 @@ import {
 } from "@/components/ui/dialog";
 import AttributeButtons from "./AttributeButtons";
 import { Category } from "@/types";
-import { resetSpecificAttributeBoost } from "@/app/Slices/attributeBoostCategoriesSlice";
+import { resetSpecificAttributeBoost } from "@/app/redux/Slices/attributeBoostCategoriesSlice";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
-import { RootState } from "@/app/store";
+import {
+  selectAncestry,
+  selectAttributeBoostCategories,
+  selectLevel,
+} from "@/app/redux/reducers";
 
 const Abilities: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedLevel = useSelector((state: RootState) => state.level.level);
-  const selectedAncestry = useSelector(
-    (state: RootState) => state.ancestry.ancestry
-  );
-  const attributeBoosts = useSelector(
-    (state: RootState) => state.attributeBoostCategories
-  );
+  const selectedLevel = useSelector(selectLevel);
+  const selectedAncestry = useSelector(selectAncestry);
+  const attributeBoosts = useSelector(selectAttributeBoostCategories);
 
   //------------------------------------------------------------------------------//
 

@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useSelector, useDispatch } from "react-redux";
-import { setLevel } from "@/app/Slices/levelSlice";
+import { setLevel } from "@/app/redux/Slices/levelSlice";
 import {
   Dialog,
   DialogClose,

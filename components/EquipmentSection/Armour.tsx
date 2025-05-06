@@ -3,7 +3,7 @@ import { armourItemType, shieldItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
-import { setArmour } from "@/app/Slices/armourSlice";
+import { setArmour } from "@/app/redux/Slices/armourSlice";
 import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmourProficiencyLevel";
 import {
   DropdownMenu,
@@ -11,10 +11,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { setPotency } from "@/app/Slices/armourPotencySlice";
-import { setResilient } from "@/app/Slices/resilientSlice";
+import { setPotency } from "@/app/redux/Slices/armourPotencySlice";
+import { setResilient } from "@/app/redux/Slices/resilientSlice";
 import { Separator } from "@/components/ui/separator";
-import { setShield } from "@/app/Slices/shieldSlice";
+import { setShield } from "@/app/redux/Slices/shieldSlice";
 import SelectorDialog from "../SelectorDialog";
 import { RootState } from "@/app/store";
 

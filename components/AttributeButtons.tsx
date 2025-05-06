@@ -7,11 +7,11 @@ import {
   removeAttributeBoost,
   resetAttributeBoosts,
   setAttributeBoost,
-} from "@/app/Slices/attributeBoostCategoriesSlice";
+} from "@/app/redux/Slices/attributeBoostCategoriesSlice";
 import {
   resetAllIntelligenceBoosts,
   resetAllSkillBoosts,
-} from "@/app/Slices/selectedSkillsSlice";
+} from "@/app/redux/Slices/selectedSkillsSlice";
 import { RootState } from "@/app/store";
 
 const BoostLimits = {

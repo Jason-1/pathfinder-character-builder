@@ -6,7 +6,7 @@ import TrainingIcon from "../Icons/TrainingIcon";
 
 import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
 import SelectorDialog from "../SelectorDialog";
-import { setWeapon } from "@/app/Slices/weaponSlice";
+import { setWeapon } from "@/app/redux/Slices/weaponSlice";
 import DiceRoller from "../DiceRoller";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import {

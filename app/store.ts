@@ -1,21 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import nameSlice from "./Slices/nameSlice";
-import levelSlice from "./Slices/levelSlice";
-import ancestrySlice from "./Slices/ancestrySlice";
-import heritageSlice from "./Slices/heritageSlice";
-import classSlice from "./Slices/classSlice";
-import backgroundSlice from "./Slices/backgroundSlice";
-import subclassSlice from "./Slices/subclassSlice";
-import freeArchetypeSlice from "./Slices/freeArchetypeSlice";
-import ancestralParagonSlice from "./Slices/ancestralParagonSlice";
-import attributeBoostCategoriesSlice from "./Slices/attributeBoostCategoriesSlice";
-import selectedFeatsSlice from "./Slices/selectedFeatsSlice";
-import selectedSkillsSlice from "./Slices/selectedSkillsSlice";
-import armourSlice from "./Slices/armourSlice";
-import resilientSlice from "./Slices/resilientSlice";
-import shieldSlice from "./Slices/shieldSlice";
-import weaponSlice from "./Slices/weaponSlice";
-import armourPotencySlice from "./Slices/armourPotencySlice";
+import nameSlice from "./redux/Slices/nameSlice";
+import levelSlice from "./redux/Slices/levelSlice";
+import ancestrySlice from "./redux/Slices/ancestrySlice";
+import heritageSlice from "./redux/Slices/heritageSlice";
+import classSlice from "./redux/Slices/classSlice";
+import backgroundSlice from "./redux/Slices/backgroundSlice";
+import subclassSlice from "./redux/Slices/subclassSlice";
+import freeArchetypeSlice from "./redux/Slices/freeArchetypeSlice";
+import ancestralParagonSlice from "./redux/Slices/ancestralParagonSlice";
+import attributeBoostCategoriesSlice from "./redux/Slices/attributeBoostCategoriesSlice";
+import selectedFeatsSlice from "./redux/Slices/selectedFeatsSlice";
+import selectedSkillsSlice from "./redux/Slices/selectedSkillsSlice";
+import armourSlice from "./redux/Slices/armourSlice";
+import resilientSlice from "./redux/Slices/resilientSlice";
+import shieldSlice from "./redux/Slices/shieldSlice";
+import weaponSlice from "./redux/Slices/weaponSlice";
+import armourPotencySlice from "./redux/Slices/armourPotencySlice";
 
 export const store = configureStore({
   reducer: {

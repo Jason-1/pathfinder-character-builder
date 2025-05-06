@@ -2,8 +2,8 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFreeArchetype } from "@/app/Slices/freeArchetypeSlice";
-import { toggleAncestralParagon } from "@/app/Slices/ancestralParagonSlice";
+import { toggleFreeArchetype } from "@/app/redux/Slices/freeArchetypeSlice";
+import { toggleAncestralParagon } from "@/app/redux/Slices/ancestralParagonSlice";
 import { RootState } from "@/app/store";
 
 const VariantRules = ({}) => {

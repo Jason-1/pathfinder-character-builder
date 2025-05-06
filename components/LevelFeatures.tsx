@@ -29,7 +29,7 @@ import {
   highlightedFeatData,
 } from "@/types";
 import SkillIncreases from "./SkillIncreases";
-import { updateFeat } from "@/app/Slices/selectedFeatsSlice";
+import { updateFeat } from "@/app/redux/Slices/selectedFeatsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { RootState } from "@/app/store";
 

@@ -14,7 +14,7 @@ import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
 import {
   updateIntelligenceSkillBoost,
   updateSkillBoost,
-} from "@/app/Slices/selectedSkillsSlice";
+} from "@/app/redux/Slices/selectedSkillsSlice";
 import { RootState } from "@/app/store";
 
 interface SkillIncreaseProps {

@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAncestry } from "@/app/Slices/ancestrySlice";
-import { setHeritage } from "@/app/Slices/heritageSlice";
+import { setAncestry } from "@/app/redux/Slices/ancestrySlice";
+import { setHeritage } from "@/app/redux/Slices/heritageSlice";
 import { Ancestries } from "@/data";
 import { heritiges } from "@/data/heritiges";
 import SelectorDialog from "./SelectorDialog";

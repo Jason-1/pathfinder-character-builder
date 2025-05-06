@@ -4,8 +4,8 @@ import React from "react";
 
 import { Backgrounds } from "@/data";
 import { useDispatch, useSelector } from "react-redux";
-import { setBackground } from "@/app/Slices/backgroundSlice";
-import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
+import { setBackground } from "@/app/redux/Slices/backgroundSlice";
+import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { BackgroundType } from "@/types";
 import { RootState } from "@/app/store";

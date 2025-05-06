@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import { setName } from "@/app/Slices/nameSlice";
+import { setName } from "@/app/redux/Slices/nameSlice";
 import { RootState } from "@/app/store";
 
 const Name = () => {

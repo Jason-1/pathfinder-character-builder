@@ -1,4 +1,11 @@
-import { RootState } from "@/app/store";
+import {
+  selectArmour,
+  selectAttributeBoostCategories,
+  selectClass,
+  selectLevel,
+  selectPotency,
+  selectShield,
+} from "@/app/redux/reducers";
 import { armourData, Classes, shieldData } from "@/data";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
@@ -10,16 +17,12 @@ interface ACBreakdownProps {
 }
 
 const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
-  const selectedLevel = useSelector((state: RootState) => state.level.level);
-  const selectedArmour = useSelector((state: RootState) => state.armour.armour);
-  const selectedPotency = useSelector(
-    (state: RootState) => state.potency.potency
-  );
-  const selectedShield = useSelector((state: RootState) => state.shield.shield);
-  const selectedClass = useSelector((state: RootState) => state.class.class);
-  const attributeBoosts = useSelector(
-    (state: RootState) => state.attributeBoostCategories
-  );
+  const selectedLevel = useSelector(selectLevel);
+  const selectedArmour = useSelector(selectArmour);
+  const selectedPotency = useSelector(selectPotency);
+  const selectedShield = useSelector(selectShield);
+  const selectedClass = useSelector(selectClass);
+  const attributeBoosts = useSelector(selectAttributeBoostCategories);
 
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield

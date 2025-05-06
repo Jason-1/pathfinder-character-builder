@@ -32,7 +32,7 @@ const Armour = () => {
   const selectedPotency = useSelector(selectPotency);
   const selectedResilient = useSelector(selectResilient);
   const selectedShield = useSelector(selectShield);
-  const currentLevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
 
   const selectedArmourData = armourData.find(
@@ -85,7 +85,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "unarmoured",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -95,7 +95,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "light",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -105,7 +105,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "medium",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -115,7 +115,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "heavy",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -126,7 +126,7 @@ const Armour = () => {
         <TrainingIcon
           trainingLevel={calculateCurrentArmourProficiencyLevel(
             selectedArmourData?.category || "unarmoured",
-            currentLevel,
+            selectedLevel,
             selectedClassData
           )}
         />

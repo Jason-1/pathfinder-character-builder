@@ -29,7 +29,7 @@ const Armour = () => {
   const [strikingRune, setStrikingRune] = React.useState<number>(0);
 
   const selectedWeapon = useSelector(selectWeapon);
-  const currentLevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const attributeBoosts = useSelector(selectAttributeBoostCategories);
   const selectedClass = useSelector(selectClass);
 
@@ -58,7 +58,7 @@ const Armour = () => {
     }
     let specialisation = 0;
     for (let i = 0; i < selectedClassData?.specialisation.length; i++) {
-      if (selectedClassData?.specialisation[i] <= currentLevel) {
+      if (selectedClassData?.specialisation[i] <= selectedLevel) {
         specialisation += 1;
       }
     }
@@ -66,7 +66,7 @@ const Armour = () => {
     //get weapon training level
     const weaponTrainingLevel = calculateCurrentWeaponProficiencyLevel(
       selectedWeaponData?.category || "unarmed",
-      currentLevel,
+      selectedLevel,
       selectedClassData
     );
     switch (weaponTrainingLevel) {
@@ -91,12 +91,12 @@ const Armour = () => {
 
     const proficiency = calculateCurrentWeaponProficiencyBonus(
       selectedWeaponData?.category || "unarmed",
-      currentLevel,
+      selectedLevel,
       selectedClassData
     );
     console.log("Proficiency: ", proficiency);
     if (proficiency > 0) {
-      attackModifier += currentLevel;
+      attackModifier += selectedLevel;
     }
 
     if (
@@ -105,13 +105,13 @@ const Armour = () => {
     ) {
       attackModifier += calculateCurrentAttributeBoost(
         "Dexterity",
-        currentLevel,
+        selectedLevel,
         attributeBoosts
       );
     } else {
       attackModifier += calculateCurrentAttributeBoost(
         "Strength",
-        currentLevel,
+        selectedLevel,
         attributeBoosts
       );
     }
@@ -127,7 +127,7 @@ const Armour = () => {
 
     damageModifier += calculateCurrentAttributeBoost(
       "Strength",
-      currentLevel,
+      selectedLevel,
       attributeBoosts
     );
 
@@ -146,7 +146,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "unarmed",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -156,7 +156,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "simple",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -166,7 +166,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "martial",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -176,7 +176,7 @@ const Armour = () => {
           <TrainingIcon
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "advanced",
-              currentLevel,
+              selectedLevel,
               selectedClassData
             )}
           />
@@ -187,7 +187,7 @@ const Armour = () => {
         <TrainingIcon
           trainingLevel={calculateCurrentWeaponProficiencyLevel(
             selectedWeaponData?.category || "unarmed",
-            currentLevel,
+            selectedLevel,
             selectedClassData
           )}
         />

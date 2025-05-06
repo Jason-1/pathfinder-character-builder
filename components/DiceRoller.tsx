@@ -30,12 +30,12 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   diceCount,
   damageModifier,
 }) => {
-  const currentLevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const selectedWeapon = useSelector(selectWeapon);
 
   const [adjustment, setAdjustment] = useState<string>("");
   const [DC, setDC] = useState<number>(0);
-  const [level, setLevel] = useState<number>(currentLevel);
+  const [level, setLevel] = useState<number>(selectedLevel);
   const [manualDC, setManualDC] = useState(false);
   const [manualLevel, setManualLevel] = useState(false);
   const [roll, setRoll] = useState<
@@ -64,10 +64,10 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
 
       setDC(baseDC);
       if (!manualLevel) {
-        setLevel(currentLevel);
+        setLevel(selectedLevel);
       }
     }
-  }, [adjustment, currentLevel, level, manualDC, manualLevel]);
+  }, [adjustment, selectedLevel, level, manualDC, manualLevel]);
 
   const handleDCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setManualDC(true);
@@ -78,7 +78,7 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
     setManualDC(false);
     if (level === 0) {
       setManualLevel(false);
-      setLevel(currentLevel);
+      setLevel(selectedLevel);
     } else {
       setManualLevel(true);
       setLevel(level);

@@ -42,7 +42,7 @@ const LevelFeatures: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   //Get required states
-  const selectedlevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const selectedAncestry = useSelector(selectAncestry);
   const selectedClass = useSelector(selectClass);
   const freeArchetype = useSelector(selectFreeArchetype);
@@ -221,7 +221,7 @@ const LevelFeatures: React.FC = ({}) => {
       {levels.map((level) => (
         <Card
           className={`mt-4 ${
-            level <= selectedlevel ? "opacity-100 " : "opacity-50"
+            level <= selectedLevel ? "opacity-100 " : "opacity-50"
           }`}
           key={level}
         >

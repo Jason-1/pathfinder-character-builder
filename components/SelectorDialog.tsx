@@ -47,7 +47,7 @@ const SelectorDialog = <
 }: SelectorDialogProps<T>) => {
   const [selectedTab, setSelectedTab] = React.useState<string>("All");
 
-  const selectedlevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
@@ -138,7 +138,7 @@ const SelectorDialog = <
                         <TrainingIcon
                           trainingLevel={calculateCurrentArmourProficiencyLevel(
                             item.category as armourTypes,
-                            selectedlevel,
+                            selectedLevel,
                             selectedClassData
                           )}
                           size={5}
@@ -147,7 +147,7 @@ const SelectorDialog = <
                         <TrainingIcon
                           trainingLevel={calculateCurrentWeaponProficiencyLevel(
                             item.category as weaponTypes,
-                            selectedlevel,
+                            selectedLevel,
                             selectedClassData
                           )}
                           size={5}

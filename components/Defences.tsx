@@ -28,7 +28,7 @@ import {
 const Defences = () => {
   const [shieldRaised, setShieldRaised] = React.useState(false);
 
-  const currentLevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
   const selectedArmour = useSelector(selectArmour);
   const selectedAncestry = useSelector(selectAncestry);
@@ -64,7 +64,7 @@ const Defences = () => {
     let proficiency = 0;
 
     selectedClassData.saves[saveType].forEach((level) => {
-      if (level <= currentLevel) {
+      if (level <= selectedLevel) {
         proficiency += 2;
       }
     });
@@ -101,7 +101,7 @@ const Defences = () => {
     const Base = 10;
     const proficiency = calculateCurrentArmourProficiencyBonus(
       selectedArmourData.category,
-      currentLevel,
+      selectedLevel,
       selectedClassData
     );
     const item = selectedArmourData.ACBonus;
@@ -109,7 +109,7 @@ const Defences = () => {
     const dexterity = Math.min(
       calculateCurrentAttributeBoost(
         "Dexterity",
-        currentLevel,
+        selectedLevel,
         attributeBoosts
       ),
       dexCap
@@ -124,7 +124,7 @@ const Defences = () => {
 
     //if the character is not proficient in the selector armour, they can't add their level to AC
     if (proficiency > 0) {
-      AC += currentLevel;
+      AC += selectedLevel;
     }
     AC += item;
     AC += shield;
@@ -144,14 +144,14 @@ const Defences = () => {
     const ancestry = selectedAncestryData.hp;
     const constitution = calculateCurrentAttributeBoost(
       "Constitution",
-      currentLevel,
+      selectedLevel,
       attributeBoosts
     );
     //const bonus = 0; // TODO: Add bonus HP from items or feats
 
     HP += ancestry;
-    HP += classHP * currentLevel;
-    HP += constitution * currentLevel;
+    HP += classHP * selectedLevel;
+    HP += constitution * selectedLevel;
 
     return HP;
   }
@@ -165,27 +165,27 @@ const Defences = () => {
     if (saveType === "fortitude") {
       attribute = calculateCurrentAttributeBoost(
         "Constitution",
-        currentLevel,
+        selectedLevel,
         attributeBoosts
       );
     }
     if (saveType === "reflex") {
       attribute = calculateCurrentAttributeBoost(
         "Dexterity",
-        currentLevel,
+        selectedLevel,
         attributeBoosts
       );
     }
     if (saveType === "will") {
       attribute = calculateCurrentAttributeBoost(
         "Wisdom",
-        currentLevel,
+        selectedLevel,
         attributeBoosts
       );
     }
 
     saveBonus += proficiency;
-    saveBonus += currentLevel;
+    saveBonus += selectedLevel;
     saveBonus += item;
     saveBonus += rune;
     saveBonus += attribute;

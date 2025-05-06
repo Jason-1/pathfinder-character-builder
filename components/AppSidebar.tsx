@@ -14,7 +14,7 @@ import { selectClass, selectLevel, selectName } from "@/app/redux/selectors";
 
 export function AppSidebar() {
   const name = useSelector(selectName);
-  const currentLevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
 
   //------------------------------------------------------------------------------//
@@ -23,7 +23,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex justify-center">
-          {name !== "" ? name : "No Name Entered"}, Level {currentLevel}{" "}
+          {name !== "" ? name : "No Name Entered"}, Level {selectedLevel}{" "}
           {selectedClass === "Select Class" ? "" : selectedClass}
         </div>
       </SidebarHeader>

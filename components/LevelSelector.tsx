@@ -19,7 +19,7 @@ const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 const LevelSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const currentLevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
 
   //------------------------------------------------------------------------------//
 
@@ -32,7 +32,7 @@ const LevelSelector: React.FC = ({}) => {
       <Dialog>
         <DialogTrigger className="inline-block w-full">
           <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">
-            Level {currentLevel}
+            Level {selectedLevel}
           </div>
         </DialogTrigger>
         <DialogContent>
@@ -45,7 +45,7 @@ const LevelSelector: React.FC = ({}) => {
                     variant="default"
                     key={level}
                     className={`col-span-1 ${
-                      level <= currentLevel
+                      level <= selectedLevel
                         ? "opacity-100 border-black text-white"
                         : "opacity-80"
                     }`}

@@ -18,7 +18,7 @@ import {
 } from "@/app/redux/selectors";
 
 const SkillShowcase: React.FC = ({}) => {
-  const currentLevel = useSelector(selectLevel);
+  const selectedLevel = useSelector(selectLevel);
   const selectedSkills = useSelector(selectSkills);
   const attributeBoosts = useSelector(selectAttributeBoostCategories);
   //------------------------------------------------------------------------------//
@@ -26,7 +26,7 @@ const SkillShowcase: React.FC = ({}) => {
   function findTrainingLevel(skill: skillProficienciesType) {
     const intTraining = skill.IntBoost ? 1 : 0;
     const numericalTrainingLevel = skill.LevelsBoosted.filter(
-      (level) => level <= currentLevel
+      (level) => level <= selectedLevel
     ).length;
     const currentTrainingLevel = numericalTrainingLevel + intTraining;
 
@@ -50,7 +50,7 @@ const SkillShowcase: React.FC = ({}) => {
     let skillModifier = 0;
 
     let proficiency =
-      skill.LevelsBoosted.filter((level) => level <= currentLevel).length * 2;
+      skill.LevelsBoosted.filter((level) => level <= selectedLevel).length * 2;
 
     //if an int boost is applied to the skill, add 1 to the proficiency
     if (skill.IntBoost) {
@@ -61,12 +61,12 @@ const SkillShowcase: React.FC = ({}) => {
 
     //if the skill is trained, add the current level to the proficiency
     if (proficiency > 0) {
-      skillModifier += currentLevel;
+      skillModifier += selectedLevel;
     }
 
     const abilityModifier = calculateCurrentAttributeBoost(
       skill.attribute,
-      currentLevel,
+      selectedLevel,
       attributeBoosts
     );
 

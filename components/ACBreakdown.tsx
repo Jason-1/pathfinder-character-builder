@@ -1,9 +1,7 @@
-import { selectACBreakdownData } from "@/app/selectors";
 import { RootState } from "@/app/store";
 import { armourData, Classes, shieldData } from "@/data";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
-import { AttributeBoostsType } from "@/types";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -12,14 +10,16 @@ interface ACBreakdownProps {
 }
 
 const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
-  const {
-    currentLevel,
-    selectedArmour,
-    selectedPotency,
-    selectedShield,
-    selectedClass,
-    attributeBoosts,
-  } = useSelector(selectACBreakdownData);
+  const selectedLevel = useSelector((state: RootState) => state.level.level);
+  const selectedArmour = useSelector((state: RootState) => state.armour.armour);
+  const selectedPotency = useSelector(
+    (state: RootState) => state.potency.potency
+  );
+  const selectedShield = useSelector((state: RootState) => state.shield.shield);
+  const selectedClass = useSelector((state: RootState) => state.class.class);
+  const attributeBoosts = useSelector(
+    (state: RootState) => state.attributeBoostCategories
+  );
 
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
@@ -43,14 +43,14 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
       Proficiency:{" "}
       {calculateCurrentArmourProficiencyBonus(
         selectedArmourData.category,
-        currentLevel,
+        selectedLevel,
         selectedClassData
       ) > 0
         ? calculateCurrentArmourProficiencyBonus(
             selectedArmourData.category,
-            currentLevel,
+            selectedLevel,
             selectedClassData
-          ) + currentLevel
+          ) + selectedLevel
         : 0}
       <br />
       Item: {selectedArmourData.ACBonus} <br />
@@ -59,7 +59,7 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
       {Math.min(
         calculateCurrentAttributeBoost(
           "Dexterity",
-          currentLevel,
+          selectedLevel,
           attributeBoosts
         ),
         selectedArmourData.dexCap

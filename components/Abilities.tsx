@@ -11,22 +11,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import AttributeButtons from "./AttributeButtons";
-import { AttributeBoostsType, Category } from "@/types";
+import { Category } from "@/types";
 import { resetSpecificAttributeBoost } from "@/app/Slices/attributeBoostCategoriesSlice";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
+import { RootState } from "@/app/store";
 
 const Abilities: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
+  const selectedLevel = useSelector((state: RootState) => state.level.level);
   const selectedAncestry = useSelector(
-    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
+    (state: RootState) => state.ancestry.ancestry
   );
   const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
+    (state: RootState) => state.attributeBoostCategories
   );
 
   //------------------------------------------------------------------------------//

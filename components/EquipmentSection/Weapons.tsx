@@ -1,5 +1,5 @@
 import { Classes, weaponData } from "@/data";
-import { AttributeBoostsType, weaponItemType } from "@/types";
+import { weaponItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
@@ -16,25 +16,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import calculateCurrentWeaponProficiencyBonus from "@/lib/calculateCurrentWeaponProficiencyBonus";
+import { RootState } from "@/app/store";
 
 const Armour = () => {
   const dispatch = useDispatch();
 
-  const selectedWeapon = useSelector(
-    (state: { weapon: { weapon: string } }) => state.weapon.weapon
+  const selectedWeapon = useSelector((state: RootState) => state.weapon.weapon);
+  const currentLevel = useSelector((state: RootState) => state.level.level);
+  const attributeBoosts = useSelector(
+    (state: RootState) => state.attributeBoostCategories
   );
+  const selectedClass = useSelector((state: RootState) => state.class.class);
+
   const selectedWeaponData = weaponData.find(
     (weaponItem) => weaponItem.name === selectedWeapon
-  );
-  const currentLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
-  const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
-  );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
   );
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass

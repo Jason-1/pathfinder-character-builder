@@ -16,33 +16,27 @@ import { setResilient } from "@/app/Slices/resilientSlice";
 import { Separator } from "@/components/ui/separator";
 import { setShield } from "@/app/Slices/shieldSlice";
 import SelectorDialog from "../SelectorDialog";
+import { RootState } from "@/app/store";
 
 const Armour = () => {
   const dispatch = useDispatch();
 
-  const selectedArmour = useSelector(
-    (state: { armour: { armour: string } }) => state.armour.armour
+  const selectedArmour = useSelector((state: RootState) => state.armour.armour);
+  const selectedPotency = useSelector(
+    (state: RootState) => state.potency.potency
   );
+  const selectedResilient = useSelector(
+    (state: RootState) => state.resilient.resilient
+  );
+  const selectedShield = useSelector((state: RootState) => state.shield.shield);
+  const currentLevel = useSelector((state: RootState) => state.level.level);
+  const selectedClass = useSelector((state: RootState) => state.class.class);
+
   const selectedArmourData = armourData.find(
     (armourItem) => armourItem.name === selectedArmour
   );
-  const selectedPotency = useSelector(
-    (state: { potency: { potency: number } }) => state.potency.potency
-  );
-  const selectedResilient = useSelector(
-    (state: { resilient: { resilient: number } }) => state.resilient.resilient
-  );
-  const selectedShield = useSelector(
-    (state: { shield: { shield: string } }) => state.shield.shield
-  );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
-  );
-  const currentLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
   );
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass

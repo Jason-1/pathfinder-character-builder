@@ -2,12 +2,14 @@ import React from "react";
 import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { setName } from "@/app/Slices/nameSlice";
+import { RootState } from "@/app/store";
 
 const Name = () => {
   const dispatch = useDispatch();
 
-  const name =
-    useSelector((state: { name: { name: string } }) => state.name.name) || "";
+  const name = useSelector((state: RootState) => state.name.name) || "";
+
+  //------------------------------------------------------------------------------//
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setName(event.target.value)); // Dispatch the action to update the name

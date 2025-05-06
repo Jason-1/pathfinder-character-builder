@@ -14,8 +14,8 @@ import TrainingIcon from "./Icons/TrainingIcon";
 import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmourProficiencyLevel";
 import { Classes } from "@/data";
 import { armourTypes, weaponTypes } from "@/types";
-import calculateCurrentWeaponProficiencyBonus from "@/lib/calculateCurrentWeaponProficiencyBonus";
 import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
+import { RootState } from "@/app/store";
 
 interface SelectorDialogProps<T> {
   itemType: string;
@@ -47,12 +47,8 @@ const SelectorDialog = <
 }: SelectorDialogProps<T>) => {
   const [selectedTab, setSelectedTab] = React.useState<string>("All");
 
-  const selectedlevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
+  const selectedlevel = useSelector((state: RootState) => state.level.level);
+  const selectedClass = useSelector((state: RootState) => state.class.class);
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );

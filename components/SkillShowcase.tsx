@@ -1,4 +1,4 @@
-import { AttributeBoostsType, skillProficienciesType } from "@/types";
+import { skillProficienciesType } from "@/types";
 import React from "react";
 import { useSelector } from "react-redux";
 import {
@@ -11,18 +11,15 @@ import {
 } from "@/components/ui/table";
 import DiceRoller from "./DiceRoller";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
+import { RootState } from "@/app/store";
 
 const SkillShowcase: React.FC = ({}) => {
-  const currentLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
+  const currentLevel = useSelector((state: RootState) => state.level.level);
   const selectedSkills = useSelector(
-    (state: { selectedSkills: skillProficienciesType[] }) =>
-      state.selectedSkills
+    (state: RootState) => state.selectedSkills
   );
   const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
+    (state: RootState) => state.attributeBoostCategories
   );
   //------------------------------------------------------------------------------//
 

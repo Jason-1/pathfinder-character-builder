@@ -15,6 +15,7 @@ import {
   updateIntelligenceSkillBoost,
   updateSkillBoost,
 } from "@/app/Slices/selectedSkillsSlice";
+import { RootState } from "@/app/store";
 
 interface SkillIncreaseProps {
   currentLevel: number;
@@ -32,16 +33,14 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   const dispatch = useDispatch();
 
   const selectedBackground = useSelector(
-    (state: { background: { background: string } }) =>
-      state.background.background
+    (state: RootState) => state.background.background
   );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
+  const selectedClass = useSelector((state: RootState) => state.class.class);
   const selectedSkills = useSelector(
-    (state: { selectedSkills: skillProficienciesType[] }) =>
-      state.selectedSkills
+    (state: RootState) => state.selectedSkills
   );
+
+  //------------------------------------------------------------------------------//
 
   const handleUpdateSkillIncrease = (skill: skillTypes | "") => {
     dispatch(updateSkillBoost({ skill, currentLevel }));

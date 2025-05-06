@@ -14,46 +14,39 @@ import {
 } from "@/components/ui/hover-card";
 import ACBreakdown from "./ACBreakdown";
 import { Button } from "./ui/button";
+import { RootState } from "@/app/store";
 
 const Defences = () => {
   const [shieldRaised, setShieldRaised] = React.useState(false);
 
-  const currentLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
+  const currentLevel = useSelector((state: RootState) => state.level.level);
+  const selectedClass = useSelector((state: RootState) => state.class.class);
+  const selectedArmour = useSelector((state: RootState) => state.armour.armour);
+  const selectedAncestry = useSelector(
+    (state: RootState) => state.ancestry.ancestry
   );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
+  const selectedPotency = useSelector(
+    (state: RootState) => state.potency.potency
   );
+  const selectedResilient = useSelector(
+    (state: RootState) => state.resilient.resilient
+  );
+  const selectedShield = useSelector((state: RootState) => state.shield.shield);
+  const attributeBoosts = useSelector(
+    (state: RootState) => state.attributeBoostCategories
+  );
+
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
-  );
-  const selectedArmour = useSelector(
-    (state: { armour: { armour: string } }) => state.armour.armour
   );
   const selectedArmourData = armourData.find(
     (armourItem) => armourItem.name === selectedArmour
   );
-  const selectedAncestry = useSelector(
-    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
-  );
-  const selectedAncestryData = Ancestries.find(
-    (ancestryItem) => ancestryItem.name === selectedAncestry
-  );
-  const selectedPotency = useSelector(
-    (state: { potency: { potency: number } }) => state.potency.potency
-  );
-  const selectedResilient = useSelector(
-    (state: { resilient: { resilient: number } }) => state.resilient.resilient
-  );
-  const selectedShield = useSelector(
-    (state: { shield: { shield: string } }) => state.shield.shield
-  );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
-  const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
+  const selectedAncestryData = Ancestries.find(
+    (ancestryItem) => ancestryItem.name === selectedAncestry
   );
 
   //------------------------------------------------------------------------------//

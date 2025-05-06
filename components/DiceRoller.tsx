@@ -22,6 +22,7 @@ interface DiceRollerProps {
 
 import DiceTray from "./3dElements/DiceTray";
 import DCHeader from "./DCHeader";
+import { RootState } from "@/app/store";
 
 const DiceRoller: React.FC<DiceRollerProps> = ({
   diceType,
@@ -29,13 +30,9 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
   diceCount,
   damageModifier,
 }) => {
-  const currentLevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
+  const currentLevel = useSelector((state: RootState) => state.level.level);
 
-  const selectedWeapon = useSelector(
-    (state: { weapon: { weapon: string } }) => state.weapon.weapon
-  );
+  const selectedWeapon = useSelector((state: RootState) => state.weapon.weapon);
   const selectedWeaponData = weaponData.find(
     (weaponItem) => weaponItem.name === selectedWeapon
   );

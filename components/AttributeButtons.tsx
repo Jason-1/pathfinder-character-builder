@@ -12,6 +12,7 @@ import {
   resetAllIntelligenceBoosts,
   resetAllSkillBoosts,
 } from "@/app/Slices/selectedSkillsSlice";
+import { RootState } from "@/app/store";
 
 const BoostLimits = {
   Ancestry: 2,
@@ -42,15 +43,12 @@ const AttributeButtons: React.FC = ({}) => {
   };
 
   const selectedAncestry = useSelector(
-    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
+    (state: RootState) => state.ancestry.ancestry
   );
   const selectedBackground = useSelector(
-    (state: { background: { background: string } }) =>
-      state.background.background
+    (state: RootState) => state.background.background
   );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
+  const selectedClass = useSelector((state: RootState) => state.class.class);
   const attributeBoosts = useSelector(
     (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
       state.attributeBoostCategories

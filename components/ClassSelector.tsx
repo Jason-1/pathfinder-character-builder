@@ -9,15 +9,14 @@ import { setSubclass } from "@/app/Slices/subclassSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
+import { RootState } from "@/app/store";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
+  const selectedClass = useSelector((state: RootState) => state.class.class);
   const selectedSubclass = useSelector(
-    (state: { subclass: { subclass: string } }) => state.subclass.subclass
+    (state: RootState) => state.subclass.subclass
   );
 
   const handleChangeClass = (classString: string) => {

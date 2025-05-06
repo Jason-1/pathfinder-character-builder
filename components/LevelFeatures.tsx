@@ -31,6 +31,7 @@ import {
 import SkillIncreases from "./SkillIncreases";
 import { updateFeat } from "@/app/Slices/selectedFeatsSlice";
 import SelectorDialog from "./SelectorDialog";
+import { RootState } from "@/app/store";
 
 //Create an available feats object I can pass through to the selector dialog
 
@@ -40,32 +41,24 @@ const LevelFeatures: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   //Get required states
-  const selectedlevel = useSelector(
-    (state: { level: { level: number } }) => state.level.level
-  );
+  const selectedlevel = useSelector((state: RootState) => state.level.level);
   const selectedAncestry = useSelector(
-    (state: { ancestry: { ancestry: string } }) => state.ancestry.ancestry
+    (state: RootState) => state.ancestry.ancestry
   );
-  const selectedClass = useSelector(
-    (state: { class: { class: string } }) => state.class.class
-  );
+  const selectedClass = useSelector((state: RootState) => state.class.class);
   const freeArchetype = useSelector(
-    (state: { freeArchetype: { freeArchetype: string } }) =>
-      state.freeArchetype.freeArchetype
+    (state: RootState) => state.freeArchetype.freeArchetype
   );
   const ancestralParagon = useSelector(
-    (state: { ancestralParagon: { ancestralParagon: string } }) =>
-      state.ancestralParagon.ancestralParagon
-  );
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
+    (state: RootState) => state.ancestralParagon.ancestralParagon
   );
   const attributeBoosts = useSelector(
-    (state: { attributeBoostCategories: AttributeBoostsType[] }) =>
-      state.attributeBoostCategories
+    (state: RootState) => state.attributeBoostCategories
   );
-  const selectedFeats = useSelector(
-    (state: { selectedFeats: FeatsType[] }) => state.selectedFeats
+  const selectedFeats = useSelector((state: RootState) => state.selectedFeats);
+
+  const selectedClassData = Classes.find(
+    (classItem) => classItem.name === selectedClass
   );
   //------------------------------------------------------------------------------//
 

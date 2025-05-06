@@ -8,13 +8,13 @@ import { setBackground } from "@/app/Slices/backgroundSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { BackgroundType } from "@/types";
+import { RootState } from "@/app/store";
 
 const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   const selectedBackground = useSelector(
-    (state: { background: { background: string } }) =>
-      state.background.background
+    (state: RootState) => state.background.background
   );
 
   const [highlightedBackground, setHighlightedBackground] =

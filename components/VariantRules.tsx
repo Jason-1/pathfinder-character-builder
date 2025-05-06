@@ -4,19 +4,20 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFreeArchetype } from "@/app/Slices/freeArchetypeSlice";
 import { toggleAncestralParagon } from "@/app/Slices/ancestralParagonSlice";
+import { RootState } from "@/app/store";
 
 const VariantRules = ({}) => {
   const dispatch = useDispatch();
 
   const freeArchetype = useSelector(
-    (state: { freeArchetype: { freeArchetype: boolean } }) =>
-      state.freeArchetype.freeArchetype
+    (state: RootState) => state.freeArchetype.freeArchetype
   );
 
   const ancestralParagon = useSelector(
-    (state: { ancestralParagon: { ancestralParagon: boolean } }) =>
-      state.ancestralParagon.ancestralParagon
+    (state: RootState) => state.ancestralParagon.ancestralParagon
   );
+
+  //------------------------------------------------------------------------------//
 
   const handletoggleFreeArchetype = () => {
     dispatch(toggleFreeArchetype());

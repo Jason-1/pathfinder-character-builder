@@ -1890,7 +1890,7 @@ export const weaponData: weaponItemType[] = [
   },
 ];
 
-export const selectedSpells: selectedSpellsType[] = [
+export const initialSelectedSpells: selectedSpellsType[] = [
   {
     rank: 0,
     spells: [],

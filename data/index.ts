@@ -6,7 +6,7 @@ import {
   BackgroundType,
   ClassType,
   FeatsType,
-  highlightedFeatData,
+  highlightedFeatDataType,
   shieldItemType,
   skillProficienciesType,
   subclassType,
@@ -475,7 +475,7 @@ export const skillProficiencies: skillProficienciesType[] = [
   },
 ];
 
-export const initialHighlightedFeatData: highlightedFeatData[] = [
+export const initialHighlightedFeatData: highlightedFeatDataType[] = [
   {
     level: 1,
     featType: "Martial",

@@ -20,7 +20,7 @@ import {
   initialHighlightedFeatData,
   skillIncreaseLevels,
 } from "@/data";
-import { classFeatType, highlightedFeatData } from "@/types";
+import { classFeatType, highlightedFeatDataType } from "@/types";
 import SkillIncreases from "./SkillIncreases";
 import { updateFeat } from "@/app/redux/Slices/selectedFeatsSlice";
 import SelectorDialog from "./SelectorDialog";
@@ -163,7 +163,7 @@ const LevelFeatures: React.FC = ({}) => {
   //------------------------------------------------------------------------//
 
   const [highlightedItems, setHighlightedItems] = React.useState<
-    highlightedFeatData[]
+    highlightedFeatDataType[]
   >(initialHighlightedFeatData);
 
   const getFilteredFeats = (level: number, featTrait: string) => {

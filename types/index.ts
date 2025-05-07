@@ -211,8 +211,31 @@ export type spellObjectType = {
   spellSlots: number[];
 };
 
-export type highlightedFeatData = {
+export type highlightedFeatDataType = {
   level: number;
   featType: string;
   featData: classFeatType;
+};
+
+export type spellType = {
+  name: string;
+  pfs: string;
+  source: string;
+  traditions: string[];
+  rarity: string;
+  traits: string[];
+  cantrip?: boolean;
+  focus?: boolean;
+  level: number;
+  summary: string;
+  heightenable?: boolean;
+  link: string;
+  action: string;
+  component: string;
+  attributes: {
+    Range?: string;
+    Area?: string;
+    raw?: string;
+  };
+  description: string;
 };

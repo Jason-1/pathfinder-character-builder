@@ -45,13 +45,13 @@ const Armour = () => {
     (classItem) => classItem.name === selectedClass
   );
 
-  //------------------------------------------------------------------------------//
-
   const [highlightedArmour, setHighlightedArmour] =
     React.useState<armourItemType>(armourData[0]);
 
   const [highlightedShield, setHighlightedShield] =
     React.useState<shieldItemType>(shieldData[0]);
+
+  //------------------------------------------------------------------------------//
 
   const handleSetArmour = (armour: string) => {
     dispatch(setArmour({ armour }));

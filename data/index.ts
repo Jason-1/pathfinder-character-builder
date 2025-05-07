@@ -254,6 +254,7 @@ export const Classes: ClassType[] = [
   {
     name: "Wizard",
     type: "Caster",
+    tradition: "Arcane",
     perception: "Trained",
     saves: {
       fortitude: [1, 9],

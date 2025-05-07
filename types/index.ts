@@ -78,6 +78,7 @@ export type BackgroundType = {
 export type ClassType = {
   name: string;
   type: string;
+  tradition?: string;
   perception: TrainingType;
   saves: {
     fortitude: number[];
@@ -231,16 +232,26 @@ export type spellType = {
   heightenable?: boolean;
   link: string;
   action: string;
-  component: string;
+  bloodline?: string;
+  component?: string;
   attributes: {
     Range?: string;
     Area?: string;
     raw?: string;
+    Targets?: string;
+    Duration?: string;
+    "Saving Throw"?: string;
   };
   description: string;
+  heightened?: string[];
 };
 
 export type selectedSpellsType = {
   rank: number;
-  spells: string[];
+  spells: idividualSelectedSpellType[];
+};
+
+export type idividualSelectedSpellType = {
+  name: string;
+  position: number;
 };

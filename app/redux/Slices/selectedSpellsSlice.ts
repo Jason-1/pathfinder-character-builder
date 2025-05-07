@@ -13,30 +13,52 @@ const selectedSpellsSlice = createSlice({
       action: PayloadAction<{
         rank: number;
         spellName: string;
+        position: number;
       }>
     ) => {
-      const { rank, spellName } = action.payload;
+      const { rank, spellName, position } = action.payload;
 
+      // If a spell already exists in that slot, remove it before adding the new one
+      if (
+        state
+          .find((spellRank) => spellRank.rank === rank)
+          ?.spells.find((spell) => spell.position === position)
+      ) {
+        state = selectedSpellsSlice.reducer(
+          state,
+          removeSpell({ rank, position })
+        );
+      }
       state
         .find((spellRank) => spellRank.rank === rank)
-        ?.spells.push(spellName);
+        ?.spells.push({ name: spellName, position: position });
     },
-
-    // Not finished
     removeSpell: (
       state,
       action: PayloadAction<{
         rank: number;
-        spellName: string;
+        position: number;
       }>
     ) => {
-      const { rank, spellName } = action.payload;
+      const { rank, position } = action.payload;
 
-      const currentSpellRank = state.find(
-        (spellRank) => spellRank.rank === rank
-      );
+      const spellRank = state.find((spellRank) => spellRank.rank === rank);
+
+      if (spellRank) {
+        const spellPosition = spellRank.spells.indexOf(
+          spellRank.spells.find((spell) => spell.position === position) ?? {
+            name: "",
+            position: -1,
+          }
+        );
+        if (spellPosition !== -1) {
+          spellRank.spells.splice(spellPosition, 1);
+        }
+      }
     },
-    clearSpells: () => {},
+    clearSpells: (state) => {
+      state = initialState;
+    },
   },
 });
 

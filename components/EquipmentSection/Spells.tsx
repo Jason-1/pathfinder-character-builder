@@ -1,8 +1,11 @@
 import { selectClass, selectLevel, selectSpells } from "@/app/redux/selectors";
-import { addSpell } from "@/app/redux/Slices/selectedSpellsSlice";
+import { addSpell, removeSpell } from "@/app/redux/Slices/selectedSpellsSlice";
 import { Classes } from "@/data";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { spellsData } from "@/data/spells";
+import SelectorDialog from "../SelectorDialog";
+import { spellType } from "@/types";
 
 const Spells = () => {
   const dispatch = useDispatch();
@@ -17,28 +20,82 @@ const Spells = () => {
   const currentLevelSpellData = selectedClassData?.spells.find(
     (spell) => spell.level === selectedLevel
   );
+
+  const traditionSpells = spellsData.filter((spell) =>
+    spell.traditions.includes(selectedClassData?.tradition || "")
+  );
+
+  const [highlightedSpell, setHighlightedSpell] = React.useState<spellType>(
+    spellsData[0]
+  );
+
+  const cantrips = traditionSpells.filter((spell) => spell.cantrip);
+  const leveledSpells = traditionSpells.filter((spell) => !spell.cantrip);
+
   //------------------------------------------------------------------------------//
 
-  const handleAddSpell = (rank: number, spellName: string) => {
-    dispatch(addSpell({ rank, spellName }));
+  const handleAddSpell = (
+    rank: number,
+    spellName: string,
+    position: number
+  ) => {
+    dispatch(addSpell({ rank, spellName, position }));
+  };
+
+  const handleRemoveSpell = (rank: number, position: number) => {
+    dispatch(removeSpell({ rank, position }));
+  };
+
+  const getFilteredSpells = (rank: number) => {
+    const filteredSpells = leveledSpells.filter(
+      (spells) => spells.level <= rank
+    );
+    return filteredSpells;
   };
 
   if (!currentLevelSpellData) {
     return <p>You can't cast spells</p>;
   }
 
-  const log = () => {
-    handleAddSpell(1, "Fireball");
-    handleAddSpell(8, "BOOOOO");
-    console.log(selectedSpells);
-  };
+  /*
+   <SelectorDialog
+            itemType="Weapon"
+            selectedItem={selectedWeapon}
+            data={weaponData}
+            highlightedItemName={highlightedWeapon.name}
+            highlightedItemDescription={highlightedWeapon.description}
+            onItemClick={(item) => handleSetWeapon(item)}
+            setHighlightedItem={setHighlightedWeapon}
+          >
+
+
+            {
+    rank: 0,
+    spells: [],
+  },
+  */
 
   return (
     <div>
-      <h3 onClick={log}>Cantrips</h3>
+      <h3>Cantrips</h3>
       <div>
         {Array.from({ length: currentLevelSpellData.cantrips }, (_, i) => (
-          <div key={i}>CANTRIP {i + 1}</div>
+          <div key={i}>
+            <SelectorDialog
+              itemType="Spell"
+              selectedItem={
+                selectedSpells
+                  .find((spell) => spell.rank === 0)
+                  ?.spells.find((spell) => spell.position === i)?.name ||
+                "-------"
+              }
+              data={cantrips}
+              highlightedItemName={highlightedSpell.name}
+              highlightedItemDescription={highlightedSpell.description}
+              onItemClick={(item) => handleAddSpell(0, item, i)}
+              setHighlightedItem={setHighlightedSpell}
+            ></SelectorDialog>
+          </div>
         ))}
       </div>
 
@@ -51,7 +108,26 @@ const Spells = () => {
                 <h3>Rank {spellLevel + 1}</h3>
                 <div>
                   {Array.from({ length: spellCount }, (_, i) => (
-                    <div key={i}>Spell Slot {i + 1}</div>
+                    <div key={i}>
+                      <SelectorDialog
+                        itemType="Spell"
+                        selectedItem={
+                          selectedSpells
+                            .find((spell) => spell.rank === spellLevel + 1)
+                            ?.spells.find((spell) => spell.position === i)
+                            ?.name || "-------"
+                        }
+                        data={getFilteredSpells(spellLevel + 1)}
+                        highlightedItemName={highlightedSpell.name}
+                        highlightedItemDescription={
+                          highlightedSpell.description
+                        }
+                        onItemClick={(item) =>
+                          handleAddSpell(spellLevel + 1, item, i)
+                        }
+                        setHighlightedItem={setHighlightedSpell}
+                      ></SelectorDialog>
+                    </div>
                   ))}
                 </div>
               </div>

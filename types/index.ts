@@ -239,3 +239,8 @@ export type spellType = {
   };
   description: string;
 };
+
+export type selectedSpellsType = {
+  rank: number;
+  spells: string[];
+};

@@ -7,6 +7,7 @@ import {
   ClassType,
   FeatsType,
   highlightedFeatDataType,
+  selectedSpellsType,
   shieldItemType,
   skillProficienciesType,
   subclassType,
@@ -1886,5 +1887,52 @@ export const weaponData: weaponItemType[] = [
     description:
       "This handheld crossbow features an ingeniously designed catch mechanism at the top of the flight groove, just in front of the latch, which automatically loads a bolt from a magazine and resets the string each time the weapon is fired. A typical repeating hand crossbow magazine holds five bolts.",
     traits: [],
+  },
+];
+
+export const selectedSpells: selectedSpellsType[] = [
+  {
+    rank: 0,
+    spells: [],
+  },
+  {
+    rank: 1,
+    spells: [],
+  },
+  {
+    rank: 2,
+    spells: [],
+  },
+  {
+    rank: 3,
+    spells: [],
+  },
+  {
+    rank: 4,
+    spells: [],
+  },
+  {
+    rank: 5,
+    spells: [],
+  },
+  {
+    rank: 6,
+    spells: [],
+  },
+  {
+    rank: 7,
+    spells: [],
+  },
+  {
+    rank: 8,
+    spells: [],
+  },
+  {
+    rank: 9,
+    spells: [],
+  },
+  {
+    rank: 10,
+    spells: [],
   },
 ];

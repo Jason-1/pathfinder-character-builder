@@ -114,7 +114,7 @@ const Defences = () => {
       ),
       dexCap
     );
-    let shield = 0; // TODO: Add shield bonus
+    let shield = 0;
     if (shieldRaised && selectedShieldData) {
       shield = selectedShieldData.ACBonus;
     }

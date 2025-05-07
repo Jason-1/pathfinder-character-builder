@@ -1,11 +1,14 @@
-import { selectClass, selectLevel } from "@/app/redux/selectors";
+import { selectClass, selectLevel, selectSpells } from "@/app/redux/selectors";
+import { addSpell } from "@/app/redux/Slices/selectedSpellsSlice";
 import { Classes } from "@/data";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Spells = () => {
+  const dispatch = useDispatch();
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
+  const selectedSpells = useSelector(selectSpells);
 
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
@@ -16,13 +19,23 @@ const Spells = () => {
   );
   //------------------------------------------------------------------------------//
 
+  const handleAddSpell = (rank: number, spellName: string) => {
+    dispatch(addSpell({ rank, spellName }));
+  };
+
   if (!currentLevelSpellData) {
     return <p>You can't cast spells</p>;
   }
 
+  const log = () => {
+    handleAddSpell(1, "Fireball");
+    handleAddSpell(8, "BOOOOO");
+    console.log(selectedSpells);
+  };
+
   return (
     <div>
-      <h3>Cantrips</h3>
+      <h3 onClick={log}>Cantrips</h3>
       <div>
         {Array.from({ length: currentLevelSpellData.cantrips }, (_, i) => (
           <div key={i}>CANTRIP {i + 1}</div>

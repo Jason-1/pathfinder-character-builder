@@ -21,3 +21,4 @@ export const selectPotency = (state: RootState) => state.potency.potency;
 export const selectResilient = (state: RootState) => state.resilient.resilient;
 export const selectShield = (state: RootState) => state.shield.shield;
 export const selectWeapon = (state: RootState) => state.weapon.weapon;
+export const selectSpells = (state: RootState) => state.selectedSpells;

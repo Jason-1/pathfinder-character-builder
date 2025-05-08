@@ -21,6 +21,7 @@ import twoActions from "@/public/two-actions-white.png";
 import threeActions from "@/public/three-actions-white.png";
 import reaction from "@/public/reaction-white.png";
 import freeAction from "@/public/free-action-white.png";
+import { Input } from "./ui/input";
 
 interface SelectorDialogProps<T> {
   itemType: string;
@@ -50,6 +51,7 @@ const SelectorDialog = <
   children,
 }: SelectorDialogProps<T>) => {
   const [selectedTab, setSelectedTab] = React.useState<string>("All");
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
 
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
@@ -107,6 +109,11 @@ const SelectorDialog = <
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
           <div className="flex flex-row gap-4 mb-2 justify-left">
+            <Input
+              className="w-1/3"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             {getCategoryTabs().map((category, index) => (
               <Button
                 key={index}
@@ -117,9 +124,9 @@ const SelectorDialog = <
               </Button>
             ))}
           </div>
-          <DialogTitle className="grid grid-cols-3 text-center items-start">
+          <DialogTitle className="grid grid-cols-3 text-center items-center">
             <span className="col-span-1 self-start">Select {itemType}</span>
-            <span className="col-span-2 self-start relative">
+            <span className="col-span-2 flex items-center justify-center relative">
               <span className="absolute inset-0 flex items-center justify-center">
                 {highlightedItem.name || ""}
               </span>
@@ -129,7 +136,7 @@ const SelectorDialog = <
                     width={30}
                     height={20}
                     src={actionImages[highlightedItem.action] || undefined}
-                    alt={highlightedItem.action}
+                    alt=""
                   />
                 )}
               </span>
@@ -142,7 +149,11 @@ const SelectorDialog = <
               (item) =>
                 (item.category
                   ? item.category === selectedTab || selectedTab === "All"
-                  : selectedTab === "All") && (
+                  : selectedTab === "All") &&
+                (searchTerm === "" ||
+                  item.name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())) && (
                   <div
                     key={item.name}
                     className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between items-center ${

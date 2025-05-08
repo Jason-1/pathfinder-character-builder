@@ -196,8 +196,7 @@ const Armour = () => {
           itemType="Weapon"
           selectedItem={selectedWeapon}
           data={weaponData}
-          highlightedItemName={highlightedWeapon.name}
-          highlightedItemDescription={highlightedWeapon.description}
+          highlightedItem={highlightedWeapon}
           onItemClick={(item) => handleSetWeapon(item)}
           setHighlightedItem={setHighlightedWeapon}
         >

@@ -57,7 +57,7 @@ const selectedSpellsSlice = createSlice({
       }
     },
     clearSpells: (state) => {
-      state = initialState;
+      return initialState;
     },
   },
 });

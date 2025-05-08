@@ -1,11 +1,12 @@
 import { selectClass, selectLevel, selectSpells } from "@/app/redux/selectors";
-import { addSpell, removeSpell } from "@/app/redux/Slices/selectedSpellsSlice";
+import { addSpell, clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
 import { Classes } from "@/data";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { spellsData } from "@/data/spells";
 import SelectorDialog from "../SelectorDialog";
 import { spellType } from "@/types";
+import { Button } from "../ui/button";
 
 const Spells = () => {
   const dispatch = useDispatch();
@@ -42,10 +43,6 @@ const Spells = () => {
     dispatch(addSpell({ rank, spellName, position }));
   };
 
-  const handleRemoveSpell = (rank: number, position: number) => {
-    dispatch(removeSpell({ rank, position }));
-  };
-
   const getFilteredSpells = (rank: number) => {
     const filteredSpells = leveledSpells.filter(
       (spells) => spells.level <= rank
@@ -53,27 +50,13 @@ const Spells = () => {
     return filteredSpells;
   };
 
+  const handleClearSpells = () => {
+    dispatch(clearSpells());
+  };
+
   if (!currentLevelSpellData) {
     return <p>You can't cast spells</p>;
   }
-
-  /*
-   <SelectorDialog
-            itemType="Weapon"
-            selectedItem={selectedWeapon}
-            data={weaponData}
-            highlightedItemName={highlightedWeapon.name}
-            highlightedItemDescription={highlightedWeapon.description}
-            onItemClick={(item) => handleSetWeapon(item)}
-            setHighlightedItem={setHighlightedWeapon}
-          >
-
-
-            {
-    rank: 0,
-    spells: [],
-  },
-  */
 
   return (
     <div>
@@ -90,17 +73,21 @@ const Spells = () => {
                 "-------"
               }
               data={cantrips}
-              highlightedItemName={highlightedSpell.name}
-              highlightedItemDescription={highlightedSpell.description}
+              highlightedItem={highlightedSpell}
               onItemClick={(item) => handleAddSpell(0, item, i)}
               setHighlightedItem={setHighlightedSpell}
-            ></SelectorDialog>
+            >
+              <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
+                <span>Tradition: {selectedClassData?.tradition} </span>
+                <span>Traits: {highlightedSpell.traits.join(", ")} </span>
+              </div>
+            </SelectorDialog>
           </div>
         ))}
       </div>
 
-      <h2>Spells</h2>
-      <div>
+      <h2 className="mt-4 text-xl font-bold">Spells</h2>
+      <div className="mt-4 grid grid-cols-4 gap-4">
         {currentLevelSpellData.spellSlots.map((spellCount, spellLevel) => (
           <div key={spellLevel}>
             {spellCount !== 0 && (
@@ -118,15 +105,18 @@ const Spells = () => {
                             ?.name || "-------"
                         }
                         data={getFilteredSpells(spellLevel + 1)}
-                        highlightedItemName={highlightedSpell.name}
-                        highlightedItemDescription={
-                          highlightedSpell.description
-                        }
+                        highlightedItem={highlightedSpell}
                         onItemClick={(item) =>
                           handleAddSpell(spellLevel + 1, item, i)
                         }
                         setHighlightedItem={setHighlightedSpell}
-                      ></SelectorDialog>
+                      >
+                        {" "}
+                        <span>Tradition: {selectedClassData?.tradition}</span>
+                        <span>
+                          Traits: {highlightedSpell.traits.join(", ")}
+                        </span>
+                      </SelectorDialog>
                     </div>
                   ))}
                 </div>
@@ -135,6 +125,8 @@ const Spells = () => {
           </div>
         ))}
       </div>
+
+      <Button onClick={handleClearSpells}>Clear Spells</Button>
     </div>
   );
 };

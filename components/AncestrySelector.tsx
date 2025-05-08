@@ -42,8 +42,7 @@ const AncestrySelector: React.FC = ({}) => {
         itemType="Ancestry"
         selectedItem={selectedAncestry}
         data={Ancestries}
-        highlightedItemName={highlightedAncestry.name}
-        highlightedItemDescription={highlightedAncestry.description}
+        highlightedItem={highlightedAncestry}
         onItemClick={(item) => {
           handleSetAncestry(item);
           handleSetHeritage("Select Heritage");
@@ -62,8 +61,7 @@ const AncestrySelector: React.FC = ({}) => {
         itemType="Heritage"
         selectedItem={selectedHeritage}
         data={availableHeritiges}
-        highlightedItemName={highlightedHeritage.name}
-        highlightedItemDescription={highlightedHeritage.description}
+        highlightedItem={highlightedHeritage}
         onItemClick={(item) => handleSetHeritage(item)}
         setHighlightedItem={setHighlighterHeritage}
       ></SelectorDialog>

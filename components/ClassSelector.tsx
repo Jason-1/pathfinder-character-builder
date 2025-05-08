@@ -10,6 +10,7 @@ import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSli
 import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
 import { selectClass, selectSubclass } from "@/app/redux/selectors";
+import { clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -39,6 +40,10 @@ const ClassSelector: React.FC = ({}) => {
     dispatch(setSubclass({ subclass: subclass }));
   };
 
+  const handleClearSpells = () => {
+    dispatch(clearSpells());
+  };
+
   const trainingLevel = (value: number) => {
     switch (value) {
       case 0:
@@ -62,11 +67,11 @@ const ClassSelector: React.FC = ({}) => {
         itemType="Class"
         selectedItem={selectedClass}
         data={Classes}
-        highlightedItemName={highlightedClass.name}
-        highlightedItemDescription={highlightedClass.description}
+        highlightedItem={highlightedClass}
         onItemClick={(item) => {
           handleChangeClass(item);
           handleSetSubclass("Select Subclass");
+          handleClearSpells();
         }}
         setHighlightedItem={setHighlightedClass}
       >
@@ -103,8 +108,7 @@ const ClassSelector: React.FC = ({}) => {
         itemType="Sub-Class"
         selectedItem={selectedSubclass}
         data={availableSubclasses}
-        highlightedItemName={highlightedSubclass.name}
-        highlightedItemDescription={highlightedSubclass.description}
+        highlightedItem={highlightedSubclass}
         onItemClick={(item) => {
           handleSetSubclass(item);
         }}

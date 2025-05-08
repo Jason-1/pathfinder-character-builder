@@ -32,8 +32,7 @@ const BackgroundSelector: React.FC = ({}) => {
         itemType="Background"
         selectedItem={selectedBackground}
         data={Backgrounds}
-        highlightedItemName={highlightedBackground.name}
-        highlightedItemDescription={highlightedBackground.description}
+        highlightedItem={highlightedBackground}
         onItemClick={(item) => handleChangeBackground(item)}
         setHighlightedItem={setHighlightedBackground}
       >

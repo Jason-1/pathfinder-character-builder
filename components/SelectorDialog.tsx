@@ -16,13 +16,17 @@ import { Classes } from "@/data";
 import { armourTypes, weaponTypes } from "@/types";
 import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
 import { selectClass, selectLevel } from "@/app/redux/selectors";
+import oneAction from "@/public/single-action-white.png";
+import twoActions from "@/public/two-actions-white.png";
+import threeActions from "@/public/three-actions-white.png";
+import reaction from "@/public/reaction-white.png";
+import freeAction from "@/public/free-action-white.png";
 
 interface SelectorDialogProps<T> {
   itemType: string;
   selectedItem: string;
   data: T[];
-  highlightedItemName: string;
-  highlightedItemDescription?: string;
+  highlightedItem: T;
   onItemClick: (item: string) => void;
   setHighlightedItem: (item: T) => void;
   children?: React.ReactNode;
@@ -34,13 +38,13 @@ const SelectorDialog = <
     description: string;
     level?: number;
     category?: string;
+    action?: string;
   }
 >({
   itemType,
   selectedItem,
   data,
-  highlightedItemName,
-  highlightedItemDescription,
+  highlightedItem,
   onItemClick,
   setHighlightedItem,
   children,
@@ -54,6 +58,15 @@ const SelectorDialog = <
   );
 
   //------------------------------------------------------------------------------//
+
+  const actionImages: Record<string, string> = {
+    "Single Action": oneAction.src,
+    "Two Actions": twoActions.src,
+    "Three Actions": threeActions.src,
+    Reaction: reaction.src,
+    "Free Actions": freeAction.src,
+    "-": "",
+  };
 
   const handleButtonVariant = (button: string) => {
     if (button === selectedTab) {
@@ -106,8 +119,20 @@ const SelectorDialog = <
           </div>
           <DialogTitle className="grid grid-cols-3 text-center items-start">
             <span className="col-span-1 self-start">Select {itemType}</span>
-            <span className="col-span-2 self-start">
-              {highlightedItemName || ""}
+            <span className="col-span-2 self-start relative">
+              <span className="absolute inset-0 flex items-center justify-center">
+                {highlightedItem.name || ""}
+              </span>
+              <span className="absolute inset-0 flex items-center justify-end">
+                {itemType === "Spell" && highlightedItem.action && (
+                  <img
+                    width={30}
+                    height={20}
+                    src={actionImages[highlightedItem.action] || undefined}
+                    alt={highlightedItem.action}
+                  />
+                )}
+              </span>
             </span>
           </DialogTitle>
         </DialogHeader>
@@ -121,7 +146,7 @@ const SelectorDialog = <
                   <div
                     key={item.name}
                     className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between items-center ${
-                      highlightedItemName === item.name ? "bg-gray-400" : ""
+                      highlightedItem.name === item.name ? "bg-gray-400" : ""
                     }`}
                     onClick={() => {
                       setHighlightedItem(item);
@@ -161,7 +186,7 @@ const SelectorDialog = <
           </div>
           <div className="col-span-2 self-start">
             {children}
-            <p className="mt-4">{highlightedItemDescription || ""}</p>
+            <p className="mt-4">{highlightedItem.description || ""}</p>
           </div>
         </div>
         <DialogClose asChild className="w-1/3">
@@ -169,7 +194,7 @@ const SelectorDialog = <
             className="mt-auto"
             variant="default"
             onClick={() => {
-              onItemClick(highlightedItemName);
+              onItemClick(highlightedItem.name);
             }}
           >
             Select {itemType}

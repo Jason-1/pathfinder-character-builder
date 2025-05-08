@@ -135,8 +135,7 @@ const Armour = () => {
           itemType="Armour"
           selectedItem={selectedArmour}
           data={armourData}
-          highlightedItemName={highlightedArmour.name}
-          highlightedItemDescription={highlightedArmour.description}
+          highlightedItem={highlightedArmour}
           onItemClick={(item) => handleSetArmour(item)}
           setHighlightedItem={setHighlightedArmour}
         >
@@ -242,8 +241,7 @@ const Armour = () => {
           itemType="Shield"
           selectedItem={selectedShield}
           data={shieldData}
-          highlightedItemName={highlightedShield.name}
-          highlightedItemDescription={highlightedShield.description}
+          highlightedItem={highlightedShield}
           onItemClick={(item) => handleSetShield(item)}
           setHighlightedItem={setHighlightedShield}
         >

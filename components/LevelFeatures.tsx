@@ -193,6 +193,7 @@ const LevelFeatures: React.FC = ({}) => {
       level: 0,
       prerequisites: "",
       description: "",
+      preview: "",
       "spoilers?": "",
       link: "",
       text: {
@@ -304,12 +305,7 @@ const LevelFeatures: React.FC = ({}) => {
                             ? selectedAncestry
                             : feat.type
                         )}
-                        highlightedItemName={
-                          getHighlightedItem(level, feat.type).name ?? ""
-                        }
-                        highlightedItemDescription={
-                          getHighlightedItem(level, feat.type).description ?? ""
-                        }
+                        highlightedItem={getHighlightedItem(level, feat.type)}
                         onItemClick={(item) =>
                           handleClick(level, feat.type, item)
                         }

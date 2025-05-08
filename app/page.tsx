@@ -15,10 +15,11 @@ export default function Home() {
   // combine useSelector calls into a single call
   // display weapon traits
   // Perception, classDC
-  // Spellcasting
+  // Spellcasting search
 
   //BUGFIXES
   // Mobile layout
+  // selector dialog - description scroll also scrolls the selection list
 
   return (
     <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">

@@ -60,8 +60,8 @@ const Spells = () => {
 
   return (
     <div>
-      <h3>Cantrips</h3>
-      <div>
+      <h3 className="mt-4 text-xl font-bold">Cantrips</h3>
+      <div className="mt-4">
         {Array.from({ length: currentLevelSpellData.cantrips }, (_, i) => (
           <div key={i}>
             <SelectorDialog
@@ -87,12 +87,12 @@ const Spells = () => {
       </div>
 
       <h2 className="mt-4 text-xl font-bold">Spells</h2>
-      <div className="mt-4 grid grid-cols-4 gap-4">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         {currentLevelSpellData.spellSlots.map((spellCount, spellLevel) => (
           <div key={spellLevel}>
             {spellCount !== 0 && (
               <div>
-                <h3>Rank {spellLevel + 1}</h3>
+                <h3 className="text-lg font-bold">Rank {spellLevel + 1}</h3>
                 <div>
                   {Array.from({ length: spellCount }, (_, i) => (
                     <div key={i}>
@@ -126,7 +126,9 @@ const Spells = () => {
         ))}
       </div>
 
-      <Button onClick={handleClearSpells}>Clear Spells</Button>
+      <Button className="mt-4" onClick={handleClearSpells}>
+        Clear Spells
+      </Button>
     </div>
   );
 };

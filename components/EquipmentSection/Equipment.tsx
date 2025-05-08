@@ -55,7 +55,7 @@ const Equipment = () => {
           </Button>
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-y-auto max-h-[calc(100vh-200px)]">
         {selectedEquipment === "Armour" && <Armour />}
         {selectedEquipment === "Weapons" && <Weapons />}
         {selectedEquipment === "Gear" && <Gear />}

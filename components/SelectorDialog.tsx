@@ -143,8 +143,8 @@ const SelectorDialog = <
             </span>
           </DialogTitle>
         </DialogHeader>
-        <div className="grid grid-cols-3 gap-10 items-start justify-between flex-grow overflow-y-auto h-full">
-          <div className="border rounded-sm p-2 self-start h-full overflow-y-auto ">
+        <div className="grid grid-cols-3 gap-10 items-start justify-between flex-grow h-full">
+          <div className="border rounded-sm p-2 self-start h-full overflow-y-auto max-h-[55vh]">
             {data.map(
               (item) =>
                 (item.category
@@ -197,7 +197,9 @@ const SelectorDialog = <
           </div>
           <div className="col-span-2 self-start">
             {children}
-            <p className="mt-4">{highlightedItem.description || ""}</p>
+            <p className="mt-4 overflow-y-auto max-h-[50vh]">
+              {highlightedItem.description || ""}
+            </p>
           </div>
         </div>
         <DialogClose asChild className="w-1/3">

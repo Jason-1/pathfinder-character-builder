@@ -103,6 +103,7 @@ const SelectorDialog = <
           data.find((item) => item.name === selectedItem) || data[0] || {}
         );
         setSelectedTab("All");
+        setSearchTerm("");
       }}
     >
       <DialogTrigger>{selectedItem}</DialogTrigger>
@@ -131,14 +132,16 @@ const SelectorDialog = <
                 {highlightedItem.name || ""}
               </span>
               <span className="absolute inset-0 flex items-center justify-end">
-                {itemType === "Spell" && highlightedItem.action && (
-                  <img
-                    width={30}
-                    height={20}
-                    src={actionImages[highlightedItem.action] || undefined}
-                    alt=""
-                  />
-                )}
+                {itemType === "Spell" &&
+                  highlightedItem.action &&
+                  highlightedItem.action !== "-" && (
+                    <img
+                      width={30}
+                      height={20}
+                      src={actionImages[highlightedItem.action] || undefined}
+                      alt=""
+                    />
+                  )}
               </span>
             </span>
           </DialogTitle>

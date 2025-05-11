@@ -22,6 +22,8 @@ import threeActions from "@/public/three-actions-white.png";
 import reaction from "@/public/reaction-white.png";
 import freeAction from "@/public/free-action-white.png";
 import { Input } from "./ui/input";
+import { FaSearch } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 
 interface SelectorDialogProps<T> {
   itemType: string;
@@ -110,11 +112,16 @@ const SelectorDialog = <
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
           <div className="flex flex-row gap-4 mb-2 justify-left">
-            <Input
-              className="w-1/3"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <div className="relative w-1/3">
+              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              <Input
+                className="pl-10"
+                placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+
             {getCategoryTabs().map((category, index) => (
               <Button
                 key={index}
@@ -131,13 +138,12 @@ const SelectorDialog = <
               <span className="absolute inset-0 flex items-center justify-center">
                 {highlightedItem.name || ""}
               </span>
-              <span className="absolute inset-0 flex items-center justify-end">
+              <span className="absolute inset-0 flex items-center justify-end pr-32">
                 {itemType === "Spell" &&
                   highlightedItem.action &&
                   highlightedItem.action !== "-" && (
                     <img
-                      width={30}
-                      height={20}
+                      className="h-8"
                       src={actionImages[highlightedItem.action] || undefined}
                       alt=""
                     />

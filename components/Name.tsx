@@ -12,11 +12,12 @@ const Name = () => {
   //------------------------------------------------------------------------------//
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setName(event.target.value)); // Dispatch the action to update the name
+    dispatch(setName(event.target.value));
   };
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center h-[42px]">
       <Input
+        className="items-center w-[300px] lg:w-auto lg:h-auto"
         value={name}
         onChange={handleInputChange}
         placeholder="Enter your characters name"

@@ -28,7 +28,7 @@ const LevelSelector: React.FC = ({}) => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-screen lg:w-auto lg:h-auto">
+    <div className="flex justify-center items-center w-full lg:w-auto lg:h-auto">
       <Dialog>
         <DialogTrigger className="inline-block w-full max-w-[300px]">
           <div className="inline-block border rounded-sm hover:border-red-700 p-2 w-full">

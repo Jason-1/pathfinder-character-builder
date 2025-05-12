@@ -303,6 +303,8 @@ const LevelFeatures: React.FC = ({}) => {
                             ? selectedClass
                             : feat.type === "Ancestry"
                             ? selectedAncestry
+                            : feat.type === "Paragon"
+                            ? selectedAncestry
                             : feat.type
                         )}
                         highlightedItem={getHighlightedItem(level, feat.type)}

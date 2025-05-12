@@ -19,13 +19,12 @@ export default function Home() {
 
   //BUGFIXES
   // Mobile layout
-  // selector dialog - description scroll also scrolls the selection list
 
   return (
-    <main className="relative flex flex-col overflow-hidden sm:px-10 px-5">
-      <div className="w-full grid grid-cols-12 gap-16 items-start">
+    <main className="flex flex-col overflow-hidden lg:px-10">
+      <div className="w-full grid items-center justify-center lg:grid-cols-12 lg:gap-16 lg:items-start">
         <div className="grid col-span-4">
-          <div className="grid grid-cols-2 items-center gap-10 mt-8">
+          <div className="grid lg:grid-cols-2 grid-cols-1 items-center gap-4 mt-8">
             <LevelSelector />
             <Name />
           </div>

@@ -176,6 +176,25 @@ export type shieldItemType = {
   description: string;
 };
 
+export type shieldReinforcingRunes =
+  | "None"
+  | "Minor"
+  | "Lesser"
+  | "Moderate"
+  | "Greater"
+  | "Major"
+  | "Supreme";
+
+export type shieldReinforcingType = {
+  name: shieldReinforcingRunes;
+  HardnessBonus: number;
+  HPBonus: number;
+  BTBonus: number;
+  HardnessMaximum: number;
+  HPMaximum: number;
+  BTMaximum: number;
+};
+
 export type weaponItemType = {
   name: string;
   category: weaponTypes;

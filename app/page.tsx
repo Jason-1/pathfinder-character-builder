@@ -20,6 +20,8 @@ export default function Home() {
   //BUGFIXES
   // Mobile layout
 
+  // Shield reinforcing rune apply stats
+
   return (
     <main className="flex flex-col overflow-hidden lg:px-10">
       <div className="w-full grid items-center justify-center lg:grid-cols-12 lg:gap-16 lg:items-start">

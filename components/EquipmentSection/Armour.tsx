@@ -1,4 +1,4 @@
-import { armourData, Classes, shieldData } from "@/data";
+import { armourData, Classes, shieldData, shieldReinforcingData } from "@/data";
 import {
   armourItemType,
   shieldItemType,
@@ -38,7 +38,7 @@ const Armour = () => {
   const selectedPotency = useSelector(selectPotency);
   const selectedResilient = useSelector(selectResilient);
   const selectedShield = useSelector(selectShield);
-  const selectedReinforcing = useSelector(selectShieldReinforcing);
+  const selectedShieldReinforcing = useSelector(selectShieldReinforcing);
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
 
@@ -47,6 +47,9 @@ const Armour = () => {
   );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
+  );
+  const selectedShieldReinforcingData = shieldReinforcingData.find(
+    (reinforcingItem) => reinforcingItem.name === selectedShieldReinforcing
   );
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
@@ -86,6 +89,40 @@ const Armour = () => {
     if (selectedArmour !== "Unarmoured") {
       dispatch(setResilient({ resilient }));
     }
+  };
+
+  const calculateShieldHardness = () => {
+    if (!selectedShieldData || selectedShield === "None") {
+      return 0;
+    }
+
+    if (
+      !selectedShieldReinforcingData ||
+      selectedShieldReinforcing === "None"
+    ) {
+      return selectedShieldData.Hardness;
+    }
+
+    const hardness =
+      selectedShieldData.Hardness + selectedShieldReinforcingData.HardnessBonus;
+
+    return Math.min(hardness, selectedShieldReinforcingData.HardnessMaximum);
+  };
+
+  const calculateShieldHP = () => {
+    if (!selectedShieldData || selectedShield === "None") {
+      return 0;
+    }
+
+    if (
+      !selectedShieldReinforcingData ||
+      selectedShieldReinforcing === "None"
+    ) {
+      return selectedShieldData.hp;
+    }
+
+    const hp = selectedShieldData.hp + selectedShieldReinforcingData.HPBonus;
+    return Math.min(hp, selectedShieldReinforcingData.HPMaximum);
   };
 
   return (
@@ -275,18 +312,18 @@ const Armour = () => {
         </SelectorDialog>
         <div className="flex flex-row gap-2 justify-start text-center">
           <p>AC Bonus: +{selectedShieldData?.ACBonus}</p>
-          <p>Hardness: {selectedShieldData?.Hardness}</p>
+          <p>Hardness: {calculateShieldHardness()}</p>
           <p>
-            HP(BT): {selectedShieldData?.hp}({selectedShieldData?.bt})
+            HP(BT): {calculateShieldHP()}({calculateShieldHP() / 2})
           </p>
         </div>
       </div>
       <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mt-8">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            {selectedReinforcing === "None"
+            {selectedShieldReinforcing === "None"
               ? "No Shield Rune"
-              : "Reinforcing Rune (" + selectedReinforcing + ")"}
+              : "Reinforcing Rune (" + selectedShieldReinforcing + ")"}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem

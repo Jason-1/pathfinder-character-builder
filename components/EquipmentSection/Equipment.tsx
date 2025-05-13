@@ -18,9 +18,9 @@ const Equipment = () => {
   };
 
   return (
-    <Card className="mt-8 h-full">
+    <Card className="mt-8 h-full min-w-[350px] max-w-[350px] lg:max-w-full">
       <CardHeader>
-        <CardTitle className="flex gap-4 items-center">
+        <CardTitle className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <Button
             onClick={() => {
               setSelectedEquipment("Armour");

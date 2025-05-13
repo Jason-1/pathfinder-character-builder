@@ -194,7 +194,7 @@ const Defences = () => {
   }
 
   return (
-    <div className="flex flex-row items-center gap-4">
+    <div className="flex flex-col lg:flex-row items-center gap-4">
       <HoverCard>
         <HoverCardTrigger>
           <div className="relative inline-block w-24 h-24 cursor-help">

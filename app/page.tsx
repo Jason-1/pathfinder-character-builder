@@ -28,16 +28,16 @@ export default function Home() {
             <LevelSelector />
             <Name />
           </div>
-          <div className="mt-8 flex flex-col gap-8">
+          <div className="mt-8 flex flex-col gap-8 items-center justify-center">
             <Defences />
             <Abilities />
             <VariantRules />
           </div>
         </div>
-        <div className="grid col-span-3">
+        <div className="grid col-span-3 items-center justify-center">
           <SkillShowcase />
         </div>
-        <div className="grid col-span-5">
+        <div className="grid col-span-5 pr-4 items-center justify-center">
           <Equipment />
         </div>
       </div>

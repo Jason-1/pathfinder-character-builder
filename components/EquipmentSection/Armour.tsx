@@ -126,39 +126,42 @@ const Armour = () => {
         </div>
       </div>
       <Separator className="mt-8" />
-      <div className="flex flex-row gap-2 mt-8 items-center">
-        <TrainingIcon
-          trainingLevel={calculateCurrentArmourProficiencyLevel(
-            selectedArmourData?.category || "unarmoured",
-            selectedLevel,
-            selectedClassData
-          )}
-        />
+      <div className="flex flex-col gap-2 mt-8 items-center lg:items-start">
+        <div className="flex flex-row gap-2">
+          <TrainingIcon
+            trainingLevel={calculateCurrentArmourProficiencyLevel(
+              selectedArmourData?.category || "unarmoured",
+              selectedLevel,
+              selectedClassData
+            )}
+          />
+          <SelectorDialog
+            itemType="Armour"
+            selectedItem={selectedArmour}
+            data={armourData}
+            highlightedItem={highlightedArmour}
+            onItemClick={(item) => handleSetArmour(item)}
+            setHighlightedItem={setHighlightedArmour}
+          >
+            <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
+              <p>Type: {highlightedArmour.category}</p>
+              <p>AC Bonus: {highlightedArmour.ACBonus}</p>
+              <p>Dex Cap: {highlightedArmour.dexCap}</p>
+              <p>Strength: {highlightedArmour.strength}</p>
+              <p>Check Penalty: {highlightedArmour.checkPenalty}</p>
+              <p>Speed Penalty: {highlightedArmour.speedPenalty}</p>
+              <p>Bulk: {highlightedArmour.bulk}</p>
+              <p>Group: {highlightedArmour.group || "None"}</p>
+            </div>
+          </SelectorDialog>
+        </div>
 
-        <SelectorDialog
-          itemType="Armour"
-          selectedItem={selectedArmour}
-          data={armourData}
-          highlightedItem={highlightedArmour}
-          onItemClick={(item) => handleSetArmour(item)}
-          setHighlightedItem={setHighlightedArmour}
-        >
-          <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
-            <p>Type: {highlightedArmour.category}</p>
-            <p>AC Bonus: {highlightedArmour.ACBonus}</p>
-            <p>Dex Cap: {highlightedArmour.dexCap}</p>
-            <p>Strength: {highlightedArmour.strength}</p>
-            <p>Check Penalty: {highlightedArmour.checkPenalty}</p>
-            <p>Speed Penalty: {highlightedArmour.speedPenalty}</p>
-            <p>Bulk: {highlightedArmour.bulk}</p>
-            <p>Group: {highlightedArmour.group || "None"}</p>
-          </div>
-        </SelectorDialog>
-
-        <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
-        <p>Dex Cap +{selectedArmourData?.dexCap}</p>
+        <div className="flex flex-row gap-2 justify-start text-center">
+          <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
+          <p>Dex Cap +{selectedArmourData?.dexCap}</p>
+        </div>
       </div>
-      <div className="flex flex-row gap-4 mt-8">
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mt-8">
         <DropdownMenu>
           <DropdownMenuTrigger>
             {selectedPotency === 0
@@ -240,7 +243,7 @@ const Armour = () => {
       </div>
       <Separator className="mt-8" />
 
-      <div className="mt-4">
+      <div className="flex flex-col gap-0 lg:gap-2 mt-8 items-center lg:items-start">
         <SelectorDialog
           itemType="Shield"
           selectedItem={selectedShield}
@@ -259,13 +262,45 @@ const Armour = () => {
             </p>
           </div>
         </SelectorDialog>
+        <div className="flex flex-row gap-2 justify-start text-center">
+          <p>AC Bonus: +{selectedShieldData?.ACBonus}</p>
+          <p>Hardness: {selectedShieldData?.Hardness}</p>
+          <p>
+            HP(BT): {selectedShieldData?.hp}({selectedShieldData?.bt})
+          </p>
+        </div>
       </div>
-      <div className="flex flex-row gap-2 mt-8 items-center">
-        <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
-        <p>Hardness: {selectedShieldData?.Hardness}</p>
-        <p>
-          HP(BT): {selectedShieldData?.hp}({selectedShieldData?.bt})
-        </p>
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mt-8">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {selectedPotency === 0
+              ? "No Shield Rune"
+              : "+" + selectedPotency + " Potency"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => {}}>
+              No Reinforcing Rune
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {}}>
+              Reinforcing Rune (Minor)
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {}}>
+              Reinforcing Rune (Lesser)
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {}}>
+              Reinforcing Rune (Moderate)
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {}}>
+              Reinforcing Rune (Greater)
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {}}>
+              Reinforcing Rune (Major)
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {}}>
+              Reinforcing Rune (Supreme)
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

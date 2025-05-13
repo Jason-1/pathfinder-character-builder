@@ -1,5 +1,9 @@
 import { armourData, Classes, shieldData } from "@/data";
-import { armourItemType, shieldItemType } from "@/types";
+import {
+  armourItemType,
+  shieldItemType,
+  shieldReinforcingRunes,
+} from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
@@ -23,7 +27,9 @@ import {
   selectPotency,
   selectResilient,
   selectShield,
+  selectShieldReinforcing,
 } from "@/app/redux/selectors";
+import { setReinforcing } from "@/app/redux/Slices/shieldReinforcingSlice";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -32,6 +38,7 @@ const Armour = () => {
   const selectedPotency = useSelector(selectPotency);
   const selectedResilient = useSelector(selectResilient);
   const selectedShield = useSelector(selectShield);
+  const selectedReinforcing = useSelector(selectShieldReinforcing);
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
 
@@ -63,6 +70,10 @@ const Armour = () => {
 
   const handleSetShield = (shield: string) => {
     dispatch(setShield({ shield }));
+  };
+
+  const handleSetReinforcing = (reinforcing: shieldReinforcingRunes) => {
+    dispatch(setReinforcing({ reinforcing }));
   };
 
   const handleSetPotency = (potency: number) => {
@@ -273,30 +284,58 @@ const Armour = () => {
       <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mt-8">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            {selectedPotency === 0
+            {selectedReinforcing === "None"
               ? "No Shield Rune"
-              : "+" + selectedPotency + " Potency"}
+              : "Reinforcing Rune (" + selectedReinforcing + ")"}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetReinforcing("None");
+              }}
+            >
               No Reinforcing Rune
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetReinforcing("Minor");
+              }}
+            >
               Reinforcing Rune (Minor)
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetReinforcing("Lesser");
+              }}
+            >
               Reinforcing Rune (Lesser)
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetReinforcing("Moderate");
+              }}
+            >
               Reinforcing Rune (Moderate)
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetReinforcing("Greater");
+              }}
+            >
               Reinforcing Rune (Greater)
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetReinforcing("Major");
+              }}
+            >
               Reinforcing Rune (Major)
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSetReinforcing("Supreme");
+              }}
+            >
               Reinforcing Rune (Supreme)
             </DropdownMenuItem>
           </DropdownMenuContent>

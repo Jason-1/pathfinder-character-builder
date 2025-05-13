@@ -1,11 +1,17 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface TrainingIconProps {
   trainingLevel: string;
   size?: number;
+  className?: string;
 }
 
-const TrainingIcon: React.FC<TrainingIconProps> = ({ trainingLevel, size }) => {
+const TrainingIcon: React.FC<TrainingIconProps> = ({
+  trainingLevel,
+  size,
+  className,
+}) => {
   const calculateColour = () => {
     switch (trainingLevel) {
       case "U":
@@ -25,11 +31,14 @@ const TrainingIcon: React.FC<TrainingIconProps> = ({ trainingLevel, size }) => {
 
   return (
     <span
-      className={`border px-2 rounded-full flex items-center justify-center h-${
-        size || 6
-      } w-${size || 6} ${calculateColour()} ${
-        size ? (size <= 4 ? "text-xs" : "text-sm") : "text-md"
-      }`}
+      className={cn(
+        `border px-2 rounded-full flex items-center justify-center h-${
+          size || 6
+        } w-${size || 6} ${calculateColour()} ${
+          size ? (size <= 4 ? "text-xs" : "text-sm") : "text-md"
+        }`,
+        className
+      )}
     >
       {trainingLevel}
     </span>

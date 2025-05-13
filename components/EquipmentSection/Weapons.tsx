@@ -21,6 +21,7 @@ import {
   selectLevel,
   selectWeapon,
 } from "@/app/redux/selectors";
+import { Separator } from "../ui/separator";
 
 const Armour = () => {
   const dispatch = useDispatch();
@@ -140,10 +141,11 @@ const Armour = () => {
 
   return (
     <div>
-      <div className="flex flex-row gap-4 justify-between">
-        <div className="flex flex-row gap-2">
-          <p>Unarmed</p>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="flex flex-col gap-2">
+          <p className="mx-auto">Unarmed</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "unarmed",
               selectedLevel,
@@ -151,9 +153,10 @@ const Armour = () => {
             )}
           />
         </div>
-        <div className="flex flex-row gap-2">
-          <p>Simple</p>
+        <div className="flex flex-col gap-2">
+          <p className="mx-auto">Simple</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "simple",
               selectedLevel,
@@ -161,9 +164,10 @@ const Armour = () => {
             )}
           />
         </div>
-        <div className="flex flex-row gap-2">
-          <p>Martial</p>
+        <div className="flex flex-col gap-2">
+          <p className="mx-auto">Martial</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "martial",
               selectedLevel,
@@ -171,9 +175,10 @@ const Armour = () => {
             )}
           />
         </div>
-        <div className="flex flex-row gap-2">
-          <p>Advanced</p>
+        <div className="flex flex-col gap-2">
+          <p className="mx-auto">Advanced</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "advanced",
               selectedLevel,
@@ -182,7 +187,7 @@ const Armour = () => {
           />
         </div>
       </div>
-
+      <Separator className="mt-8" />
       <div className="flex flex-row gap-2 mt-8 items-center">
         <TrainingIcon
           trainingLevel={calculateCurrentWeaponProficiencyLevel(

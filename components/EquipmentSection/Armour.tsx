@@ -79,10 +79,11 @@ const Armour = () => {
 
   return (
     <div>
-      <div className="flex flex-row gap-4 justify-between">
-        <div className="flex flex-row gap-2">
-          <p>Unarmoured</p>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="flex flex-col gap-2 justify-center">
+          <p className="mx-auto">Unarmoured</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "unarmoured",
               selectedLevel,
@@ -90,9 +91,10 @@ const Armour = () => {
             )}
           />
         </div>
-        <div className="flex flex-row gap-2">
-          <p>Light</p>
+        <div className="flex flex-col gap-2 justify-center">
+          <p className="mx-auto">Light</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "light",
               selectedLevel,
@@ -100,9 +102,10 @@ const Armour = () => {
             )}
           />
         </div>
-        <div className="flex flex-row gap-2">
-          <p>Medium</p>
+        <div className="flex flex-col gap-2 justify-center">
+          <p className="mx-auto">Medium</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "medium",
               selectedLevel,
@@ -110,9 +113,10 @@ const Armour = () => {
             )}
           />
         </div>
-        <div className="flex flex-row gap-2">
-          <p>Heavy</p>
+        <div className="flex flex-col gap-2 justify-center">
+          <p className="mx-auto">Heavy</p>
           <TrainingIcon
+            className="mx-auto"
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "heavy",
               selectedLevel,
@@ -121,7 +125,7 @@ const Armour = () => {
           />
         </div>
       </div>
-      <div className="mt-8">{/*<SelectorDialog /> */}</div>
+      <Separator className="mt-8" />
       <div className="flex flex-row gap-2 mt-8 items-center">
         <TrainingIcon
           trainingLevel={calculateCurrentArmourProficiencyLevel(
@@ -236,7 +240,7 @@ const Armour = () => {
       </div>
       <Separator className="mt-8" />
 
-      <div className="flex flex-row gap-2 mt-8 items-center">
+      <div className="mt-4">
         <SelectorDialog
           itemType="Shield"
           selectedItem={selectedShield}
@@ -255,6 +259,8 @@ const Armour = () => {
             </p>
           </div>
         </SelectorDialog>
+      </div>
+      <div className="flex flex-row gap-2 mt-8 items-center">
         <p>Raised AC Bonus: +{selectedShieldData?.ACBonus}</p>
         <p>Hardness: {selectedShieldData?.Hardness}</p>
         <p>

@@ -111,7 +111,6 @@ const Spells = () => {
                         }
                         setHighlightedItem={setHighlightedSpell}
                       >
-                        {" "}
                         <span>Tradition: {selectedClassData?.tradition}</span>
                         <span>
                           Traits: {highlightedSpell.traits.join(", ")}

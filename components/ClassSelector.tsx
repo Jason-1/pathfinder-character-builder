@@ -84,7 +84,7 @@ const ClassSelector: React.FC = ({}) => {
               highlightedClass.saves.fortitude.filter(
                 (value: number) => value === 1
               ).length
-            )}{" "}
+            )}
           </p>
           <p>
             Reflex:{" "}
@@ -92,7 +92,7 @@ const ClassSelector: React.FC = ({}) => {
               highlightedClass.saves.reflex.filter(
                 (value: number) => value === 1
               ).length
-            )}{" "}
+            )}
           </p>
           <p>
             Will:{" "}

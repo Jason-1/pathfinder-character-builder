@@ -272,7 +272,6 @@ const DiceRoller: React.FC<DiceRollerProps> = ({
                       {modifier - MAP1}
                     </Button>
                     <Button onClick={() => rollDice(2)}>
-                      {" "}
                       Attack {modifier - MAP2 >= 0 ? "+" : ""}
                       {modifier - MAP2}
                     </Button>

@@ -19,6 +19,7 @@ export default function Home() {
 
   //BUGFIXES
   // Mobile layout
+  // Equipment card bottom cut off
 
   return (
     <main className="flex flex-col overflow-hidden xl:px-10">
@@ -35,12 +36,15 @@ export default function Home() {
             <div className="block 2xl:hidden">
               <SkillShowcase />
             </div>
+            <div className="block 2xl:hidden">
+              <Equipment />
+            </div>
           </div>
         </div>
-        <div className="col-span-3 items-center justify-center 2xl:grid hidden">
+        <div className="xl:col-span-3 items-center justify-center 2xl:grid hidden">
           <SkillShowcase />
         </div>
-        <div className="grid col-span-5 pr-4 items-center justify-center">
+        <div className="xl:col-span-5 items-center justify-center 2xl:grid hidden">
           <Equipment />
         </div>
       </div>

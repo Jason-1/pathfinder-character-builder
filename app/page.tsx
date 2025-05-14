@@ -21,20 +21,23 @@ export default function Home() {
   // Mobile layout
 
   return (
-    <main className="flex flex-col overflow-hidden lg:px-10">
-      <div className="w-full grid items-center justify-center lg:grid-cols-12 lg:gap-16 lg:items-start">
-        <div className="grid col-span-4">
-          <div className="grid lg:grid-cols-2 grid-cols-1 items-center gap-4 mt-8">
+    <main className="flex flex-col overflow-hidden xl:px-10">
+      <div className="w-full grid items-center justify-center xl:grid-cols-12 xl:gap-16 xl:items-start">
+        <div className="grid col-span-7 2xl:col-span-4">
+          <div className="grid xl:grid-cols-2 grid-cols-1 items-center gap-4 mt-8">
             <LevelSelector />
             <Name />
           </div>
-          <div className="mt-8 flex flex-col gap-8 items-center lg:items-start">
+          <div className="mt-8 flex flex-col gap-8 items-center xl:items-start">
             <Defences />
             <Abilities />
             <VariantRules />
+            <div className="block 2xl:hidden">
+              <SkillShowcase />
+            </div>
           </div>
         </div>
-        <div className="grid col-span-3 items-center justify-center">
+        <div className="col-span-3 items-center justify-center 2xl:grid hidden">
           <SkillShowcase />
         </div>
         <div className="grid col-span-5 pr-4 items-center justify-center">

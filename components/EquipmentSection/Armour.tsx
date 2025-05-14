@@ -175,7 +175,7 @@ const Armour = () => {
       </div>
       <Separator className="mt-8" />
       <div className="flex flex-col gap-2 mt-8 items-center lg:items-start">
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-2 items-center">
           <TrainingIcon
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               selectedArmourData?.category || "unarmoured",
@@ -184,6 +184,7 @@ const Armour = () => {
             )}
           />
           <SelectorDialog
+            className="border rounded-sm hover:border-red-700 p-2"
             itemType="Armour"
             selectedItem={selectedArmour}
             data={armourData}
@@ -293,6 +294,7 @@ const Armour = () => {
 
       <div className="flex flex-col gap-0 lg:gap-2 mt-8 items-center lg:items-start">
         <SelectorDialog
+          className="border rounded-sm hover:border-red-700 p-2"
           itemType="Shield"
           selectedItem={selectedShield}
           data={shieldData}

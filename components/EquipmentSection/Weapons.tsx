@@ -188,66 +188,73 @@ const Armour = () => {
         </div>
       </div>
       <Separator className="mt-8" />
-      <div className="flex flex-row gap-2 mt-8 items-center">
-        <TrainingIcon
-          trainingLevel={calculateCurrentWeaponProficiencyLevel(
-            selectedWeaponData?.category || "unarmed",
-            selectedLevel,
-            selectedClassData
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row gap-2 mt-8 items-center">
+          <TrainingIcon
+            trainingLevel={calculateCurrentWeaponProficiencyLevel(
+              selectedWeaponData?.category || "unarmed",
+              selectedLevel,
+              selectedClassData
+            )}
+          />
+
+          <SelectorDialog
+            className="border rounded-sm hover:border-red-700 p-2"
+            itemType="Weapon"
+            selectedItem={selectedWeapon}
+            data={weaponData}
+            highlightedItem={highlightedWeapon}
+            onItemClick={(item) => handleSetWeapon(item)}
+            setHighlightedItem={setHighlightedWeapon}
+          >
+            <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
+              <p>
+                Category:{" "}
+                {highlightedWeapon.category.charAt(0).toUpperCase() +
+                  highlightedWeapon.category.slice(1)}
+              </p>
+              <p>
+                Damage:{" "}
+                {highlightedWeapon.damage.charAt(0).toUpperCase() +
+                  highlightedWeapon.damage.slice(1)}{" "}
+                {highlightedWeapon.damageType.charAt(0).toUpperCase() +
+                  highlightedWeapon.damageType.slice(1)}
+              </p>
+              <p>
+                Group:{" "}
+                {highlightedWeapon.group.charAt(0).toUpperCase() +
+                  highlightedWeapon.group.slice(1)}
+              </p>
+              <p>Hands: {highlightedWeapon.hands}</p>
+              <p>
+                Type:{" "}
+                {highlightedWeapon.type.charAt(0).toUpperCase() +
+                  highlightedWeapon.type.slice(1)}
+              </p>
+              {highlightedWeapon.reload != null && (
+                <p>Reload: {highlightedWeapon.reload}</p>
+              )}
+              {highlightedWeapon.range && (
+                <p>Range: {highlightedWeapon.range}ft</p>
+              )}
+            </div>
+          </SelectorDialog>
+        </div>
+        <div className="flex flex-row gap-2">
+          <p>
+            Damage: 1{selectedWeaponData?.damage ?? ""}{" "}
+            {selectedWeaponData?.damageType.charAt(0).toUpperCase() +
+              (selectedWeaponData?.damageType?.slice(1) ?? "")}
+          </p>
+          {selectedWeaponData?.reload != null && (
+            <p>Reload: {highlightedWeapon.reload}</p>
           )}
-        />
-
-        <SelectorDialog
-          itemType="Weapon"
-          selectedItem={selectedWeapon}
-          data={weaponData}
-          highlightedItem={highlightedWeapon}
-          onItemClick={(item) => handleSetWeapon(item)}
-          setHighlightedItem={setHighlightedWeapon}
-        >
-          <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
-            <p>
-              Category:{" "}
-              {highlightedWeapon.category.charAt(0).toUpperCase() +
-                highlightedWeapon.category.slice(1)}
-            </p>
-            <p>
-              Damage:{" "}
-              {highlightedWeapon.damage.charAt(0).toUpperCase() +
-                highlightedWeapon.damage.slice(1)}{" "}
-              {highlightedWeapon.damageType.charAt(0).toUpperCase() +
-                highlightedWeapon.damageType.slice(1)}
-            </p>
-            <p>
-              Group:{" "}
-              {highlightedWeapon.group.charAt(0).toUpperCase() +
-                highlightedWeapon.group.slice(1)}
-            </p>
-            <p>Hands: {highlightedWeapon.hands}</p>
-            <p>
-              Type:{" "}
-              {highlightedWeapon.type.charAt(0).toUpperCase() +
-                highlightedWeapon.type.slice(1)}
-            </p>
-            {highlightedWeapon.reload != null && (
-              <p>Reload: {highlightedWeapon.reload}</p>
-            )}
-            {highlightedWeapon.range && (
-              <p>Range: {highlightedWeapon.range}ft</p>
-            )}
-          </div>
-        </SelectorDialog>
-
-        <p>
-          Damage: 1{selectedWeaponData?.damage ?? ""}{" "}
-          {selectedWeaponData?.damageType.charAt(0).toUpperCase() +
-            (selectedWeaponData?.damageType?.slice(1) ?? "")}
-        </p>
-        {selectedWeaponData?.reload != null && (
-          <p>Reload: {highlightedWeapon.reload}</p>
-        )}
-        {selectedWeaponData?.range && <p>Range: {highlightedWeapon.range}ft</p>}
+          {selectedWeaponData?.range && (
+            <p>Range: {highlightedWeapon.range}ft</p>
+          )}
+        </div>
       </div>
+
       <div className="flex flex-row mt-8 gap-2">
         <DiceRoller
           diceType={selectedWeaponData?.damage || "d4"}

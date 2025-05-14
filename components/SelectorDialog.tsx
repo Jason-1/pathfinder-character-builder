@@ -26,6 +26,7 @@ import { FaSearch } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 
 interface SelectorDialogProps<T> {
+  className?: string;
   itemType: string;
   selectedItem: string;
   data: T[];
@@ -44,6 +45,7 @@ const SelectorDialog = <
     action?: string;
   }
 >({
+  className,
   itemType,
   selectedItem,
   data,
@@ -108,7 +110,7 @@ const SelectorDialog = <
         setSearchTerm("");
       }}
     >
-      <DialogTrigger>{selectedItem}</DialogTrigger>
+      <DialogTrigger className={cn(className)}>{selectedItem}</DialogTrigger>
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
           <div className="flex flex-row gap-4 mb-2 justify-left">

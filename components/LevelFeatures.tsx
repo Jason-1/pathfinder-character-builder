@@ -289,6 +289,7 @@ const LevelFeatures: React.FC = ({}) => {
                   <div key={feat.type}>
                     {
                       <SelectorDialog
+                        className="border rounded-sm hover:border-red-700 p-2 w-full mt-2"
                         itemType="Feat"
                         selectedItem={
                           displayFeatName(level, feat.type)

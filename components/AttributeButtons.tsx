@@ -230,7 +230,7 @@ const AttributeButtons: React.FC = ({}) => {
                 variant="default"
                 key={attribute.name}
                 disabled={isDisabled(currentAttributeBoostCategory, attribute)}
-                className={`col-span-1 ${
+                className={`col-span-1  ${
                   attributeBoosts.find(
                     ({ name, boosts }) =>
                       name === currentAttributeBoostCategory.name &&
@@ -246,7 +246,10 @@ const AttributeButtons: React.FC = ({}) => {
                   )
                 }
               >
-                {attribute.name}
+                <span className="block lg:hidden">
+                  {attribute.name.slice(0, 3)}
+                </span>
+                <span className="hidden lg:block">{attribute.name}</span>
               </Button>
             ))}
           </div>

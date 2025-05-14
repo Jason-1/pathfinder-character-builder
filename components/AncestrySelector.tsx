@@ -39,7 +39,7 @@ const AncestrySelector: React.FC = ({}) => {
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
       <SelectorDialog
-        className="border rounded-sm hover:border-red-700 p-2 w-full"
+        className="border rounded-sm hover:border-red-700 p-2"
         itemType="Ancestry"
         selectedItem={selectedAncestry}
         data={Ancestries}

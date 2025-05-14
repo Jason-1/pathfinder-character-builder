@@ -20,8 +20,6 @@ export default function Home() {
   //BUGFIXES
   // Mobile layout
 
-  // Shield reinforcing rune apply stats
-
   return (
     <main className="flex flex-col overflow-hidden lg:px-10">
       <div className="w-full grid items-center justify-center lg:grid-cols-12 lg:gap-16 lg:items-start">
@@ -30,7 +28,7 @@ export default function Home() {
             <LevelSelector />
             <Name />
           </div>
-          <div className="mt-8 flex flex-col gap-8 items-center justify-center">
+          <div className="mt-8 flex flex-col gap-8 items-center lg:items-start">
             <Defences />
             <Abilities />
             <VariantRules />

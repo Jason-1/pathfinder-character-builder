@@ -247,10 +247,10 @@ const Armour = () => {
               (selectedWeaponData?.damageType?.slice(1) ?? "")}
           </p>
           {selectedWeaponData?.reload != null && (
-            <p>Reload: {highlightedWeapon.reload}</p>
+            <p>Reload: {selectedWeaponData.reload}</p>
           )}
           {selectedWeaponData?.range && (
-            <p>Range: {highlightedWeapon.range}ft</p>
+            <p>Range: {selectedWeaponData.range}ft</p>
           )}
         </div>
       </div>

@@ -192,6 +192,12 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
           return false;
         }
       }
+      if (
+        currentTrainingLevel === "Trained" &&
+        (skillBoosts.IntBoost ?? 0) > currentLevel
+      ) {
+        return false;
+      }
       ///If training level is one higher and we have boosted this level, allow decrease
       if (currentTrainingLevel === "Expert") {
         if (skillBoosts.LevelsBoosted.includes(currentLevel)) {

@@ -16,6 +16,10 @@ const selectedSkillsSlice = createSlice({
 
       state.forEach((skillBoost) => {
         if (skillBoost.skill === skill) {
+          if (skillBoost.IntBoost && skillBoost.IntBoost > currentLevel) {
+            skillBoost.IntBoost = null;
+          }
+
           skillBoost.LevelsBoosted = skillBoost.LevelsBoosted.includes(
             currentLevel
           )

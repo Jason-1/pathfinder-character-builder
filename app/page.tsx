@@ -22,7 +22,7 @@ export default function Home() {
   // Equipment card bottom cut off
 
   return (
-    <main className="flex flex-col overflow-hidden xl:px-10">
+    <main className="flex flex-col xl:px-6 pb-10 mx-4">
       <div className="w-full grid items-center justify-center xl:grid-cols-12 xl:gap-16 xl:items-start">
         <div className="grid col-span-7 2xl:col-span-4">
           <div className="grid xl:grid-cols-2 grid-cols-1 items-center gap-4 mt-8">
@@ -36,7 +36,7 @@ export default function Home() {
             <div className="block 2xl:hidden">
               <SkillShowcase />
             </div>
-            <div className="block 2xl:hidden">
+            <div className="block lg:hidden">
               <Equipment />
             </div>
           </div>
@@ -44,7 +44,7 @@ export default function Home() {
         <div className="xl:col-span-3 items-center justify-center 2xl:grid hidden">
           <SkillShowcase />
         </div>
-        <div className="xl:col-span-5 items-center justify-center 2xl:grid hidden">
+        <div className="xl:col-span-5 items-center justify-center lg:grid hidden">
           <Equipment />
         </div>
       </div>

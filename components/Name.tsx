@@ -17,7 +17,7 @@ const Name = () => {
   return (
     <div className="flex justify-center h-[42px]">
       <Input
-        className="items-center w-[300px] lg:w-auto lg:h-auto"
+        className="inline-block w-full max-w-[300px] h-auto"
         value={name}
         onChange={handleInputChange}
         placeholder="Enter your characters name"

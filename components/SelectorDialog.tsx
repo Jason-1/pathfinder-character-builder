@@ -7,6 +7,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "./ui/button";
 import capitaliseFirstLetter from "@/lib/capitaliseFirstLetter";
 import { useSelector } from "react-redux";
@@ -113,8 +119,8 @@ const SelectorDialog = <
       <DialogTrigger className={cn(className)}>{selectedItem}</DialogTrigger>
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
-          <div className="flex flex-row gap-4 mb-2 justify-left">
-            <div className="relative w-1/3">
+          <div className="flex flex-col lg:flex-row gap-4 mb-2 justify-left">
+            <div className="relative w-full lg:w-1/3">
               <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
               <Input
                 className="pl-10"
@@ -124,17 +130,19 @@ const SelectorDialog = <
               />
             </div>
 
-            {getCategoryTabs().map((category, index) => (
-              <Button
-                key={index}
-                variant={handleButtonVariant(category)}
-                onClick={() => setSelectedTab(category)}
-              >
-                {capitaliseFirstLetter(category)}
-              </Button>
-            ))}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+              {getCategoryTabs().map((category, index) => (
+                <Button
+                  key={index}
+                  variant={handleButtonVariant(category)}
+                  onClick={() => setSelectedTab(category)}
+                >
+                  {capitaliseFirstLetter(category)}
+                </Button>
+              ))}
+            </div>
           </div>
-          <DialogTitle className="grid grid-cols-3 text-center items-center">
+          <DialogTitle className="hidden md:grid grid-cols-3 text-center items-center">
             <span className="col-span-1 self-start">Select {itemType}</span>
             <span className="col-span-2 flex items-center justify-center relative">
               <span className="absolute inset-0 flex items-center justify-center">
@@ -154,7 +162,7 @@ const SelectorDialog = <
             </span>
           </DialogTitle>
         </DialogHeader>
-        <div className="grid grid-cols-3 gap-10 items-start justify-between flex-grow h-full">
+        <div className="hidden md:grid grid-cols-3 gap-10 items-start justify-between flex-grow h-full ">
           <div className="border rounded-sm p-2 self-start h-full overflow-y-auto max-h-[55vh]">
             {data.map(
               (item) =>
@@ -213,7 +221,74 @@ const SelectorDialog = <
             </p>
           </div>
         </div>
-        <DialogClose asChild className="w-1/3">
+        <div className="md:hidden items-start justify-between flex-grow h-full overflow-y-auto">
+          <Accordion
+            type="single"
+            collapsible
+            className="w-[90%] justify-between"
+            value={highlightedItem.name}
+          >
+            {data.map(
+              (item) =>
+                (item.category
+                  ? item.category === selectedTab || selectedTab === "All"
+                  : selectedTab === "All") &&
+                (searchTerm === "" ||
+                  item.name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())) && (
+                  <AccordionItem value={item.name} key={item.name}>
+                    <AccordionTrigger
+                      className="items-center justify-between hover:no-underline group grid grid-cols-10"
+                      onClick={() => {
+                        setHighlightedItem(item);
+                      }}
+                    >
+                      <span className="group-hover:underline col-span-8">
+                        {item.name}
+                      </span>
+                      <span className="flex items-center justify-end pr-2">
+                        {item.level && (
+                          <span className="border px-2 rounded-md h-5 w-5 text-sm flex items-center justify-center border-blue-800 bg-blue-800">
+                            {`${item.level}`}
+                          </span>
+                        )}
+                        {item.category &&
+                          (itemType === "Armour" ? (
+                            <TrainingIcon
+                              trainingLevel={calculateCurrentArmourProficiencyLevel(
+                                item.category as armourTypes,
+                                selectedLevel,
+                                selectedClassData
+                              )}
+                              size={5}
+                            />
+                          ) : itemType === "Weapon" ? (
+                            <TrainingIcon
+                              trainingLevel={calculateCurrentWeaponProficiencyLevel(
+                                item.category as weaponTypes,
+                                selectedLevel,
+                                selectedClassData
+                              )}
+                              size={5}
+                            />
+                          ) : (
+                            ""
+                          ))}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-col gap-4">
+                        {children}
+                        <span>{item.description}</span>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )
+            )}
+          </Accordion>
+        </div>
+        <DialogClose asChild className="w-1/3 min-w-32">
           <Button
             className="mt-auto"
             variant="default"

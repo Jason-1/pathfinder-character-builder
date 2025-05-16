@@ -106,6 +106,14 @@ const SelectorDialog = <
     return categories;
   };
 
+  const getGridCols = (children: React.ReactNode) => {
+    const count = Array.isArray(children) ? children.length : 1;
+    if (count < 4) return `grid-cols-${count}`;
+    if (count < 6) return `grid-cols-4 lg:grid-cols-${count}`;
+    if (count < 8) return `grid-cols-4 lg:grid-cols-6 xl:grid-cols-${count}`;
+    return "grid-cols-4 lg:grid-cols-6 xl:grid-cols-8";
+  };
+
   return (
     <Dialog
       onOpenChange={() => {
@@ -215,7 +223,12 @@ const SelectorDialog = <
             )}
           </div>
           <div className="col-span-2 self-start">
-            <div className="mt-4 grid grid-cols-4 lg:grid-cols-8 gap-2 text-xs justify-center text-center items-center">
+            <div
+              className={cn(
+                "mt-4 grid gap-2 text-xs justify-center text-center items-center",
+                getGridCols(children)
+              )}
+            >
               {children}
             </div>
             <p className="mt-4 overflow-y-auto max-h-[50vh]">

@@ -241,7 +241,6 @@ const SelectorDialog = <
             type="single"
             collapsible
             className="w-[90%] justify-between"
-            value={highlightedItem.name}
           >
             {data.map(
               (item) =>

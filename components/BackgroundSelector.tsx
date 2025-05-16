@@ -37,10 +37,14 @@ const BackgroundSelector: React.FC = ({}) => {
         onItemClick={(item) => handleChangeBackground(item)}
         setHighlightedItem={setHighlightedBackground}
       >
-        <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
-          <p>Attributes: {highlightedBackground.Attributes.join(", ")}</p>
-          <p>Skills: {highlightedBackground.skills.join(", ")}</p>
-        </div>
+        <p className="flex flex-col">
+          <span>Attributes:</span>
+          <span>{highlightedBackground.Attributes.join(", ")}</span>
+        </p>
+        <p className="flex flex-col">
+          <span>Skills:</span>
+          <span>{highlightedBackground.skills.join(", ")}</span>
+        </p>
       </SelectorDialog>
     </div>
   );

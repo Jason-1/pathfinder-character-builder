@@ -50,12 +50,22 @@ const AncestrySelector: React.FC = ({}) => {
         }}
         setHighlightedItem={setHighlightedAncestry}
       >
-        <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
-          <p>speed: {highlightedAncestry.speed}</p>
-          <p>Attributes: {highlightedAncestry.Attributes.join(", ")}</p>
-          <p>hp: {highlightedAncestry.hp}</p>
-          <p>size: {highlightedAncestry.size}</p>
-        </div>
+        <p className="flex flex-col">
+          <span>Speed:</span>
+          <span>{highlightedAncestry.speed}</span>
+        </p>
+        <p className="flex flex-col">
+          <span>Attributes:</span>
+          <span>{highlightedAncestry.Attributes.join(", ")}</span>
+        </p>
+        <p className="flex flex-col">
+          <span>HP:</span>
+          <span>{highlightedAncestry.hp}</span>
+        </p>
+        <p className="flex flex-col">
+          <span>Size:</span>
+          <span>{highlightedAncestry.size}</span>
+        </p>
       </SelectorDialog>
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2 w-full"

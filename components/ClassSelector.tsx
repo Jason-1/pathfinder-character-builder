@@ -76,33 +76,43 @@ const ClassSelector: React.FC = ({}) => {
         }}
         setHighlightedItem={setHighlightedClass}
       >
-        <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
-          <p>Attributes: {highlightedClass.Attributes.join(", ")}</p>
-          <p>hp: {highlightedClass.hp}</p>
-          <p>
-            Fortitude:{" "}
+        <p className="flex flex-col">
+          <span>Attributes:</span>
+          <span>{highlightedClass.Attributes.join(", ")}</span>
+        </p>
+        <p className="flex flex-col">
+          <span>HP:</span>
+          <span>{highlightedClass.hp}</span>
+        </p>
+        <p className="flex flex-col">
+          <span>Fortitude:</span>
+          <span>
             {trainingLevel(
               highlightedClass.saves.fortitude.filter(
                 (value: number) => value === 1
               ).length
             )}
-          </p>
-          <p>
-            Reflex:{" "}
+          </span>
+        </p>
+        <p className="flex flex-col">
+          <span>Reflex:</span>
+          <span>
             {trainingLevel(
               highlightedClass.saves.reflex.filter(
                 (value: number) => value === 1
               ).length
             )}
-          </p>
-          <p>
-            Will:{" "}
+          </span>
+        </p>
+        <p className="flex flex-col">
+          <span>Will:</span>
+          <span>
             {trainingLevel(
               highlightedClass.saves.will.filter((value: number) => value === 1)
                 .length
             )}
-          </p>
-        </div>
+          </span>
+        </p>
       </SelectorDialog>
 
       <SelectorDialog

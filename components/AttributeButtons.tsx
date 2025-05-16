@@ -208,7 +208,7 @@ const AttributeButtons: React.FC = ({}) => {
 
   //Only show the attributes that are available for the current boost category
   return (
-    <>
+    <div className="overflow-y-auto">
       <Button className="max-w-44" onClick={ResetAllAttributeBoosts}>
         Reset Attributes
       </Button>
@@ -255,7 +255,7 @@ const AttributeButtons: React.FC = ({}) => {
           </div>
         </React.Fragment>
       ))}
-    </>
+    </div>
   );
 };
 

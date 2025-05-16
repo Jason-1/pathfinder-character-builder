@@ -192,15 +192,39 @@ const Armour = () => {
             onItemClick={(item) => handleSetArmour(item)}
             setHighlightedItem={setHighlightedArmour}
           >
-            <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
-              <p>Type: {highlightedArmour.category}</p>
-              <p>AC Bonus: {highlightedArmour.ACBonus}</p>
-              <p>Dex Cap: {highlightedArmour.dexCap}</p>
-              <p>Strength: {highlightedArmour.strength}</p>
-              <p>Check Penalty: {highlightedArmour.checkPenalty}</p>
-              <p>Speed Penalty: {highlightedArmour.speedPenalty}</p>
-              <p>Bulk: {highlightedArmour.bulk}</p>
-              <p>Group: {highlightedArmour.group || "None"}</p>
+            <div className="mt-4 grid grid-cols-4 lg:grid-cols-8 gap-2 text-xs justify-center text-center items-center">
+              <p className="flex flex-col">
+                <span>Type:</span>
+                <span>{highlightedArmour.category}</span>
+              </p>
+              <p className="flex flex-col">
+                <span>AC Bonus:</span>
+                <span>{highlightedArmour.ACBonus}</span>
+              </p>
+              <p className="flex flex-col">
+                <span>Dex Cap:</span>
+                <span>{highlightedArmour.dexCap}</span>
+              </p>
+              <p className="flex flex-col">
+                <span>Strength:</span>
+                <span>{highlightedArmour.strength}</span>
+              </p>
+              <p className="flex flex-col">
+                <span>Check Penalty:</span>
+                <span>{highlightedArmour.checkPenalty}</span>
+              </p>
+              <p className="flex flex-col">
+                <span>Speed Penalty:</span>
+                <span>{highlightedArmour.speedPenalty}</span>
+              </p>
+              <p className="flex flex-col">
+                <span>Bulk:</span>
+                <span>{highlightedArmour.bulk}</span>
+              </p>
+              <p className="flex flex-col">
+                <span>Group:</span>
+                <span>{highlightedArmour.group || "None"}</span>
+              </p>
             </div>
           </SelectorDialog>
         </div>

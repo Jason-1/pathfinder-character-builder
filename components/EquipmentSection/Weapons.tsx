@@ -207,37 +207,52 @@ const Armour = () => {
             onItemClick={(item) => handleSetWeapon(item)}
             setHighlightedItem={setHighlightedWeapon}
           >
-            <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
-              <p>
-                Category:{" "}
+            <p className="flex flex-col">
+              <span>Category:</span>
+              <span>
                 {highlightedWeapon.category.charAt(0).toUpperCase() +
                   highlightedWeapon.category.slice(1)}
-              </p>
-              <p>
-                Damage:{" "}
+              </span>
+            </p>
+            <p className="flex flex-col">
+              <span>Damage:</span>
+              <span>
                 {highlightedWeapon.damage.charAt(0).toUpperCase() +
                   highlightedWeapon.damage.slice(1)}{" "}
                 {highlightedWeapon.damageType.charAt(0).toUpperCase() +
                   highlightedWeapon.damageType.slice(1)}
-              </p>
-              <p>
-                Group:{" "}
+              </span>
+            </p>
+            <p className="flex flex-col">
+              <span>Group:</span>
+              <span>
                 {highlightedWeapon.group.charAt(0).toUpperCase() +
                   highlightedWeapon.group.slice(1)}
-              </p>
-              <p>Hands: {highlightedWeapon.hands}</p>
-              <p>
-                Type:{" "}
+              </span>
+            </p>
+            <p className="flex flex-col">
+              <span>Hands:</span>
+              <span>{highlightedWeapon.hands}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>Type:</span>
+              <span>
                 {highlightedWeapon.type.charAt(0).toUpperCase() +
                   highlightedWeapon.type.slice(1)}
+              </span>
+            </p>
+            {highlightedWeapon.reload != null && (
+              <p className="flex flex-col">
+                <span>Reload:</span>
+                <span>{highlightedWeapon.reload}</span>
               </p>
-              {highlightedWeapon.reload != null && (
-                <p>Reload: {highlightedWeapon.reload}</p>
-              )}
-              {highlightedWeapon.range && (
-                <p>Range: {highlightedWeapon.range}ft</p>
-              )}
-            </div>
+            )}
+            {highlightedWeapon.range && (
+              <p className="flex flex-col">
+                <span>Range:</span>
+                <span>{highlightedWeapon.range}ft</span>
+              </p>
+            )}
           </SelectorDialog>
         </div>
         <div className="flex flex-row gap-2">

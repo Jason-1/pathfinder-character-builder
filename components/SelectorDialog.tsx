@@ -215,7 +215,9 @@ const SelectorDialog = <
             )}
           </div>
           <div className="col-span-2 self-start">
-            {children}
+            <div className="mt-4 grid grid-cols-4 lg:grid-cols-8 gap-2 text-xs justify-center text-center items-center">
+              {children}
+            </div>
             <p className="mt-4 overflow-y-auto max-h-[50vh]">
               {highlightedItem.description || ""}
             </p>
@@ -278,8 +280,10 @@ const SelectorDialog = <
                       </span>
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className="flex flex-col gap-4">
-                        {children}
+                      <div className="flex flex-col gap-2">
+                        <div className="mt-4 grid grid-cols-4 lg:grid-cols-8 gap-2 text-xs justify-center text-center items-center">
+                          {children}
+                        </div>
                         <span>{item.description}</span>
                       </div>
                     </AccordionContent>

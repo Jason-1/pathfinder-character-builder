@@ -192,40 +192,38 @@ const Armour = () => {
             onItemClick={(item) => handleSetArmour(item)}
             setHighlightedItem={setHighlightedArmour}
           >
-            <div className="mt-4 grid grid-cols-4 lg:grid-cols-8 gap-2 text-xs justify-center text-center items-center">
-              <p className="flex flex-col">
-                <span>Type:</span>
-                <span>{highlightedArmour.category}</span>
-              </p>
-              <p className="flex flex-col">
-                <span>AC Bonus:</span>
-                <span>{highlightedArmour.ACBonus}</span>
-              </p>
-              <p className="flex flex-col">
-                <span>Dex Cap:</span>
-                <span>{highlightedArmour.dexCap}</span>
-              </p>
-              <p className="flex flex-col">
-                <span>Strength:</span>
-                <span>{highlightedArmour.strength}</span>
-              </p>
-              <p className="flex flex-col">
-                <span>Check Penalty:</span>
-                <span>{highlightedArmour.checkPenalty}</span>
-              </p>
-              <p className="flex flex-col">
-                <span>Speed Penalty:</span>
-                <span>{highlightedArmour.speedPenalty}</span>
-              </p>
-              <p className="flex flex-col">
-                <span>Bulk:</span>
-                <span>{highlightedArmour.bulk}</span>
-              </p>
-              <p className="flex flex-col">
-                <span>Group:</span>
-                <span>{highlightedArmour.group || "None"}</span>
-              </p>
-            </div>
+            <p className="flex flex-col">
+              <span>Type:</span>
+              <span>{highlightedArmour.category}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>AC Bonus:</span>
+              <span>{highlightedArmour.ACBonus}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>Dex Cap:</span>
+              <span>{highlightedArmour.dexCap}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>Strength:</span>
+              <span>{highlightedArmour.strength}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>Check Penalty:</span>
+              <span>{highlightedArmour.checkPenalty}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>Speed Penalty:</span>
+              <span>{highlightedArmour.speedPenalty}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>Bulk:</span>
+              <span>{highlightedArmour.bulk}</span>
+            </p>
+            <p className="flex flex-col">
+              <span>Group:</span>
+              <span>{highlightedArmour.group || "None"}</span>
+            </p>
           </SelectorDialog>
         </div>
 
@@ -316,7 +314,7 @@ const Armour = () => {
       </div>
       <Separator className="mt-8" />
 
-      <div className="flex flex-col gap-0 lg:gap-2 mt-8 items-center lg:items-start">
+      <div className="flex flex-col gap-2 mt-8 items-center lg:items-start">
         <SelectorDialog
           className="border rounded-sm hover:border-red-700 p-2"
           itemType="Shield"
@@ -326,16 +324,30 @@ const Armour = () => {
           onItemClick={(item) => handleSetShield(item)}
           setHighlightedItem={setHighlightedShield}
         >
-          <div className="mt-4 flex flex-row gap-2 text-xs justify-center">
-            <p>AC Bonus: {highlightedShield.ACBonus}</p>
-            <p>Hardness: {highlightedShield.Hardness}</p>
-            <p>Speed Penalty: {highlightedShield.speedPenalty}</p>
-            <p>Bulk: {highlightedShield.bulk}</p>
-            <p>
-              HP(BT): {highlightedShield.hp}({highlightedShield.bt})
-            </p>
-          </div>
+          <p className="flex flex-col">
+            <span>AC Bonus:</span>
+            <span>{highlightedShield.ACBonus}</span>
+          </p>
+          <p className="flex flex-col">
+            <span>Hardness:</span>
+            <span>{highlightedShield.Hardness}</span>
+          </p>
+          <p className="flex flex-col">
+            <span>Speed Penalty:</span>
+            <span>{highlightedShield.speedPenalty}</span>
+          </p>
+          <p className="flex flex-col">
+            <span>Bulk:</span>
+            <span>{highlightedShield.bulk}</span>
+          </p>
+          <p className="flex flex-col">
+            <span>HP (BT):</span>
+            <span>
+              {highlightedShield.hp} ({highlightedShield.bt})
+            </span>
+          </p>
         </SelectorDialog>
+
         <div className="flex flex-row gap-2 justify-start text-center">
           <p>AC Bonus: +{selectedShieldData?.ACBonus}</p>
           <p>Hardness: {calculateShieldHardness()}</p>

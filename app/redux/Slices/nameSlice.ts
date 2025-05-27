@@ -4,7 +4,7 @@ const initialState = {
   name: "",
 };
 
-const classSlice = createSlice({
+const nameSlice = createSlice({
   name: "name",
   initialState: initialState,
   reducers: {
@@ -14,5 +14,5 @@ const classSlice = createSlice({
   },
 });
 
-export const { setName } = classSlice.actions;
-export default classSlice.reducer;
+export const { setName } = nameSlice.actions;
+export default nameSlice.reducer;

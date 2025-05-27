@@ -15,11 +15,11 @@ export default function Home() {
   // combine useSelector calls into a single call
   // display weapon traits
   // Perception, classDC
-  // Spellcasting search
 
-  //BUGFIXES
-  // Mobile layout
-  // Equipment card bottom cut off
+  // Limit content to the center on extra large screens
+
+  // Save character data to DB
+  // Name slice is called classSlice
 
   return (
     <main className="flex flex-col xl:px-6 pb-10 mx-4">

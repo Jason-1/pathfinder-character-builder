@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
             <div className="flex w-full h-full">
               <AppSidebar />
               <SidebarTrigger />
+              <Toaster />
               <div className="flex-grow">{children}</div>
             </div>
           </SidebarProvider>

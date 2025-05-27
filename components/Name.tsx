@@ -8,6 +8,7 @@ import { selectName } from "@/app/redux/selectors";
 import { Button } from "./ui/button";
 import { useAction } from "next-safe-action/hooks";
 import { createCharacter } from "@/server/actions/create-character";
+import { toast } from "sonner";
 
 const Name = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,11 @@ const Name = () => {
   const name = useSelector(selectName) || "";
 
   const { execute } = useAction(createCharacter, {
-    onSuccess: (result) => {},
+    onSuccess: (data) => {
+      if (data.data) {
+        toast.success(`Character "${data.data.data.name}" saved`);
+      }
+    },
   });
 
   //------------------------------------------------------------------------------//

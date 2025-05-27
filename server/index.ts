@@ -1,41 +1,14 @@
-import "dotenv/config";
-import { drizzle } from "drizzle-orm/node-postgres";
-import { eq } from "drizzle-orm";
-import { usersTable } from "./schema";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import { config } from "dotenv";
 
-const db = drizzle(process.env.DATABASE_URL!);
+config({ path: ".env.local" });
 
-async function main() {
-  const user: typeof usersTable.$inferInsert = {
-    name: "John",
-    age: 30,
-    email: "john@example.com",
-  };
+const sql = neon(process.env.DATABASE_URL!);
 
-  await db.insert(usersTable).values(user);
-  console.log("New user created!");
+//Logger
+//export const db = drizzle(sql, {logger: true,});
 
-  const users = await db.select().from(usersTable);
-  console.log("Getting all users from the database: ", users);
-  /*
-  const users: {
-    id: number;
-    name: string;
-    age: number;
-    email: string;
-  }[]
-  */
+const db = drizzle(sql);
 
-  await db
-    .update(usersTable)
-    .set({
-      age: 31,
-    })
-    .where(eq(usersTable.email, user.email));
-  console.log("User info updated!");
-
-  await db.delete(usersTable).where(eq(usersTable.email, user.email));
-  console.log("User deleted!");
-}
-
-main();
+export { db };

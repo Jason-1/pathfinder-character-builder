@@ -18,6 +18,9 @@ export default function Home() {
 
   // Limit content to the center on extra large screens
 
+  // Start page: New char and load char
+  // upon selection either creates a new character in the DB or loads an existing character the redirects to this page
+
   // Save character data to DB
   // Name slice is called classSlice
 

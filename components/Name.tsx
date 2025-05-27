@@ -15,6 +15,12 @@ const Name = () => {
 
   const name = useSelector(selectName) || "";
 
+  //------------------------------------------------------------------------------//
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setName(event.target.value));
+  };
+
   const { execute } = useAction(createCharacter, {
     onSuccess: (data) => {
       if (data.data) {
@@ -22,12 +28,6 @@ const Name = () => {
       }
     },
   });
-
-  //------------------------------------------------------------------------------//
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setName(event.target.value));
-  };
 
   return (
     <div className="flex justify-center h-[42px]">

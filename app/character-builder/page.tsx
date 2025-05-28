@@ -33,8 +33,6 @@ export default function Home() {
   // I can manually got to /character-builder to build a character without a DB entry - prevent this
   // Refreshing leads to no character ID on modification page - prevent this
 
-  // Add delete character functionality
-
   const router = useRouter();
 
   const name = useSelector(selectName) || "";

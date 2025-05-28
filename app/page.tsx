@@ -8,7 +8,7 @@ import { createCharacter } from "@/server/actions/create-character";
 import { toast } from "sonner";
 import { loadCharacter } from "@/server/actions/load-character";
 import { useDispatch, useSelector } from "react-redux";
-import { setName } from "./redux/Slices/nameSlice";
+import { initialNameState, setName } from "./redux/Slices/nameSlice";
 import { setId } from "./redux/Slices/idSlice";
 import { useEffect, useState } from "react";
 import { getCharacters } from "@/server/actions/get-all-characters";
@@ -44,6 +44,10 @@ export default function Home() {
   useEffect(() => {
     getAllCharacters();
   }, [getAllCharacters]);
+
+  useEffect(() => {
+    dispatch(setName(initialNameState.name));
+  }, [dispatch]);
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
@@ -84,9 +88,11 @@ export default function Home() {
 
       <Dialog>
         <DialogTrigger>
-          <Button className="mt-2">Load existing character</Button>
+          <span className="mt-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
+            Load existing character
+          </span>
         </DialogTrigger>
-        <DialogContent className="flex flex-col h-2/3">
+        <DialogContent className="w-1/2  h-3/4 max-h-[75vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>Select a character to load</DialogTitle>{" "}
           </DialogHeader>

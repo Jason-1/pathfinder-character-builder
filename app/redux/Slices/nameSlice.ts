@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export const initialNameState = {
   name: "",
 };
 
 const classSlice = createSlice({
   name: "name",
-  initialState: initialState,
+  initialState: initialNameState,
   reducers: {
     setName: (state, action) => {
       state.name = action.payload;

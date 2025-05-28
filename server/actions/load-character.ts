@@ -12,9 +12,15 @@ export const loadCharacter = action
   .schema(loadCharacterSchema)
   .action(async (input) => {
     const { id } = input.parsedInput;
-    const result = await db
-      .select()
-      .from(characters)
-      .where(eq(characters.id, id));
-    return { data: result[0] };
+
+    try {
+      const result = await db
+        .select()
+        .from(characters)
+        .where(eq(characters.id, id));
+      return { data: result[0] };
+    } catch (error) {
+      console.error("Error loading character:", error);
+      throw new Error("Failed to load character");
+    }
   });

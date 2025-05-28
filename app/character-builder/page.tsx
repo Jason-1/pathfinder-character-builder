@@ -38,22 +38,6 @@ export default function Home() {
   const name = useSelector(selectName) || "";
   const id = useSelector(selectID);
 
-  const { execute: loadCharacterExecute } = useAction(loadCharacter, {
-    onSuccess: (data) => {
-      if (data.data?.name) {
-        dispatch(setName(data.data.name));
-      }
-    },
-  });
-
-  const { execute } = useAction(createCharacter, {
-    onSuccess: (data) => {
-      if (data.data) {
-        toast.success(`Character "${data.data.name}" saved`);
-      }
-    },
-  });
-
   return (
     <main className="flex flex-col xl:px-6 pb-10 mx-4">
       <div className="w-full grid items-center justify-center xl:grid-cols-12 xl:gap-16 xl:items-start">

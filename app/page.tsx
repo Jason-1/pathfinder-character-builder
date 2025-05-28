@@ -13,6 +13,13 @@ import { setId } from "./redux/Slices/idSlice";
 import { useEffect, useState } from "react";
 import { getCharacters } from "@/server/actions/get-all-characters";
 import { selectID } from "./redux/selectors";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Home() {
   const router = useRouter();
@@ -23,6 +30,9 @@ export default function Home() {
   const [characters, setCharacters] = useState<{ id: number; name: string }[]>(
     []
   );
+  const [highlightedCharacter, setHighlightedCharacter] = useState<
+    number | null
+  >(null);
   const { execute: getAllCharacters } = useAction(getCharacters, {
     onSuccess: (data) => {
       if (data.data) {
@@ -69,28 +79,50 @@ export default function Home() {
           createCharacterExecute({ name: "" });
         }}
       >
-        Create new Character
-      </Button>
-      <Button
-        onClick={() => {
-          id && loadCharacterExecute({ id });
-        }}
-      >
-        Load existing Character
+        Create new character
       </Button>
 
-      <ul>
-        {characters.map((char) => (
-          <li
-            key={char.id}
-            onClick={() => {
-              handleSetID(char.id);
-            }}
-          >
-            Name: {char.name} - id: {char.id}
-          </li>
-        ))}
-      </ul>
+      <Dialog>
+        <DialogTrigger>
+          <Button className="mt-2">Load existing character</Button>
+        </DialogTrigger>
+        <DialogContent className="flex flex-col h-2/3">
+          <DialogHeader>
+            <DialogTitle>Select a character to load</DialogTitle>{" "}
+          </DialogHeader>
+          <div className="h-full overflow-y-auto border">
+            <ul>
+              {characters.map((char) => (
+                <li
+                  className={`${
+                    highlightedCharacter === char.id
+                      ? "bg-gray-400"
+                      : "hover:bg-gray-800"
+                  } cursor-pointer `}
+                  key={char.id}
+                  onClick={() => {
+                    handleSetID(char.id);
+                    setHighlightedCharacter(char.id);
+                  }}
+                >
+                  Name: {char.name} - id: {char.id}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-4">
+            <Button
+              className="w-full"
+              onClick={() => {
+                id && loadCharacterExecute({ id });
+              }}
+            >
+              Confirm Selection
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

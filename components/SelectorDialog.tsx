@@ -184,7 +184,9 @@ const SelectorDialog = <
                   <div
                     key={item.name}
                     className={`flex flex-row gap-2 mt-0 cursor-pointer col-span-1 justify-between items-center ${
-                      highlightedItem.name === item.name ? "bg-gray-400" : ""
+                      highlightedItem.name === item.name
+                        ? "bg-gray-400"
+                        : "hover:bg-gray-800"
                     }`}
                     onClick={() => {
                       setHighlightedItem(item);

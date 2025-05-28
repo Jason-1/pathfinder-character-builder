@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +16,7 @@ const Name = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setName(event.target.value));
   };
+
   return (
     <div className="flex justify-center h-[42px]">
       <Input

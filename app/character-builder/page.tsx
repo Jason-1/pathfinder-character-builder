@@ -15,7 +15,7 @@ import { loadCharacter } from "@/server/actions/load-character";
 import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { setName } from "../redux/Slices/nameSlice";
-import { selectName } from "../redux/selectors";
+import { selectID, selectName } from "../redux/selectors";
 import { updateCharacter } from "@/server/actions/update-character";
 
 export default function Home() {
@@ -36,6 +36,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const name = useSelector(selectName) || "";
+  const id = useSelector(selectID);
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
@@ -73,6 +74,7 @@ export default function Home() {
               <Button onClick={() => updateCharacter({ id: 21, name })}>
                 Update Character
               </Button>
+              <span>ID: {id}</span>
             </div>
             <div className="block 2xl:hidden">
               <SkillShowcase />

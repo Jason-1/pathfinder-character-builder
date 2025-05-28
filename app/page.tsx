@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { loadCharacter } from "@/server/actions/load-character";
 import { useDispatch, useSelector } from "react-redux";
 import { setName } from "./redux/Slices/nameSlice";
-import { selectName } from "./redux/selectors";
+import { setId } from "./redux/Slices/idSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -19,6 +19,8 @@ export default function Home() {
     onSuccess: (data) => {
       if (data.data?.name) {
         dispatch(setName(data.data.name));
+        dispatch(setId(data.data.id));
+        router.push("/character-builder");
       }
     },
   });
@@ -26,7 +28,9 @@ export default function Home() {
   const { execute: createCharacterExecute } = useAction(createCharacter, {
     onSuccess: (data) => {
       if (data.data) {
-        toast.success(`Character "${data.data.name}" saved`);
+        toast.success(`Character "${data.data.name}" created`);
+        dispatch(setId(data.data.id));
+        router.push("/character-builder");
       }
     },
   });
@@ -38,8 +42,7 @@ export default function Home() {
       </h1>
       <Button
         onClick={() => {
-          createCharacterExecute({ name: "" }); // Pass the required argument here
-          router.push("/character-builder");
+          createCharacterExecute({ name: "" });
         }}
       >
         Create new Character
@@ -47,7 +50,6 @@ export default function Home() {
       <Button
         onClick={() => {
           loadCharacterExecute({ id: 21 });
-          router.push("/character-builder");
         }}
       >
         Load existing Character

@@ -9,7 +9,7 @@ const idSlice = createSlice({
   initialState: initialState,
   reducers: {
     setId: (state, action) => {
-      state.id = action.payload.id;
+      state.id = action.payload;
     },
   },
 });

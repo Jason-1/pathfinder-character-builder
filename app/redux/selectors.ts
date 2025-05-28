@@ -24,3 +24,4 @@ export const selectShieldReinforcing = (state: RootState) =>
   state.shieldReinforcing.reinforcing;
 export const selectWeapon = (state: RootState) => state.weapon.weapon;
 export const selectSpells = (state: RootState) => state.selectedSpells;
+export const selectID = (state: RootState) => state.id.id;

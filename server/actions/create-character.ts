@@ -14,7 +14,7 @@ export const createCharacter = action
 
     try {
       const result = await db.insert(characters).values({ name }).returning();
-      return { data: result[0] };
+      return result[0];
     } catch (error) {
       console.error("Error creating character:", error);
       throw new Error("Failed to create character");

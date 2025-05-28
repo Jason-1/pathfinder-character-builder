@@ -20,7 +20,7 @@ export const updateCharacter = action
         .where(eq(characters.id, id))
         .returning();
 
-      return { data: result[0] };
+      return result[0];
     } catch (error) {
       console.error("Error creating character:", error);
       throw new Error("Failed to update character");

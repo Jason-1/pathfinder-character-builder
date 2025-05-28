@@ -39,8 +39,8 @@ export default function Home() {
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
-      if (data.data?.data.name) {
-        dispatch(setName(data.data.data.name));
+      if (data.data?.name) {
+        dispatch(setName(data.data.name));
       }
     },
   });
@@ -48,7 +48,7 @@ export default function Home() {
   const { execute } = useAction(createCharacter, {
     onSuccess: (data) => {
       if (data.data) {
-        toast.success(`Character "${data.data.data.name}" saved`);
+        toast.success(`Character "${data.data.name}" saved`);
       }
     },
   });
@@ -67,10 +67,10 @@ export default function Home() {
             <VariantRules />
             <div>
               <Button onClick={() => execute({ name })}>Save Character</Button>
-              <Button onClick={() => loadCharacterExecute({ id: 1 })}>
+              <Button onClick={() => loadCharacterExecute({ id: 21 })}>
                 Load Character
               </Button>
-              <Button onClick={() => updateCharacter({ id: 1, name })}>
+              <Button onClick={() => updateCharacter({ id: 21, name })}>
                 Update Character
               </Button>
             </div>

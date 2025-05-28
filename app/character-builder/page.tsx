@@ -8,6 +8,16 @@ import SkillShowcase from "@/components/SkillShowcase";
 import Defences from "@/components/Defences";
 import Equipment from "@/components/EquipmentSection/Equipment";
 
+import { useAction } from "next-safe-action/hooks";
+import { createCharacter } from "@/server/actions/create-character";
+import { toast } from "sonner";
+import { loadCharacter } from "@/server/actions/load-character";
+import { Button } from "@/components/ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import { setName } from "../redux/Slices/nameSlice";
+import { selectName } from "../redux/selectors";
+import { updateCharacter } from "@/server/actions/update-character";
+
 export default function Home() {
   //TODO -
   // Dice Tray
@@ -23,6 +33,25 @@ export default function Home() {
 
   // Save character data to DB
   // Name slice is called classSlice
+  const dispatch = useDispatch();
+
+  const name = useSelector(selectName) || "";
+
+  const { execute: loadCharacterExecute } = useAction(loadCharacter, {
+    onSuccess: (data) => {
+      if (data.data?.data.name) {
+        dispatch(setName(data.data.data.name));
+      }
+    },
+  });
+
+  const { execute } = useAction(createCharacter, {
+    onSuccess: (data) => {
+      if (data.data) {
+        toast.success(`Character "${data.data.data.name}" saved`);
+      }
+    },
+  });
 
   return (
     <main className="flex flex-col xl:px-6 pb-10 mx-4">
@@ -36,6 +65,15 @@ export default function Home() {
             <Defences />
             <Abilities />
             <VariantRules />
+            <div>
+              <Button onClick={() => execute({ name })}>Save Character</Button>
+              <Button onClick={() => loadCharacterExecute({ id: 1 })}>
+                Load Character
+              </Button>
+              <Button onClick={() => updateCharacter({ id: 1, name })}>
+                Update Character
+              </Button>
+            </div>
             <div className="block 2xl:hidden">
               <SkillShowcase />
             </div>

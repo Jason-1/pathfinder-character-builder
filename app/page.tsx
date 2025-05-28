@@ -51,7 +51,7 @@ export default function Home() {
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
-      if (data.data?.name) {
+      if (data.data?.id) {
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
         router.push("/character-builder");

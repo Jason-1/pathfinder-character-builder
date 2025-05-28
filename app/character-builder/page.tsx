@@ -18,6 +18,7 @@ import { setName } from "../redux/Slices/nameSlice";
 import { selectID, selectName } from "../redux/selectors";
 import { updateCharacter } from "@/server/actions/update-character";
 import { useRouter } from "next/navigation";
+import { deleteCharacter } from "@/server/actions/delete-character";
 
 export default function Home() {
   //TODO -
@@ -32,7 +33,8 @@ export default function Home() {
   // I can manually got to /character-builder to build a character without a DB entry - prevent this
   // Refreshing leads to no character ID on modification page - prevent this
 
-  const dispatch = useDispatch();
+  // Add delete character functionality
+
   const router = useRouter();
 
   const name = useSelector(selectName) || "";
@@ -42,6 +44,15 @@ export default function Home() {
     onSuccess: (data) => {
       if (data.data) {
         toast.success(`Character "${data.data.name}" updated successfully!`);
+      }
+    },
+  });
+
+  const { execute: deleteCharacterExecute } = useAction(deleteCharacter, {
+    onSuccess: (data) => {
+      if (data.data) {
+        toast.success(`Character "${data.data.name}" deleted successfully!`);
+        router.push("/");
       }
     },
   });
@@ -64,11 +75,14 @@ export default function Home() {
               >
                 Save Character
               </Button>
+              <Button onClick={() => id && deleteCharacterExecute({ id })}>
+                Delete Character
+              </Button>
               <Button onClick={() => router.push("/")}>
                 Return to Homepage
               </Button>
-              <span>ID: {id}</span>
             </div>
+            <span>ID: {id}</span>
             <div className="block 2xl:hidden">
               <SkillShowcase />
             </div>

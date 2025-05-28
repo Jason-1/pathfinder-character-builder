@@ -68,10 +68,10 @@ export default function Home() {
             <VariantRules />
             <div>
               <Button onClick={() => execute({ name })}>Save Character</Button>
-              <Button onClick={() => loadCharacterExecute({ id: 21 })}>
+              <Button onClick={() => id && loadCharacterExecute({ id })}>
                 Load Character
               </Button>
-              <Button onClick={() => updateCharacter({ id: 21, name })}>
+              <Button onClick={() => id && updateCharacter({ id, name })}>
                 Update Character
               </Button>
               <span>ID: {id}</span>

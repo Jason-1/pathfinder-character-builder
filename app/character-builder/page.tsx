@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setName } from "../redux/Slices/nameSlice";
 import { selectID, selectName } from "../redux/selectors";
 import { updateCharacter } from "@/server/actions/update-character";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   //TODO -
@@ -28,15 +29,22 @@ export default function Home() {
 
   // Limit content to the center on extra large screens
 
-  // Start page: New char and load char
-  // upon selection either creates a new character in the DB or loads an existing character the redirects to this page
+  // I can manually got to /character-builder to build a character without a DB entry - prevent this
+  // Refreshing leads to no character ID on modification page - prevent this
 
-  // Save character data to DB
-  // Name slice is called classSlice
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const name = useSelector(selectName) || "";
   const id = useSelector(selectID);
+
+  const { execute: updateCharacterExecute } = useAction(updateCharacter, {
+    onSuccess: (data) => {
+      if (data.data) {
+        toast.success(`Character "${data.data.name}" updated successfully!`);
+      }
+    },
+  });
 
   return (
     <main className="flex flex-col xl:px-6 pb-10 mx-4">
@@ -50,9 +58,14 @@ export default function Home() {
             <Defences />
             <Abilities />
             <VariantRules />
-            <div>
-              <Button onClick={() => id && updateCharacter({ id, name })}>
+            <div className="flex flex-row gap-4 items-center justify-between">
+              <Button
+                onClick={() => id && updateCharacterExecute({ id, name })}
+              >
                 Save Character
+              </Button>
+              <Button onClick={() => router.push("/")}>
+                Return to Homepage
               </Button>
               <span>ID: {id}</span>
             </div>

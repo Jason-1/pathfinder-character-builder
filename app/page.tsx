@@ -62,7 +62,7 @@ export default function Home() {
   const { execute: createCharacterExecute } = useAction(createCharacter, {
     onSuccess: (data) => {
       if (data.data) {
-        toast.success(`Character "${data.data.name}" created`);
+        toast.success(`New character created`);
         dispatch(setId(data.data.id));
         router.push("/character-builder");
       }

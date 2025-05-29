@@ -30,9 +30,9 @@ export default function Home() {
 
   const id = useSelector(selectID);
 
-  const [characters, setCharacters] = useState<{ id: number; name: string }[]>(
-    []
-  );
+  const [characters, setCharacters] = useState<
+    { id: number; name: string; level: number }[]
+  >([]);
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
   >(null);
@@ -126,7 +126,7 @@ export default function Home() {
                     setHighlightedCharacter(char.id);
                   }}
                 >
-                  Name: {char.name} - id: {char.id}
+                  Name: {char.name} - Level: {char.level}
                 </li>
               ))}
             </ul>

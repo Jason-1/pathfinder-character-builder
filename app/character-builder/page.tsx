@@ -7,18 +7,7 @@ import VariantRules from "@/components/VariantRules";
 import SkillShowcase from "@/components/SkillShowcase";
 import Defences from "@/components/Defences";
 import Equipment from "@/components/EquipmentSection/Equipment";
-
-import { useAction } from "next-safe-action/hooks";
-import { createCharacter } from "@/server/actions/create-character";
-import { toast } from "sonner";
-import { loadCharacter } from "@/server/actions/load-character";
-import { Button } from "@/components/ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { setName } from "../redux/Slices/nameSlice";
-import { selectID, selectName } from "../redux/selectors";
-import { updateCharacter } from "@/server/actions/update-character";
-import { useRouter } from "next/navigation";
-import { deleteCharacter } from "@/server/actions/delete-character";
+import DatabaseButtons from "@/components/DatabaseButtons";
 
 export default function Home() {
   //TODO -
@@ -33,27 +22,8 @@ export default function Home() {
   // I can manually got to /character-builder to build a character without a DB entry - prevent this
   // Refreshing leads to no character ID on modification page - prevent this
 
-  const router = useRouter();
-
-  const name = useSelector(selectName) || "";
-  const id = useSelector(selectID);
-
-  const { execute: updateCharacterExecute } = useAction(updateCharacter, {
-    onSuccess: (data) => {
-      if (data.data) {
-        toast.success(`Character "${data.data.name}" updated successfully!`);
-      }
-    },
-  });
-
-  const { execute: deleteCharacterExecute } = useAction(deleteCharacter, {
-    onSuccess: (data) => {
-      if (data.data) {
-        toast.success(`Character "${data.data.name}" deleted successfully!`);
-        router.push("/");
-      }
-    },
-  });
+  // Are you sure you want to delete this character? - confirmation dialog
+  // Load character toast on success
 
   return (
     <main className="flex flex-col xl:px-6 pb-10 mx-4">
@@ -67,20 +37,7 @@ export default function Home() {
             <Defences />
             <Abilities />
             <VariantRules />
-            <div className="flex flex-row gap-4 items-center justify-between">
-              <Button
-                onClick={() => id && updateCharacterExecute({ id, name })}
-              >
-                Save Character
-              </Button>
-              <Button onClick={() => id && deleteCharacterExecute({ id })}>
-                Delete Character
-              </Button>
-              <Button onClick={() => router.push("/")}>
-                Return to Homepage
-              </Button>
-            </div>
-            <span>ID: {id}</span>
+            <DatabaseButtons />
             <div className="block 2xl:hidden">
               <SkillShowcase />
             </div>

@@ -33,6 +33,7 @@ export default function Home() {
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
   >(null);
+
   const { execute: getAllCharacters } = useAction(getCharacters, {
     onSuccess: (data) => {
       if (data.data) {
@@ -52,6 +53,7 @@ export default function Home() {
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
       if (data.data?.id) {
+        toast.success(`Character "${data.data.name}" loaded successfully!`);
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
         router.push("/character-builder");

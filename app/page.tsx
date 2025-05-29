@@ -15,11 +15,13 @@ import { getCharacters } from "@/server/actions/get-all-characters";
 import { selectID } from "./redux/selectors";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { deleteCharacter } from "@/server/actions/delete-character";
 
 export default function Home() {
   const router = useRouter();
@@ -67,6 +69,15 @@ export default function Home() {
         toast.success(`New character created`);
         dispatch(setId(data.data.id));
         router.push("/character-builder");
+      }
+    },
+  });
+
+  const { execute: deleteCharacterExecute } = useAction(deleteCharacter, {
+    onSuccess: (data) => {
+      if (data.data) {
+        toast.success(`Character "${data.data.name}" deleted successfully!`);
+        router.push("/");
       }
     },
   });
@@ -119,7 +130,7 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="mt-4">
+          <div className="flex flex-row gap-4 items-center justify-center w-full">
             <Button
               className="w-full"
               onClick={() => {
@@ -128,6 +139,41 @@ export default function Home() {
             >
               Confirm Selection
             </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <span className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2">
+                  Delete Character
+                </span>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    Are you sure you want to delete{" "}
+                    {characters.find((char) => char.id === id)?.name ||
+                      "that which has no name"}
+                    ?
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-row gap-4 items-center justify-center w-full">
+                  <DialogClose asChild>
+                    <span
+                      className="cursor-pointer w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2"
+                      onClick={() => {
+                        id && deleteCharacterExecute({ id });
+                        getAllCharacters();
+                      }}
+                    >
+                      Yes
+                    </span>
+                  </DialogClose>
+                  <DialogClose asChild>
+                    <span className="cursor-pointer w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
+                      No
+                    </span>
+                  </DialogClose>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </DialogContent>
       </Dialog>

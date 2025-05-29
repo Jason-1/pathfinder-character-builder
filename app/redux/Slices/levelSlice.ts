@@ -9,7 +9,7 @@ const levelSlice = createSlice({
   initialState: initialState,
   reducers: {
     setLevel: (state, action) => {
-      state.level = action.payload.level;
+      state.level = action.payload;
     },
   },
 });

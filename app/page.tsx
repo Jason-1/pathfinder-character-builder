@@ -22,6 +22,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { deleteCharacter } from "@/server/actions/delete-character";
+import { setLevel } from "./redux/Slices/levelSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -58,6 +59,7 @@ export default function Home() {
         toast.success(`Character "${data.data.name}" loaded successfully!`);
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
+        dispatch(setLevel(data.data.level));
         router.push("/character-builder");
       }
     },

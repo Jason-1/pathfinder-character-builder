@@ -24,7 +24,7 @@ const LevelSelector: React.FC = ({}) => {
   //------------------------------------------------------------------------------//
 
   const handleSetLevel = (level: number) => {
-    dispatch(setLevel({ level }));
+    dispatch(setLevel(level));
   };
 
   return (

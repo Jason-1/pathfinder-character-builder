@@ -8,8 +8,18 @@ import SkillShowcase from "@/components/SkillShowcase";
 import Defences from "@/components/Defences";
 import Equipment from "@/components/EquipmentSection/Equipment";
 import DatabaseButtons from "@/components/DatabaseButtons";
+import { use, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { selectID } from "../redux/selectors";
 
 export default function Home() {
+  const router = useRouter();
+
+  const id = useSelector(selectID);
+
+  //------------------------------------------------------------------------------//
+
   //TODO -
   // Dice Tray
   // Equipment
@@ -24,6 +34,23 @@ export default function Home() {
 
   // Are you sure you want to delete this character? - confirmation dialog
   // Load character toast on success
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (id === null) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <main className="flex flex-col xl:px-6 pb-10 mx-4">

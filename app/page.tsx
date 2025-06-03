@@ -51,6 +51,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(setName(initialNameState.name));
+    dispatch(setLevel(1));
   }, [dispatch]);
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {

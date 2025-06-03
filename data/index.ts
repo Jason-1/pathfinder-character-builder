@@ -1520,7 +1520,7 @@ export const armourData: armourItemType[] = [
     strength: 0,
     checkPenalty: 0,
     speedPenalty: 0,
-    bulk: 0,
+    bulk: "0",
     group: "",
     description: "No Armour",
   },
@@ -1558,7 +1558,7 @@ export const armourData: armourItemType[] = [
     strength: 0,
     checkPenalty: 1,
     speedPenalty: 0,
-    bulk: 1,
+    bulk: "1",
     group: "Leather",
     description:
       "A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.",
@@ -1571,7 +1571,7 @@ export const armourData: armourItemType[] = [
     strength: 1,
     checkPenalty: 1,
     speedPenalty: 0,
-    bulk: 1,
+    bulk: "1",
     group: "chain",
     description:
       "Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chainmail. However, it is much lighter than chainmail and protects only the torso, upper arms, and upper legs of its wearer.",
@@ -1649,7 +1649,7 @@ export const armourData: armourItemType[] = [
     strength: 3,
     checkPenalty: 3,
     speedPenalty: 10,
-    bulk: 3,
+    bulk: "3",
     group: "plate",
     description:
       "Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.",
@@ -1662,7 +1662,7 @@ export const armourData: armourItemType[] = [
     strength: 4,
     checkPenalty: 3,
     speedPenalty: 10,
-    bulk: 4,
+    bulk: "4",
     group: "plate",
     description:
       "Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.",

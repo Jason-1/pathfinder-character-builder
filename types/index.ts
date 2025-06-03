@@ -160,7 +160,7 @@ export type armourItemType = {
   strength: number;
   checkPenalty: number;
   speedPenalty: number;
-  bulk: number | string;
+  bulk: string;
   group: string;
   description: string;
 };

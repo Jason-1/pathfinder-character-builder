@@ -22,6 +22,20 @@
       "when": 1748484125371,
       "tag": "0002_regular_selene",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1748912691883,
+      "tag": "0003_boring_blacklash",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1748912977783,
+      "tag": "0004_bizarre_blade",
+      "breakpoints": true
     }
   ]
 }

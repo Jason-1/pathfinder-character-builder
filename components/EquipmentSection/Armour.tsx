@@ -4,7 +4,7 @@ import {
   shieldItemType,
   shieldReinforcingRunes,
 } from "@/types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
 import { setArmour } from "@/app/redux/Slices/armourSlice";
@@ -30,9 +30,32 @@ import {
   selectShieldReinforcing,
 } from "@/app/redux/selectors";
 import { setReinforcing } from "@/app/redux/Slices/shieldReinforcingSlice";
+import { useAction } from "next-safe-action/hooks";
+import { getArmour } from "@/server/actions/get-all-armour";
 
 const Armour = () => {
   const dispatch = useDispatch();
+
+  const [armourDataFromDB, setArmourDataFromDB] = useState<armourItemType[]>(
+    []
+  );
+
+  const { execute: getAllCharacters } = useAction(getArmour, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setArmourDataFromDB(
+          data.data.map((item: any) => ({
+            ...item,
+            category: item.category as armourItemType["category"],
+          }))
+        );
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllCharacters();
+  }, [getAllCharacters]);
 
   const selectedArmour = useSelector(selectArmour);
   const selectedPotency = useSelector(selectPotency);
@@ -415,6 +438,12 @@ const Armour = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+
+      <div>
+        {armourDataFromDB.map((armourItemFromDB) => (
+          <li key={armourItemFromDB.name}>Name: {armourItemFromDB.name}</li>
+        ))}
       </div>
     </div>
   );

@@ -35,6 +35,8 @@ export default function Home() {
   // Are you sure you want to delete this character? - confirmation dialog
   // Load character toast on success
 
+  // Working on getting armour. Once one is selected save the entire thing to the redux store so I can access it from anywhere without needing to query the DB again
+
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();

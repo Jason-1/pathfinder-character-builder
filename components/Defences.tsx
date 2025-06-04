@@ -40,9 +40,6 @@ const Defences = () => {
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
-  const selectedArmourData = armourData.find(
-    (armourItem) => armourItem.name === selectedArmour
-  );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
@@ -92,19 +89,19 @@ const Defences = () => {
 
   function calculateAC() {
     let AC = 0;
-    if (!selectedArmourData || !selectedClassData) {
+    if (!selectedArmour || !selectedClassData) {
       return 0;
     }
 
-    const dexCap = selectedArmourData.dexCap;
+    const dexCap = selectedArmour.dexCap;
 
     const Base = 10;
     const proficiency = calculateCurrentArmourProficiencyBonus(
-      selectedArmourData.category,
+      selectedArmour.category,
       selectedLevel,
       selectedClassData
     );
-    const item = selectedArmourData.ACBonus;
+    const item = selectedArmour.ACBonus;
     const rune = selectedPotency;
     const dexterity = Math.min(
       calculateCurrentAttributeBoost(

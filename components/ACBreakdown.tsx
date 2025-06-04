@@ -30,13 +30,10 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
   const selectedClassData = Classes.find(
     (classItem) => classItem.name === selectedClass
   );
-  const selectedArmourData = armourData.find(
-    (armourItem) => armourItem.name === selectedArmour
-  );
 
   //------------------------------------------------------------------------------//
 
-  if (!selectedArmourData) {
+  if (!selectedArmour) {
     return <p>No armour selected</p>;
   }
 
@@ -45,18 +42,18 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
       Base: 10 <br />
       Proficiency:{" "}
       {calculateCurrentArmourProficiencyBonus(
-        selectedArmourData.category,
+        selectedArmour.category,
         selectedLevel,
         selectedClassData
       ) > 0
         ? calculateCurrentArmourProficiencyBonus(
-            selectedArmourData.category,
+            selectedArmour.category,
             selectedLevel,
             selectedClassData
           ) + selectedLevel
         : 0}
       <br />
-      Item: {selectedArmourData.ACBonus} <br />
+      Item: {selectedArmour.ACBonus} <br />
       Potency: {selectedPotency} <br />
       Dexterity:{" "}
       {Math.min(
@@ -65,7 +62,7 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
           selectedLevel,
           attributeBoosts
         ),
-        selectedArmourData.dexCap
+        selectedArmour.dexCap
       )}
       <br />
       Shield: {shieldRaised ? selectedShieldData?.ACBonus : 0} <br />

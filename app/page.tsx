@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dialog";
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
+import { initialArmourState, setArmour } from "./redux/Slices/armourSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -52,6 +53,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(setName(initialNameState.name));
     dispatch(setLevel(1));
+    dispatch(setArmour(initialArmourState.armour));
   }, [dispatch]);
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {

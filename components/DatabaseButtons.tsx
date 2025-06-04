@@ -8,7 +8,12 @@ import { useSelector } from "react-redux";
 import { updateCharacter } from "@/server/actions/update-character";
 import { useRouter } from "next/navigation";
 import { deleteCharacter } from "@/server/actions/delete-character";
-import { selectID, selectLevel, selectName } from "@/app/redux/selectors";
+import {
+  selectArmour,
+  selectID,
+  selectLevel,
+  selectName,
+} from "@/app/redux/selectors";
 
 import {
   Dialog,
@@ -26,6 +31,7 @@ const DatabaseButtons = () => {
   const name = useSelector(selectName) || "";
   const id = useSelector(selectID);
   const level = useSelector(selectLevel);
+  const selectedArmour = useSelector(selectArmour);
 
   const { execute: updateCharacterExecute } = useAction(updateCharacter, {
     onSuccess: (data) => {
@@ -48,7 +54,15 @@ const DatabaseButtons = () => {
     <div>
       <div className="flex flex-row gap-4 items-center justify-center">
         <Button
-          onClick={() => id && updateCharacterExecute({ id, name, level })}
+          onClick={() =>
+            id &&
+            updateCharacterExecute({
+              id,
+              name,
+              level,
+              armourName: selectedArmour.name,
+            })
+          }
         >
           Save Character
         </Button>

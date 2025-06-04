@@ -1,4 +1,4 @@
-import { armourData, Classes, shieldData, shieldReinforcingData } from "@/data";
+import { Classes, shieldData, shieldReinforcingData } from "@/data";
 import {
   armourItemType,
   shieldItemType,
@@ -36,14 +36,12 @@ import { getArmour } from "@/server/actions/get-all-armour";
 const Armour = () => {
   const dispatch = useDispatch();
 
-  const [armourDataFromDB, setArmourDataFromDB] = useState<armourItemType[]>(
-    []
-  );
+  const [armourData, setArmourData] = useState<armourItemType[]>([]);
 
   const { execute: getAllCharacters } = useAction(getArmour, {
     onSuccess: (data) => {
       if (data.data) {
-        setArmourDataFromDB(
+        setArmourData(
           data.data.map((item: any) => ({
             ...item,
             category: item.category as armourItemType["category"],
@@ -78,8 +76,9 @@ const Armour = () => {
     (classItem) => classItem.name === selectedClass
   );
 
-  const [highlightedArmour, setHighlightedArmour] =
-    React.useState<armourItemType>(armourData[0]);
+  const [highlightedArmour, setHighlightedArmour] = React.useState<
+    armourItemType | undefined
+  >(undefined);
 
   const [highlightedShield, setHighlightedShield] =
     React.useState<shieldItemType>(shieldData[0]);
@@ -211,41 +210,44 @@ const Armour = () => {
             itemType="Armour"
             selectedItem={selectedArmour}
             data={armourData}
-            highlightedItem={highlightedArmour}
+            highlightedItem={
+              highlightedArmour ??
+              armourData[0] ?? { name: "", description: "" }
+            }
             onItemClick={(item) => handleSetArmour(item)}
             setHighlightedItem={setHighlightedArmour}
           >
             <p className="flex flex-col">
               <span>Type:</span>
-              <span>{highlightedArmour.category}</span>
+              <span>{highlightedArmour?.category}</span>
             </p>
             <p className="flex flex-col">
               <span>AC Bonus:</span>
-              <span>{highlightedArmour.ACBonus}</span>
+              <span>{highlightedArmour?.ACBonus}</span>
             </p>
             <p className="flex flex-col">
               <span>Dex Cap:</span>
-              <span>{highlightedArmour.dexCap}</span>
+              <span>{highlightedArmour?.dexCap}</span>
             </p>
             <p className="flex flex-col">
               <span>Strength:</span>
-              <span>{highlightedArmour.strength}</span>
+              <span>{highlightedArmour?.strength}</span>
             </p>
             <p className="flex flex-col">
               <span>Check Penalty:</span>
-              <span>{highlightedArmour.checkPenalty}</span>
+              <span>{highlightedArmour?.checkPenalty}</span>
             </p>
             <p className="flex flex-col">
               <span>Speed Penalty:</span>
-              <span>{highlightedArmour.speedPenalty}</span>
+              <span>{highlightedArmour?.speedPenalty}</span>
             </p>
             <p className="flex flex-col">
               <span>Bulk:</span>
-              <span>{highlightedArmour.bulk}</span>
+              <span>{highlightedArmour?.bulk}</span>
             </p>
             <p className="flex flex-col">
               <span>Group:</span>
-              <span>{highlightedArmour.group || "None"}</span>
+              <span>{highlightedArmour?.group || "None"}</span>
             </p>
           </SelectorDialog>
         </div>
@@ -441,8 +443,8 @@ const Armour = () => {
       </div>
 
       <div>
-        {armourDataFromDB.map((armourItemFromDB) => (
-          <li key={armourItemFromDB.name}>Name: {armourItemFromDB.name}</li>
+        {armourData.map((armourItem) => (
+          <li key={armourItem.name}>Name: {armourItem.name}</li>
         ))}
       </div>
     </div>

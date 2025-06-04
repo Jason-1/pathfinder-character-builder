@@ -5,6 +5,7 @@ import {
   serial,
   boolean,
   text,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -17,9 +18,16 @@ export const characters = pgTable("characters", {
     .default("Unarmoured"),
 });
 
+export const ArnourCategoryEnum = pgEnum("category", [
+  "unarmoured",
+  "light",
+  "medium",
+  "heavy",
+]);
+
 export const armour = pgTable("armour", {
   name: varchar("name", { length: 255 }).notNull().primaryKey(),
-  category: varchar("category", { length: 255 }).notNull(),
+  category: ArnourCategoryEnum("category").notNull().default("unarmoured"),
   ACBonus: integer("AC_bonus").notNull().default(0),
   dexCap: integer("dex_cap").notNull().default(5),
   strength: integer("strength").notNull().default(0),

@@ -24,6 +24,8 @@ import {
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
 import { initialArmourState, setArmour } from "./redux/Slices/armourSlice";
+import { armourItemType } from "@/types";
+import { getArmour } from "@/server/actions/get-all-armour";
 
 export default function Home() {
   const router = useRouter();
@@ -34,9 +36,16 @@ export default function Home() {
   const [characters, setCharacters] = useState<
     { id: number; name: string; level: number }[]
   >([]);
+
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
   >(null);
+
+  const [armourData, setArmourData] = useState<armourItemType[]>([]);
+
+  const [pendingArmourName, setPendingArmourName] = useState<string | null>(
+    null
+  );
 
   const { execute: getAllCharacters } = useAction(getCharacters, {
     onSuccess: (data) => {
@@ -49,6 +58,37 @@ export default function Home() {
   useEffect(() => {
     getAllCharacters();
   }, [getAllCharacters]);
+
+  const { execute: getAllArmour } = useAction(getArmour, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setArmourData(
+          data.data.map((item: any) => ({
+            ...item,
+            category: item.category as armourItemType["category"],
+          }))
+        );
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllArmour();
+  }, [getAllArmour]);
+
+  const handleSetArmour = (armourName: string) => {
+    const armourItem = armourData.find((item) => item.name === armourName);
+    if (armourItem) {
+      dispatch(setArmour(armourItem));
+    }
+  };
+
+  useEffect(() => {
+    if (pendingArmourName && armourData.length > 0) {
+      handleSetArmour(pendingArmourName);
+      setPendingArmourName(null); // clear after setting
+    }
+  }, [pendingArmourName, armourData]);
 
   useEffect(() => {
     dispatch(setName(initialNameState.name));
@@ -63,6 +103,7 @@ export default function Home() {
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
         dispatch(setLevel(data.data.level));
+        setPendingArmourName(data.data.armourName);
         router.push("/character-builder");
       }
     },

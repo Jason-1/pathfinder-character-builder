@@ -35,9 +35,6 @@ export default function Home() {
   // Are you sure you want to delete this character? - confirmation dialog
   // Load character toast on success
 
-  // Load armour
-  // Reset armour to default when returning to /
-
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();

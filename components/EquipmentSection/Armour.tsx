@@ -55,7 +55,6 @@ const Armour = () => {
     getAllArmour();
   }, [getAllArmour]);
 
-  //SelectedArmour is now an object, not a string
   const selectedArmour = useSelector(selectArmour);
   const selectedPotency = useSelector(selectPotency);
   const selectedResilient = useSelector(selectResilient);

@@ -47,6 +47,8 @@ export default function Home() {
     null
   );
 
+  //------------------------------------------------------------------------------//
+
   const { execute: getAllCharacters } = useAction(getCharacters, {
     onSuccess: (data) => {
       if (data.data) {
@@ -54,10 +56,6 @@ export default function Home() {
       }
     },
   });
-
-  useEffect(() => {
-    getAllCharacters();
-  }, [getAllCharacters]);
 
   const { execute: getAllArmour } = useAction(getArmour, {
     onSuccess: (data) => {
@@ -72,23 +70,12 @@ export default function Home() {
     },
   });
 
-  useEffect(() => {
-    getAllArmour();
-  }, [getAllArmour]);
-
   const handleSetArmour = (armourName: string) => {
     const armourItem = armourData.find((item) => item.name === armourName);
     if (armourItem) {
       dispatch(setArmour(armourItem));
     }
   };
-
-  useEffect(() => {
-    if (pendingArmourName && armourData.length > 0) {
-      handleSetArmour(pendingArmourName);
-      setPendingArmourName(null); // clear after setting
-    }
-  }, [pendingArmourName, armourData]);
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
@@ -122,9 +109,27 @@ export default function Home() {
     },
   });
 
+  //------------------------------------------------------------------------------//
+
   const handleSetID = (id: number) => {
     dispatch(setId(id));
   };
+
+  useEffect(() => {
+    getAllCharacters();
+  }, [getAllCharacters]);
+
+  // Ensure the armour data has loaded
+  useEffect(() => {
+    if (pendingArmourName && armourData.length > 0) {
+      handleSetArmour(pendingArmourName);
+      setPendingArmourName(null); // clear after setting
+    }
+  }, [pendingArmourName, armourData]);
+
+  useEffect(() => {
+    getAllArmour();
+  }, [getAllArmour]);
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">

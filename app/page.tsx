@@ -8,7 +8,7 @@ import { createCharacter } from "@/server/actions/create-character";
 import { toast } from "sonner";
 import { loadCharacter } from "@/server/actions/load-character";
 import { useDispatch, useSelector } from "react-redux";
-import { initialNameState, setName } from "./redux/Slices/nameSlice";
+import { setName } from "./redux/Slices/nameSlice";
 import { setId } from "./redux/Slices/idSlice";
 import { useEffect, useState } from "react";
 import { getCharacters } from "@/server/actions/get-all-characters";
@@ -23,6 +23,9 @@ import {
 } from "@/components/ui/dialog";
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
+import { setArmour } from "./redux/Slices/armourSlice";
+import { armourItemType } from "@/types";
+import { getArmour } from "@/server/actions/get-all-armour";
 
 export default function Home() {
   const router = useRouter();
@@ -33,9 +36,18 @@ export default function Home() {
   const [characters, setCharacters] = useState<
     { id: number; name: string; level: number }[]
   >([]);
+
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
   >(null);
+
+  const [armourData, setArmourData] = useState<armourItemType[]>([]);
+
+  const [pendingArmourName, setPendingArmourName] = useState<string | null>(
+    null
+  );
+
+  //------------------------------------------------------------------------------//
 
   const { execute: getAllCharacters } = useAction(getCharacters, {
     onSuccess: (data) => {
@@ -45,14 +57,25 @@ export default function Home() {
     },
   });
 
-  useEffect(() => {
-    getAllCharacters();
-  }, [getAllCharacters]);
+  const { execute: getAllArmour } = useAction(getArmour, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setArmourData(
+          data.data.map((item: any) => ({
+            ...item,
+            category: item.category as armourItemType["category"],
+          }))
+        );
+      }
+    },
+  });
 
-  useEffect(() => {
-    dispatch(setName(initialNameState.name));
-    dispatch(setLevel(1));
-  }, [dispatch]);
+  const handleSetArmour = (armourName: string) => {
+    const armourItem = armourData.find((item) => item.name === armourName);
+    if (armourItem) {
+      dispatch(setArmour(armourItem));
+    }
+  };
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
@@ -61,6 +84,7 @@ export default function Home() {
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
         dispatch(setLevel(data.data.level));
+        setPendingArmourName(data.data.armourName);
         router.push("/character-builder");
       }
     },
@@ -85,9 +109,27 @@ export default function Home() {
     },
   });
 
+  //------------------------------------------------------------------------------//
+
   const handleSetID = (id: number) => {
     dispatch(setId(id));
   };
+
+  useEffect(() => {
+    getAllCharacters();
+  }, [getAllCharacters]);
+
+  // Ensure the armour data has loaded
+  useEffect(() => {
+    if (pendingArmourName && armourData.length > 0) {
+      handleSetArmour(pendingArmourName);
+      setPendingArmourName(null); // clear after setting
+    }
+  }, [pendingArmourName, armourData]);
+
+  useEffect(() => {
+    getAllArmour();
+  }, [getAllArmour]);
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">

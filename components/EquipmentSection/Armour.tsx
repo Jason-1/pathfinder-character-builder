@@ -1,10 +1,10 @@
-import { armourData, Classes, shieldData, shieldReinforcingData } from "@/data";
+import { Classes, shieldData, shieldReinforcingData } from "@/data";
 import {
   armourItemType,
   shieldItemType,
   shieldReinforcingRunes,
 } from "@/types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TrainingIcon from "../Icons/TrainingIcon";
 import { setArmour } from "@/app/redux/Slices/armourSlice";
@@ -30,9 +30,30 @@ import {
   selectShieldReinforcing,
 } from "@/app/redux/selectors";
 import { setReinforcing } from "@/app/redux/Slices/shieldReinforcingSlice";
+import { useAction } from "next-safe-action/hooks";
+import { getArmour } from "@/server/actions/get-all-armour";
 
 const Armour = () => {
   const dispatch = useDispatch();
+
+  const [armourData, setArmourData] = useState<armourItemType[]>([]);
+
+  const { execute: getAllArmour } = useAction(getArmour, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setArmourData(
+          data.data.map((item: any) => ({
+            ...item,
+            category: item.category as armourItemType["category"],
+          }))
+        );
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllArmour();
+  }, [getAllArmour]);
 
   const selectedArmour = useSelector(selectArmour);
   const selectedPotency = useSelector(selectPotency);
@@ -42,9 +63,6 @@ const Armour = () => {
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
 
-  const selectedArmourData = armourData.find(
-    (armourItem) => armourItem.name === selectedArmour
-  );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
@@ -55,19 +73,23 @@ const Armour = () => {
     (classItem) => classItem.name === selectedClass
   );
 
-  const [highlightedArmour, setHighlightedArmour] =
-    React.useState<armourItemType>(armourData[0]);
+  const [highlightedArmour, setHighlightedArmour] = React.useState<
+    armourItemType | undefined
+  >(undefined);
 
   const [highlightedShield, setHighlightedShield] =
     React.useState<shieldItemType>(shieldData[0]);
 
   //------------------------------------------------------------------------------//
 
-  const handleSetArmour = (armour: string) => {
-    dispatch(setArmour({ armour }));
-    if (armour === "Unarmoured") {
-      dispatch(setPotency({ potency: 0 }));
-      dispatch(setResilient({ resilient: 0 }));
+  const handleSetArmour = (armourName: string) => {
+    const armourItem = armourData.find((item) => item.name === armourName);
+    if (armourItem) {
+      dispatch(setArmour(armourItem));
+      if (armourItem.name === "Unarmoured") {
+        dispatch(setPotency({ potency: 0 }));
+        dispatch(setResilient({ resilient: 0 }));
+      }
     }
   };
 
@@ -80,13 +102,13 @@ const Armour = () => {
   };
 
   const handleSetPotency = (potency: number) => {
-    if (selectedArmour !== "Unarmoured") {
+    if (selectedArmour.name !== "Unarmoured") {
       dispatch(setPotency({ potency }));
     }
   };
 
   const handleSetResilient = (resilient: number) => {
-    if (selectedArmour !== "Unarmoured") {
+    if (selectedArmour.name !== "Unarmoured") {
       dispatch(setResilient({ resilient }));
     }
   };
@@ -178,7 +200,7 @@ const Armour = () => {
         <div className="flex flex-row gap-2 items-center">
           <TrainingIcon
             trainingLevel={calculateCurrentArmourProficiencyLevel(
-              selectedArmourData?.category || "unarmoured",
+              selectedArmour?.category || "unarmoured",
               selectedLevel,
               selectedClassData
             )}
@@ -186,50 +208,53 @@ const Armour = () => {
           <SelectorDialog
             className="border rounded-sm hover:border-red-700 p-2"
             itemType="Armour"
-            selectedItem={selectedArmour}
+            selectedItem={selectedArmour.name}
             data={armourData}
-            highlightedItem={highlightedArmour}
+            highlightedItem={
+              highlightedArmour ??
+              armourData[0] ?? { name: "", description: "" }
+            }
             onItemClick={(item) => handleSetArmour(item)}
             setHighlightedItem={setHighlightedArmour}
           >
             <p className="flex flex-col">
               <span>Type:</span>
-              <span>{highlightedArmour.category}</span>
+              <span>{highlightedArmour?.category}</span>
             </p>
             <p className="flex flex-col">
               <span>AC Bonus:</span>
-              <span>{highlightedArmour.ACBonus}</span>
+              <span>{highlightedArmour?.ACBonus}</span>
             </p>
             <p className="flex flex-col">
               <span>Dex Cap:</span>
-              <span>{highlightedArmour.dexCap}</span>
+              <span>{highlightedArmour?.dexCap}</span>
             </p>
             <p className="flex flex-col">
               <span>Strength:</span>
-              <span>{highlightedArmour.strength}</span>
+              <span>{highlightedArmour?.strength}</span>
             </p>
             <p className="flex flex-col">
               <span>Check Penalty:</span>
-              <span>{highlightedArmour.checkPenalty}</span>
+              <span>{highlightedArmour?.checkPenalty}</span>
             </p>
             <p className="flex flex-col">
               <span>Speed Penalty:</span>
-              <span>{highlightedArmour.speedPenalty}</span>
+              <span>{highlightedArmour?.speedPenalty}</span>
             </p>
             <p className="flex flex-col">
               <span>Bulk:</span>
-              <span>{highlightedArmour.bulk}</span>
+              <span>{highlightedArmour?.bulk}</span>
             </p>
             <p className="flex flex-col">
               <span>Group:</span>
-              <span>{highlightedArmour.group || "None"}</span>
+              <span>{highlightedArmour?.group || "None"}</span>
             </p>
           </SelectorDialog>
         </div>
 
         <div className="flex flex-row gap-2 justify-start text-center">
-          <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
-          <p>Dex Cap +{selectedArmourData?.dexCap}</p>
+          <p>Item Bonus: +{selectedArmour?.ACBonus}</p>
+          <p>Dex Cap +{selectedArmour?.dexCap}</p>
         </div>
       </div>
       <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mt-8">
@@ -416,6 +441,8 @@ const Armour = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      <div>{selectedArmour.name || "No Name"}</div>
     </div>
   );
 };

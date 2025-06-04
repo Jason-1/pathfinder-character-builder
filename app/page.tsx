@@ -8,7 +8,7 @@ import { createCharacter } from "@/server/actions/create-character";
 import { toast } from "sonner";
 import { loadCharacter } from "@/server/actions/load-character";
 import { useDispatch, useSelector } from "react-redux";
-import { initialNameState, setName } from "./redux/Slices/nameSlice";
+import { setName } from "./redux/Slices/nameSlice";
 import { setId } from "./redux/Slices/idSlice";
 import { useEffect, useState } from "react";
 import { getCharacters } from "@/server/actions/get-all-characters";
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/dialog";
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
-import { initialArmourState, setArmour } from "./redux/Slices/armourSlice";
+import { setArmour } from "./redux/Slices/armourSlice";
 import { armourItemType } from "@/types";
 import { getArmour } from "@/server/actions/get-all-armour";
 
@@ -89,12 +89,6 @@ export default function Home() {
       setPendingArmourName(null); // clear after setting
     }
   }, [pendingArmourName, armourData]);
-
-  useEffect(() => {
-    dispatch(setName(initialNameState.name));
-    dispatch(setLevel(1));
-    dispatch(setArmour(initialArmourState.armour));
-  }, [dispatch]);
 
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {

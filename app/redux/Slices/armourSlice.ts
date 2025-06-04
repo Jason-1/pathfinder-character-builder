@@ -1,7 +1,7 @@
 import { armourItemType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
-export const initialArmourState = {
+const initialState = {
   armour: {
     name: "Unarmoured",
     category: "unarmoured",
@@ -18,7 +18,7 @@ export const initialArmourState = {
 
 const armourSlice = createSlice({
   name: "armour",
-  initialState: initialArmourState,
+  initialState: initialState,
   reducers: {
     setArmour: (state, action) => {
       state.armour = action.payload;

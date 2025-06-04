@@ -55,6 +55,7 @@ const Armour = () => {
     getAllArmour();
   }, [getAllArmour]);
 
+  //SelectedArmour is now an object, not a string
   const selectedArmour = useSelector(selectArmour);
   const selectedPotency = useSelector(selectPotency);
   const selectedResilient = useSelector(selectResilient);
@@ -63,9 +64,6 @@ const Armour = () => {
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
 
-  const selectedArmourData = armourData.find(
-    (armourItem) => armourItem.name === selectedArmour
-  );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
@@ -85,11 +83,14 @@ const Armour = () => {
 
   //------------------------------------------------------------------------------//
 
-  const handleSetArmour = (armour: string) => {
-    dispatch(setArmour({ armour }));
-    if (armour === "Unarmoured") {
-      dispatch(setPotency({ potency: 0 }));
-      dispatch(setResilient({ resilient: 0 }));
+  const handleSetArmour = (armourName: string) => {
+    const armourItem = armourData.find((item) => item.name === armourName);
+    if (armourItem) {
+      dispatch(setArmour(armourItem));
+      if (armourItem.name === "Unarmoured") {
+        dispatch(setPotency({ potency: 0 }));
+        dispatch(setResilient({ resilient: 0 }));
+      }
     }
   };
 
@@ -102,13 +103,13 @@ const Armour = () => {
   };
 
   const handleSetPotency = (potency: number) => {
-    if (selectedArmour !== "Unarmoured") {
+    if (selectedArmour.name !== "Unarmoured") {
       dispatch(setPotency({ potency }));
     }
   };
 
   const handleSetResilient = (resilient: number) => {
-    if (selectedArmour !== "Unarmoured") {
+    if (selectedArmour.name !== "Unarmoured") {
       dispatch(setResilient({ resilient }));
     }
   };
@@ -200,7 +201,7 @@ const Armour = () => {
         <div className="flex flex-row gap-2 items-center">
           <TrainingIcon
             trainingLevel={calculateCurrentArmourProficiencyLevel(
-              selectedArmourData?.category || "unarmoured",
+              selectedArmour?.category || "unarmoured",
               selectedLevel,
               selectedClassData
             )}
@@ -208,7 +209,7 @@ const Armour = () => {
           <SelectorDialog
             className="border rounded-sm hover:border-red-700 p-2"
             itemType="Armour"
-            selectedItem={selectedArmour}
+            selectedItem={selectedArmour.name}
             data={armourData}
             highlightedItem={
               highlightedArmour ??
@@ -253,8 +254,8 @@ const Armour = () => {
         </div>
 
         <div className="flex flex-row gap-2 justify-start text-center">
-          <p>Item Bonus: +{selectedArmourData?.ACBonus}</p>
-          <p>Dex Cap +{selectedArmourData?.dexCap}</p>
+          <p>Item Bonus: +{selectedArmour?.ACBonus}</p>
+          <p>Dex Cap +{selectedArmour?.dexCap}</p>
         </div>
       </div>
       <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mt-8">
@@ -442,11 +443,7 @@ const Armour = () => {
         </DropdownMenu>
       </div>
 
-      <div>
-        {armourData.map((armourItem) => (
-          <li key={armourItem.name}>Name: {armourItem.name}</li>
-        ))}
-      </div>
+      <div>{selectedArmour.name || "No Name"}</div>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const Armour = () => {
 
   const [armourData, setArmourData] = useState<armourItemType[]>([]);
 
-  const { execute: getAllCharacters } = useAction(getArmour, {
+  const { execute: getAllArmour } = useAction(getArmour, {
     onSuccess: (data) => {
       if (data.data) {
         setArmourData(
@@ -52,8 +52,8 @@ const Armour = () => {
   });
 
   useEffect(() => {
-    getAllCharacters();
-  }, [getAllCharacters]);
+    getAllArmour();
+  }, [getAllArmour]);
 
   const selectedArmour = useSelector(selectArmour);
   const selectedPotency = useSelector(selectPotency);

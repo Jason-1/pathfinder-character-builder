@@ -9,6 +9,9 @@ import {
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
+//------------------------------------------------------------------------------//
+// Character Table
+
 export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
@@ -17,6 +20,9 @@ export const characters = pgTable("characters", {
     .references(() => armour.name)
     .default("Unarmoured"),
 });
+
+//------------------------------------------------------------------------------//
+// Armour Table
 
 export const ArmourCategoryEnum = pgEnum("category", [
   "unarmoured",
@@ -38,16 +44,8 @@ export const armour = pgTable("armour", {
   description: text("description").notNull().default("No Armour"),
 });
 
-export const CharacterRelations = relations(characters, ({ one }) => ({
-  armour: one(armour, {
-    fields: [characters.armourName],
-    references: [armour.name],
-  }),
-}));
-
-export const ArmourRelations = relations(armour, ({ many }) => ({
-  characters: many(characters),
-}));
+//------------------------------------------------------------------------------//
+// Classes Table
 
 export const TrainingEnum = pgEnum("training", [
   "Untrained",
@@ -160,3 +158,16 @@ export const features = pgTable("features", {
     .notNull()
     .default("No description available"),
 });
+
+//------------------------------------------------------------------------------//
+// Relations
+export const CharacterRelations = relations(characters, ({ one }) => ({
+  armour: one(armour, {
+    fields: [characters.armourName],
+    references: [armour.name],
+  }),
+}));
+
+export const ArmourRelations = relations(armour, ({ many }) => ({
+  characters: many(characters),
+}));

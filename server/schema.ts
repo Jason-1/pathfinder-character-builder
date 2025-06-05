@@ -26,7 +26,7 @@ export const ArnourCategoryEnum = pgEnum("category", [
 ]);
 
 export const armour = pgTable("armour", {
-  name: varchar("name", { length: 255 }).notNull().primaryKey(),
+  name: varchar("name", { length: 255 }).unique().notNull().primaryKey(),
   category: ArnourCategoryEnum("category").notNull().default("unarmoured"),
   ACBonus: integer("AC_bonus").notNull().default(0),
   dexCap: integer("dex_cap").notNull().default(5),
@@ -37,3 +37,14 @@ export const armour = pgTable("armour", {
   group: varchar("group", { length: 255 }).notNull().default(""),
   description: text("description").notNull().default("No Armour"),
 });
+
+export const CharacterRelations = relations(characters, ({ one }) => ({
+  armour: one(armour, {
+    fields: [characters.armourName],
+    references: [armour.name],
+  }),
+}));
+
+export const ArmourRelations = relations(armour, ({ many }) => ({
+  characters: many(characters),
+}));

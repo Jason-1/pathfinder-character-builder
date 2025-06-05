@@ -1,0 +1,1 @@
+ALTER TABLE "armour" ADD CONSTRAINT "armour_name_unique" UNIQUE("name");

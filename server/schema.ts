@@ -159,8 +159,22 @@ export const features = pgTable("features", {
     .default("No description available"),
 });
 
+export const spellSlots = pgTable("spellSlots", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  level: integer("level").notNull(),
+  cantrips: integer("cantrips").notNull().default(0),
+  spellSlots: integer("spell_slots").array().notNull().default([]),
+});
+
+//------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------//
 // Relations
+
+//------------------------------------------------------------------------------//
+// Character and Armour Relations
 export const CharacterRelations = relations(characters, ({ one }) => ({
   armour: one(armour, {
     fields: [characters.armourName],

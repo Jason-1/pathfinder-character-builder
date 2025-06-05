@@ -1,0 +1,1 @@
+ALTER TYPE "public"."skills" RENAME TO "skill";

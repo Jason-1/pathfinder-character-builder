@@ -81,68 +81,82 @@ export const classes = pgTable("classes", {
     .default("No description available"),
 });
 
-/*
-export type ClassType = {
-  name: string;
-  type: string;
-  tradition?: string;
-  perception: TrainingType;
-  specialisation: number[];
-  DC: TrainingType;
-  hp: number;
-  Attributes: AttributesType[];
-  description: string;
-};
+export const saves = pgTable("saves", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  fortitude: integer().array().notNull(),
+  reflex: integer().array().notNull(),
+  will: integer().array().notNull(),
+});
 
+export const SkillsEnum = pgEnum("skill", [
+  "Acrobatics",
+  "Arcana",
+  "Athletics",
+  "Crafting",
+  "Deception",
+  "Diplomacy",
+  "Intimidation",
+  "Medicine",
+  "Nature",
+  "Occultism",
+  "Performance",
+  "Religion",
+  "Society",
+  "Stealth",
+  "Survival",
+  "Thievery",
+]);
 
+export const skills = pgTable("skills", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  skill: SkillsEnum("skill").notNull(),
+  proficiency: TrainingEnum("proficiency").notNull().default("Untrained"),
+});
 
-  saves: {
-    fortitude: number[];
-    reflex: number[];
-    will: number[];
-  };
+export const additionalSkills = pgTable("additionalSkills", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  additional: integer("additional").notNull().default(0),
+});
 
-skills: {
-    Acrobatics?: TrainingType;
-    Arcana?: TrainingType;
-    Athletics?: TrainingType;
-    Crafting?: TrainingType;
-    Deception?: TrainingType;
-    Diplomacy?: TrainingType;
-    Intimidation?: TrainingType;
-    Medicine?: TrainingType;
-    Nature?: TrainingType;
-    Occultism?: TrainingType;
-    Performance?: TrainingType;
-    Religion?: TrainingType;
-    Society?: TrainingType;
-    Stealth?: TrainingType;
-    Survival?: TrainingType;
-    Thievery?: TrainingType;
-    additional: number;
-  };
+export const attacks = pgTable("attacks", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  simple: integer("simple").array().notNull().default([]),
+  martial: integer("martial").array().notNull().default([]),
+  advanced: integer("advanced").array().notNull().default([]),
+  unarmed: integer("unarmed").array().notNull().default([]),
+});
 
-   attacks: {
-    simple: number[];
-    martial: number[];
-    advanced: number[];
-    unarmed: number[];
-  };
+export const defences = pgTable("defences", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  unarmoured: integer("unarmoured").array().notNull().default([]),
+  light: integer("light").array().notNull().default([]),
+  medium: integer("medium").array().notNull().default([]),
+  heavy: integer("heavy").array().notNull().default([]),
+});
 
-  defences: {
-    unarmoured: number[];
-    light: number[];
-    medium: number[];
-    heavy: number[];
-  };
-
- features: {
-    name: string;
-    level: number;
-    description: string;
-  }[];
-
-spells: spellObjectType[];
-
-
-*/
+export const features = pgTable("features", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  name: varchar("name", { length: 255 }).notNull(),
+  level: integer("level").notNull(),
+  description: text("description")
+    .notNull()
+    .default("No description available"),
+});

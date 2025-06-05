@@ -50,6 +50,34 @@
       "when": 1749091983940,
       "tag": "0006_clear_sabretooth",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1749098843708,
+      "tag": "0007_confused_kinsey_walden",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1749099346979,
+      "tag": "0008_foamy_beast",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1749099551881,
+      "tag": "0009_rare_karma",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1749099641252,
+      "tag": "0010_ambitious_sue_storm",
+      "breakpoints": true
     }
   ]
 }

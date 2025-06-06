@@ -293,7 +293,10 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                   (boostType !== "Class" && boostType !== "Background") ||
                   ((boostType !== "Class" ||
                     (selectedClassData?.skills &&
-                      skill.skill in selectedClassData.skills)) &&
+                      skill.skill !== "" &&
+                      selectedClassData.skills.skillsArray.includes(
+                        skill.skill
+                      ))) &&
                     (boostType !== "Background" ||
                       (selectedBackgroundData?.skills &&
                         skill.skill !== "" &&
@@ -338,7 +341,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                   </RadioGroup>
                 </div>
               ))}
-            <DialogDescription></DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>

@@ -96,7 +96,7 @@ export const Classes: ClassType[] = [
       will: [1, 1, 11],
     },
     skills: {
-      Religion: "Trained",
+      skillsArray: ["Religion"],
       additional: 2,
     },
     attacks: {
@@ -130,8 +130,7 @@ export const Classes: ClassType[] = [
       will: [1, 3],
     },
     skills: {
-      Acrobatics: "Trained",
-      Athletics: "Trained",
+      skillsArray: ["Acrobatics", "Athletics"],
       additional: 3,
     },
     attacks: {
@@ -263,7 +262,7 @@ export const Classes: ClassType[] = [
       will: [1, 1, 17],
     },
     skills: {
-      Arcana: "Trained",
+      skillsArray: ["Arcana"],
       additional: 3,
     },
     attacks: {

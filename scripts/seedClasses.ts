@@ -44,7 +44,6 @@ async function seedClasses() {
       });
 
       // Insert into skills table
-
       await db.insert(skills).values({
         className: classData.name,
         skillsArray: classData.skills.skillsArray,

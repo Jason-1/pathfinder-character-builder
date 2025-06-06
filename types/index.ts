@@ -86,22 +86,7 @@ export type ClassType = {
     will: number[];
   };
   skills: {
-    Acrobatics?: TrainingType;
-    Arcana?: TrainingType;
-    Athletics?: TrainingType;
-    Crafting?: TrainingType;
-    Deception?: TrainingType;
-    Diplomacy?: TrainingType;
-    Intimidation?: TrainingType;
-    Medicine?: TrainingType;
-    Nature?: TrainingType;
-    Occultism?: TrainingType;
-    Performance?: TrainingType;
-    Religion?: TrainingType;
-    Society?: TrainingType;
-    Stealth?: TrainingType;
-    Survival?: TrainingType;
-    Thievery?: TrainingType;
+    skillsArray: skillTypes[];
     additional: number;
   };
   attacks: {

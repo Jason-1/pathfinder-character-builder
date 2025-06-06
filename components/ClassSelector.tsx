@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Classes, subclasses } from "@/data";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,8 @@ import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
 import { selectClass, selectSubclass } from "@/app/redux/selectors";
 import { clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
+import { useAction } from "next-safe-action/hooks";
+import { getClasses } from "@/server/actions/get-all-classes";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -27,6 +29,27 @@ const ClassSelector: React.FC = ({}) => {
   const availableSubclasses = subclasses.filter(
     (subclassItem) => subclassItem.className === selectedClass
   );
+
+  //------------------------------------------------------------------------------//
+
+  const [classData, setClassData] = useState<ClassType[]>([]);
+
+  const { execute: getAllClasses } = useAction(getClasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setClassData(
+          data.data.map((item: any) => ({
+            ...item,
+            category: item.category as ClassType[],
+          }))
+        );
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllClasses();
+  }, [getAllClasses]);
 
   //------------------------------------------------------------------------------//
 
@@ -126,6 +149,12 @@ const ClassSelector: React.FC = ({}) => {
         }}
         setHighlightedItem={setHighlightedSubclass}
       ></SelectorDialog>
+
+      <div>
+        {classData.map((classItem) => (
+          <div key={classItem.name}>{classItem.name}</div>
+        ))}
+      </div>
     </div>
   );
 };

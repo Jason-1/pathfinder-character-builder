@@ -175,3 +175,71 @@ export const CharacterRelations = relations(characters, ({ one }) => ({
 export const ArmourRelations = relations(armour, ({ many }) => ({
   characters: many(characters),
 }));
+
+//------------------------------------------------------------------------------//
+// Class Relations
+
+export const ClassRelations = relations(classes, ({ one, many }) => ({
+  saves: one(saves, {
+    fields: [classes.name],
+    references: [saves.className],
+  }),
+  skills: one(skills, {
+    fields: [classes.name],
+    references: [skills.className],
+  }),
+  attacks: one(attacks, {
+    fields: [classes.name],
+    references: [attacks.className],
+  }),
+  defences: one(defences, {
+    fields: [classes.name],
+    references: [defences.className],
+  }),
+  features: many(features),
+  spellSlots: many(spellSlots),
+}));
+
+export const savesRelations = relations(saves, ({ one }) => ({
+  class: one(classes, {
+    fields: [saves.className],
+    references: [classes.name],
+  }),
+}));
+
+export const skillsRelations = relations(skills, ({ one }) => ({
+  class: one(classes, {
+    fields: [skills.className],
+    references: [classes.name],
+  }),
+}));
+
+export const attacksRelations = relations(attacks, ({ one }) => ({
+  class: one(classes, {
+    fields: [attacks.className],
+    references: [classes.name],
+  }),
+}));
+
+export const defencesRelations = relations(defences, ({ one }) => ({
+  class: one(classes, {
+    fields: [defences.className],
+    references: [classes.name],
+  }),
+}));
+
+export const featuresRelations = relations(features, ({ one }) => ({
+  class: one(classes, {
+    fields: [features.className],
+    references: [classes.name],
+  }),
+}));
+
+export const spellSlotsRelations = relations(spellSlots, ({ one }) => ({
+  class: one(classes, {
+    fields: [spellSlots.className],
+    references: [classes.name],
+  }),
+}));
+
+//------------------------------------------------------------------------------//

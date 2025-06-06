@@ -65,6 +65,25 @@ export const AttributesEnum = pgEnum("attributes", [
   "Free",
 ]);
 
+export const SkillsEnum = pgEnum("skill", [
+  "Acrobatics",
+  "Arcana",
+  "Athletics",
+  "Crafting",
+  "Deception",
+  "Diplomacy",
+  "Intimidation",
+  "Medicine",
+  "Nature",
+  "Occultism",
+  "Performance",
+  "Religion",
+  "Society",
+  "Stealth",
+  "Survival",
+  "Thievery",
+]);
+
 export const classes = pgTable("classes", {
   name: varchar("name", { length: 255 }).notNull().primaryKey(),
   type: varchar("type", { length: 255 }).notNull(),
@@ -89,39 +108,12 @@ export const saves = pgTable("saves", {
   will: integer().array().notNull(),
 });
 
-export const SkillsEnum = pgEnum("skill", [
-  "Acrobatics",
-  "Arcana",
-  "Athletics",
-  "Crafting",
-  "Deception",
-  "Diplomacy",
-  "Intimidation",
-  "Medicine",
-  "Nature",
-  "Occultism",
-  "Performance",
-  "Religion",
-  "Society",
-  "Stealth",
-  "Survival",
-  "Thievery",
-]);
-
 export const skills = pgTable("skills", {
   id: serial("id").primaryKey(),
   className: varchar("class_name", { length: 255 }).references(
     () => classes.name
   ),
-  skill: SkillsEnum("skill").notNull(),
-  proficiency: TrainingEnum("proficiency").notNull().default("Untrained"),
-});
-
-export const additionalSkills = pgTable("additionalSkills", {
-  id: serial("id").primaryKey(),
-  className: varchar("class_name", { length: 255 }).references(
-    () => classes.name
-  ),
+  skillsArray: SkillsEnum("skill").array().notNull(),
   additional: integer("additional").notNull().default(0),
 });
 

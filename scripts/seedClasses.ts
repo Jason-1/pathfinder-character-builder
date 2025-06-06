@@ -1,7 +1,6 @@
 import { Classes } from "@/data";
 import { db } from "../server/index";
 import {
-  additionalSkills,
   attacks,
   classes,
   defences,
@@ -18,7 +17,6 @@ async function seedClasses() {
     await db.delete(features);
     await db.delete(defences);
     await db.delete(attacks);
-    await db.delete(additionalSkills);
     await db.delete(skills);
     await db.delete(saves);
     await db.delete(classes);
@@ -47,9 +45,9 @@ async function seedClasses() {
 
       // Insert into skills table
 
-      // Insert into additionalSkills table
-      await db.insert(additionalSkills).values({
+      await db.insert(skills).values({
         className: classData.name,
+        skillsArray: classData.skills.skillsArray,
         additional: classData.skills.additional,
       });
 

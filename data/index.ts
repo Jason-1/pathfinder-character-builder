@@ -114,7 +114,7 @@ export const Classes: ClassType[] = [
     specialisation: [7, 15],
     DC: "Trained",
     hp: 10,
-    Attributes: ["Strength", "Dexterity"],
+    attributes: ["Strength", "Dexterity"],
     spellSlots: [],
     features: [],
     description:
@@ -148,7 +148,7 @@ export const Classes: ClassType[] = [
     specialisation: [7, 15],
     DC: "Trained",
     hp: 10,
-    Attributes: ["Strength", "Dexterity"],
+    attributes: ["Strength", "Dexterity"],
     spellSlots: [],
     features: [
       {
@@ -280,7 +280,7 @@ export const Classes: ClassType[] = [
     specialisation: [13],
     DC: "Trained",
     hp: 6,
-    Attributes: ["Intelligence"],
+    attributes: ["Intelligence"],
     spellSlots: [
       { level: 1, cantrips: 5, spellSlots: [2, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
       { level: 2, cantrips: 5, spellSlots: [3, 0, 0, 0, 0, 0, 0, 0, 0, 0] },

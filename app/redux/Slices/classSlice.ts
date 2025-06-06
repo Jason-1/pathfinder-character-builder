@@ -30,7 +30,7 @@ const initialState = {
     specialisation: [7, 15],
     DC: "Trained",
     hp: 10,
-    Attributes: ["Strength", "Dexterity"],
+    attributes: ["Strength", "Dexterity"],
     spellSlots: [],
     features: [
       {

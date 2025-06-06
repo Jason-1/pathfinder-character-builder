@@ -31,7 +31,7 @@ async function seedClasses() {
         specialisation: classData.specialisation,
         DC: classData.DC,
         hp: classData.hp,
-        attributes: classData.Attributes,
+        attributes: classData.attributes,
         description: classData.description,
       });
 

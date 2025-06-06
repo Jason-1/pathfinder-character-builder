@@ -104,7 +104,7 @@ export type ClassType = {
   specialisation: number[];
   DC: TrainingType;
   hp: number;
-  Attributes: AttributesType[];
+  attributes: AttributesType[];
   spellSlots: spellObjectType[];
   features: {
     name: string;

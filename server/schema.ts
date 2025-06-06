@@ -152,11 +152,9 @@ export const features = pgTable("features", {
   className: varchar("class_name", { length: 255 }).references(
     () => classes.name
   ),
-  name: varchar("name", { length: 255 }).notNull(),
-  level: integer("level").notNull(),
-  description: text("description")
-    .notNull()
-    .default("No description available"),
+  name: varchar("name", { length: 255 }),
+  level: integer("level"),
+  description: text("description").default("No description available"),
 });
 
 export const spellSlots = pgTable("spellSlots", {

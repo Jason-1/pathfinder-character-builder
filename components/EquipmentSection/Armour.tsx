@@ -69,9 +69,6 @@ const Armour = () => {
   const selectedShieldReinforcingData = shieldReinforcingData.find(
     (reinforcingItem) => reinforcingItem.name === selectedShieldReinforcing
   );
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
 
   const [highlightedArmour, setHighlightedArmour] = React.useState<
     armourItemType | undefined
@@ -157,7 +154,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "unarmoured",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -168,7 +165,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "light",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -179,7 +176,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "medium",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -190,7 +187,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               "heavy",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -202,7 +199,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentArmourProficiencyLevel(
               selectedArmour?.category || "unarmoured",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
           <SelectorDialog

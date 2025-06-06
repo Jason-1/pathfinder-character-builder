@@ -27,9 +27,6 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
 
   //------------------------------------------------------------------------------//
 
@@ -44,12 +41,12 @@ const ACBreakdown = ({ shieldRaised }: ACBreakdownProps) => {
       {calculateCurrentArmourProficiencyBonus(
         selectedArmour.category,
         selectedLevel,
-        selectedClassData
+        selectedClass
       ) > 0
         ? calculateCurrentArmourProficiencyBonus(
             selectedArmour.category,
             selectedLevel,
-            selectedClassData
+            selectedClass
           ) + selectedLevel
         : 0}
       <br />

@@ -50,9 +50,6 @@ const LevelFeatures: React.FC = ({}) => {
   const attributeBoosts = useSelector(selectAttributeBoostCategories);
   const selectedFeats = useSelector(selectFeats);
 
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
   //------------------------------------------------------------------------------//
 
   function level1Intelligence() {
@@ -113,9 +110,9 @@ const LevelFeatures: React.FC = ({}) => {
   function selectTrait(featType: string) {
     switch (featType) {
       case "Martial":
-        return selectedClass;
+        return selectedClass.name;
       case "Class":
-        return selectedClass;
+        return selectedClass.name;
       case "Archetype":
         return "Archetype";
       case "Ancestry":
@@ -248,7 +245,7 @@ const LevelFeatures: React.FC = ({}) => {
                 <SkillIncreases
                   currentLevel={level}
                   availableBoosts={
-                    (selectedClassData?.skills?.additional ?? 0) +
+                    (selectedClass?.skills?.additional ?? 0) +
                     level1Intelligence()
                   }
                   increaseHeaderText="Initial skill proficiencies"
@@ -282,7 +279,7 @@ const LevelFeatures: React.FC = ({}) => {
             {FeatLevels.find((feat) => feat.level === level)?.feats?.map(
               (feat) =>
                 feat.type === "Martial" &&
-                selectedClassData?.type !== "Martial" ? null : (feat.type ===
+                selectedClass?.type !== "Martial" ? null : (feat.type ===
                     "Archetype" &&
                     !freeArchetype) ||
                   (feat.type === "Paragon" && !ancestralParagon) ? null : (
@@ -299,9 +296,9 @@ const LevelFeatures: React.FC = ({}) => {
                         data={getFilteredFeats(
                           level,
                           feat.type === "Martial"
-                            ? selectedClass
+                            ? selectedClass.name
                             : feat.type === "Class"
-                            ? selectedClass
+                            ? selectedClass.name
                             : feat.type === "Ancestry"
                             ? selectedAncestry
                             : feat.type === "Paragon"
@@ -333,9 +330,9 @@ const LevelFeatures: React.FC = ({}) => {
 
           <CardFooter>
             <Accordion className="w-full" type="single" collapsible>
-              {selectedClass !== "Select Class" &&
-                selectedClassData?.features &&
-                selectedClassData?.features.map(
+              {selectedClass.name !== "Select Class" &&
+                selectedClass?.features &&
+                selectedClass?.features.map(
                   (feature) =>
                     level === feature.level && (
                       <AccordionItem key={feature.name} value={feature.name}>

@@ -27,7 +27,7 @@ const ClassSelector: React.FC = ({}) => {
   const selectedSubclass = useSelector(selectSubclass);
 
   const availableSubclasses = subclasses.filter(
-    (subclassItem) => subclassItem.className === selectedClass
+    (subclassItem) => subclassItem.className === selectedClass.name
   );
 
   //------------------------------------------------------------------------------//
@@ -89,7 +89,7 @@ const ClassSelector: React.FC = ({}) => {
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2 w-full"
         itemType="Class"
-        selectedItem={selectedClass}
+        selectedItem={selectedClass.name}
         data={Classes}
         highlightedItem={highlightedClass}
         onItemClick={(item) => {
@@ -155,7 +155,7 @@ const ClassSelector: React.FC = ({}) => {
           <div key={classItem.name}>
             {classItem.name}
             {classItem.spellSlots.map((spellLevel) => (
-              <div>
+              <div key={spellLevel.level}>
                 {spellLevel.level}:
                 {spellLevel.spellSlots.map((spell: number, index: number) => (
                   <span key={index}> {spell} </span>

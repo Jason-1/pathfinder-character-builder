@@ -75,10 +75,6 @@ const AttributeButtons: React.FC = ({}) => {
     (backgroundItem) => backgroundItem.name === selectedBackground
   );
 
-  const currentClass = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
-
   function handleClick(attribute: AttributesType, boostsType: Category): void {
     const currentBoostCategory = attributeBoosts.find(
       ({ name }) => name === boostsType
@@ -179,7 +175,7 @@ const AttributeButtons: React.FC = ({}) => {
       (currentAttributeBoostCategory.name === "Background" &&
         selectedBackground === "Select Background") ||
       (currentAttributeBoostCategory.name === "Class" &&
-        !currentClass?.Attributes.includes(attribute.name))
+        !selectedClass?.Attributes.includes(attribute.name))
     ) {
       return true;
     }
@@ -199,7 +195,7 @@ const AttributeButtons: React.FC = ({}) => {
         );
       case "Class":
         return (
-          currentClass?.Attributes.map((attribute) => " " + attribute) || []
+          selectedClass?.Attributes.map((attribute) => " " + attribute) || []
         );
       default:
         return [];

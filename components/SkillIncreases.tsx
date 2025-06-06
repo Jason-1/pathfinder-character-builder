@@ -67,10 +67,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
-
   const selectedBackgroundData = Backgrounds.find(
     (backgroundItem) => backgroundItem.name === selectedBackground
   );
@@ -292,9 +288,9 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
                 (skill) =>
                   (boostType !== "Class" && boostType !== "Background") ||
                   ((boostType !== "Class" ||
-                    (selectedClassData?.skills &&
+                    (selectedClass?.skills &&
                       skill.skill !== "" &&
-                      selectedClassData.skills.skillsArray.includes(
+                      selectedClass.skills.skillsArray.includes(
                         skill.skill
                       ))) &&
                     (boostType !== "Background" ||

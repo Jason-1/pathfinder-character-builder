@@ -148,11 +148,21 @@ const ClassSelector: React.FC = ({}) => {
           handleSetSubclass(item);
         }}
         setHighlightedItem={setHighlightedSubclass}
-      ></SelectorDialog>
+      />
 
       <div>
         {classData.map((classItem) => (
-          <div key={classItem.name}>{classItem.name}</div>
+          <div key={classItem.name}>
+            {classItem.name}
+            {classItem.spellSlots.map((spellLevel) => (
+              <div>
+                {spellLevel.level}:
+                {spellLevel.spellSlots.map((spell: number, index: number) => (
+                  <span key={index}> {spell} </span>
+                ))}
+              </div>
+            ))}
+          </div>
         ))}
       </div>
     </div>

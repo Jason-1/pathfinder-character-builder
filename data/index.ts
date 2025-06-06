@@ -115,7 +115,7 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
-    spells: [],
+    spellSlots: [],
     features: [],
     description:
       "You are an emissary of a deity, a devoted servant who has taken up a weighty mantle, and you devoutly pursue a cause that holds you apart from those around you. You have powerful defenses that you share freely with your allies and innocent bystanders, as well as divine power you use to end the threats your deity opposes.",
@@ -149,7 +149,7 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 10,
     Attributes: ["Strength", "Dexterity"],
-    spells: [],
+    spellSlots: [],
     features: [
       {
         name: "Reactive Strike",
@@ -281,7 +281,7 @@ export const Classes: ClassType[] = [
     DC: "Trained",
     hp: 6,
     Attributes: ["Intelligence"],
-    spells: [
+    spellSlots: [
       { level: 1, cantrips: 5, spellSlots: [2, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
       { level: 2, cantrips: 5, spellSlots: [3, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
       { level: 3, cantrips: 5, spellSlots: [3, 2, 0, 0, 0, 0, 0, 0, 0, 0] },

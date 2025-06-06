@@ -80,7 +80,7 @@ async function seedClasses() {
       }
 
       // Insert into spellSlots table
-      for (const spellLevel of classData.spells) {
+      for (const spellLevel of classData.spellSlots) {
         await db.insert(spellSlots).values({
           className: classData.name,
           level: spellLevel.level,

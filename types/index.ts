@@ -105,7 +105,7 @@ export type ClassType = {
   DC: TrainingType;
   hp: number;
   Attributes: AttributesType[];
-  spells: spellObjectType[];
+  spellSlots: spellObjectType[];
   features: {
     name: string;
     level: number;

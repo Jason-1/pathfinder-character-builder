@@ -200,7 +200,7 @@ export default function Home() {
                     setHighlightedCharacter(char.id);
                   }}
                 >
-                  Name: {char.name} - Level: {char.level}
+                  {char.name}: Level: {char.level} {char.className}
                 </li>
               ))}
             </ul>

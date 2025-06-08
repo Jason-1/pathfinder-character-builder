@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { deleteCharacter } from "@/server/actions/delete-character";
 import {
   selectArmour,
+  selectClass,
   selectID,
   selectLevel,
   selectName,
@@ -31,6 +32,7 @@ const DatabaseButtons = () => {
   const name = useSelector(selectName) || "";
   const id = useSelector(selectID);
   const level = useSelector(selectLevel);
+  const selectedClass = useSelector(selectClass);
   const selectedArmour = useSelector(selectArmour);
 
   const { execute: updateCharacterExecute } = useAction(updateCharacter, {
@@ -60,6 +62,7 @@ const DatabaseButtons = () => {
               id,
               name,
               level,
+              className: selectedClass.name,
               armourName: selectedArmour.name,
             })
           }

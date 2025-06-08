@@ -11,12 +11,12 @@ const action = createSafeActionClient();
 export const updateCharacter = action
   .schema(updateCharacterSchema)
   .action(async (input) => {
-    const { id, name, level, armourName } = input.parsedInput;
+    const { id, name, level, className, armourName } = input.parsedInput;
 
     try {
       const result = await db
         .update(characters)
-        .set({ name, level, armourName })
+        .set({ name, level, className, armourName })
         .where(eq(characters.id, id))
         .returning();
 

@@ -24,8 +24,10 @@ import {
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
 import { setArmour } from "./redux/Slices/armourSlice";
-import { armourItemType } from "@/types";
+import { armourItemType, ClassType } from "@/types";
 import { getArmour } from "@/server/actions/get-all-armour";
+import { getClasses } from "@/server/actions/get-all-classes";
+import { setClass } from "./redux/Slices/classSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -41,8 +43,10 @@ export default function Home() {
     number | null
   >(null);
 
-  const [armourData, setArmourData] = useState<armourItemType[]>([]);
+  const [classData, setClassData] = useState<ClassType[]>([]);
+  const [pendingClassName, setPendingClassName] = useState<string | null>(null);
 
+  const [armourData, setArmourData] = useState<armourItemType[]>([]);
   const [pendingArmourName, setPendingArmourName] = useState<string | null>(
     null
   );
@@ -53,6 +57,14 @@ export default function Home() {
     onSuccess: (data) => {
       if (data.data) {
         setCharacters(data.data);
+      }
+    },
+  });
+
+  const { execute: getAllClasses } = useAction(getClasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setClassData(data.data as ClassType[]);
       }
     },
   });
@@ -70,6 +82,13 @@ export default function Home() {
     },
   });
 
+  const handleSetClass = (className: string) => {
+    const classItem = classData.find((item) => item.name === className);
+    if (className) {
+      dispatch(setClass(classItem));
+    }
+  };
+
   const handleSetArmour = (armourName: string) => {
     const armourItem = armourData.find((item) => item.name === armourName);
     if (armourItem) {
@@ -84,6 +103,7 @@ export default function Home() {
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
         dispatch(setLevel(data.data.level));
+        setPendingClassName(data.data.className);
         setPendingArmourName(data.data.armourName);
         router.push("/character-builder");
       }
@@ -118,6 +138,17 @@ export default function Home() {
   useEffect(() => {
     getAllCharacters();
   }, [getAllCharacters]);
+
+  useEffect(() => {
+    if (pendingClassName && classData.length > 0) {
+      handleSetClass(pendingClassName);
+      setPendingArmourName(null); // clear after setting
+    }
+  }, [pendingArmourName, armourData]);
+
+  useEffect(() => {
+    getAllClasses();
+  }, [getAllClasses]);
 
   // Ensure the armour data has loaded
   useEffect(() => {

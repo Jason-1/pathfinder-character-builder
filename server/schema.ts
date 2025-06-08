@@ -16,9 +16,14 @@ export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   level: integer("level").notNull().default(1),
+  className: varchar("class_name", { length: 255 })
+    .references(() => classes.name)
+    .default("Fighter")
+    .notNull(),
   armourName: varchar("armour_name", { length: 255 })
     .references(() => armour.name)
-    .default("Unarmoured"),
+    .default("Unarmoured")
+    .notNull(),
 });
 
 //------------------------------------------------------------------------------//

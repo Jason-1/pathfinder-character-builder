@@ -85,6 +85,8 @@ export const Backgrounds: BackgroundType[] = [
   },
 ];
 
+/*
+
 export const Classes: ClassType[] = [
   {
     name: "Champion",
@@ -308,6 +310,8 @@ export const Classes: ClassType[] = [
       "You are an eternal student of the secrets of the universe, using your mastery of magic to cast powerful spells. You treat magic like a science, cross-referencing the latest texts on practical spellcraft with ancient tomes to discover and understand arcane magic. Yet magical theory is vast, and there's no way you can study it all. Most wizards learn through formal schooling, with their curriculum informing a specific rubric, although particularly driven researchers sometimes piece together their own theories.",
   },
 ];
+
+*/
 
 export const subclasses: subclassType[] = [
   {

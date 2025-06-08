@@ -1,4 +1,4 @@
-import { Classes, shieldData, shieldReinforcingData } from "@/data";
+import { shieldData, shieldReinforcingData } from "@/data";
 import {
   armourItemType,
   shieldItemType,

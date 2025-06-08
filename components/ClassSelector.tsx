@@ -161,22 +161,6 @@ const ClassSelector: React.FC = ({}) => {
         }}
         setHighlightedItem={setHighlightedSubclass}
       />
-
-      <div>
-        {classData.map((classItem) => (
-          <div key={classItem.name}>
-            {classItem.name}
-            {classItem.spellSlots.map((spellLevel) => (
-              <div key={spellLevel.level}>
-                {spellLevel.level}:
-                {spellLevel.spellSlots.map((spell: number, index: number) => (
-                  <span key={index}> {spell} </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };

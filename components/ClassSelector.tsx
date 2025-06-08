@@ -58,7 +58,7 @@ const ClassSelector: React.FC = ({}) => {
 
     const classItem = classData.find((item) => item.name === classString);
     if (classItem) {
-      dispatch(setClass({ classItem }));
+      dispatch(setClass(classItem));
       dispatch(resetAllSkillBoostsAtLevel({ currentLevel: 0 }));
     }
   };
@@ -97,7 +97,11 @@ const ClassSelector: React.FC = ({}) => {
         data={classData}
         highlightedItem={
           highlightedClass ??
-          classData[0] ?? { name: "", description: "", Attributes: [] }
+          classData[0] ?? {
+            name: "",
+            description: "",
+            Attributes: [],
+          }
         }
         onItemClick={(item) => {
           handleChangeClass(item);

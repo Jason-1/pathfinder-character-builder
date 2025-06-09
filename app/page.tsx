@@ -199,8 +199,13 @@ export default function Home() {
                     handleSetID(char.id);
                     setHighlightedCharacter(char.id);
                   }}
+                  onDoubleClick={() => {
+                    id && loadCharacterExecute({ id });
+                  }}
                 >
-                  {char.name}: Level: {char.level} {char.className}
+                  <span className="select-none">
+                    {char.name}: Level: {char.level} {char.className}
+                  </span>
                 </li>
               ))}
             </ul>

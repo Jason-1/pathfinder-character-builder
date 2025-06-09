@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
-import { Ancestries, armourData, Classes, shieldData } from "@/data";
+import { Ancestries, shieldData } from "@/data";
 import TrainingIcon from "./Icons/TrainingIcon";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import {

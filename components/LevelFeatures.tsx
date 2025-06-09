@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/accordion";
 import { ClassFeats } from "@/data/classFeats";
 import {
-  Classes,
   FeatLevels,
   initialHighlightedFeatData,
   skillIncreaseLevels,

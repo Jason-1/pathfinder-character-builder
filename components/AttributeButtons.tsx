@@ -1,4 +1,4 @@
-import { Ancestries, Attributes, Backgrounds, Classes } from "@/data";
+import { Ancestries, Attributes, Backgrounds } from "@/data";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";
@@ -175,7 +175,7 @@ const AttributeButtons: React.FC = ({}) => {
       (currentAttributeBoostCategory.name === "Background" &&
         selectedBackground === "Select Background") ||
       (currentAttributeBoostCategory.name === "Class" &&
-        !selectedClass?.Attributes.includes(attribute.name))
+        !selectedClass?.attributes.includes(attribute.name))
     ) {
       return true;
     }
@@ -195,7 +195,7 @@ const AttributeButtons: React.FC = ({}) => {
         );
       case "Class":
         return (
-          selectedClass?.Attributes.map((attribute) => " " + attribute) || []
+          selectedClass?.attributes.map((attribute) => " " + attribute) || []
         );
       default:
         return [];

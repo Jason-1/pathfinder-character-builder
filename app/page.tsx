@@ -84,7 +84,7 @@ export default function Home() {
 
   const handleSetClass = (className: string) => {
     const classItem = classData.find((item) => item.name === className);
-    if (className) {
+    if (classItem) {
       dispatch(setClass(classItem));
     }
   };
@@ -142,7 +142,7 @@ export default function Home() {
   useEffect(() => {
     if (pendingClassName && classData.length > 0) {
       handleSetClass(pendingClassName);
-      setPendingArmourName(null); // clear after setting
+      setPendingClassName(null); // clear after setting
     }
   }, [pendingClassName, classData]);
 
@@ -212,6 +212,7 @@ export default function Home() {
               onClick={() => {
                 id && loadCharacterExecute({ id });
               }}
+              disabled={!id}
             >
               Confirm Selection
             </Button>

@@ -144,7 +144,7 @@ export default function Home() {
       handleSetClass(pendingClassName);
       setPendingArmourName(null); // clear after setting
     }
-  }, [pendingArmourName, armourData]);
+  }, [pendingClassName, classData]);
 
   useEffect(() => {
     getAllClasses();

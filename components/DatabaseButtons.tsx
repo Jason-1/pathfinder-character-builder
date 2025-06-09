@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { updateCharacter } from "@/server/actions/update-character";
 import { useRouter } from "next/navigation";
@@ -23,11 +23,9 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import { setId } from "@/app/redux/Slices/idSlice";
 
 const DatabaseButtons = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const name = useSelector(selectName) || "";
   const id = useSelector(selectID);
@@ -47,7 +45,6 @@ const DatabaseButtons = () => {
     onSuccess: (data) => {
       if (data.data) {
         toast.success(`Character "${data.data.name}" deleted successfully!`);
-        dispatch(setId(null));
         router.push("/");
       }
     },
@@ -98,7 +95,6 @@ const DatabaseButtons = () => {
         </Dialog>
         <Button
           onClick={() => {
-            dispatch(setId(null));
             router.push("/");
           }}
         >

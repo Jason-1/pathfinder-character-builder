@@ -28,6 +28,7 @@ import { armourItemType, ClassType } from "@/types";
 import { getArmour } from "@/server/actions/get-all-armour";
 import { getClasses } from "@/server/actions/get-all-classes";
 import { setClass } from "./redux/Slices/classSlice";
+import { initialArmourState, initialClassState } from "./redux/initialStates";
 
 export default function Home() {
   const router = useRouter();
@@ -52,6 +53,15 @@ export default function Home() {
   );
 
   //------------------------------------------------------------------------------//
+
+  // Reset all states when returning to this page
+  useEffect(() => {
+    dispatch(setName(""));
+    dispatch(setId(null));
+    dispatch(setLevel(1));
+    dispatch(setClass(initialClassState));
+    dispatch(setArmour(initialArmourState));
+  }, [dispatch]);
 
   const { execute: getAllCharacters } = useAction(getCharacters, {
     onSuccess: (data) => {

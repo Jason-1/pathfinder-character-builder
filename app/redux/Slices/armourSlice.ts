@@ -1,19 +1,8 @@
-import { armourItemType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
+import { initialArmourState } from "../initialStates";
 
 const initialState = {
-  armour: {
-    name: "Unarmoured",
-    category: "unarmoured",
-    ACBonus: 0,
-    dexCap: 5,
-    strength: 0,
-    checkPenalty: 0,
-    speedPenalty: 0,
-    bulk: "0",
-    group: "",
-    description: "No Armour",
-  } as armourItemType,
+  armour: initialArmourState,
 };
 
 const armourSlice = createSlice({

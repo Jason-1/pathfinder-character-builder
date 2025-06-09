@@ -2,6 +2,7 @@ import { Classes } from "@/data";
 import { db } from "../server/index";
 import {
   attacks,
+  characters,
   classes,
   defences,
   features,
@@ -13,6 +14,7 @@ import {
 async function seedClasses() {
   try {
     // Clear existing data in the tables
+    await db.delete(characters);
     await db.delete(spellSlots);
     await db.delete(features);
     await db.delete(defences);

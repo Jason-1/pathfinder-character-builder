@@ -93,7 +93,7 @@ export const classes = pgTable("classes", {
   name: varchar("name", { length: 255 }).notNull().primaryKey(),
   type: varchar("type", { length: 255 }).notNull(),
   tradition: varchar("tradition", { length: 255 }).default(""),
-  perception: TrainingEnum("perception").notNull().default("Untrained"),
+  perception: integer("perception").array().notNull().default([]),
   specialisation: integer("specialisation").array().notNull().default([]),
   DC: TrainingEnum("DC").notNull().default("Untrained"),
   hp: integer("hp").notNull().default(0),

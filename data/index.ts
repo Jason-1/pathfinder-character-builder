@@ -85,13 +85,11 @@ export const Backgrounds: BackgroundType[] = [
   },
 ];
 
-/*
-
 export const Classes: ClassType[] = [
   {
     name: "Champion",
     type: "Martial",
-    perception: "Trained",
+    perception: [1, 11],
     saves: {
       fortitude: [1, 1, 9],
       reflex: [1, 9],
@@ -125,7 +123,7 @@ export const Classes: ClassType[] = [
   {
     name: "Fighter",
     type: "Martial",
-    perception: "Expert",
+    perception: [1, 1, 7],
     saves: {
       fortitude: [1, 1, 9],
       reflex: [1, 1, 15],
@@ -254,10 +252,44 @@ export const Classes: ClassType[] = [
       "Fighting for honor, greed, loyalty, or simply the thrill of battle, you are an undisputed master of weaponry and combat techniques. You combine your actions through clever combinations of opening moves, finishing strikes, and counterattacks whenever your foes are unwise enough to drop their guard. Whether you are a knight, mercenary, sharpshooter, or blade master, you have honed your martial skills into an art form and perform devastating critical attacks on your enemies.",
   },
   {
+    name: "Rogue",
+    type: "Martial",
+    perception: [1, 1, 7, 13],
+    saves: {
+      fortitude: [1, 9],
+      reflex: [1, 1, 7, 13],
+      will: [1, 1, 17],
+    },
+    skills: {
+      skillsArray: ["Stealth"],
+      additional: 7,
+    },
+    attacks: {
+      simple: [1, 5, 13],
+      martial: [1, 5, 13],
+      advanced: [],
+      unarmed: [1, 5, 13],
+    },
+    defences: {
+      unarmoured: [1, 13, 19],
+      light: [1, 13, 19],
+      medium: [],
+      heavy: [],
+    },
+    specialisation: [7, 15],
+    DC: "Trained",
+    hp: 8,
+    attributes: ["Dexterity"],
+    spellSlots: [],
+    features: [],
+    description:
+      "You are skilled and opportunistic. Using your sharp wits and quick reactions, you take advantage of your opponents’ missteps and strike where it hurts most. You play a dangerous game, seeking thrills and testing your skills, and likely don’t care much for any laws that happen to get in your way. While the path of every rogue is unique and riddled with danger, the one thing you all share in common is the breadth and depth of your skills.",
+  },
+  {
     name: "Wizard",
     type: "Caster",
     tradition: "Arcane",
-    perception: "Trained",
+    perception: [1, 11],
     saves: {
       fortitude: [1, 9],
       reflex: [1, 5],
@@ -310,8 +342,6 @@ export const Classes: ClassType[] = [
       "You are an eternal student of the secrets of the universe, using your mastery of magic to cast powerful spells. You treat magic like a science, cross-referencing the latest texts on practical spellcraft with ancient tomes to discover and understand arcane magic. Yet magical theory is vast, and there's no way you can study it all. Most wizards learn through formal schooling, with their curriculum informing a specific rubric, although particularly driven researchers sometimes piece together their own theories.",
   },
 ];
-
-*/
 
 export const subclasses: subclassType[] = [
   {

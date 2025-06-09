@@ -79,7 +79,7 @@ export type ClassType = {
   name: string;
   type: string;
   tradition?: string;
-  perception: TrainingType;
+  perception: number[];
   saves: {
     fortitude: number[];
     reflex: number[];

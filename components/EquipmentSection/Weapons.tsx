@@ -1,4 +1,4 @@
-import { Classes, weaponData } from "@/data";
+import { weaponData } from "@/data";
 import { weaponItemType } from "@/types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,9 +37,6 @@ const Armour = () => {
   const selectedWeaponData = weaponData.find(
     (weaponItem) => weaponItem.name === selectedWeapon
   );
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
 
   const [highlightedWeapon, setHighlightedWeapon] =
     React.useState<weaponItemType>(weaponData[0]);
@@ -54,12 +51,12 @@ const Armour = () => {
 
   const calculateWeaponSpecialisationDamage = () => {
     // No weapon specialisation
-    if (!selectedClassData?.specialisation.length) {
+    if (!selectedClass?.specialisation.length) {
       return 0;
     }
     let specialisation = 0;
-    for (let i = 0; i < selectedClassData?.specialisation.length; i++) {
-      if (selectedClassData?.specialisation[i] <= selectedLevel) {
+    for (let i = 0; i < selectedClass?.specialisation.length; i++) {
+      if (selectedClass?.specialisation[i] <= selectedLevel) {
         specialisation += 1;
       }
     }
@@ -68,7 +65,7 @@ const Armour = () => {
     const weaponTrainingLevel = calculateCurrentWeaponProficiencyLevel(
       selectedWeaponData?.category || "unarmed",
       selectedLevel,
-      selectedClassData
+      selectedClass
     );
     switch (weaponTrainingLevel) {
       case "E":
@@ -93,7 +90,7 @@ const Armour = () => {
     const proficiency = calculateCurrentWeaponProficiencyBonus(
       selectedWeaponData?.category || "unarmed",
       selectedLevel,
-      selectedClassData
+      selectedClass
     );
     console.log("Proficiency: ", proficiency);
     if (proficiency > 0) {
@@ -149,7 +146,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "unarmed",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -160,7 +157,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "simple",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -171,7 +168,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "martial",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -182,7 +179,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               "advanced",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
         </div>
@@ -194,7 +191,7 @@ const Armour = () => {
             trainingLevel={calculateCurrentWeaponProficiencyLevel(
               selectedWeaponData?.category || "unarmed",
               selectedLevel,
-              selectedClassData
+              selectedClass
             )}
           />
 

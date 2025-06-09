@@ -79,7 +79,7 @@ export type ClassType = {
   name: string;
   type: string;
   tradition?: string;
-  perception: TrainingType;
+  perception: number[];
   saves: {
     fortitude: number[];
     reflex: number[];
@@ -104,8 +104,8 @@ export type ClassType = {
   specialisation: number[];
   DC: TrainingType;
   hp: number;
-  Attributes: AttributesType[];
-  spells: spellObjectType[];
+  attributes: AttributesType[];
+  spellSlots: spellObjectType[];
   features: {
     name: string;
     level: number;

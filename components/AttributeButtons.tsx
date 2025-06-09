@@ -1,4 +1,4 @@
-import { Ancestries, Attributes, Backgrounds, Classes } from "@/data";
+import { Ancestries, Attributes, Backgrounds } from "@/data";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";
@@ -73,10 +73,6 @@ const AttributeButtons: React.FC = ({}) => {
 
   const currentBackground = Backgrounds.find(
     (backgroundItem) => backgroundItem.name === selectedBackground
-  );
-
-  const currentClass = Classes.find(
-    (classItem) => classItem.name === selectedClass
   );
 
   function handleClick(attribute: AttributesType, boostsType: Category): void {
@@ -179,7 +175,7 @@ const AttributeButtons: React.FC = ({}) => {
       (currentAttributeBoostCategory.name === "Background" &&
         selectedBackground === "Select Background") ||
       (currentAttributeBoostCategory.name === "Class" &&
-        !currentClass?.Attributes.includes(attribute.name))
+        !selectedClass?.attributes.includes(attribute.name))
     ) {
       return true;
     }
@@ -199,7 +195,7 @@ const AttributeButtons: React.FC = ({}) => {
         );
       case "Class":
         return (
-          currentClass?.Attributes.map((attribute) => " " + attribute) || []
+          selectedClass?.attributes.map((attribute) => " " + attribute) || []
         );
       default:
         return [];

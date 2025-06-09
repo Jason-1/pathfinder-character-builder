@@ -2,6 +2,7 @@ import { Classes } from "@/data";
 import { db } from "../server/index";
 import {
   attacks,
+  characters,
   classes,
   defences,
   features,
@@ -13,6 +14,7 @@ import {
 async function seedClasses() {
   try {
     // Clear existing data in the tables
+    await db.delete(characters);
     await db.delete(spellSlots);
     await db.delete(features);
     await db.delete(defences);
@@ -31,7 +33,7 @@ async function seedClasses() {
         specialisation: classData.specialisation,
         DC: classData.DC,
         hp: classData.hp,
-        attributes: classData.Attributes,
+        attributes: classData.attributes,
         description: classData.description,
       });
 
@@ -79,7 +81,7 @@ async function seedClasses() {
       }
 
       // Insert into spellSlots table
-      for (const spellLevel of classData.spells) {
+      for (const spellLevel of classData.spellSlots) {
         await db.insert(spellSlots).values({
           className: classData.name,
           level: spellLevel.level,

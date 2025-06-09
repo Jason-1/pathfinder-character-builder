@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { saveTypes } from "@/types";
 import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost";
 import DiceRoller from "./DiceRoller";
-import { Ancestries, armourData, Classes, shieldData } from "@/data";
+import { Ancestries, shieldData } from "@/data";
 import TrainingIcon from "./Icons/TrainingIcon";
 import calculateCurrentArmourProficiencyBonus from "@/lib/calculateCurrentArmourProficiencyBonus";
 import {
@@ -37,9 +37,6 @@ const Defences = () => {
   const selectedShield = useSelector(selectShield);
   const attributeBoosts = useSelector(selectAttributeBoostCategories);
 
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
@@ -54,13 +51,13 @@ const Defences = () => {
   }, [selectedShield]);
 
   const calculateSaveProficiencyBonus = (saveType: saveTypes) => {
-    if (!selectedClassData) {
+    if (!selectedClass) {
       return 0;
     }
 
     let proficiency = 0;
 
-    selectedClassData.saves[saveType].forEach((level) => {
+    selectedClass.saves[saveType].forEach((level) => {
       if (level <= selectedLevel) {
         proficiency += 2;
       }
@@ -89,7 +86,7 @@ const Defences = () => {
 
   function calculateAC() {
     let AC = 0;
-    if (!selectedArmour || !selectedClassData) {
+    if (!selectedArmour || !selectedClass) {
       return 0;
     }
 
@@ -99,7 +96,7 @@ const Defences = () => {
     const proficiency = calculateCurrentArmourProficiencyBonus(
       selectedArmour.category,
       selectedLevel,
-      selectedClassData
+      selectedClass
     );
     const item = selectedArmour.ACBonus;
     const rune = selectedPotency;
@@ -132,12 +129,12 @@ const Defences = () => {
   }
 
   function calculateHP() {
-    if (!selectedClassData || !selectedAncestryData) {
+    if (!selectedClass || !selectedAncestryData) {
       return 0;
     }
 
     let HP = 0;
-    const classHP = selectedClassData.hp;
+    const classHP = selectedClass.hp;
     const ancestry = selectedAncestryData.hp;
     const constitution = calculateCurrentAttributeBoost(
       "Constitution",

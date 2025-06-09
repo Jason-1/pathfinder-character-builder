@@ -1,6 +1,5 @@
 import { selectClass, selectLevel, selectSpells } from "@/app/redux/selectors";
 import { addSpell, clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
-import { Classes } from "@/data";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { spellsData } from "@/data/spells";
@@ -14,16 +13,12 @@ const Spells = () => {
   const selectedClass = useSelector(selectClass);
   const selectedSpells = useSelector(selectSpells);
 
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
-
-  const currentLevelSpellData = selectedClassData?.spells.find(
+  const currentLevelSpellData = selectedClass?.spellSlots.find(
     (spell) => spell.level === selectedLevel
   );
 
   const traditionSpells = spellsData.filter((spell) =>
-    spell.traditions.includes(selectedClassData?.tradition || "")
+    spell.traditions.includes(selectedClass?.tradition || "")
   );
 
   const [highlightedSpell, setHighlightedSpell] = React.useState<spellType>(
@@ -78,7 +73,7 @@ const Spells = () => {
               setHighlightedItem={setHighlightedSpell}
             >
               <div className="mt-4 flex flex-row gap-2 text-xs justify-center text-center">
-                <span>Tradition: {selectedClassData?.tradition} </span>
+                <span>Tradition: {selectedClass?.tradition} </span>
                 <span>Traits: {highlightedSpell.traits.join(", ")} </span>
               </div>
             </SelectorDialog>
@@ -111,7 +106,7 @@ const Spells = () => {
                         }
                         setHighlightedItem={setHighlightedSpell}
                       >
-                        <span>Tradition: {selectedClassData?.tradition}</span>
+                        <span>Tradition: {selectedClass?.tradition}</span>
                         <span>
                           Traits: {highlightedSpell.traits.join(", ")}
                         </span>

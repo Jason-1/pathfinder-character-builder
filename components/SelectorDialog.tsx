@@ -18,7 +18,6 @@ import capitaliseFirstLetter from "@/lib/capitaliseFirstLetter";
 import { useSelector } from "react-redux";
 import TrainingIcon from "./Icons/TrainingIcon";
 import calculateCurrentArmourProficiencyLevel from "@/lib/calculateCurrentArmourProficiencyLevel";
-import { Classes } from "@/data";
 import { armourTypes, weaponTypes } from "@/types";
 import calculateCurrentWeaponProficiencyLevel from "@/lib/calculateCurrentWeaponProficiencyLevel";
 import { selectClass, selectLevel } from "@/app/redux/selectors";
@@ -65,9 +64,6 @@ const SelectorDialog = <
 
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
-  const selectedClassData = Classes.find(
-    (classItem) => classItem.name === selectedClass
-  );
 
   //------------------------------------------------------------------------------//
 
@@ -204,7 +200,7 @@ const SelectorDialog = <
                           trainingLevel={calculateCurrentArmourProficiencyLevel(
                             item.category as armourTypes,
                             selectedLevel,
-                            selectedClassData
+                            selectedClass
                           )}
                           size={5}
                         />
@@ -213,7 +209,7 @@ const SelectorDialog = <
                           trainingLevel={calculateCurrentWeaponProficiencyLevel(
                             item.category as weaponTypes,
                             selectedLevel,
-                            selectedClassData
+                            selectedClass
                           )}
                           size={5}
                         />
@@ -275,7 +271,7 @@ const SelectorDialog = <
                               trainingLevel={calculateCurrentArmourProficiencyLevel(
                                 item.category as armourTypes,
                                 selectedLevel,
-                                selectedClassData
+                                selectedClass
                               )}
                               size={5}
                             />
@@ -284,7 +280,7 @@ const SelectorDialog = <
                               trainingLevel={calculateCurrentWeaponProficiencyLevel(
                                 item.category as weaponTypes,
                                 selectedLevel,
-                                selectedClassData
+                                selectedClass
                               )}
                               size={5}
                             />

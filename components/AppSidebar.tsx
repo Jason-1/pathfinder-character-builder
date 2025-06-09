@@ -24,7 +24,7 @@ export function AppSidebar() {
       <SidebarHeader>
         <div className="flex justify-center">
           {name !== "" ? name : "No Name Entered"}, Level {selectedLevel}{" "}
-          {selectedClass === "Select Class" ? "" : selectedClass}
+          {selectedClass.name === "Select Class" ? "" : selectedClass.name}
         </div>
       </SidebarHeader>
       <SidebarContent>

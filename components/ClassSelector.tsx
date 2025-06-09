@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { Classes, subclasses } from "@/data";
+import { subclasses } from "@/data";
 import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/redux/Slices/classSlice";
 import { setSubclass } from "@/app/redux/Slices/subclassSlice";
@@ -11,13 +11,15 @@ import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
 import { selectClass, selectSubclass } from "@/app/redux/selectors";
 import { clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
+import { useAction } from "next-safe-action/hooks";
+import { getClasses } from "@/server/actions/get-all-classes";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
-  const [highlightedClass, setHighlightedClass] = React.useState<ClassType>(
-    Classes[0]
-  );
+  const [highlightedClass, setHighlightedClass] = React.useState<
+    ClassType | undefined
+  >(undefined);
   const [highlightedSubclass, setHighlightedSubclass] =
     React.useState<subclassType>(subclasses[0]);
 
@@ -25,15 +27,40 @@ const ClassSelector: React.FC = ({}) => {
   const selectedSubclass = useSelector(selectSubclass);
 
   const availableSubclasses = subclasses.filter(
-    (subclassItem) => subclassItem.className === selectedClass
+    (subclassItem) => subclassItem.className === selectedClass.name
   );
+
+  //------------------------------------------------------------------------------//
+
+  const [classData, setClassData] = useState<ClassType[]>([]);
+
+  const { execute: getAllClasses } = useAction(getClasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setClassData(
+          data.data.map((item: any) => ({
+            ...item,
+            category: item.category as ClassType[],
+          }))
+        );
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllClasses();
+  }, [getAllClasses]);
 
   //------------------------------------------------------------------------------//
 
   const handleChangeClass = (classString: string) => {
     //When a class is set also reset skill proficiencies for it
-    dispatch(setClass({ class: classString }));
-    dispatch(resetAllSkillBoostsAtLevel({ currentLevel: 0 }));
+
+    const classItem = classData.find((item) => item.name === classString);
+    if (classItem) {
+      dispatch(setClass(classItem));
+      dispatch(resetAllSkillBoostsAtLevel({ currentLevel: 0 }));
+    }
   };
 
   const handleSetSubclass = (subclass: string) => {
@@ -66,9 +93,16 @@ const ClassSelector: React.FC = ({}) => {
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2 w-full"
         itemType="Class"
-        selectedItem={selectedClass}
-        data={Classes}
-        highlightedItem={highlightedClass}
+        selectedItem={selectedClass.name}
+        data={classData}
+        highlightedItem={
+          highlightedClass ??
+          classData[0] ?? {
+            name: "",
+            description: "",
+            Attributes: [],
+          }
+        }
         onItemClick={(item) => {
           handleChangeClass(item);
           handleSetSubclass("Select Subclass");
@@ -78,19 +112,19 @@ const ClassSelector: React.FC = ({}) => {
       >
         <p className="flex flex-col">
           <span>Attributes:</span>
-          <span>{highlightedClass.Attributes.join(", ")}</span>
+          <span>{highlightedClass?.attributes.join(", ")}</span>
         </p>
         <p className="flex flex-col">
           <span>HP:</span>
-          <span>{highlightedClass.hp}</span>
+          <span>{highlightedClass?.hp}</span>
         </p>
         <p className="flex flex-col">
           <span>Fortitude:</span>
           <span>
             {trainingLevel(
-              highlightedClass.saves.fortitude.filter(
+              highlightedClass?.saves.fortitude.filter(
                 (value: number) => value === 1
-              ).length
+              ).length || 0
             )}
           </span>
         </p>
@@ -98,9 +132,9 @@ const ClassSelector: React.FC = ({}) => {
           <span>Reflex:</span>
           <span>
             {trainingLevel(
-              highlightedClass.saves.reflex.filter(
+              highlightedClass?.saves.reflex.filter(
                 (value: number) => value === 1
-              ).length
+              ).length || 0
             )}
           </span>
         </p>
@@ -108,8 +142,9 @@ const ClassSelector: React.FC = ({}) => {
           <span>Will:</span>
           <span>
             {trainingLevel(
-              highlightedClass.saves.will.filter((value: number) => value === 1)
-                .length
+              highlightedClass?.saves.will.filter(
+                (value: number) => value === 1
+              ).length || 0
             )}
           </span>
         </p>
@@ -125,7 +160,7 @@ const ClassSelector: React.FC = ({}) => {
           handleSetSubclass(item);
         }}
         setHighlightedItem={setHighlightedSubclass}
-      ></SelectorDialog>
+      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "../index";
-import { armour, characters } from "../schema";
+import { armour } from "../schema";
 import { createSafeActionClient } from "next-safe-action";
 
 const action = createSafeActionClient();

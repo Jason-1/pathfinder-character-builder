@@ -16,9 +16,14 @@ export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   level: integer("level").notNull().default(1),
+  className: varchar("class_name", { length: 255 })
+    .references(() => classes.name)
+    .default("Fighter")
+    .notNull(),
   armourName: varchar("armour_name", { length: 255 })
     .references(() => armour.name)
-    .default("Unarmoured"),
+    .default("Unarmoured")
+    .notNull(),
 });
 
 //------------------------------------------------------------------------------//
@@ -88,7 +93,7 @@ export const classes = pgTable("classes", {
   name: varchar("name", { length: 255 }).notNull().primaryKey(),
   type: varchar("type", { length: 255 }).notNull(),
   tradition: varchar("tradition", { length: 255 }).default(""),
-  perception: TrainingEnum("perception").notNull().default("Untrained"),
+  perception: integer("perception").array().notNull().default([]),
   specialisation: integer("specialisation").array().notNull().default([]),
   DC: TrainingEnum("DC").notNull().default("Untrained"),
   hp: integer("hp").notNull().default(0),
@@ -175,3 +180,71 @@ export const CharacterRelations = relations(characters, ({ one }) => ({
 export const ArmourRelations = relations(armour, ({ many }) => ({
   characters: many(characters),
 }));
+
+//------------------------------------------------------------------------------//
+// Class Relations
+
+export const ClassRelations = relations(classes, ({ one, many }) => ({
+  saves: one(saves, {
+    fields: [classes.name],
+    references: [saves.className],
+  }),
+  skills: one(skills, {
+    fields: [classes.name],
+    references: [skills.className],
+  }),
+  attacks: one(attacks, {
+    fields: [classes.name],
+    references: [attacks.className],
+  }),
+  defences: one(defences, {
+    fields: [classes.name],
+    references: [defences.className],
+  }),
+  features: many(features),
+  spellSlots: many(spellSlots),
+}));
+
+export const savesRelations = relations(saves, ({ one }) => ({
+  class: one(classes, {
+    fields: [saves.className],
+    references: [classes.name],
+  }),
+}));
+
+export const skillsRelations = relations(skills, ({ one }) => ({
+  class: one(classes, {
+    fields: [skills.className],
+    references: [classes.name],
+  }),
+}));
+
+export const attacksRelations = relations(attacks, ({ one }) => ({
+  class: one(classes, {
+    fields: [attacks.className],
+    references: [classes.name],
+  }),
+}));
+
+export const defencesRelations = relations(defences, ({ one }) => ({
+  class: one(classes, {
+    fields: [defences.className],
+    references: [classes.name],
+  }),
+}));
+
+export const featuresRelations = relations(features, ({ one }) => ({
+  class: one(classes, {
+    fields: [features.className],
+    references: [classes.name],
+  }),
+}));
+
+export const spellSlotsRelations = relations(spellSlots, ({ one }) => ({
+  class: one(classes, {
+    fields: [spellSlots.className],
+    references: [classes.name],
+  }),
+}));
+
+//------------------------------------------------------------------------------//

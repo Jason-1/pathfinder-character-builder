@@ -343,7 +343,7 @@ export const Classes: ClassType[] = [
   },
 ];
 
-/*export const subclasses: subclassType[] = [
+export const subclasses: subclassType[] = [
   {
     name: "Desecration (Unholy)",
     className: "Champion",
@@ -488,7 +488,7 @@ export const Classes: ClassType[] = [
     description:
       "Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows, or even a consultant, testing clients’ vaults for openings.",
   },
-];*/
+];
 
 //Add intelligenceBoosted as a new item in the object. Can then check and update it the same way as the other boosts without infinite rerenders. Likely need the level associated with when int was boosted
 export const skillProficiencies: skillProficienciesType[] = [

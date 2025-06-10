@@ -20,6 +20,9 @@ export const characters = pgTable("characters", {
     .references(() => classes.name)
     .default("Fighter")
     .notNull(),
+  subclassName: varchar("subclass_name", { length: 255 }).references(
+    () => subclasses.name
+  ),
   armourName: varchar("armour_name", { length: 255 })
     .references(() => armour.name)
     .default("Unarmoured")
@@ -165,6 +168,22 @@ export const spellSlots = pgTable("spellSlots", {
 });
 
 //------------------------------------------------------------------------------//
+// subclasses
+
+export const subclasses = pgTable("subclasses", {
+  id: serial("id").primaryKey(),
+  className: varchar("class_name", { length: 255 }).references(
+    () => classes.name
+  ),
+  name: varchar("name", { length: 255 }).unique().notNull(),
+  attribute: AttributesEnum("attribute"),
+  training: SkillsEnum("training").array().notNull().default([]),
+  description: text("description")
+    .notNull()
+    .default("No description available"),
+});
+
+//------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------//
 // Relations
 
@@ -246,5 +265,33 @@ export const spellSlotsRelations = relations(spellSlots, ({ one }) => ({
     references: [classes.name],
   }),
 }));
+
+//------------------------------------------------------------------------------//
+// Subclass Relations
+
+export const ClassSubclassesRelations = relations(classes, ({ many }) => ({
+  subclasses: many(subclasses),
+}));
+
+export const SubclassClassRelations = relations(subclasses, ({ one }) => ({
+  class: one(classes, {
+    fields: [subclasses.className],
+    references: [classes.name],
+  }),
+}));
+
+export const CharacterSubclassRelations = relations(characters, ({ one }) => ({
+  subclass: one(subclasses, {
+    fields: [characters.subclassName],
+    references: [subclasses.name],
+  }),
+}));
+
+export const SubclassCharactersRelations = relations(
+  subclasses,
+  ({ many }) => ({
+    characters: many(characters),
+  })
+);
 
 //------------------------------------------------------------------------------//

@@ -1,0 +1,2 @@
+ALTER TABLE "characters" ADD COLUMN "subclass_name" varchar(255);--> statement-breakpoint
+ALTER TABLE "characters" ADD CONSTRAINT "characters_subclass_name_subclasses_name_fk" FOREIGN KEY ("subclass_name") REFERENCES "public"."subclasses"("name") ON DELETE no action ON UPDATE no action;

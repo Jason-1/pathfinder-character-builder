@@ -17,6 +17,7 @@ import {
   selectAttributeBoostCategories,
   selectBackground,
   selectClass,
+  selectSubclass,
 } from "@/app/redux/selectors";
 
 const BoostLimits = {
@@ -42,6 +43,7 @@ const AttributeButtons: React.FC = ({}) => {
   const selectedAncestry = useSelector(selectAncestry);
   const selectedBackground = useSelector(selectBackground);
   const selectedClass = useSelector(selectClass);
+  const selectedSubclass = useSelector(selectSubclass);
   const attributeBoosts = useSelector(selectAttributeBoostCategories);
 
   //------------------------------------------------------------------------------//
@@ -175,7 +177,8 @@ const AttributeButtons: React.FC = ({}) => {
       (currentAttributeBoostCategory.name === "Background" &&
         selectedBackground === "Select Background") ||
       (currentAttributeBoostCategory.name === "Class" &&
-        !selectedClass?.attributes.includes(attribute.name))
+        !selectedClass?.attributes.includes(attribute.name) &&
+        !selectedSubclass?.attribute?.includes(attribute.name))
     ) {
       return true;
     }
@@ -194,9 +197,12 @@ const AttributeButtons: React.FC = ({}) => {
           []
         );
       case "Class":
-        return (
-          selectedClass?.attributes.map((attribute) => " " + attribute) || []
-        );
+        return [
+          ...(selectedClass?.attributes.map((attribute) => " " + attribute) ||
+            []),
+          " ",
+          ...(selectedSubclass?.attribute ? [selectedSubclass.attribute] : []),
+        ];
       default:
         return [];
     }

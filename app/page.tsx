@@ -23,11 +23,12 @@ import {
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
 import { setArmour } from "./redux/Slices/armourSlice";
-import { armourItemType, ClassType } from "@/types";
+import { armourItemType, ClassType, subclassType } from "@/types";
 import { getArmour } from "@/server/actions/get-all-armour";
 import { getClasses } from "@/server/actions/get-all-classes";
 import { setClass } from "./redux/Slices/classSlice";
 import { initialArmourState, initialClassState } from "./redux/initialStates";
+import { getSubclasses } from "@/server/actions/get-all-subclasses";
 
 export default function Home() {
   const router = useRouter();
@@ -45,6 +46,8 @@ export default function Home() {
 
   const [classData, setClassData] = useState<ClassType[]>([]);
   const [pendingClassName, setPendingClassName] = useState<string | null>(null);
+
+  const [subclassData, setSubclassData] = useState<subclassType[]>([]);
 
   const [armourData, setArmourData] = useState<armourItemType[]>([]);
   const [pendingArmourName, setPendingArmourName] = useState<string | null>(
@@ -90,6 +93,18 @@ export default function Home() {
       }
     },
   });
+
+  const { execute: getAllSubclasses } = useAction(getSubclasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setSubclassData(data.data as subclassType[]);
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllSubclasses();
+  }, [getAllSubclasses]);
 
   const handleSetClass = (className: string) => {
     const classItem = classData.find((item) => item.name === className);

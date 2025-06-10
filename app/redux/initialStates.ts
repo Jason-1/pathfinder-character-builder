@@ -1,4 +1,4 @@
-import { armourItemType, ClassType } from "@/types";
+import { armourItemType, ClassType, subclassType } from "@/types";
 
 export const initialClassState: ClassType = {
   name: "Fighter",
@@ -143,4 +143,9 @@ export const initialArmourState: armourItemType = {
   bulk: "0",
   group: "",
   description: "No Armour",
+};
+
+export const initialSubclassState: subclassType = {
+  name: "Select a subclass",
+  description: "No subclass selected",
 };

@@ -27,10 +27,6 @@ const ClassSelector: React.FC = ({}) => {
   const selectedClass = useSelector(selectClass);
   const selectedSubclass = useSelector(selectSubclass);
 
-  /*const availableSubclasses = subclasses.filter(
-    (subclassItem) => subclassItem.className === selectedClass.name
-  );*/
-
   //------------------------------------------------------------------------------//
 
   const [classData, setClassData] = useState<ClassType[]>([]);

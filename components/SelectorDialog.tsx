@@ -115,8 +115,8 @@ const SelectorDialog = <
   return (
     <Dialog
       open={open}
-      onOpenChange={(newOpen) => {
-        setOpen(newOpen);
+      onOpenChange={(isOpen) => {
+        setOpen(isOpen);
         setHighlightedItem(
           data.find((item) => item.name === selectedItem) || data[0] || {}
         );

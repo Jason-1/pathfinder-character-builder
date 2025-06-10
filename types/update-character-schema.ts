@@ -5,5 +5,6 @@ export const updateCharacterSchema = z.object({
   name: z.string(),
   level: z.number().int().min(1).max(20),
   className: z.string(),
+  subclassName: z.string().optional(),
   armourName: z.string(),
 });

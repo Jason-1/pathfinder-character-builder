@@ -14,6 +14,7 @@ import {
   selectID,
   selectLevel,
   selectName,
+  selectSubclass,
 } from "@/app/redux/selectors";
 import {
   Dialog,
@@ -31,6 +32,7 @@ const DatabaseButtons = () => {
   const id = useSelector(selectID);
   const level = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
+  const selectedSubclass = useSelector(selectSubclass);
   const selectedArmour = useSelector(selectArmour);
 
   const { execute: updateCharacterExecute } = useAction(updateCharacter, {
@@ -61,6 +63,7 @@ const DatabaseButtons = () => {
               name,
               level,
               className: selectedClass.name,
+              subclassName: selectedSubclass.name,
               armourName: selectedArmour.name,
             })
           }

@@ -106,6 +106,41 @@
       "when": 1749427639696,
       "tag": "0014_even_mentor",
       "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1749523052183,
+      "tag": "0015_cuddly_spyke",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1749523174040,
+      "tag": "0016_smooth_wrecker",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1749523421556,
+      "tag": "0017_loose_hulk",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1749523427293,
+      "tag": "0018_safe_white_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1749525155148,
+      "tag": "0019_robust_lilandra",
+      "breakpoints": true
     }
   ]
 }

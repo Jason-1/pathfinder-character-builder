@@ -35,6 +35,8 @@ export default function Home() {
   // Are you sure you want to delete this character? - confirmation dialog
   // Load character toast on success
 
+  // select heritage greyed out
+
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();

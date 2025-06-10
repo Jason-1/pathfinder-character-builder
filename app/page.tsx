@@ -23,11 +23,17 @@ import {
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
 import { setArmour } from "./redux/Slices/armourSlice";
-import { armourItemType, ClassType } from "@/types";
+import { armourItemType, ClassType, subclassType } from "@/types";
 import { getArmour } from "@/server/actions/get-all-armour";
 import { getClasses } from "@/server/actions/get-all-classes";
 import { setClass } from "./redux/Slices/classSlice";
-import { initialArmourState, initialClassState } from "./redux/initialStates";
+import {
+  initialArmourState,
+  initialClassState,
+  initialSubclassState,
+} from "./redux/initialStates";
+import { getSubclasses } from "@/server/actions/get-all-subclasses";
+import { setSubclass } from "./redux/Slices/subclassSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -46,6 +52,11 @@ export default function Home() {
   const [classData, setClassData] = useState<ClassType[]>([]);
   const [pendingClassName, setPendingClassName] = useState<string | null>(null);
 
+  const [subclassData, setSubclassData] = useState<subclassType[]>([]);
+  const [pendingSubclassName, setPendingSubclassName] = useState<string | null>(
+    null
+  );
+
   const [armourData, setArmourData] = useState<armourItemType[]>([]);
   const [pendingArmourName, setPendingArmourName] = useState<string | null>(
     null
@@ -59,6 +70,7 @@ export default function Home() {
     dispatch(setId(null));
     dispatch(setLevel(1));
     dispatch(setClass(initialClassState));
+    dispatch(setSubclass(initialSubclassState));
     dispatch(setArmour(initialArmourState));
   }, [dispatch]);
 
@@ -91,10 +103,31 @@ export default function Home() {
     },
   });
 
+  const { execute: getAllSubclasses } = useAction(getSubclasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setSubclassData(data.data as subclassType[]);
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllSubclasses();
+  }, [getAllSubclasses]);
+
   const handleSetClass = (className: string) => {
     const classItem = classData.find((item) => item.name === className);
     if (classItem) {
       dispatch(setClass(classItem));
+    }
+  };
+
+  const handleSetSubclass = (subclassName: string) => {
+    const subclassItem = subclassData.find(
+      (item) => item.name === subclassName
+    );
+    if (subclassItem) {
+      dispatch(setSubclass(subclassItem));
     }
   };
 
@@ -113,6 +146,7 @@ export default function Home() {
         dispatch(setId(data.data.id));
         dispatch(setLevel(data.data.level));
         setPendingClassName(data.data.className);
+        setPendingSubclassName(data.data.subclassName);
         setPendingArmourName(data.data.armourName);
         router.push("/character-builder");
       }
@@ -158,6 +192,17 @@ export default function Home() {
   useEffect(() => {
     getAllClasses();
   }, [getAllClasses]);
+
+  useEffect(() => {
+    if (pendingSubclassName && subclassData.length > 0) {
+      handleSetSubclass(pendingSubclassName);
+      setPendingSubclassName(null); // clear after setting
+    }
+  }, [pendingSubclassName, subclassData]);
+
+  useEffect(() => {
+    getAllSubclasses();
+  }, [getAllSubclasses]);
 
   // Ensure the armour data has loaded
   useEffect(() => {

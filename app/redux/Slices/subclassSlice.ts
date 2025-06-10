@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initialSubclassState } from "../initialStates";
 
 const initialState = {
-  subclass: "Select Subclass",
+  subclass: initialSubclassState,
 };
 
 const subclassSlice = createSlice({
@@ -9,7 +10,7 @@ const subclassSlice = createSlice({
   initialState: initialState,
   reducers: {
     setSubclass: (state, action) => {
-      state.subclass = action.payload.subclass;
+      state.subclass = action.payload;
     },
   },
 });

@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
-import { subclasses } from "@/data";
 import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/redux/Slices/classSlice";
 import { setSubclass } from "@/app/redux/Slices/subclassSlice";
@@ -13,6 +11,8 @@ import { selectClass, selectSubclass } from "@/app/redux/selectors";
 import { clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
 import { useAction } from "next-safe-action/hooks";
 import { getClasses } from "@/server/actions/get-all-classes";
+import { getSubclasses } from "@/server/actions/get-all-subclasses";
+import { initialSubclassState } from "@/app/redux/initialStates";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -20,19 +20,17 @@ const ClassSelector: React.FC = ({}) => {
   const [highlightedClass, setHighlightedClass] = React.useState<
     ClassType | undefined
   >(undefined);
-  const [highlightedSubclass, setHighlightedSubclass] =
-    React.useState<subclassType>(subclasses[0]);
+  const [highlightedSubclass, setHighlightedSubclass] = React.useState<
+    subclassType | undefined
+  >(undefined);
 
   const selectedClass = useSelector(selectClass);
   const selectedSubclass = useSelector(selectSubclass);
 
-  const availableSubclasses = subclasses.filter(
-    (subclassItem) => subclassItem.className === selectedClass.name
-  );
-
   //------------------------------------------------------------------------------//
 
   const [classData, setClassData] = useState<ClassType[]>([]);
+  const [subclassData, setSubclassData] = useState<subclassType[]>([]);
 
   const { execute: getAllClasses } = useAction(getClasses, {
     onSuccess: (data) => {
@@ -51,6 +49,22 @@ const ClassSelector: React.FC = ({}) => {
     getAllClasses();
   }, [getAllClasses]);
 
+  const { execute: getAllSubclasses } = useAction(getSubclasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setSubclassData(data.data as subclassType[]);
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllSubclasses();
+  }, [getAllSubclasses]);
+
+  const availableSubclasses = subclassData.filter(
+    (subclassItem) => subclassItem.className === selectedClass.name
+  );
+
   //------------------------------------------------------------------------------//
 
   const handleChangeClass = (classString: string) => {
@@ -59,12 +73,18 @@ const ClassSelector: React.FC = ({}) => {
     const classItem = classData.find((item) => item.name === classString);
     if (classItem) {
       dispatch(setClass(classItem));
+      dispatch(setSubclass(initialSubclassState));
       dispatch(resetAllSkillBoostsAtLevel({ currentLevel: 0 }));
     }
   };
 
-  const handleSetSubclass = (subclass: string) => {
-    dispatch(setSubclass({ subclass: subclass }));
+  const handleSetSubclass = (subclassString: string) => {
+    const subclassItem = subclassData.find(
+      (item) => item.name === subclassString
+    );
+    if (subclassItem) {
+      dispatch(setSubclass(subclassItem));
+    }
   };
 
   const handleClearSpells = () => {
@@ -153,9 +173,15 @@ const ClassSelector: React.FC = ({}) => {
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2 w-full"
         itemType="Sub-Class"
-        selectedItem={selectedSubclass}
+        selectedItem={selectedSubclass.name}
         data={availableSubclasses}
-        highlightedItem={highlightedSubclass}
+        highlightedItem={
+          highlightedSubclass ??
+          subclassData[0] ?? {
+            name: "",
+            description: "",
+          }
+        }
         onItemClick={(item) => {
           handleSetSubclass(item);
         }}

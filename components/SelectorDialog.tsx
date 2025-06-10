@@ -62,6 +62,8 @@ const SelectorDialog = <
   const [selectedTab, setSelectedTab] = React.useState<string>("All");
   const [searchTerm, setSearchTerm] = React.useState<string>("");
 
+  const [open, setOpen] = React.useState(false);
+
   const selectedLevel = useSelector(selectLevel);
   const selectedClass = useSelector(selectClass);
 
@@ -112,7 +114,9 @@ const SelectorDialog = <
 
   return (
     <Dialog
-      onOpenChange={() => {
+      open={open}
+      onOpenChange={(newOpen) => {
+        setOpen(newOpen);
         setHighlightedItem(
           data.find((item) => item.name === selectedItem) || data[0] || {}
         );
@@ -120,7 +124,9 @@ const SelectorDialog = <
         setSearchTerm("");
       }}
     >
-      <DialogTrigger className={cn(className)}>{selectedItem}</DialogTrigger>
+      <DialogTrigger className={cn(className)} onClick={() => setOpen(true)}>
+        {selectedItem}
+      </DialogTrigger>
       <DialogContent className="w-3/4 max-w-4xl h-3/4 max-h-[75vh] flex flex-col">
         <DialogHeader className="flex-grow">
           <div className="flex flex-col lg:flex-row gap-4 mb-2 justify-left">
@@ -187,8 +193,12 @@ const SelectorDialog = <
                     onClick={() => {
                       setHighlightedItem(item);
                     }}
+                    onDoubleClick={() => {
+                      onItemClick(highlightedItem.name);
+                      setOpen(false);
+                    }}
                   >
-                    <span>{item.name}</span>
+                    <span className="select-none">{item.name}</span>
                     {item.level && (
                       <span className="border px-2 rounded-md h-5 w-5 text-sm flex items-center justify-center border-blue-800 bg-blue-800">
                         {`${item.level}`}
@@ -308,6 +318,7 @@ const SelectorDialog = <
             variant="default"
             onClick={() => {
               onItemClick(highlightedItem.name);
+              setOpen(false);
             }}
           >
             Select {itemType}

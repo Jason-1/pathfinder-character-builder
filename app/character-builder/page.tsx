@@ -36,6 +36,7 @@ export default function Home() {
   // Load character toast on success
 
   // select heritage greyed out
+  // look into orderBy for DB queries
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {

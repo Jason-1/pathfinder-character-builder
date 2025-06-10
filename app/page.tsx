@@ -202,8 +202,8 @@ export default function Home() {
   }, [pendingSubclassName, subclassData]);
 
   useEffect(() => {
-    getAllClasses();
-  }, [getAllClasses]);
+    getAllSubclasses();
+  }, [getAllSubclasses]);
 
   // Ensure the armour data has loaded
   useEffect(() => {

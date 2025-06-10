@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-
 import { useAction } from "next-safe-action/hooks";
 import { createCharacter } from "@/server/actions/create-character";
 import { toast } from "sonner";
@@ -174,7 +173,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-3xl font-bold mb-8">
+      <h1 className="text-3xl font-bold mb-8 text-center">
         Welcome to Pathfinder Character Builder
       </h1>
       <Button
@@ -191,7 +190,7 @@ export default function Home() {
             Load existing character
           </span>
         </DialogTrigger>
-        <DialogContent className="w-1/2  h-3/4 max-h-[75vh] flex flex-col">
+        <DialogContent className="w-full max-w-full md:w-1/3 h-3/4 max-h-[75vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>Select a character to load</DialogTitle>{" "}
           </DialogHeader>

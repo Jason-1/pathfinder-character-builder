@@ -52,7 +52,7 @@ const DatabaseButtons = () => {
 
   return (
     <div>
-      <div className="flex flex-row gap-4 items-center justify-center">
+      <div className="flex flex-col lg:flex-row gap-4 items-center justify-center">
         <Button
           onClick={() =>
             id &&

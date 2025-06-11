@@ -264,7 +264,9 @@ const LevelFeatures: React.FC = ({}) => {
                 />
               </div>
             )}
-            {skillIncreaseLevels.includes(level) && (
+            {/* Rogues get a skill training every level */}
+            {(skillIncreaseLevels.includes(level) ||
+              selectedClass.name === "Rogue") && (
               <>
                 <SkillIncreases
                   currentLevel={level}

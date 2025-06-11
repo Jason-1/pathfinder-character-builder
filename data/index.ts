@@ -347,97 +347,97 @@ export const subclasses: subclassType[] = [
   {
     name: "Desecration (Unholy)",
     className: "Champion",
-    training: [],
+    skills: [],
     description:
       "You always take what pleases you, no matter who it hurts, and you spread a malign influence across all you touch.",
   },
   {
     name: "Grandeur (Holy)",
     className: "Champion",
-    training: [],
+    skills: [],
     description:
       "The glowing grandeur of the immaculate celestial realms inspires you, and you exhort their virtues to bring humility to the denizens of other grim worlds.",
   },
   {
     name: "Justice",
     className: "Champion",
-    training: [],
+    skills: [],
     description:
       "In your deity’s name you seek justice, following the law and punishing those who transgress it.",
   },
   {
     name: "Liberation",
     className: "Champion",
-    training: [],
+    skills: [],
     description: "You will see all people free from bondage and prohibitions.",
   },
   {
     name: "Obedience",
     className: "Champion",
-    training: [],
+    skills: [],
     description:
       "Society is ordered with good reason, and people should conduct themselves as appropriate for their proper place.",
   },
   {
     name: "Redemption (Holy)",
     className: "Champion",
-    training: [],
+    skills: [],
     description:
       "Yearning for all to live in harmony, you make every attempt to redeem those others might slay or dismiss.",
   },
   {
     name: "Red Mantis Magic School",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "While any thug can commit a murder, proper assassination requires finesse and guile. Deep within the Crimson Citadel, the Red Mantis assassins have developed a specific selection of spells they teach to all magically capable members. These spells complement the assassins’ clandestine and deadly methods.",
   },
   {
     name: "School of Ars Grammatica",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "Runes and wards, numbers and letters—they underpin all magic, making them the logical subject for a wizard who studies fundamental forces. Perhaps you studied at the Pathfinder Society's School of Spells or a similar institution, but whether you're lacing your words with magic to compel others, casting wards around your workshop, or destabilizing the very structure of an opponent's spells, you know this unassuming school carries elegant power.",
   },
   {
     name: "School of Battle Magic",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "Magic is power, and there are always those who will use power for the art of battle. You may have studied in the military of a nation of the brink of war—Cheliax and Andoran perhaps, or Geb and Nex. You summon whirling energies that can lay waste to both soldiers and armies, while being sure not to neglect arcane countermeasures for common tactical complications or the shields and defenses that keep combatants alive on the battlefield.",
   },
   {
     name: "School of Civic Wizardry",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "Whether you studied in Manaket's Occularium or the Academy of Applied Magic, you learned that the fruits of arcane studies—like any other field—should ultimately help the common citizen. You've learned the humble art of construction, of finding lost people and things, of moving speedily among buildings and moats—yet these same arts can be turned to demolition, and the constructs you animate to build bridges can just as easily tear them down.",
   },
   {
     name: "School of Mentalism",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "As a scholar, you know all too well the importance of a sound mind. Thus, you attended a school—like the Farseer Tower or the Stone of the Seers—that taught the arts of befuddling lesser minds with figments and illusions or implanted sensations and memories.",
   },
   {
     name: "School of Protean Form",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "The uninitiated often think of wizards as cerebral, focused on their studies more than the body, yet your school of magic taught of the relationship between the two. Your magic, whether learned at a storied institution like Kintargo's Alabaster Academy or someplace more sinister, like the Fleshforges of Nex, focuses on the ways that living matter can be convinced into another shape for a time, allowing you to polymorph a seed into a vine, a human into a beast, or a harmless germ into a deadly toxin.",
   },
   {
     name: "School of the Boundary",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "Why use your magic to affect something as pedestrian as the physical world? Whether you studied at the College of Dimensional Studies in Katapesh or an underground school in haunted Ustalav, you've turned your magic past the Universe to the forces beyond, summoning spirits and shades, manipulating dimensions and planes, and treading in a place not meant for mortals.",
   },
   {
     name: "School of Unified Magical Theory",
     className: "Wizard",
-    training: [],
+    skills: [],
     description:
       "You eschew the idea that magic can be neatly expressed by the teachings of any single school or college, instead directing your self-study to pick up the best of every school of magic. In doing so, you'll find the truths that lie at the intersection of each school, coming closer to the ideal nature of arcane magic. One day, you'll uncover that single elegant theory detailing all magic (perhaps a theory bearing your name?), but until then, your studies continue.",
   },
@@ -445,7 +445,7 @@ export const subclasses: subclassType[] = [
     name: "Avenger",
     className: "Rogue",
     attribute: "Strength",
-    training: [],
+    skills: [],
     description:
       "Trained to be a precise but brutal weapon by the priests of your faith, you eschew complex trickery for swift and deadly efficiency. Subtlety and deception have their uses, but when a false smile fails, your blades have their own way of finding the truth.",
   },
@@ -453,7 +453,7 @@ export const subclasses: subclassType[] = [
     name: "Eldritch Trickster",
     className: "Rogue",
     attribute: "Wisdom",
-    training: [],
+    skills: [],
     description:
       "When it comes to a big heist, every rogue worth their salt knows that magic can throw meticulous plans into chaos, whether in the form of arcane wards or pesky divinations. You dabble in magic just enough to help handle these problems by jury-rigging spells and throwing a bit of your own magic into the mix. You might be a solitary thief, performing burglaries that can't be explained by skill alone, or a specialist called in by other rogues to deal with magical security measures. You might even be on the up-and-up, hired to test magical defenses or even build them yourself.",
   },
@@ -461,7 +461,7 @@ export const subclasses: subclassType[] = [
     name: "Mastermind",
     className: "Rogue",
     attribute: "Intelligence",
-    training: ["Society"],
+    skills: ["Society"],
     description:
       "You rely on your intellect to craft intricate schemes, planning 10 steps ahead where others might plan three. You might be a driven detective, a spymaster in the service of a powerful house, or an aspiring crime lord or information broker.",
   },
@@ -469,7 +469,7 @@ export const subclasses: subclassType[] = [
     name: "Ruffian",
     className: "Rogue",
     attribute: "Strength",
-    training: ["Intimidation"],
+    skills: ["Intimidation"],
     description:
       "You prefer the direct approach: strong-arming or intimidation. You might be an enforcer for organized crime, a highway bandit, or a noble who bullies others with threats of your family's power. ",
   },
@@ -477,14 +477,14 @@ export const subclasses: subclassType[] = [
     name: "Scoundrel",
     className: "Rogue",
     attribute: "Charisma",
-    training: ["Deception", "Diplomacy"],
+    skills: ["Deception", "Diplomacy"],
     description:
       "You use fast-talking, flattery, and a silver tongue to avoid danger and escape tricky situations. You might be a grifter or con artist, or you might use your skills in certain reputable professions, like a barrister or diplomat",
   },
   {
     name: "Thief",
     className: "Rogue",
-    training: ["Thievery"],
+    skills: ["Thievery"],
     description:
       "Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows, or even a consultant, testing clients’ vaults for openings.",
   },

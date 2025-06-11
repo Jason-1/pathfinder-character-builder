@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setClass } from "@/app/redux/Slices/classSlice";
 import { setSubclass } from "@/app/redux/Slices/subclassSlice";
-import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSlice";
+import {
+  resetAllSkillBoostsAtLevel,
+  resetAllSkillBoostsAtLevels,
+} from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
 import { selectClass, selectSubclass } from "@/app/redux/selectors";
@@ -74,7 +77,11 @@ const ClassSelector: React.FC = ({}) => {
     if (classItem) {
       dispatch(setClass(classItem));
       dispatch(setSubclass(initialSubclassState));
-      dispatch(resetAllSkillBoostsAtLevel({ currentLevel: 0 }));
+      dispatch(
+        resetAllSkillBoostsAtLevels({
+          levels: [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+        })
+      );
     }
   };
 

@@ -51,11 +51,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     dispatch(updateIntelligenceSkillBoost({ skill, currentLevel }));
   };
 
-  useEffect(() => {
-    console.log(selectedSkills);
-  }),
-    [selectedSkills];
-
   function findTrainingLevel(numericalTraining: number) {
     switch (numericalTraining) {
       case 0:

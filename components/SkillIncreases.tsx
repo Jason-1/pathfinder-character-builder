@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Dialog,
@@ -50,6 +50,11 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
   const handleUpdateIntelligenceSkillIncrease = (skill: skillTypes | "") => {
     dispatch(updateIntelligenceSkillBoost({ skill, currentLevel }));
   };
+
+  useEffect(() => {
+    console.log(selectedSkills);
+  }),
+    [selectedSkills];
 
   function findTrainingLevel(numericalTraining: number) {
     switch (numericalTraining) {
@@ -131,7 +136,8 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
 
     //Calculate the current training level, factoring in intelligence boosts
-    const intTraining = skillBoosts.IntBoost ? 1 : 0;
+    const intTraining =
+      skillBoosts.IntBoost && skillBoosts.IntBoost <= currentLevel ? 1 : 0;
     const numericalTrainingLevel = skillBoosts.LevelsBoosted.filter(
       (level) => level <= currentLevel
     ).length;
@@ -146,7 +152,10 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         (skillBoost) => skillBoost.IntBoost === currentLevel
       );
 
-      if (currentButtonProficiency === "Untrained" && !skillBoosts.IntBoost) {
+      if (
+        currentButtonProficiency === "Untrained" &&
+        skillBoosts.IntBoost !== currentLevel
+      ) {
         return true;
       }
 
@@ -164,8 +173,8 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
       }
       //There are no intelligence boosts at this level, allow trained on all skills that are currently untrained
       else {
-        //Need to check if the skill is higher than untrained, if so disallow the boost
         if (currentTrainingLevel !== "Untrained") {
+          //Need to check if the skill is higher than untrained, if so disallow the boost
           return true;
         } else {
           return false;

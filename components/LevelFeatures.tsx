@@ -31,6 +31,7 @@ import {
   selectFeats,
   selectFreeArchetype,
   selectLevel,
+  selectSubclass,
 } from "@/app/redux/selectors";
 
 //Create an available feats object I can pass through to the selector dialog
@@ -44,6 +45,7 @@ const LevelFeatures: React.FC = ({}) => {
   const selectedLevel = useSelector(selectLevel);
   const selectedAncestry = useSelector(selectAncestry);
   const selectedClass = useSelector(selectClass);
+  const selectedSubclass = useSelector(selectSubclass);
   const freeArchetype = useSelector(selectFreeArchetype);
   const ancestralParagon = useSelector(selectAncestralParagon);
   const attributeBoosts = useSelector(selectAttributeBoostCategories);
@@ -241,6 +243,16 @@ const LevelFeatures: React.FC = ({}) => {
                   increaseHeaderText="Class skill proficiencies"
                   boostType="Class"
                 />
+                {selectedSubclass?.skills &&
+                  selectedSubclass?.skills?.length > 0 && (
+                    <SkillIncreases
+                      currentLevel={-2}
+                      availableBoosts={selectedSubclass?.skills?.length ?? 0}
+                      increaseHeaderText="Subclass skill proficiencies"
+                      boostType="Subclass"
+                    />
+                  )}
+
                 <SkillIncreases
                   currentLevel={level}
                   availableBoosts={

@@ -118,7 +118,7 @@ export type subclassType = {
   name: string;
   className?: string;
   attribute?: AttributesType;
-  training?: skillTypes[] | [];
+  skills?: skillTypes[] | [];
   description: string;
 };
 

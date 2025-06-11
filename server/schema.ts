@@ -177,7 +177,7 @@ export const subclasses = pgTable("subclasses", {
   ),
   name: varchar("name", { length: 255 }).unique().notNull(),
   attribute: AttributesEnum("attribute"),
-  training: SkillsEnum("training").array().notNull().default([]),
+  skills: SkillsEnum("skills").array().notNull().default([]),
   description: text("description")
     .notNull()
     .default("No description available"),

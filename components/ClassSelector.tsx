@@ -84,6 +84,7 @@ const ClassSelector: React.FC = ({}) => {
     );
     if (subclassItem) {
       dispatch(setSubclass(subclassItem));
+      dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -2 }));
     }
   };
 

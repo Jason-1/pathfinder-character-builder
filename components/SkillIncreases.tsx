@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -19,6 +18,7 @@ import {
   selectBackground,
   selectClass,
   selectSkills,
+  selectSubclass,
 } from "@/app/redux/selectors";
 
 interface SkillIncreaseProps {
@@ -38,6 +38,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
 
   const selectedBackground = useSelector(selectBackground);
   const selectedClass = useSelector(selectClass);
+  const selectedSubclass = useSelector(selectSubclass);
   const selectedSkills = useSelector(selectSkills);
 
   //------------------------------------------------------------------------------//
@@ -247,6 +248,38 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     return true;
   };
 
+  const getAllowedSkills = () => {
+    switch (boostType) {
+      case "Background":
+        return selectedSkills.filter(
+          (skill) =>
+            skill.skill !== "" &&
+            selectedBackgroundData?.skills?.includes(skill.skill)
+        );
+
+      case "Class":
+        return selectedSkills.filter(
+          (skill) =>
+            skill.skill !== "" &&
+            selectedClass?.skills?.skillsArray?.includes(skill.skill)
+        );
+
+      case "Subclass":
+        return selectedSkills.filter(
+          (skill) =>
+            skill.skill !== "" &&
+            (selectedSubclass?.skills as skillTypes[] | undefined)?.includes?.(
+              skill.skill
+            )
+        );
+
+      default:
+        return selectedSkills;
+    }
+  };
+
+  const allowedSkills = getAllowedSkills();
+
   return (
     <>
       <Dialog>
@@ -283,60 +316,45 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
               </div>
             </div>
 
-            {selectedSkills
-              .filter(
-                (skill) =>
-                  (boostType !== "Class" && boostType !== "Background") ||
-                  ((boostType !== "Class" ||
-                    (selectedClass?.skills &&
-                      skill.skill !== "" &&
-                      selectedClass.skills.skillsArray.includes(
-                        skill.skill
-                      ))) &&
-                    (boostType !== "Background" ||
-                      (selectedBackgroundData?.skills &&
-                        skill.skill !== "" &&
-                        selectedBackgroundData.skills.includes(skill.skill))))
-              )
-              .map((skillBoost) => (
-                <div
-                  key={skillBoost.skill}
-                  className="grid grid-cols-8 items-center gap-x-4 mt-2"
+            {allowedSkills?.map((skillBoost) => (
+              <div
+                key={skillBoost.skill}
+                className="grid grid-cols-8 items-center gap-x-4 mt-2"
+              >
+                <span className="col-span-2 ">{skillBoost.skill}</span>
+                <RadioGroup
+                  onValueChange={() => handleRadioChange(skillBoost.skill)}
+                  defaultValue={findDefaultValue(skillBoost)}
+                  className="col-span-6 flex items-center justify-between"
                 >
-                  <span className="col-span-2 ">{skillBoost.skill}</span>
-                  <RadioGroup
-                    onValueChange={() => handleRadioChange(skillBoost.skill)}
-                    defaultValue={findDefaultValue(skillBoost)}
-                    className="col-span-6 flex items-center justify-between"
-                  >
-                    <RadioGroupItem
-                      value="Untrained"
-                      id="Untrained"
-                      disabled={handleDisabled("Untrained", skillBoost)}
-                    />
-                    <RadioGroupItem
-                      value="Trained"
-                      id="Trained"
-                      disabled={handleDisabled("Trained", skillBoost)}
-                    />
-                    <RadioGroupItem
-                      value="Expert"
-                      id="Expert"
-                      disabled={handleDisabled("Expert", skillBoost)}
-                    />
-                    <RadioGroupItem
-                      value="Master"
-                      id="Master"
-                      disabled={handleDisabled("Master", skillBoost)}
-                    />
-                    <RadioGroupItem
-                      value="Legendary"
-                      id="Legendary"
-                      disabled={handleDisabled("Legendary", skillBoost)}
-                    />
-                  </RadioGroup>
-                </div>
-              ))}
+                  <RadioGroupItem
+                    value="Untrained"
+                    id="Untrained"
+                    disabled={handleDisabled("Untrained", skillBoost)}
+                  />
+                  <RadioGroupItem
+                    value="Trained"
+                    id="Trained"
+                    disabled={handleDisabled("Trained", skillBoost)}
+                  />
+                  <RadioGroupItem
+                    value="Expert"
+                    id="Expert"
+                    disabled={handleDisabled("Expert", skillBoost)}
+                  />
+                  <RadioGroupItem
+                    value="Master"
+                    id="Master"
+                    disabled={handleDisabled("Master", skillBoost)}
+                  />
+                  <RadioGroupItem
+                    value="Legendary"
+                    id="Legendary"
+                    disabled={handleDisabled("Legendary", skillBoost)}
+                  />
+                </RadioGroup>
+              </div>
+            ))}
           </DialogHeader>
         </DialogContent>
       </Dialog>

@@ -1,0 +1,1 @@
+ALTER TABLE "subclasses" RENAME COLUMN "training" TO "skills";

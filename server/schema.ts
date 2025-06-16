@@ -16,6 +16,13 @@ export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   level: integer("level").notNull().default(1),
+  ancestryName: varchar("ancestry_name", { length: 255 })
+    .references(() => ancestries.name)
+    .notNull()
+    .default("Human"),
+  heritageName: varchar("heritage_name", { length: 255 }).references(
+    () => heritages.name
+  ),
   className: varchar("class_name", { length: 255 })
     .references(() => classes.name)
     .default("Fighter")

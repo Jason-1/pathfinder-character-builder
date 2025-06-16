@@ -52,6 +52,33 @@ export const Ancestries: AncestryType[] = [
     description:
       "Halflings are a short, resilient people who exhibit remarkable curiosity and humor. Claiming no place as their own, halflings control few settlements larger than villages. Instead, they frequently live among humans within larger cities, carving out small communities alongside taller folk. Optimistic, cheerful, and driven by powerful wanderlust, halflings make up for their short stature with an abundance of bravado. At once excitable and easygoing, halflings are the best kind of opportunists, and their passions favor joy over violence. While their curiosity sometimes drives them toward adventure, halflings also carry strong ties to house and home. If you want to play a character who must contend with these opposing drives toward adventure and comfort, you should play a halfling.",
   },
+  {
+    name: "Kobold",
+    attributes: ["Dexterity", "Charisma"],
+    hp: 6,
+    speed: 25,
+    size: "Small",
+    description:
+      "Kobolds are small, reptilian humanoids with features marked by the power they choose to follow. Instinctively understanding the importance of power, kobolds often venerate mighty dragons, fiends, fey, or ancient artifacts, and their eggs incubated near such loci of power take on traits of their benefactor. Kobolds are ingenious crafters, devoted allies, and clever ambushers, but are also happy to cooperate with others when it benefits them. If you want a character with deadly cunning and who bears the mark of a powerful benefactor, you should play a kobold. Kobolds are about 3 feet tall, with slender bodies, long tails, and stout horns. Their features often reflect their warren's benefactor, such as vestigial wings or crystalline growths. Kobolds mature quickly, reaching adulthood by 12 and living to about 60 years. Kobold societies are cautious and secretive, often adopting laws and norms inspired by their benefactor. They respect hierarchies and rules, and are often drawn to organized religion or cults related to their benefactor. Kobolds have a natural respect for power structures and pride in their allies' strength, but avoid facing threats alone or acting recklessly. Sample names include Azrnak, Draahzin, Enga, Fazgyn, Fazij, Jekkajak, Kib, Kirrok, Mirkol, Tarka, Urkak, Varshez, Vroklan, Zekstikah, and Zgaz. Kobolds have 6 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Dexterity, Charisma, and one free ability, with a flaw in Constitution. They speak Common and Sakvroth, and can learn additional languages. Kobolds have darkvision.",
+  },
+  {
+    name: "Goblin",
+    attributes: ["Dexterity", "Charisma"],
+    hp: 6,
+    speed: 25,
+    size: "Small",
+    description:
+      "Goblins are short, scrappy, and energetic people who live in the moment and value creativity, honesty, and fulfillment over tradition or history. They love songs, fire, and food, and are known for their eccentric, enthusiastic, and fun-loving nature. Goblins are stumpy humanoids with large heads, big ears, and beady red eyes, with skin tones ranging from green to gray to blue. They average 3 feet tall, are mostly bald, and have fast metabolisms. Goblins reach adolescence by age 3 and adulthood by 7 or 8, but few live past 20 without protection. Goblin society is tribal, playful, and values close bonds with allies. They often distrust 'longshanks' (taller ancestries) but can form strong friendships. Goblins have trouble following rules and organized religion, often inventing their own beliefs or deifying notable goblins. Sample names include Ak, Bokker, Frum, Guzmuk, Krobby, Loohi, Mazmord, Neeka, Omgot, Ranzak, Rickle, Tup, Wakla, Yonk, and Zibini. Goblins have 6 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Dexterity, Charisma, and one free ability, with a flaw in Wisdom. They speak Common and Goblin, can learn additional languages, and have darkvision.",
+  },
+  {
+    name: "Leshy",
+    attributes: ["Constitution", "Wisdom"],
+    hp: 8,
+    speed: 25,
+    size: "Small",
+    description:
+      "Leshies are immortal spirits of nature placed in small plant bodies, seeking to experience the world. Created through rituals by druids or primal magic users, leshies are guardians and emissaries of the environment. While their spirits are ancient, leshies rarely recall past lives and see each new existence as a fresh opportunity to explore the world. Leshies are curious, connected to nature, and often act as agents for natural guardians. They appear as humanoid forms made from a mix of plants or fungi, about 3 feet tall, and do not age. Leshies form families through bonds of loyalty and friendship, and expect mutual protection for themselves and nature. Their beliefs focus on the natural world, often venerating the Green Faith or Gozreh. Leshies have 8 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Constitution, Wisdom, and one free ability, with a flaw in Intelligence. They speak Common and Fey, can learn additional languages, have low-light vision, and gain nourishment as plants or fungi do, usually not needing to pay for food.",
+  },
 ];
 
 export const Backgrounds: BackgroundType[] = [

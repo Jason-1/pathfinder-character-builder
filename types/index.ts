@@ -67,6 +67,14 @@ export type weaponTypes = "unarmed" | "simple" | "martial" | "advanced";
 
 export type diceTypes = "d4" | "d6" | "d8" | "d10" | "d12" | "d20";
 
+export type characterType = {
+  id: number;
+  name: string;
+  level: number;
+  className: string;
+  ancestryName: string;
+};
+
 export type AncestryType = {
   name: string;
   attributes: AttributesType[];

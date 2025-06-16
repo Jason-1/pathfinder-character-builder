@@ -26,6 +26,7 @@ import { setArmour } from "./redux/Slices/armourSlice";
 import {
   AncestryType,
   armourItemType,
+  characterType,
   ClassType,
   heritageType,
   subclassType,
@@ -53,9 +54,7 @@ export default function Home() {
 
   const id = useSelector(selectID);
 
-  const [characters, setCharacters] = useState<
-    { id: number; name: string; level: number; className: string }[]
-  >([]);
+  const [characters, setCharacters] = useState<characterType[]>([]);
 
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
@@ -339,7 +338,8 @@ export default function Home() {
                   }}
                 >
                   <span className="select-none">
-                    {char.name}: Level: {char.level} {char.className}
+                    {char.name}: Level: {char.level} {char.ancestryName}{" "}
+                    {char.className}
                   </span>
                 </li>
               ))}

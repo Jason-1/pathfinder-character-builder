@@ -1,8 +1,10 @@
 import { Ancestries } from "@/data";
 import { db } from "../server/index";
-import { ancestries } from "../server/schema";
+import { ancestries, characters, heritages } from "../server/schema";
 
 async function seedSubclasses() {
+  await db.delete(characters);
+  await db.delete(heritages);
   await db.delete(ancestries);
 
   try {

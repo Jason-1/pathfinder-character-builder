@@ -117,9 +117,9 @@ const LevelFeatures: React.FC = ({}) => {
       case "Archetype":
         return "Archetype";
       case "Ancestry":
-        return selectedAncestry;
+        return selectedAncestry.name;
       case "Paragon":
-        return selectedAncestry;
+        return selectedAncestry.name;
       case "Skill":
         return "Skill";
       case "General":
@@ -313,9 +313,9 @@ const LevelFeatures: React.FC = ({}) => {
                             : feat.type === "Class"
                             ? selectedClass.name
                             : feat.type === "Ancestry"
-                            ? selectedAncestry
+                            ? selectedAncestry.name
                             : feat.type === "Paragon"
-                            ? selectedAncestry
+                            ? selectedAncestry.name
                             : feat.type
                         )}
                         highlightedItem={getHighlightedItem(level, feat.type)}

@@ -148,6 +148,20 @@
       "when": 1749599414489,
       "tag": "0020_steady_anthem",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1750036134460,
+      "tag": "0021_green_hercules",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1750042708946,
+      "tag": "0022_nervous_khan",
+      "breakpoints": true
     }
   ]
 }

@@ -23,17 +23,30 @@ import {
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
 import { setArmour } from "./redux/Slices/armourSlice";
-import { armourItemType, ClassType, subclassType } from "@/types";
+import {
+  AncestryType,
+  armourItemType,
+  characterType,
+  ClassType,
+  heritageType,
+  subclassType,
+} from "@/types";
 import { getArmour } from "@/server/actions/get-all-armour";
 import { getClasses } from "@/server/actions/get-all-classes";
 import { setClass } from "./redux/Slices/classSlice";
 import {
+  initialAncestryState,
   initialArmourState,
   initialClassState,
+  initialHeritageState,
   initialSubclassState,
 } from "./redux/initialStates";
 import { getSubclasses } from "@/server/actions/get-all-subclasses";
 import { setSubclass } from "./redux/Slices/subclassSlice";
+import { getHeritages } from "@/server/actions/get-all-heritages";
+import { getAncestries } from "@/server/actions/get-all-ancestries";
+import { setAncestry } from "./redux/Slices/ancestrySlice";
+import { setHeritage } from "./redux/Slices/heritageSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -41,13 +54,21 @@ export default function Home() {
 
   const id = useSelector(selectID);
 
-  const [characters, setCharacters] = useState<
-    { id: number; name: string; level: number; className: string }[]
-  >([]);
+  const [characters, setCharacters] = useState<characterType[]>([]);
 
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
   >(null);
+
+  const [ancestryData, setAncestryData] = useState<AncestryType[]>([]);
+  const [pendingAncestryName, setPendingAncestryName] = useState<string | null>(
+    null
+  );
+
+  const [heritageData, setHeritageData] = useState<heritageType[]>([]);
+  const [pendingHeritageName, setPendingHeritageName] = useState<string | null>(
+    null
+  );
 
   const [classData, setClassData] = useState<ClassType[]>([]);
   const [pendingClassName, setPendingClassName] = useState<string | null>(null);
@@ -69,6 +90,8 @@ export default function Home() {
     dispatch(setName(""));
     dispatch(setId(null));
     dispatch(setLevel(1));
+    dispatch(setAncestry(initialAncestryState));
+    dispatch(setHeritage(initialHeritageState));
     dispatch(setClass(initialClassState));
     dispatch(setSubclass(initialSubclassState));
     dispatch(setArmour(initialArmourState));
@@ -82,10 +105,33 @@ export default function Home() {
     },
   });
 
+  const { execute: getAllAncestries } = useAction(getAncestries, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setAncestryData(data.data as AncestryType[]);
+      }
+    },
+  });
+  const { execute: getAllHeritages } = useAction(getHeritages, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setHeritageData(data.data as heritageType[]);
+      }
+    },
+  });
+
   const { execute: getAllClasses } = useAction(getClasses, {
     onSuccess: (data) => {
       if (data.data) {
         setClassData(data.data as ClassType[]);
+      }
+    },
+  });
+
+  const { execute: getAllSubclasses } = useAction(getSubclasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setSubclassData(data.data as subclassType[]);
       }
     },
   });
@@ -103,17 +149,27 @@ export default function Home() {
     },
   });
 
-  const { execute: getAllSubclasses } = useAction(getSubclasses, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setSubclassData(data.data as subclassType[]);
-      }
-    },
-  });
-
   useEffect(() => {
     getAllSubclasses();
   }, [getAllSubclasses]);
+
+  const handleSetAncestry = (ancestryString: string) => {
+    const ancestryItem = ancestryData.find(
+      (item) => item.name === ancestryString
+    );
+    if (ancestryItem) {
+      dispatch(setAncestry(ancestryItem));
+    }
+  };
+
+  const handleSetHeritage = (heritageString: string) => {
+    const heritageItem = heritageData.find(
+      (item) => item.name === heritageString
+    );
+    if (heritageItem) {
+      dispatch(setHeritage(heritageItem));
+    }
+  };
 
   const handleSetClass = (className: string) => {
     const classItem = classData.find((item) => item.name === className);
@@ -145,6 +201,8 @@ export default function Home() {
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
         dispatch(setLevel(data.data.level));
+        setPendingAncestryName(data.data.ancestryName);
+        setPendingHeritageName(data.data.heritageName);
         setPendingClassName(data.data.className);
         setPendingSubclassName(data.data.subclassName);
         setPendingArmourName(data.data.armourName);
@@ -181,6 +239,28 @@ export default function Home() {
   useEffect(() => {
     getAllCharacters();
   }, [getAllCharacters]);
+
+  useEffect(() => {
+    if (pendingAncestryName && ancestryData.length > 0) {
+      handleSetAncestry(pendingAncestryName);
+      setPendingAncestryName(null); // clear after setting
+    }
+  }, [pendingAncestryName, ancestryData]);
+
+  useEffect(() => {
+    getAllAncestries();
+  }, [getAllAncestries]);
+
+  useEffect(() => {
+    if (pendingHeritageName && heritageData.length > 0) {
+      handleSetHeritage(pendingHeritageName);
+      setPendingHeritageName(null); // clear after setting
+    }
+  }, [pendingHeritageName, heritageData]);
+
+  useEffect(() => {
+    getAllHeritages();
+  }, [getAllHeritages]);
 
   useEffect(() => {
     if (pendingClassName && classData.length > 0) {
@@ -232,7 +312,7 @@ export default function Home() {
 
         <Dialog>
           <DialogTrigger>
-            <span className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
+            <span className="mt-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
               Load existing character
             </span>
           </DialogTrigger>
@@ -260,7 +340,7 @@ export default function Home() {
                   >
                     <span className="select-none">
                       {char.name || "Unnamed Adventurer"}: Level: {char.level}{" "}
-                      {char.className}
+                      {char.ancestryName} {char.className}
                     </span>
                   </li>
                 ))}

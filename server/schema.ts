@@ -16,6 +16,13 @@ export const characters = pgTable("characters", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   level: integer("level").notNull().default(1),
+  ancestryName: varchar("ancestry_name", { length: 255 })
+    .references(() => ancestries.name)
+    .notNull()
+    .default("Human"),
+  heritageName: varchar("heritage_name", { length: 255 }).references(
+    () => heritages.name
+  ),
   className: varchar("class_name", { length: 255 })
     .references(() => classes.name)
     .default("Fighter")
@@ -181,6 +188,39 @@ export const subclasses = pgTable("subclasses", {
   description: text("description")
     .notNull()
     .default("No description available"),
+});
+
+//------------------------------------------------------------------------------//
+// Ancestry
+
+export const sizeEnum = pgEnum("size", [
+  "Tiny",
+  "Small",
+  "Medium",
+  "Large",
+  "Huge",
+  "Gargantuan",
+]);
+
+export const ancestries = pgTable("ancestries", {
+  name: varchar("name", { length: 255 }).notNull().primaryKey(),
+  attributes: AttributesEnum("attributes").array().notNull().default([]),
+  hp: integer("hp").notNull().default(6),
+  speed: integer("speed").notNull().default(25),
+  size: sizeEnum("size").notNull().default("Medium"),
+  description: text("description"),
+});
+
+//------------------------------------------------------------------------------//
+// Heritage
+
+export const heritages = pgTable("heritages", {
+  name: varchar("name", { length: 255 }).notNull().primaryKey(),
+  ancestryName: varchar("ancestry_name", { length: 255 })
+    .references(() => ancestries.name)
+    .notNull(),
+  abilityName: varchar("ability_name", { length: 255 }),
+  description: text("description").default("No description available"),
 });
 
 //------------------------------------------------------------------------------//

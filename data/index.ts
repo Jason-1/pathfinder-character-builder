@@ -18,39 +18,66 @@ import {
 export const Ancestries: AncestryType[] = [
   {
     name: "Human",
-    Attributes: ["Free"],
+    attributes: ["Free"],
     hp: 8,
     speed: 25,
-    size: "medium",
+    size: "Medium",
     description:
       "Humans are diverse and adaptable people with wide potential and deep ambitions. As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea. Humans' ambition, versatility, and exceptional potential have led to their status as the world's predominant ancestry. Their empires and nations are vast, sprawling things, and their citizens carve names for themselves with the strength of their sword arms and the power of their spells. Humanity is diverse and tumultuous, running the gamut from nomadic to imperial, sinister to saintly. Many of them venture forth to explore, to map the expanse of the multiverse, to search for long-lost treasure, or to lead mighty armies to conquer their neighbors—for no better reason than because they can. If you want a character who can be just about anything, you should play a human.",
   },
   {
     name: "Elf",
-    Attributes: ["Dexterity", "Intelligence"],
+    attributes: ["Dexterity", "Intelligence"],
     hp: 6,
     speed: 30,
-    size: "medium",
+    size: "Medium",
     description:
       "Elves are a tall, long-lived people with a strong tradition of art and magic. As an ancient people, elves have seen great change and have the perspective that can come only from watching the arc of history. After leaving Golarion in ancient times, they returned to a changed land, and they still struggle to reclaim their ancestral homes. Elves value kindness, intellect, and beauty, with many elves striving to improve their manners, appearance, and culture. Their studies delve into a level of detail that most shorter-lived peoples find excessive or inefficient. Elves are often rather private people, steeped in the secrets of their groves and kinship groups. They're slow to build friendships outside their kinsfolk, as elves who spend their lives among shorter-lived peoples often become morose after watching generations of companions age and die. These elves are known as Forlorn among their fellow elves. If you want a character who is magical, mystical, and mysterious, you should play an elf.",
   },
   {
     name: "Dwarf",
-    Attributes: ["Constitution", "Wisdom"],
+    attributes: ["Constitution", "Wisdom"],
     hp: 10,
     speed: 20,
-    size: "medium",
+    size: "Medium",
     description:
       "Dwarves are a short, stocky people who are often stubborn, fierce, and devoted. Dwarves have a well-earned reputation as a stoic and stern people, but they also have an unbridled zeal and deeply value artisanship. To a stranger, they can seem untrusting and clannish, but to their friends and family, they are warm and caring. While trust from a dwarf is hard-won, once gained it is as strong as iron. If you want to play a character who is as hard as nails, a stubborn and unrelenting adventurer, with a mix of rugged toughness and deep wisdom, you should play a dwarf.",
   },
   {
     name: "Halfling",
-    Attributes: ["Dexterity", "Wisdom"],
+    attributes: ["Dexterity", "Wisdom"],
     hp: 6,
     speed: 25,
-    size: "small",
+    size: "Small",
     description:
       "Halflings are a short, resilient people who exhibit remarkable curiosity and humor. Claiming no place as their own, halflings control few settlements larger than villages. Instead, they frequently live among humans within larger cities, carving out small communities alongside taller folk. Optimistic, cheerful, and driven by powerful wanderlust, halflings make up for their short stature with an abundance of bravado. At once excitable and easygoing, halflings are the best kind of opportunists, and their passions favor joy over violence. While their curiosity sometimes drives them toward adventure, halflings also carry strong ties to house and home. If you want to play a character who must contend with these opposing drives toward adventure and comfort, you should play a halfling.",
+  },
+  {
+    name: "Kobold",
+    attributes: ["Dexterity", "Charisma"],
+    hp: 6,
+    speed: 25,
+    size: "Small",
+    description:
+      "Kobolds are small, reptilian humanoids with features marked by the power they choose to follow. Instinctively understanding the importance of power, kobolds often venerate mighty dragons, fiends, fey, or ancient artifacts, and their eggs incubated near such loci of power take on traits of their benefactor. Kobolds are ingenious crafters, devoted allies, and clever ambushers, but are also happy to cooperate with others when it benefits them. If you want a character with deadly cunning and who bears the mark of a powerful benefactor, you should play a kobold. Kobolds are about 3 feet tall, with slender bodies, long tails, and stout horns. Their features often reflect their warren's benefactor, such as vestigial wings or crystalline growths. Kobolds mature quickly, reaching adulthood by 12 and living to about 60 years. Kobold societies are cautious and secretive, often adopting laws and norms inspired by their benefactor. They respect hierarchies and rules, and are often drawn to organized religion or cults related to their benefactor. Kobolds have a natural respect for power structures and pride in their allies' strength, but avoid facing threats alone or acting recklessly. Sample names include Azrnak, Draahzin, Enga, Fazgyn, Fazij, Jekkajak, Kib, Kirrok, Mirkol, Tarka, Urkak, Varshez, Vroklan, Zekstikah, and Zgaz. Kobolds have 6 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Dexterity, Charisma, and one free ability, with a flaw in Constitution. They speak Common and Sakvroth, and can learn additional languages. Kobolds have darkvision.",
+  },
+  {
+    name: "Goblin",
+    attributes: ["Dexterity", "Charisma"],
+    hp: 6,
+    speed: 25,
+    size: "Small",
+    description:
+      "Goblins are short, scrappy, and energetic people who live in the moment and value creativity, honesty, and fulfillment over tradition or history. They love songs, fire, and food, and are known for their eccentric, enthusiastic, and fun-loving nature. Goblins are stumpy humanoids with large heads, big ears, and beady red eyes, with skin tones ranging from green to gray to blue. They average 3 feet tall, are mostly bald, and have fast metabolisms. Goblins reach adolescence by age 3 and adulthood by 7 or 8, but few live past 20 without protection. Goblin society is tribal, playful, and values close bonds with allies. They often distrust 'longshanks' (taller ancestries) but can form strong friendships. Goblins have trouble following rules and organized religion, often inventing their own beliefs or deifying notable goblins. Sample names include Ak, Bokker, Frum, Guzmuk, Krobby, Loohi, Mazmord, Neeka, Omgot, Ranzak, Rickle, Tup, Wakla, Yonk, and Zibini. Goblins have 6 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Dexterity, Charisma, and one free ability, with a flaw in Wisdom. They speak Common and Goblin, can learn additional languages, and have darkvision.",
+  },
+  {
+    name: "Leshy",
+    attributes: ["Constitution", "Wisdom"],
+    hp: 8,
+    speed: 25,
+    size: "Small",
+    description:
+      "Leshies are immortal spirits of nature placed in small plant bodies, seeking to experience the world. Created through rituals by druids or primal magic users, leshies are guardians and emissaries of the environment. While their spirits are ancient, leshies rarely recall past lives and see each new existence as a fresh opportunity to explore the world. Leshies are curious, connected to nature, and often act as agents for natural guardians. They appear as humanoid forms made from a mix of plants or fungi, about 3 feet tall, and do not age. Leshies form families through bonds of loyalty and friendship, and expect mutual protection for themselves and nature. Their beliefs focus on the natural world, often venerating the Green Faith or Gozreh. Leshies have 8 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Constitution, Wisdom, and one free ability, with a flaw in Intelligence. They speak Common and Fey, can learn additional languages, have low-light vision, and gain nourishment as plants or fungi do, usually not needing to pay for food.",
   },
 ];
 

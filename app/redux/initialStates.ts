@@ -1,4 +1,10 @@
-import { armourItemType, ClassType, subclassType } from "@/types";
+import {
+  AncestryType,
+  armourItemType,
+  ClassType,
+  heritageType,
+  subclassType,
+} from "@/types";
 
 export const initialClassState: ClassType = {
   name: "Fighter",
@@ -148,4 +154,20 @@ export const initialArmourState: armourItemType = {
 export const initialSubclassState: subclassType = {
   name: "Select a subclass",
   description: "No subclass selected",
+};
+
+export const initialAncestryState: AncestryType = {
+  name: "Human",
+  attributes: ["Free"],
+  hp: 8,
+  speed: 25,
+  size: "Medium",
+  description:
+    "Humans are diverse and adaptable people with wide potential and deep ambitions. As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea. Humans' ambition, versatility, and exceptional potential have led to their status as the world's predominant ancestry. Their empires and nations are vast, sprawling things, and their citizens carve names for themselves with the strength of their sword arms and the power of their spells. Humanity is diverse and tumultuous, running the gamut from nomadic to imperial, sinister to saintly. Many of them venture forth to explore, to map the expanse of the multiverse, to search for long-lost treasure, or to lead mighty armies to conquer their neighbors—for no better reason than because they can. If you want a character who can be just about anything, you should play a human.",
+};
+
+export const initialHeritageState: heritageType = {
+  name: "Select Heritage",
+  ancestryName: "Select Ancestry",
+  description: "No heritage selected",
 };

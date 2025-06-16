@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initialHeritageState } from "../initialStates";
 
 const initialState = {
-  heritage: "Select Heritage",
+  heritage: initialHeritageState,
 };
 
 const heritageSlice = createSlice({
@@ -9,7 +10,7 @@ const heritageSlice = createSlice({
   initialState: initialState,
   reducers: {
     setHeritage: (state, action) => {
-      state.heritage = action.payload.heritage;
+      state.heritage = action.payload;
     },
   },
 });

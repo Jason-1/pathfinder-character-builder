@@ -1,0 +1,4 @@
+ALTER TABLE "characters" ADD COLUMN "ancestry_name" varchar(255) DEFAULT 'Human' NOT NULL;--> statement-breakpoint
+ALTER TABLE "characters" ADD COLUMN "heritage_name" varchar(255);--> statement-breakpoint
+ALTER TABLE "characters" ADD CONSTRAINT "characters_ancestry_name_ancestries_name_fk" FOREIGN KEY ("ancestry_name") REFERENCES "public"."ancestries"("name") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "characters" ADD CONSTRAINT "characters_heritage_name_heritages_name_fk" FOREIGN KEY ("heritage_name") REFERENCES "public"."heritages"("name") ON DELETE no action ON UPDATE no action;

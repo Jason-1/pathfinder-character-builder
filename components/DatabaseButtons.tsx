@@ -9,8 +9,10 @@ import { updateCharacter } from "@/server/actions/update-character";
 import { useRouter } from "next/navigation";
 import { deleteCharacter } from "@/server/actions/delete-character";
 import {
+  selectAncestry,
   selectArmour,
   selectClass,
+  selectHeritage,
   selectID,
   selectLevel,
   selectName,
@@ -31,6 +33,8 @@ const DatabaseButtons = () => {
   const name = useSelector(selectName) || "";
   const id = useSelector(selectID);
   const level = useSelector(selectLevel);
+  const selectedAncestry = useSelector(selectAncestry);
+  const selectedHeritage = useSelector(selectHeritage);
   const selectedClass = useSelector(selectClass);
   const selectedSubclass = useSelector(selectSubclass);
   const selectedArmour = useSelector(selectArmour);
@@ -62,6 +66,8 @@ const DatabaseButtons = () => {
               id,
               name,
               level,
+              ancestryName: selectedAncestry.name,
+              heritageName: selectedHeritage.name,
               className: selectedClass.name,
               subclassName: selectedSubclass.name,
               armourName: selectedArmour.name,

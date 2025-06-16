@@ -1,4 +1,4 @@
-import { Ancestries, Attributes, Backgrounds } from "@/data";
+import { Attributes, Backgrounds } from "@/data";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";
@@ -69,10 +69,6 @@ const AttributeButtons: React.FC = ({}) => {
     dispatch(removeAttributeBoost({ boostType, attribute }));
   };
 
-  const currentAncestry = Ancestries.find(
-    (ancestryItem) => ancestryItem.name === selectedAncestry
-  );
-
   const currentBackground = Backgrounds.find(
     (backgroundItem) => backgroundItem.name === selectedBackground
   );
@@ -87,8 +83,8 @@ const AttributeButtons: React.FC = ({}) => {
       //Check if we have selected an ancestry boost that is not in the Ancestry array.
       if (
         currentBoostCategory.name === "Ancestry" &&
-        !currentAncestry?.Attributes.includes(attribute) &&
-        !currentAncestry?.Attributes.includes("Free")
+        !selectedAncestry.attributes.includes(attribute) &&
+        !selectedAncestry.attributes.includes("Free")
       ) {
         setRestrictAncestryBoosts(true);
       }
@@ -123,7 +119,7 @@ const AttributeButtons: React.FC = ({}) => {
 
     if (
       boostsType === "Ancestry" &&
-      !currentAncestry?.Attributes.includes(boostedAttribute)
+      !selectedAncestry?.attributes.includes(boostedAttribute)
     ) {
       setRestrictAncestryBoosts(false);
     }
@@ -168,9 +164,9 @@ const AttributeButtons: React.FC = ({}) => {
         ] ||
       (currentAttributeBoostCategory.name === "Ancestry" &&
         restrictAncestryBoosts &&
-        !currentAncestry?.Attributes.includes(attribute.name)) ||
+        !selectedAncestry?.attributes.includes(attribute.name)) ||
       (currentAttributeBoostCategory.name === "Ancestry" &&
-        selectedAncestry === "Select Ancestry") ||
+        selectedAncestry.name === "Select Ancestry") ||
       (currentAttributeBoostCategory.name === "Background" &&
         restrictBackgroundBoosts &&
         !currentBackground?.Attributes.includes(attribute.name)) ||
@@ -189,7 +185,8 @@ const AttributeButtons: React.FC = ({}) => {
     switch (attributeName) {
       case "Ancestry":
         return (
-          currentAncestry?.Attributes?.map((attribute) => " " + attribute) || []
+          selectedAncestry?.attributes?.map((attribute) => " " + attribute) ||
+          []
         );
       case "Background":
         return (

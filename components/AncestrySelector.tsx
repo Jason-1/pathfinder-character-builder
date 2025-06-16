@@ -56,7 +56,7 @@ const AncestrySelector: React.FC = ({}) => {
         </p>
         <p className="flex flex-col">
           <span>Attributes:</span>
-          <span>{highlightedAncestry.Attributes.join(", ")}</span>
+          <span>{highlightedAncestry.attributes.join(", ")}</span>
         </p>
         <p className="flex flex-col">
           <span>HP:</span>

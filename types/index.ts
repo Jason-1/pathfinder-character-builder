@@ -51,6 +51,14 @@ export type skillTypes =
   | "Survival"
   | "Thievery";
 
+export type sizes =
+  | "Tiny"
+  | "Small"
+  | "Medium"
+  | "Large"
+  | "Huge"
+  | "Gargantuan";
+
 export type saveTypes = "fortitude" | "reflex" | "will";
 
 export type armourTypes = "unarmoured" | "light" | "medium" | "heavy";
@@ -61,10 +69,10 @@ export type diceTypes = "d4" | "d6" | "d8" | "d10" | "d12" | "d20";
 
 export type AncestryType = {
   name: string;
-  Attributes: AttributesType[];
+  attributes: AttributesType[];
   hp: number;
   speed: number;
-  size: string;
+  size: sizes;
   description: string;
 };
 

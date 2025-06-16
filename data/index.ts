@@ -18,37 +18,37 @@ import {
 export const Ancestries: AncestryType[] = [
   {
     name: "Human",
-    Attributes: ["Free"],
+    attributes: ["Free"],
     hp: 8,
     speed: 25,
-    size: "medium",
+    size: "Medium",
     description:
       "Humans are diverse and adaptable people with wide potential and deep ambitions. As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea. Humans' ambition, versatility, and exceptional potential have led to their status as the world's predominant ancestry. Their empires and nations are vast, sprawling things, and their citizens carve names for themselves with the strength of their sword arms and the power of their spells. Humanity is diverse and tumultuous, running the gamut from nomadic to imperial, sinister to saintly. Many of them venture forth to explore, to map the expanse of the multiverse, to search for long-lost treasure, or to lead mighty armies to conquer their neighbors—for no better reason than because they can. If you want a character who can be just about anything, you should play a human.",
   },
   {
     name: "Elf",
-    Attributes: ["Dexterity", "Intelligence"],
+    attributes: ["Dexterity", "Intelligence"],
     hp: 6,
     speed: 30,
-    size: "medium",
+    size: "Medium",
     description:
       "Elves are a tall, long-lived people with a strong tradition of art and magic. As an ancient people, elves have seen great change and have the perspective that can come only from watching the arc of history. After leaving Golarion in ancient times, they returned to a changed land, and they still struggle to reclaim their ancestral homes. Elves value kindness, intellect, and beauty, with many elves striving to improve their manners, appearance, and culture. Their studies delve into a level of detail that most shorter-lived peoples find excessive or inefficient. Elves are often rather private people, steeped in the secrets of their groves and kinship groups. They're slow to build friendships outside their kinsfolk, as elves who spend their lives among shorter-lived peoples often become morose after watching generations of companions age and die. These elves are known as Forlorn among their fellow elves. If you want a character who is magical, mystical, and mysterious, you should play an elf.",
   },
   {
     name: "Dwarf",
-    Attributes: ["Constitution", "Wisdom"],
+    attributes: ["Constitution", "Wisdom"],
     hp: 10,
     speed: 20,
-    size: "medium",
+    size: "Medium",
     description:
       "Dwarves are a short, stocky people who are often stubborn, fierce, and devoted. Dwarves have a well-earned reputation as a stoic and stern people, but they also have an unbridled zeal and deeply value artisanship. To a stranger, they can seem untrusting and clannish, but to their friends and family, they are warm and caring. While trust from a dwarf is hard-won, once gained it is as strong as iron. If you want to play a character who is as hard as nails, a stubborn and unrelenting adventurer, with a mix of rugged toughness and deep wisdom, you should play a dwarf.",
   },
   {
     name: "Halfling",
-    Attributes: ["Dexterity", "Wisdom"],
+    attributes: ["Dexterity", "Wisdom"],
     hp: 6,
     speed: 25,
-    size: "small",
+    size: "Small",
     description:
       "Halflings are a short, resilient people who exhibit remarkable curiosity and humor. Claiming no place as their own, halflings control few settlements larger than villages. Instead, they frequently live among humans within larger cities, carving out small communities alongside taller folk. Optimistic, cheerful, and driven by powerful wanderlust, halflings make up for their short stature with an abundance of bravado. At once excitable and easygoing, halflings are the best kind of opportunists, and their passions favor joy over violence. While their curiosity sometimes drives them toward adventure, halflings also carry strong ties to house and home. If you want to play a character who must contend with these opposing drives toward adventure and comfort, you should play a halfling.",
   },

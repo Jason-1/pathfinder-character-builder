@@ -184,6 +184,39 @@ export const subclasses = pgTable("subclasses", {
 });
 
 //------------------------------------------------------------------------------//
+// Ancestry
+
+export const sizeEnum = pgEnum("size", [
+  "Tiny",
+  "Small",
+  "Medium",
+  "Large",
+  "Huge",
+  "Gargantuan",
+]);
+
+export const ancestries = pgTable("ancestries", {
+  name: varchar("name", { length: 255 }).notNull().primaryKey(),
+  attributes: AttributesEnum("attributes").array().notNull().default([]),
+  hp: integer("hp").notNull().default(6),
+  speed: integer("speed").notNull().default(25),
+  size: sizeEnum("size").notNull().default("Medium"),
+  description: text("description"),
+});
+
+//------------------------------------------------------------------------------//
+// Heritage
+
+export const heritages = pgTable("heritages", {
+  name: varchar("name", { length: 255 }).notNull().primaryKey(),
+  ancestryName: varchar("ancestry_name", { length: 255 })
+    .references(() => ancestries.name)
+    .notNull(),
+  abilityName: varchar("ability_name", { length: 255 }),
+  description: text("description").default("No description available"),
+});
+
+//------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------//
 // Relations
 

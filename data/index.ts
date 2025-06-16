@@ -15,7 +15,7 @@ import {
   weaponItemType,
 } from "@/types";
 
-/*export const Ancestries: AncestryType[] = [
+export const Ancestries: AncestryType[] = [
   {
     name: "Human",
     attributes: ["Free"],
@@ -52,7 +52,7 @@ import {
     description:
       "Halflings are a short, resilient people who exhibit remarkable curiosity and humor. Claiming no place as their own, halflings control few settlements larger than villages. Instead, they frequently live among humans within larger cities, carving out small communities alongside taller folk. Optimistic, cheerful, and driven by powerful wanderlust, halflings make up for their short stature with an abundance of bravado. At once excitable and easygoing, halflings are the best kind of opportunists, and their passions favor joy over violence. While their curiosity sometimes drives them toward adventure, halflings also carry strong ties to house and home. If you want to play a character who must contend with these opposing drives toward adventure and comfort, you should play a halfling.",
   },
-];*/
+];
 
 export const Backgrounds: BackgroundType[] = [
   {

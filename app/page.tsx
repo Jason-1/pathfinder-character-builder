@@ -202,6 +202,8 @@ export default function Home() {
         dispatch(setName(data.data.name));
         dispatch(setId(data.data.id));
         dispatch(setLevel(data.data.level));
+        setPendingAncestryName(data.data.ancestryName);
+        setPendingHeritageName(data.data.heritageName);
         setPendingClassName(data.data.className);
         setPendingSubclassName(data.data.subclassName);
         setPendingArmourName(data.data.armourName);

@@ -1,4 +1,4 @@
-import { Ancestries, Attributes, Backgrounds } from "@/data";
+import { Attributes, Backgrounds } from "@/data";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";

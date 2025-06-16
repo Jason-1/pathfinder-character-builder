@@ -40,9 +40,6 @@ const Defences = () => {
   const selectedShieldData = shieldData.find(
     (shieldItem) => shieldItem.name === selectedShield
   );
-  const selectedAncestryData = Ancestries.find(
-    (ancestryItem) => ancestryItem.name === selectedAncestry
-  );
 
   //------------------------------------------------------------------------------//
 
@@ -129,13 +126,13 @@ const Defences = () => {
   }
 
   function calculateHP() {
-    if (!selectedClass || !selectedAncestryData) {
+    if (!selectedClass || !selectedAncestry) {
       return 0;
     }
 
     let HP = 0;
     const classHP = selectedClass.hp;
-    const ancestry = selectedAncestryData.hp;
+    const ancestry = selectedAncestry.hp;
     const constitution = calculateCurrentAttributeBoost(
       "Constitution",
       selectedLevel,

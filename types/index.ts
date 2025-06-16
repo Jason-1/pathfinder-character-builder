@@ -76,6 +76,13 @@ export type AncestryType = {
   description: string;
 };
 
+export type heritageType = {
+  name: string;
+  ancestryName: string;
+  abilityName?: string;
+  description: string;
+};
+
 export type BackgroundType = {
   name: string;
   Attributes: AttributesType[];

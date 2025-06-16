@@ -7,8 +7,9 @@ import { setHeritage } from "@/app/redux/Slices/heritageSlice";
 import { Ancestries } from "@/data";
 import { heritiges } from "@/data/heritiges";
 import SelectorDialog from "./SelectorDialog";
-import { AncestryType } from "@/types";
+import { AncestryType, heritageType } from "@/types";
 import { selectAncestry, selectHeritage } from "@/app/redux/selectors";
+import { initialHeritageState } from "@/app/redux/initialStates";
 
 const AncestrySelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -18,30 +19,39 @@ const AncestrySelector: React.FC = ({}) => {
 
   //------------------------------------------------------------------------------//
 
-  const handleSetAncestry = (ancestry: string) => {
-    dispatch(setAncestry({ ancestry }));
+  const handleSetAncestry = (ancestryString: string) => {
+    const ancestryItem = Ancestries.find(
+      (item) => item.name === ancestryString
+    );
+    if (ancestryItem) {
+      dispatch(setAncestry(ancestryItem));
+      dispatch(setHeritage(initialHeritageState));
+    }
   };
 
-  const handleSetHeritage = (heritage: string) => {
-    dispatch(setHeritage({ heritage }));
+  const handleSetHeritage = (heritageString: string) => {
+    const heritageItem = heritiges.find((item) => item.name === heritageString);
+    if (heritageItem) {
+      dispatch(setHeritage(heritageItem));
+    }
   };
 
   const availableHeritiges = heritiges.filter(
-    (heritigeItem) => heritigeItem.ancestryName === selectedAncestry
+    (heritigeItem) => heritigeItem.ancestryName === selectedAncestry.name
   );
 
   const [highlightedAncestry, setHighlightedAncestry] =
     React.useState<AncestryType>(Ancestries[0]);
-  const [highlightedHeritage, setHighlighterHeritage] = React.useState(
-    availableHeritiges[0]
-  );
+  const [highlightedHeritage, setHighlighterHeritage] = React.useState<
+    heritageType | undefined
+  >(undefined);
 
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2"
         itemType="Ancestry"
-        selectedItem={selectedAncestry}
+        selectedItem={selectedAncestry.name}
         data={Ancestries}
         highlightedItem={highlightedAncestry}
         onItemClick={(item) => {
@@ -70,9 +80,15 @@ const AncestrySelector: React.FC = ({}) => {
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2 w-full"
         itemType="Heritage"
-        selectedItem={selectedHeritage}
+        selectedItem={selectedHeritage.name}
         data={availableHeritiges}
-        highlightedItem={highlightedHeritage}
+        highlightedItem={
+          highlightedHeritage ??
+          availableHeritiges[0] ?? {
+            name: "",
+            description: "",
+          }
+        }
         onItemClick={(item) => handleSetHeritage(item)}
         setHighlightedItem={setHighlighterHeritage}
       ></SelectorDialog>

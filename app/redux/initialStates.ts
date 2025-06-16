@@ -1,4 +1,10 @@
-import { armourItemType, ClassType, subclassType } from "@/types";
+import {
+  AncestryType,
+  armourItemType,
+  ClassType,
+  heritageType,
+  subclassType,
+} from "@/types";
 
 export const initialClassState: ClassType = {
   name: "Fighter",
@@ -148,4 +154,19 @@ export const initialArmourState: armourItemType = {
 export const initialSubclassState: subclassType = {
   name: "Select a subclass",
   description: "No subclass selected",
+};
+
+export const initialAncestryState: AncestryType = {
+  name: "Select Ancestry",
+  attributes: [],
+  hp: 0,
+  speed: 0,
+  size: "Medium",
+  description: "No ancestry selected",
+};
+
+export const initialHeritageState: heritageType = {
+  name: "Select Heritage",
+  ancestryName: "Select Ancestry",
+  description: "No heritage selected",
 };

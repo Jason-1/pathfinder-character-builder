@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setAncestry } from "@/app/redux/Slices/ancestrySlice";
 import { setHeritage } from "@/app/redux/Slices/heritageSlice";
@@ -10,12 +10,53 @@ import SelectorDialog from "./SelectorDialog";
 import { AncestryType, heritageType } from "@/types";
 import { selectAncestry, selectHeritage } from "@/app/redux/selectors";
 import { initialHeritageState } from "@/app/redux/initialStates";
+import { getAncestries } from "@/server/actions/get-all-ancestries";
+import { useAction } from "next-safe-action/hooks";
+import { getHeritages } from "@/server/actions/get-all-heritages";
 
 const AncestrySelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   const selectedAncestry = useSelector(selectAncestry);
   const selectedHeritage = useSelector(selectHeritage);
+
+  //------------------------------------------------------------------------------//
+
+  const [ancestryData, setAncestryData] = useState<AncestryType[]>([]);
+  const [heritageData, setHeritageData] = useState<heritageType[]>([]);
+
+  const { execute: getAllAncestries } = useAction(getAncestries, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setAncestryData(
+          data.data.map((item: any) => ({
+            ...item,
+            category: item.category as AncestryType[],
+          }))
+        );
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllAncestries();
+  }, [getAllAncestries]);
+
+  const { execute: getAllHeritages } = useAction(getHeritages, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setHeritageData(data.data as heritageType[]);
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllHeritages();
+  }, [getAllHeritages]);
+
+  const availableSubclasses = heritageData.filter(
+    (heritageItem) => heritageItem.ancestryName === selectedAncestry.name
+  );
 
   //------------------------------------------------------------------------------//
 

@@ -56,6 +56,14 @@ const DatabaseButtons = () => {
     },
   });
 
+  const subclassValue =
+    selectedSubclass.name !== "Select a subclass"
+      ? selectedSubclass.name
+      : null;
+
+  const heritageValue =
+    selectedHeritage.name !== "Select Heritage" ? selectedHeritage.name : null;
+
   return (
     <div>
       <div className="flex flex-col lg:flex-row gap-4 items-center justify-center">
@@ -67,9 +75,9 @@ const DatabaseButtons = () => {
               name,
               level,
               ancestryName: selectedAncestry.name,
-              heritageName: selectedHeritage.name,
+              heritageName: subclassValue,
               className: selectedClass.name,
-              subclassName: selectedSubclass.name,
+              subclassName: heritageValue,
               armourName: selectedArmour.name,
             })
           }

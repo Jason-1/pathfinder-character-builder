@@ -5,8 +5,8 @@ export const updateCharacterSchema = z.object({
   name: z.string(),
   level: z.number().int().min(1).max(20),
   ancestryName: z.string(),
-  heritageName: z.string().optional(),
+  heritageName: z.string().nullable().optional(),
   className: z.string(),
-  subclassName: z.string().optional(),
+  subclassName: z.string().nullable().optional(),
   armourName: z.string(),
 });

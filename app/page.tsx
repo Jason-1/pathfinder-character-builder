@@ -23,17 +23,29 @@ import {
 import { deleteCharacter } from "@/server/actions/delete-character";
 import { setLevel } from "./redux/Slices/levelSlice";
 import { setArmour } from "./redux/Slices/armourSlice";
-import { armourItemType, ClassType, subclassType } from "@/types";
+import {
+  AncestryType,
+  armourItemType,
+  ClassType,
+  heritageType,
+  subclassType,
+} from "@/types";
 import { getArmour } from "@/server/actions/get-all-armour";
 import { getClasses } from "@/server/actions/get-all-classes";
 import { setClass } from "./redux/Slices/classSlice";
 import {
+  initialAncestryState,
   initialArmourState,
   initialClassState,
+  initialHeritageState,
   initialSubclassState,
 } from "./redux/initialStates";
 import { getSubclasses } from "@/server/actions/get-all-subclasses";
 import { setSubclass } from "./redux/Slices/subclassSlice";
+import { getHeritages } from "@/server/actions/get-all-heritages";
+import { getAncestries } from "@/server/actions/get-all-ancestries";
+import { setAncestry } from "./redux/Slices/ancestrySlice";
+import { setHeritage } from "./redux/Slices/heritageSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -48,6 +60,16 @@ export default function Home() {
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
   >(null);
+
+  const [ancestryData, setAncestryData] = useState<AncestryType[]>([]);
+  const [pendingAncestryName, setPendingAncestryName] = useState<string | null>(
+    null
+  );
+
+  const [heritageData, setHeritageData] = useState<heritageType[]>([]);
+  const [pendingHeritageName, setPendingHeritageName] = useState<string | null>(
+    null
+  );
 
   const [classData, setClassData] = useState<ClassType[]>([]);
   const [pendingClassName, setPendingClassName] = useState<string | null>(null);
@@ -69,6 +91,8 @@ export default function Home() {
     dispatch(setName(""));
     dispatch(setId(null));
     dispatch(setLevel(1));
+    dispatch(setAncestry(initialAncestryState));
+    dispatch(setHeritage(initialHeritageState));
     dispatch(setClass(initialClassState));
     dispatch(setSubclass(initialSubclassState));
     dispatch(setArmour(initialArmourState));
@@ -82,10 +106,33 @@ export default function Home() {
     },
   });
 
+  const { execute: getAllAncestries } = useAction(getAncestries, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setAncestryData(data.data as AncestryType[]);
+      }
+    },
+  });
+  const { execute: getAllHeritages } = useAction(getHeritages, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setHeritageData(data.data as heritageType[]);
+      }
+    },
+  });
+
   const { execute: getAllClasses } = useAction(getClasses, {
     onSuccess: (data) => {
       if (data.data) {
         setClassData(data.data as ClassType[]);
+      }
+    },
+  });
+
+  const { execute: getAllSubclasses } = useAction(getSubclasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setSubclassData(data.data as subclassType[]);
       }
     },
   });
@@ -103,17 +150,27 @@ export default function Home() {
     },
   });
 
-  const { execute: getAllSubclasses } = useAction(getSubclasses, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setSubclassData(data.data as subclassType[]);
-      }
-    },
-  });
-
   useEffect(() => {
     getAllSubclasses();
   }, [getAllSubclasses]);
+
+  const handleSetAncestry = (ancestryString: string) => {
+    const ancestryItem = ancestryData.find(
+      (item) => item.name === ancestryString
+    );
+    if (ancestryItem) {
+      dispatch(setAncestry(ancestryItem));
+    }
+  };
+
+  const handleSetHeritage = (heritageString: string) => {
+    const heritageItem = heritageData.find(
+      (item) => item.name === heritageString
+    );
+    if (heritageItem) {
+      dispatch(setHeritage(heritageItem));
+    }
+  };
 
   const handleSetClass = (className: string) => {
     const classItem = classData.find((item) => item.name === className);
@@ -181,6 +238,28 @@ export default function Home() {
   useEffect(() => {
     getAllCharacters();
   }, [getAllCharacters]);
+
+  useEffect(() => {
+    if (pendingAncestryName && ancestryData.length > 0) {
+      handleSetAncestry(pendingAncestryName);
+      setPendingAncestryName(null); // clear after setting
+    }
+  }, [pendingAncestryName, ancestryData]);
+
+  useEffect(() => {
+    getAllAncestries();
+  }, [getAllAncestries]);
+
+  useEffect(() => {
+    if (pendingHeritageName && heritageData.length > 0) {
+      handleSetHeritage(pendingHeritageName);
+      setPendingHeritageName(null); // clear after setting
+    }
+  }, [pendingHeritageName, heritageData]);
+
+  useEffect(() => {
+    getAllHeritages();
+  }, [getAllHeritages]);
 
   useEffect(() => {
     if (pendingClassName && classData.length > 0) {

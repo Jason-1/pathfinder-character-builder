@@ -39,7 +39,7 @@ const BackgroundSelector: React.FC = ({}) => {
       >
         <p className="flex flex-col">
           <span>Attributes:</span>
-          <span>{highlightedBackground.Attributes.join(", ")}</span>
+          <span>{highlightedBackground.attributes.join(", ")}</span>
         </p>
         <p className="flex flex-col">
           <span>Skills:</span>

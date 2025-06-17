@@ -84,28 +84,28 @@ export const Ancestries: AncestryType[] = [
 export const Backgrounds: BackgroundType[] = [
   {
     name: "Barkeep",
-    Attributes: ["Constitution", "Charisma"],
+    attributes: ["Constitution", "Charisma"],
     skills: ["Diplomacy"],
     description:
       "You have five specialties: hefting barrels, drinking, polishing steins, drinking, and drinking. You worked in a bar, where you learned how to hold your liquor and rowdily socialize.",
   },
   {
     name: "Hunter",
-    Attributes: ["Dexterity", "Wisdom"],
+    attributes: ["Dexterity", "Wisdom"],
     skills: ["Survival"],
     description:
       "You stalked and took down animals and other creatures of the wild. Skinning animals, harvesting their flesh, and cooking them were also part of your training, all of which can give you useful resources while you adventure.",
   },
   {
     name: "Hermit",
-    Attributes: ["Constitution", "Intelligence"],
+    attributes: ["Constitution", "Intelligence"],
     skills: ["Nature", "Occultism"],
     description:
       "In an isolated place—like a cave, remote oasis, or secluded mansion—you lived a life of solitude. Adventuring might represent your first foray out among other people in some time. This might be a welcome reprieve from solitude or an unwanted change, but in either case, you’re likely still rough around the edges.",
   },
   {
     name: "Field Medic",
-    Attributes: ["Constitution", "Wisdom"],
+    attributes: ["Constitution", "Wisdom"],
     skills: ["Medicine"],
     description:
       "In the chaotic rush of battle, you learned to adapt to rapidly changing conditions as you administered to battle casualties. You patched up soldiers, guards, or other combatants, and learned a fair amount about the logistics of war.",

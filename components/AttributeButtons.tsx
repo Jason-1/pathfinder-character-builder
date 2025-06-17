@@ -92,7 +92,7 @@ const AttributeButtons: React.FC = ({}) => {
       //Check if we have selected a background boost that is not in the Background array
       if (
         currentBoostCategory.name === "Background" &&
-        !currentBackground?.Attributes.includes(attribute)
+        !currentBackground?.attributes.includes(attribute)
       ) {
         setRestrictBackgroundBoosts(true);
       }
@@ -125,7 +125,7 @@ const AttributeButtons: React.FC = ({}) => {
     }
     if (
       boostsType === "Background" &&
-      !currentBackground?.Attributes.includes(boostedAttribute)
+      !currentBackground?.attributes.includes(boostedAttribute)
     ) {
       setRestrictBackgroundBoosts(false);
     }
@@ -169,7 +169,7 @@ const AttributeButtons: React.FC = ({}) => {
         selectedAncestry.name === "Select Ancestry") ||
       (currentAttributeBoostCategory.name === "Background" &&
         restrictBackgroundBoosts &&
-        !currentBackground?.Attributes.includes(attribute.name)) ||
+        !currentBackground?.attributes.includes(attribute.name)) ||
       (currentAttributeBoostCategory.name === "Background" &&
         selectedBackground === "Select Background") ||
       (currentAttributeBoostCategory.name === "Class" &&
@@ -190,7 +190,7 @@ const AttributeButtons: React.FC = ({}) => {
         );
       case "Background":
         return (
-          currentBackground?.Attributes.map((attribute) => " " + attribute) ||
+          currentBackground?.attributes.map((attribute) => " " + attribute) ||
           []
         );
       case "Class":

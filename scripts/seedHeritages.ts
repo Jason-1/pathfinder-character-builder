@@ -3,7 +3,7 @@ import { db } from "../server/index";
 import { heritages as Heritages } from "../server/schema";
 import { ancestries as Ancestries } from "../server/schema";
 
-async function seedClasses() {
+async function seedHeritages() {
   try {
     await db.delete(Heritages);
 
@@ -34,4 +34,4 @@ async function seedClasses() {
   }
 }
 
-seedClasses();
+seedHeritages();

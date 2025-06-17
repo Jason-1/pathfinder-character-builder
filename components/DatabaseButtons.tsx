@@ -75,9 +75,9 @@ const DatabaseButtons = () => {
               name,
               level,
               ancestryName: selectedAncestry.name,
-              heritageName: subclassValue,
+              heritageName: heritageValue,
               className: selectedClass.name,
-              subclassName: heritageValue,
+              subclassName: subclassValue,
               armourName: selectedArmour.name,
             })
           }

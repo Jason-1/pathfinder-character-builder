@@ -20,10 +20,15 @@ const BackgroundSelector: React.FC = ({}) => {
 
   //------------------------------------------------------------------------------//
 
-  const handleChangeBackground = (background: string) => {
-    //When a Background is set also reset skill proficiencies for it
-    dispatch(setBackground({ background }));
-    dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -1 }));
+  const handleChangeBackground = (backgroundString: string) => {
+    const backgroundItem = Backgrounds.find(
+      (item) => item.name === backgroundString
+    );
+    if (backgroundItem) {
+      //When a Background is set also reset skill proficiencies for it
+      dispatch(setBackground(backgroundItem));
+      dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -1 }));
+    }
   };
 
   return (
@@ -34,7 +39,7 @@ const BackgroundSelector: React.FC = ({}) => {
         selectedItem={selectedBackground.name}
         data={Backgrounds}
         highlightedItem={highlightedBackground}
-        onItemClick={(item) => handleChangeBackground(item)}
+        onItemClick={handleChangeBackground}
         setHighlightedItem={setHighlightedBackground}
       >
         <p className="flex flex-col">

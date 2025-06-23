@@ -11,6 +11,7 @@ import { deleteCharacter } from "@/server/actions/delete-character";
 import {
   selectAncestry,
   selectArmour,
+  selectBackground,
   selectClass,
   selectHeritage,
   selectID,
@@ -35,6 +36,7 @@ const DatabaseButtons = () => {
   const level = useSelector(selectLevel);
   const selectedAncestry = useSelector(selectAncestry);
   const selectedHeritage = useSelector(selectHeritage);
+  const selectedBackground = useSelector(selectBackground);
   const selectedClass = useSelector(selectClass);
   const selectedSubclass = useSelector(selectSubclass);
   const selectedArmour = useSelector(selectArmour);
@@ -76,6 +78,7 @@ const DatabaseButtons = () => {
               level,
               ancestryName: selectedAncestry.name,
               heritageName: heritageValue,
+              backgroundName: selectedBackground.name,
               className: selectedClass.name,
               subclassName: subclassValue,
               armourName: selectedArmour.name,

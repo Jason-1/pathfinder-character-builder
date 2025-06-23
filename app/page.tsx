@@ -26,6 +26,7 @@ import { setArmour } from "./redux/Slices/armourSlice";
 import {
   AncestryType,
   armourItemType,
+  BackgroundType,
   characterType,
   ClassType,
   heritageType,
@@ -37,6 +38,7 @@ import { setClass } from "./redux/Slices/classSlice";
 import {
   initialAncestryState,
   initialArmourState,
+  initialBackgroundState,
   initialClassState,
   initialHeritageState,
   initialSubclassState,
@@ -47,6 +49,8 @@ import { getHeritages } from "@/server/actions/get-all-heritages";
 import { getAncestries } from "@/server/actions/get-all-ancestries";
 import { setAncestry } from "./redux/Slices/ancestrySlice";
 import { setHeritage } from "./redux/Slices/heritageSlice";
+import { setBackground } from "./redux/Slices/backgroundSlice";
+import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
 
 export default function Home() {
   const router = useRouter();
@@ -70,6 +74,11 @@ export default function Home() {
     null
   );
 
+  const [backgroundData, setBackgroundData] = useState<BackgroundType[]>([]);
+  const [pendingBackgroundData, setPendingBackgroundData] = useState<
+    string | null
+  >(null);
+
   const [classData, setClassData] = useState<ClassType[]>([]);
   const [pendingClassName, setPendingClassName] = useState<string | null>(null);
 
@@ -92,6 +101,7 @@ export default function Home() {
     dispatch(setLevel(1));
     dispatch(setAncestry(initialAncestryState));
     dispatch(setHeritage(initialHeritageState));
+    dispatch(setBackground(initialBackgroundState));
     dispatch(setClass(initialClassState));
     dispatch(setSubclass(initialSubclassState));
     dispatch(setArmour(initialArmourState));
@@ -116,6 +126,14 @@ export default function Home() {
     onSuccess: (data) => {
       if (data.data) {
         setHeritageData(data.data as heritageType[]);
+      }
+    },
+  });
+
+  const { execute: getAllBackgrounds } = useAction(getBackgrounds, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setBackgroundData(data.data as BackgroundType[]);
       }
     },
   });
@@ -171,6 +189,15 @@ export default function Home() {
     }
   };
 
+  const handleSetBackground = (backgroundString: string) => {
+    const backgroundItem = backgroundData.find(
+      (item) => item.name === backgroundString
+    );
+    if (backgroundItem) {
+      dispatch(setBackground(backgroundItem));
+    }
+  };
+
   const handleSetClass = (className: string) => {
     const classItem = classData.find((item) => item.name === className);
     if (classItem) {
@@ -203,6 +230,7 @@ export default function Home() {
         dispatch(setLevel(data.data.level));
         setPendingAncestryName(data.data.ancestryName);
         setPendingHeritageName(data.data.heritageName);
+        setPendingBackgroundData(data.data.backgroundName);
         setPendingClassName(data.data.className);
         setPendingSubclassName(data.data.subclassName);
         setPendingArmourName(data.data.armourName);
@@ -261,6 +289,17 @@ export default function Home() {
   useEffect(() => {
     getAllHeritages();
   }, [getAllHeritages]);
+
+  useEffect(() => {
+    if (pendingBackgroundData && backgroundData.length > 0) {
+      handleSetBackground(pendingBackgroundData);
+      setPendingBackgroundData(null); // clear after setting
+    }
+  }, [pendingBackgroundData, backgroundData]);
+
+  useEffect(() => {
+    getAllBackgrounds();
+  }, [getAllBackgrounds]);
 
   useEffect(() => {
     if (pendingClassName && classData.length > 0) {

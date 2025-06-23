@@ -1,4 +1,3 @@
-import { background } from "@/server/schema";
 import * as z from "zod";
 
 export const updateCharacterSchema = z.object({

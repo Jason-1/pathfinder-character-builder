@@ -24,7 +24,7 @@ export const characters = pgTable("characters", {
     () => heritages.name
   ),
   backgroundName: varchar("background_name", { length: 255 }).references(
-    () => background.name
+    () => backgrounds.name
   ),
   className: varchar("class_name", { length: 255 })
     .references(() => classes.name)
@@ -229,7 +229,7 @@ export const heritages = pgTable("heritages", {
 //------------------------------------------------------------------------------//
 // Background
 
-export const background = pgTable("background", {
+export const backgrounds = pgTable("background", {
   name: varchar("name", { length: 255 }).notNull().primaryKey(),
   attributes: AttributesEnum("attributes").array().notNull().default([]),
   skills: SkillsEnum("skills").array().notNull().default([]),

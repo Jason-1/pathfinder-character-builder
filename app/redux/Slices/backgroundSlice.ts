@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initialBackgroundState } from "../initialStates";
 
 const initialState = {
-  background: "Barkeep",
+  background: initialBackgroundState,
 };
 
 const backgroundSlice = createSlice({
@@ -9,7 +10,7 @@ const backgroundSlice = createSlice({
   initialState: initialState,
   reducers: {
     setBackground: (state, action) => {
-      state.background = action.payload.background;
+      state.background = action.payload;
     },
   },
 });

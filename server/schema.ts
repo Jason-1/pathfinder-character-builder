@@ -23,6 +23,9 @@ export const characters = pgTable("characters", {
   heritageName: varchar("heritage_name", { length: 255 }).references(
     () => heritages.name
   ),
+  backgroundName: varchar("background_name", { length: 255 }).references(
+    () => backgrounds.name
+  ),
   className: varchar("class_name", { length: 255 })
     .references(() => classes.name)
     .default("Fighter")
@@ -220,6 +223,16 @@ export const heritages = pgTable("heritages", {
     .references(() => ancestries.name)
     .notNull(),
   abilityName: varchar("ability_name", { length: 255 }),
+  description: text("description").default("No description available"),
+});
+
+//------------------------------------------------------------------------------//
+// Background
+
+export const backgrounds = pgTable("background", {
+  name: varchar("name", { length: 255 }).notNull().primaryKey(),
+  attributes: AttributesEnum("attributes").array().notNull().default([]),
+  skills: SkillsEnum("skills").array().notNull().default([]),
   description: text("description").default("No description available"),
 });
 

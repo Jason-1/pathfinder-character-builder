@@ -1,29 +1,53 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { Backgrounds } from "@/data";
 import { useDispatch, useSelector } from "react-redux";
 import { setBackground } from "@/app/redux/Slices/backgroundSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { BackgroundType } from "@/types";
 import { selectBackground } from "@/app/redux/selectors";
+import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
+import { useAction } from "next-safe-action/hooks";
+import { initialBackgroundState } from "@/app/redux/initialStates";
 
 const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
   const selectedBackground = useSelector(selectBackground);
 
-  const [highlightedBackground, setHighlightedBackground] =
-    React.useState<BackgroundType>(Backgrounds[0]);
+  //------------------------------------------------------------------------------//
+
+  const [backgroundData, setBackgroundData] = useState<BackgroundType[]>([]);
+
+  const { execute: getAllBackgrounds } = useAction(getBackgrounds, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setBackgroundData(data.data as BackgroundType[]);
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAllBackgrounds();
+  }, [getAllBackgrounds]);
+
+  const [highlightedBackground, setHighlightedBackground] = React.useState<
+    BackgroundType | undefined
+  >(undefined);
 
   //------------------------------------------------------------------------------//
 
-  const handleChangeBackground = (background: string) => {
-    //When a Background is set also reset skill proficiencies for it
-    dispatch(setBackground({ background }));
-    dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -1 }));
+  const handleChangeBackground = (backgroundString: string) => {
+    const backgroundItem = backgroundData.find(
+      (item) => item.name === backgroundString
+    );
+    if (backgroundItem) {
+      //When a Background is set also reset skill proficiencies for it
+      dispatch(setBackground(backgroundItem));
+      dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -1 }));
+    }
   };
 
   return (
@@ -31,19 +55,21 @@ const BackgroundSelector: React.FC = ({}) => {
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2 w-full"
         itemType="Background"
-        selectedItem={selectedBackground}
-        data={Backgrounds}
-        highlightedItem={highlightedBackground}
-        onItemClick={(item) => handleChangeBackground(item)}
+        selectedItem={selectedBackground.name}
+        data={backgroundData}
+        highlightedItem={
+          highlightedBackground ?? backgroundData[0] ?? initialBackgroundState
+        }
+        onItemClick={handleChangeBackground}
         setHighlightedItem={setHighlightedBackground}
       >
         <p className="flex flex-col">
           <span>Attributes:</span>
-          <span>{highlightedBackground.Attributes.join(", ")}</span>
+          <span>{highlightedBackground?.attributes.join(", ")}</span>
         </p>
         <p className="flex flex-col">
           <span>Skills:</span>
-          <span>{highlightedBackground.skills.join(", ")}</span>
+          <span>{highlightedBackground?.skills.join(", ")}</span>
         </p>
       </SelectorDialog>
     </div>

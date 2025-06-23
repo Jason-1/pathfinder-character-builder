@@ -93,7 +93,7 @@ export type heritageType = {
 
 export type BackgroundType = {
   name: string;
-  Attributes: AttributesType[];
+  attributes: AttributesType[];
   skills: skillTypes[];
   description: string;
 };

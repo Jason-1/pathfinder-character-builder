@@ -1,6 +1,7 @@
 import {
   AncestryType,
   armourItemType,
+  BackgroundType,
   ClassType,
   heritageType,
   subclassType,
@@ -170,4 +171,12 @@ export const initialHeritageState: heritageType = {
   name: "Select Heritage",
   ancestryName: "Select Ancestry",
   description: "No heritage selected",
+};
+
+export const initialBackgroundState: BackgroundType = {
+  name: "Barkeep",
+  attributes: ["Constitution", "Charisma"],
+  skills: ["Diplomacy"],
+  description:
+    "You have five specialties: hefting barrels, drinking, polishing steins, drinking, and drinking. You worked in a bar, where you learned how to hold your liquor and rowdily socialize.",
 };

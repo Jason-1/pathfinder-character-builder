@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Backgrounds } from "@/data";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
 import {
@@ -67,10 +66,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         return "Untrained";
     }
   }
-
-  const selectedBackgroundData = Backgrounds.find(
-    (backgroundItem) => backgroundItem.name === selectedBackground
-  );
 
   function findDefaultValue(skillBoost: skillProficienciesType) {
     let totalBoosts: number = 0;
@@ -258,7 +253,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         return selectedSkills.filter(
           (skill) =>
             skill.skill !== "" &&
-            selectedBackgroundData?.skills?.includes(skill.skill)
+            selectedBackground?.skills?.includes(skill.skill)
         );
 
       case "Class":

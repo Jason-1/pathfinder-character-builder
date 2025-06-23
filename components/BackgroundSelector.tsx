@@ -31,7 +31,7 @@ const BackgroundSelector: React.FC = ({}) => {
       <SelectorDialog
         className="border rounded-sm hover:border-red-700 p-2 w-full"
         itemType="Background"
-        selectedItem={selectedBackground}
+        selectedItem={selectedBackground.name}
         data={Backgrounds}
         highlightedItem={highlightedBackground}
         onItemClick={(item) => handleChangeBackground(item)}

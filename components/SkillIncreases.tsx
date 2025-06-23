@@ -68,10 +68,6 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
     }
   }
 
-  const selectedBackgroundData = Backgrounds.find(
-    (backgroundItem) => backgroundItem.name === selectedBackground
-  );
-
   function findDefaultValue(skillBoost: skillProficienciesType) {
     let totalBoosts: number = 0;
 
@@ -258,7 +254,7 @@ const SkillIncreases: React.FC<SkillIncreaseProps> = ({
         return selectedSkills.filter(
           (skill) =>
             skill.skill !== "" &&
-            selectedBackgroundData?.skills?.includes(skill.skill)
+            selectedBackground?.skills?.includes(skill.skill)
         );
 
       case "Class":

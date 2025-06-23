@@ -69,10 +69,6 @@ const AttributeButtons: React.FC = ({}) => {
     dispatch(removeAttributeBoost({ boostType, attribute }));
   };
 
-  const currentBackground = Backgrounds.find(
-    (backgroundItem) => backgroundItem.name === selectedBackground
-  );
-
   function handleClick(attribute: AttributesType, boostsType: Category): void {
     const currentBoostCategory = attributeBoosts.find(
       ({ name }) => name === boostsType
@@ -92,7 +88,7 @@ const AttributeButtons: React.FC = ({}) => {
       //Check if we have selected a background boost that is not in the Background array
       if (
         currentBoostCategory.name === "Background" &&
-        !currentBackground?.attributes.includes(attribute)
+        !selectedBackground?.attributes.includes(attribute)
       ) {
         setRestrictBackgroundBoosts(true);
       }
@@ -125,7 +121,7 @@ const AttributeButtons: React.FC = ({}) => {
     }
     if (
       boostsType === "Background" &&
-      !currentBackground?.attributes.includes(boostedAttribute)
+      !selectedBackground?.attributes.includes(boostedAttribute)
     ) {
       setRestrictBackgroundBoosts(false);
     }
@@ -169,9 +165,9 @@ const AttributeButtons: React.FC = ({}) => {
         selectedAncestry.name === "Select Ancestry") ||
       (currentAttributeBoostCategory.name === "Background" &&
         restrictBackgroundBoosts &&
-        !currentBackground?.attributes.includes(attribute.name)) ||
+        !selectedBackground?.attributes.includes(attribute.name)) ||
       (currentAttributeBoostCategory.name === "Background" &&
-        selectedBackground === "Select Background") ||
+        selectedBackground.name === "Select Background") ||
       (currentAttributeBoostCategory.name === "Class" &&
         !selectedClass?.attributes.includes(attribute.name) &&
         !selectedSubclass?.attribute?.includes(attribute.name))
@@ -190,7 +186,7 @@ const AttributeButtons: React.FC = ({}) => {
         );
       case "Background":
         return (
-          currentBackground?.attributes.map((attribute) => " " + attribute) ||
+          selectedBackground?.attributes.map((attribute) => " " + attribute) ||
           []
         );
       case "Class":

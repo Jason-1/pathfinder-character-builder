@@ -8,7 +8,10 @@ import { heritiges } from "@/data/heritiges";
 import SelectorDialog from "./SelectorDialog";
 import { AncestryType, heritageType } from "@/types";
 import { selectAncestry, selectHeritage } from "@/app/redux/selectors";
-import { initialHeritageState } from "@/app/redux/initialStates";
+import {
+  initialAncestryState,
+  initialHeritageState,
+} from "@/app/redux/initialStates";
 import { getAncestries } from "@/server/actions/get-all-ancestries";
 import { useAction } from "next-safe-action/hooks";
 import { getHeritages } from "@/server/actions/get-all-heritages";
@@ -90,15 +93,7 @@ const AncestrySelector: React.FC = ({}) => {
         selectedItem={selectedAncestry.name}
         data={ancestryData}
         highlightedItem={
-          highlightedAncestry ??
-          ancestryData[0] ?? {
-            name: "",
-            description: "",
-            attributes: [],
-            hp: 0,
-            speed: 0,
-            size: "",
-          }
+          highlightedAncestry ?? ancestryData[0] ?? initialAncestryState
         }
         onItemClick={handleSetAncestry}
         setHighlightedItem={setHighlightedAncestry}
@@ -126,11 +121,7 @@ const AncestrySelector: React.FC = ({}) => {
         selectedItem={selectedHeritage.name}
         data={availableHeritiges}
         highlightedItem={
-          highlightedHeritage ??
-          availableHeritiges[0] ?? {
-            name: "",
-            description: "",
-          }
+          highlightedHeritage ?? availableHeritiges[0] ?? initialHeritageState
         }
         onItemClick={(item) => handleSetHeritage(item)}
         setHighlightedItem={setHighlighterHeritage}

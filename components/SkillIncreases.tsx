@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Backgrounds } from "@/data";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { skillProficienciesType, skillTypes, TrainingType } from "@/types";
 import {

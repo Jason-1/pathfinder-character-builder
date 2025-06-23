@@ -15,7 +15,10 @@ import { clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
 import { useAction } from "next-safe-action/hooks";
 import { getClasses } from "@/server/actions/get-all-classes";
 import { getSubclasses } from "@/server/actions/get-all-subclasses";
-import { initialSubclassState } from "@/app/redux/initialStates";
+import {
+  initialClassState,
+  initialSubclassState,
+} from "@/app/redux/initialStates";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -123,14 +126,7 @@ const ClassSelector: React.FC = ({}) => {
         itemType="Class"
         selectedItem={selectedClass.name}
         data={classData}
-        highlightedItem={
-          highlightedClass ??
-          classData[0] ?? {
-            name: "",
-            description: "",
-            Attributes: [],
-          }
-        }
+        highlightedItem={highlightedClass ?? classData[0] ?? initialClassState}
         onItemClick={(item) => {
           handleChangeClass(item);
           handleSetSubclass("Select Subclass");
@@ -184,11 +180,7 @@ const ClassSelector: React.FC = ({}) => {
         selectedItem={selectedSubclass.name}
         data={availableSubclasses}
         highlightedItem={
-          highlightedSubclass ??
-          subclassData[0] ?? {
-            name: "",
-            description: "",
-          }
+          highlightedSubclass ?? subclassData[0] ?? initialSubclassState
         }
         onItemClick={(item) => {
           handleSetSubclass(item);

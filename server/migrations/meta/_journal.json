@@ -169,6 +169,27 @@
       "when": 1750124359607,
       "tag": "0023_mixed_patch",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1750907543630,
+      "tag": "0024_tricky_xorn",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1750907675230,
+      "tag": "0025_orange_agent_zero",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1750907737054,
+      "tag": "0026_fresh_kate_bishop",
+      "breakpoints": true
     }
   ]
 }

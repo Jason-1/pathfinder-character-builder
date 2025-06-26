@@ -1,0 +1,1 @@
+ALTER TYPE "public"."attribute_boosts" RENAME TO "attribute_boost_names";

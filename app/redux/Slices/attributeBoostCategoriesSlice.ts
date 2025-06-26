@@ -1,4 +1,4 @@
-import { InitialAttributeBoosts } from "@/data";
+import { InitialAttributeBoosts } from "@/app/redux/initialStates";
 import { AttributeBoostsType, AttributesType, Category } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

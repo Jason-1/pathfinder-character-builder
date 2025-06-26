@@ -1,6 +1,7 @@
 import {
   AncestryType,
   armourItemType,
+  AttributeBoostsType,
   BackgroundType,
   ClassType,
   heritageType,
@@ -180,3 +181,14 @@ export const initialBackgroundState: BackgroundType = {
   description:
     "You have five specialties: hefting barrels, drinking, polishing steins, drinking, and drinking. You worked in a bar, where you learned how to hold your liquor and rowdily socialize.",
 };
+
+export const InitialAttributeBoosts: AttributeBoostsType[] = [
+  { name: "Ancestry", boosts: [] },
+  { name: "Background", boosts: [] },
+  { name: "Class", boosts: [] },
+  { name: "Initial", boosts: [] },
+  { name: "Level5", boosts: [] },
+  { name: "Level10", boosts: [] },
+  { name: "Level15", boosts: [] },
+  { name: "Level20", boosts: [] },
+];

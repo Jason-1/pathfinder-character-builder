@@ -1600,7 +1600,7 @@ export const Attributes: { name: AttributesType }[] = [
   { name: "Charisma" },
 ];
 
-export const InitialAttributeBoosts: AttributeBoostsType[] = [
+/*export const InitialAttributeBoosts: AttributeBoostsType[] = [
   { name: "Ancestry", boosts: [] },
   { name: "Background", boosts: [] },
   { name: "Class", boosts: [] },
@@ -1609,7 +1609,7 @@ export const InitialAttributeBoosts: AttributeBoostsType[] = [
   { name: "Level10", boosts: [] },
   { name: "Level15", boosts: [] },
   { name: "Level20", boosts: [] },
-];
+];*/
 
 export const skillIncreaseLevels = [3, 5, 7, 9, 11, 13, 15, 17, 19];
 

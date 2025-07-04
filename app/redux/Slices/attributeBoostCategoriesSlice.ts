@@ -21,12 +21,6 @@ const attributeBoostCategoriesSlice = createSlice({
         boostCategory.boosts.push(attribute);
       }
     },
-    setAllAttributeBoosts: (
-      state,
-      action: PayloadAction<AttributeBoostsType[]>
-    ) => {
-      return action.payload;
-    },
     removeAttributeBoost: (
       state,
       action: PayloadAction<{ boostType: Category; attribute: AttributesType }>
@@ -60,7 +54,6 @@ const attributeBoostCategoriesSlice = createSlice({
 
 export const {
   setAttributeBoost,
-  setAllAttributeBoosts,
   removeAttributeBoost,
   resetAttributeBoosts,
   resetSpecificAttributeBoost,

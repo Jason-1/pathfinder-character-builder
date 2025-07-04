@@ -1,8 +1,8 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "../index";
-import { characters } from "../schema";
+import { characters, attributes } from "../schema";
 import { updateCharacterSchema } from "@/types/update-character-schema";
 import { createSafeActionClient } from "next-safe-action";
 
@@ -20,6 +20,7 @@ export const updateCharacter = action
       backgroundName,
       className,
       subclassName,
+      attributesTable,
       armourName,
     } = input.parsedInput;
 
@@ -38,6 +39,22 @@ export const updateCharacter = action
         })
         .where(eq(characters.id, id))
         .returning();
+
+      if (attributesTable && attributesTable.length > 0) {
+        for (const attributeBoost of attributesTable) {
+          await db
+            .update(attributes)
+            .set({
+              boosts: attributeBoost.boosts,
+            })
+            .where(
+              and(
+                eq(attributes.characterID, id),
+                eq(attributes.name, attributeBoost.name)
+              )
+            );
+        }
+      }
 
       return result[0];
     } catch (error) {

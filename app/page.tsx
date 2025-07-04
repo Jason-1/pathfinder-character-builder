@@ -51,6 +51,7 @@ import { setAncestry } from "./redux/Slices/ancestrySlice";
 import { setHeritage } from "./redux/Slices/heritageSlice";
 import { setBackground } from "./redux/Slices/backgroundSlice";
 import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
+import { resetAttributeBoosts } from "./redux/Slices/attributeBoostCategoriesSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -104,6 +105,7 @@ export default function Home() {
     dispatch(setBackground(initialBackgroundState));
     dispatch(setClass(initialClassState));
     dispatch(setSubclass(initialSubclassState));
+    dispatch(resetAttributeBoosts());
     dispatch(setArmour(initialArmourState));
   }, [dispatch]);
 

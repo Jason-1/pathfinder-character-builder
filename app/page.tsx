@@ -26,6 +26,7 @@ import { setArmour } from "./redux/Slices/armourSlice";
 import {
   AncestryType,
   armourItemType,
+  AttributeBoostsType,
   BackgroundType,
   characterType,
   ClassType,
@@ -51,7 +52,12 @@ import { setAncestry } from "./redux/Slices/ancestrySlice";
 import { setHeritage } from "./redux/Slices/heritageSlice";
 import { setBackground } from "./redux/Slices/backgroundSlice";
 import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
-import { resetAttributeBoosts } from "./redux/Slices/attributeBoostCategoriesSlice";
+import {
+  resetAttributeBoosts,
+  setAllAttributeBoosts,
+  setAttributeBoost,
+} from "./redux/Slices/attributeBoostCategoriesSlice";
+import { loadAttributes } from "@/server/actions/load-attributes";
 
 export default function Home() {
   const router = useRouter();
@@ -87,6 +93,13 @@ export default function Home() {
   const [pendingSubclassName, setPendingSubclassName] = useState<string | null>(
     null
   );
+
+  const [attributesData, setAttributesData] = useState<AttributeBoostsType[]>(
+    []
+  );
+  const [pendingAttributesData, setPendingAttributesData] = useState<
+    AttributeBoostsType[] | null
+  >(null);
 
   const [armourData, setArmourData] = useState<armourItemType[]>([]);
   const [pendingArmourName, setPendingArmourName] = useState<string | null>(
@@ -156,6 +169,15 @@ export default function Home() {
     },
   });
 
+  const { execute: getAllAttributes } = useAction(loadAttributes, {
+    onSuccess: (data) => {
+      if (data.data) {
+        setAttributesData(data.data);
+        dispatch(setAllAttributeBoosts(data.data));
+      }
+    },
+  });
+
   const { execute: getAllArmour } = useAction(getArmour, {
     onSuccess: (data) => {
       if (data.data) {
@@ -216,6 +238,10 @@ export default function Home() {
     }
   };
 
+  const handleSetAttributes = (attributes: AttributeBoostsType[]) => {
+    dispatch(setAllAttributeBoosts(attributes));
+  };
+
   const handleSetArmour = (armourName: string) => {
     const armourItem = armourData.find((item) => item.name === armourName);
     if (armourItem) {
@@ -236,6 +262,9 @@ export default function Home() {
         setPendingClassName(data.data.className);
         setPendingSubclassName(data.data.subclassName);
         setPendingArmourName(data.data.armourName);
+
+        getAllAttributes({ character_id: data.data.id });
+
         router.push("/character-builder");
       }
     },
@@ -324,6 +353,13 @@ export default function Home() {
   useEffect(() => {
     getAllSubclasses();
   }, [getAllSubclasses]);
+
+  useEffect(() => {
+    if (pendingAttributesData && attributesData.length > 0) {
+      handleSetAttributes(pendingAttributesData);
+      setPendingAttributesData(null); // clear after setting
+    }
+  }, [pendingAttributesData, attributesData]);
 
   // Ensure the armour data has loaded
   useEffect(() => {

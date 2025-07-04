@@ -2,7 +2,7 @@
 
 import { loadCharacterSchema } from "@/types/load-character-schema";
 import { db } from "../index";
-import { attributes, characters } from "../schema";
+import { characters } from "../schema";
 import { createSafeActionClient } from "next-safe-action";
 import { eq } from "drizzle-orm";
 
@@ -14,10 +14,6 @@ export const deleteCharacter = action
     const { id } = input.parsedInput;
 
     try {
-      await db
-        .delete(attributes) // or .delete(attributes)
-        .where(eq(attributes.characterID, id));
-
       const result = await db
         .delete(characters)
         .where(eq(characters.id, id))

@@ -19,6 +19,7 @@ import armourPotencySlice from "./redux/Slices/armourPotencySlice";
 import selectedSpellsSlice from "./redux/Slices/selectedSpellsSlice";
 import shieldReinforcingSlice from "./redux/Slices/shieldReinforcingSlice";
 import idSlice from "./redux/Slices/idSlice";
+import ancestryDataSlice from "./redux/Slices/data/ancestryDataSlice";
 
 export const store = configureStore({
   reducer: {
@@ -42,6 +43,7 @@ export const store = configureStore({
     weapon: weaponSlice,
     selectedSpells: selectedSpellsSlice,
     id: idSlice,
+    ancestryData: ancestryDataSlice,
   },
 });
 

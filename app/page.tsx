@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { getCharacters } from "@/server/actions/get-all-characters";
-import { selectID } from "./redux/selectors";
+import {
+  selectAncestryData,
+  selectAncestryDataLoaded,
+  selectID,
+} from "./redux/selectors";
 import { useEffect, useState } from "react";
 import { useAction } from "next-safe-action/hooks";
 import { any } from "zod";
@@ -18,15 +22,18 @@ import { setBackground } from "./redux/Slices/backgroundSlice";
 import { is } from "drizzle-orm";
 import { getSubclasses } from "@/server/actions/get-all-subclasses";
 import { getArmour } from "@/server/actions/get-all-armour";
+import { setAncestryData } from "./redux/Slices/data/ancestryDataSlice";
 
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const id = useSelector(selectID);
 
+  const ancestries = useSelector(selectAncestryData);
+  const ancestriesLoaded = useSelector(selectAncestryDataLoaded);
+
   const [characters, setCharacters] = useState<any[]>([]);
 
-  const [ancestries, setAncestries] = useState<any[]>([]);
   const [heritages, setHeritages] = useState<any[]>([]);
   const [backgrounds, setBackgrounds] = useState<any[]>([]);
   const [classes, setClasses] = useState<any[]>([]);
@@ -53,7 +60,7 @@ export default function Home() {
     useAction(getAncestries, {
       onSuccess: (data) => {
         if (data.data) {
-          setAncestries(data.data);
+          dispatch(setAncestryData(data.data));
         }
       },
     });
@@ -114,7 +121,7 @@ export default function Home() {
 
   const isLoading =
     charactersLoading ||
-    ancestriesLoading ||
+    !ancestriesLoaded ||
     heritagesLoading ||
     backgroundsLoading ||
     classesLoading ||
@@ -165,6 +172,7 @@ export default function Home() {
                 {ancestryData && (
                   <div className="mt-2">
                     <div>Ancestry HP: {ancestryData.hp}</div>
+                    <div>Size: {ancestryData.size}</div>
                   </div>
                 )}
 

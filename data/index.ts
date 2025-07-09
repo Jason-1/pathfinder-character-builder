@@ -15,7 +15,7 @@ import {
   weaponItemType,
 } from "@/types";
 
-export const Ancestries: AncestryType[] = [
+/*export const Ancestries: AncestryType[] = [
   {
     name: "Human",
     attributes: ["Free"],
@@ -79,7 +79,7 @@ export const Ancestries: AncestryType[] = [
     description:
       "Leshies are immortal spirits of nature placed in small plant bodies, seeking to experience the world. Created through rituals by druids or primal magic users, leshies are guardians and emissaries of the environment. While their spirits are ancient, leshies rarely recall past lives and see each new existence as a fresh opportunity to explore the world. Leshies are curious, connected to nature, and often act as agents for natural guardians. They appear as humanoid forms made from a mix of plants or fungi, about 3 feet tall, and do not age. Leshies form families through bonds of loyalty and friendship, and expect mutual protection for themselves and nature. Their beliefs focus on the natural world, often venerating the Green Faith or Gozreh. Leshies have 8 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Constitution, Wisdom, and one free ability, with a flaw in Intelligence. They speak Common and Fey, can learn additional languages, have low-light vision, and gain nourishment as plants or fungi do, usually not needing to pay for food.",
   },
-];
+];*/
 
 export const Backgrounds: BackgroundType[] = [
   {

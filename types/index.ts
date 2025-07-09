@@ -81,7 +81,7 @@ export type AncestryType = {
   hp: number;
   speed: number;
   size: sizes;
-  description: string;
+  description: string | null;
 };
 
 export type heritageType = {

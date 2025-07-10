@@ -7,22 +7,33 @@ import { getCharacters } from "@/server/actions/get-all-characters";
 import {
   selectAncestryData,
   selectAncestryDataLoaded,
+  selectArmourData,
+  selectArmourDataLoaded,
+  selectBackgroundData,
+  selectBackgroundDataLoaded,
+  selectClass,
+  selectClassData,
+  selectClassDataLoaded,
+  selectHeritageData,
+  selectHeritageDataLoaded,
   selectID,
+  selectSubclassData,
+  selectSubclassDataLoaded,
 } from "./redux/selectors";
 import { useEffect, useState } from "react";
 import { useAction } from "next-safe-action/hooks";
-import { any } from "zod";
 import { getClasses } from "@/server/actions/get-all-classes";
 import { getAncestries } from "@/server/actions/get-all-ancestries";
 import { getHeritages } from "@/server/actions/get-all-heritages";
 import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
-import { setAncestry } from "./redux/Slices/ancestrySlice";
-import { setHeritage } from "./redux/Slices/heritageSlice";
-import { setBackground } from "./redux/Slices/backgroundSlice";
-import { is } from "drizzle-orm";
 import { getSubclasses } from "@/server/actions/get-all-subclasses";
 import { getArmour } from "@/server/actions/get-all-armour";
 import { setAncestryData } from "./redux/Slices/data/ancestryDataSlice";
+import { setHeritageData } from "./redux/Slices/data/heritageDataSlice";
+import { setBackgroundData } from "./redux/Slices/data/backgroundDataSlice";
+import { setClassData } from "./redux/Slices/data/classDataSlice";
+import { setSubclassData } from "./redux/Slices/data/subclassDataSlice";
+import { setArmourData } from "./redux/Slices/data/armourDataSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -32,13 +43,22 @@ export default function Home() {
   const ancestries = useSelector(selectAncestryData);
   const ancestriesLoaded = useSelector(selectAncestryDataLoaded);
 
-  const [characters, setCharacters] = useState<any[]>([]);
+  const heritages = useSelector(selectHeritageData);
+  const heritagesLoaded = useSelector(selectHeritageDataLoaded);
 
-  const [heritages, setHeritages] = useState<any[]>([]);
-  const [backgrounds, setBackgrounds] = useState<any[]>([]);
-  const [classes, setClasses] = useState<any[]>([]);
-  const [subclasses, setSubclasses] = useState<any[]>([]);
-  const [armour, setArmour] = useState<any[]>([]);
+  const backgrounds = useSelector(selectBackgroundData);
+  const backgroundsLoaded = useSelector(selectBackgroundDataLoaded);
+
+  const classes = useSelector(selectClassData);
+  const classesLoaded = useSelector(selectClassDataLoaded);
+
+  const subclasses = useSelector(selectSubclassData);
+  const subclassesLoaded = useSelector(selectSubclassDataLoaded);
+
+  const armour = useSelector(selectArmourData);
+  const armourLoaded = useSelector(selectArmourDataLoaded);
+
+  const [characters, setCharacters] = useState<any[]>([]);
 
   // Fetch characters
   const { execute: fetchCharacters, isExecuting: charactersLoading } =
@@ -50,83 +70,82 @@ export default function Home() {
       },
     });
 
-  //Store all classes in redux. I can then load from there in the actual editor instead of fetching again.
-  //Only do this for smaller datasets, e.g. classes
+  const { execute: fetchAncestries } = useAction(getAncestries, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setAncestryData(data.data));
+      }
+    },
+  });
 
-  //use isExecuting and hasSucceeded to ensure everything has loaded before moving to the editor
+  const { execute: fetchHeritages } = useAction(getHeritages, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setHeritageData(data.data));
+      }
+    },
+  });
 
-  // Fetch classes
-  const { execute: fetchAncestries, isExecuting: ancestriesLoading } =
-    useAction(getAncestries, {
-      onSuccess: (data) => {
-        if (data.data) {
-          dispatch(setAncestryData(data.data));
-        }
-      },
-    });
-
-  // Fetch classes
-  const { execute: fetchHeritages, isExecuting: heritagesLoading } = useAction(
-    getHeritages,
-    {
-      onSuccess: (data) => {
-        if (data.data) {
-          setHeritages(data.data);
-        }
-      },
-    }
-  );
-
-  // Fetch classes
   const { execute: fetchBackgrounds, isExecuting: backgroundsLoading } =
     useAction(getBackgrounds, {
       onSuccess: (data) => {
         if (data.data) {
-          setBackgrounds(data.data);
+          dispatch(setBackgroundData(data.data));
         }
       },
     });
 
-  // Fetch classes
-  const { execute: fetchClasses, isExecuting: classesLoading } = useAction(
-    getClasses,
-    {
-      onSuccess: (data) => {
-        if (data.data) {
-          setClasses(data.data);
-        }
-      },
-    }
-  );
+  const { execute: fetchClasses } = useAction(getClasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        //Transform null values to undefined
 
-  const { execute: fetchSubclasses, isExecuting: subclassesLoading } =
-    useAction(getSubclasses, {
-      onSuccess: (data) => {
-        if (data.data) {
-          setSubclasses(data.data);
-        }
-      },
-    });
+        const transformedData = data.data.map((classData: any) => {
+          const transformObject = (obj: any): any => {
+            if (obj === null) return undefined;
+            if (Array.isArray(obj)) return obj.map(transformObject);
+            if (typeof obj === "object") {
+              const transformed: any = {};
+              for (const [key, value] of Object.entries(obj)) {
+                transformed[key] = transformObject(value);
+              }
+              return transformed;
+            }
+            return obj;
+          };
 
-  const { execute: fetchArmour, isExecuting: armourLoading } = useAction(
-    getArmour,
-    {
-      onSuccess: (data) => {
-        if (data.data) {
-          setArmour(data.data);
-        }
-      },
-    }
-  );
+          return transformObject(classData);
+        });
+
+        dispatch(setClassData(transformedData));
+      }
+    },
+  });
+
+  const { execute: fetchSubclasses } = useAction(getSubclasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setSubclassData(data.data));
+      }
+    },
+  });
+
+  const { execute: fetchArmour } = useAction(getArmour, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setArmourData(data.data));
+      }
+    },
+  });
 
   const isLoading =
     charactersLoading ||
     !ancestriesLoaded ||
-    heritagesLoading ||
-    backgroundsLoading ||
-    classesLoading ||
-    subclassesLoading ||
-    armourLoading;
+    !heritagesLoaded ||
+    !backgroundsLoaded ||
+    !classesLoaded ||
+    !subclassesLoaded ||
+    !armourLoaded;
 
   // Fetch both when component mounts
   useEffect(() => {
@@ -141,6 +160,10 @@ export default function Home() {
 
   const getAncestryData = (ancestryName: string) => {
     return ancestries.find((ancestry) => ancestry.name === ancestryName);
+  };
+
+  const getHeritageData = (heritageName: string) => {
+    return heritages.find((heritage) => heritage.name === heritageName);
   };
 
   // Helper function to get class data for a character
@@ -160,6 +183,7 @@ export default function Home() {
         <ul className="space-y-4">
           {characters.map((character) => {
             const ancestryData = getAncestryData(character.ancestryName);
+            const heritageData = getHeritageData(character.heritageName);
             const classData = getClassData(character.className);
             return (
               <li key={character.id} className="border p-4 rounded">
@@ -173,6 +197,12 @@ export default function Home() {
                   <div className="mt-2">
                     <div>Ancestry HP: {ancestryData.hp}</div>
                     <div>Size: {ancestryData.size}</div>
+                  </div>
+                )}
+
+                {heritageData && (
+                  <div className="mt-2">
+                    <div>Heritage: {heritageData.name}</div>
                   </div>
                 )}
 

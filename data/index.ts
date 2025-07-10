@@ -369,7 +369,7 @@ export const Classes: ClassType[] = [
       "You are an eternal student of the secrets of the universe, using your mastery of magic to cast powerful spells. You treat magic like a science, cross-referencing the latest texts on practical spellcraft with ancient tomes to discover and understand arcane magic. Yet magical theory is vast, and there's no way you can study it all. Most wizards learn through formal schooling, with their curriculum informing a specific rubric, although particularly driven researchers sometimes piece together their own theories.",
   },
 ];
-
+/* 
 export const subclasses: subclassType[] = [
   {
     name: "Desecration (Unholy)",
@@ -515,7 +515,7 @@ export const subclasses: subclassType[] = [
     description:
       "Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows, or even a consultant, testing clients’ vaults for openings.",
   },
-];
+];*/
 
 //Add intelligenceBoosted as a new item in the object. Can then check and update it the same way as the other boosts without infinite rerenders. Likely need the level associated with when int was boosted
 export const skillProficiencies: skillProficienciesType[] = [

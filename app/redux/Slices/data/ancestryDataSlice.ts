@@ -1,8 +1,6 @@
 import { AncestryType } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Define the type for ancestry data (adjust based on your actual data structure)
-
 interface AncestryDataState {
   ancestries: AncestryType[];
   isLoaded: boolean;

@@ -87,15 +87,15 @@ export type AncestryType = {
 export type heritageType = {
   name: string;
   ancestryName: string;
-  abilityName?: string;
-  description: string;
+  abilityName: string | null;
+  description: string | null;
 };
 
 export type BackgroundType = {
   name: string;
   attributes: AttributesType[];
   skills: skillTypes[];
-  description: string;
+  description: string | null;
 };
 
 export type ClassType = {
@@ -139,8 +139,8 @@ export type ClassType = {
 
 export type subclassType = {
   name: string;
-  className?: string;
-  attribute?: AttributesType;
+  className: string | null;
+  attribute: AttributesType | null;
   skills?: skillTypes[] | [];
   description: string;
 };

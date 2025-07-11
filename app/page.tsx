@@ -62,6 +62,7 @@ import {
   initialHeritageState,
   initialSubclassState,
 } from "./redux/initialStates";
+import { setArmour } from "./redux/Slices/armourSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -266,6 +267,14 @@ export default function Home() {
     return subclassObject || null;
   };
 
+  const getArmourItem = (armourName: string | null) => {
+    const armourObject = armour.find(
+      (armourItem) => armourItem.name === armourName
+    );
+
+    return armourObject || null;
+  };
+
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
       if (data.data?.id) {
@@ -297,6 +306,11 @@ export default function Home() {
         const characterSubclass = getSubclass(data.data.subclassName);
         if (characterSubclass) {
           dispatch(setSubclass(characterSubclass));
+        }
+
+        const characterArmour = getArmourItem(data.data.armourName);
+        if (characterArmour) {
+          dispatch(setArmour(characterArmour));
         }
 
         router.push("/character-builder");

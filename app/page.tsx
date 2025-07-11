@@ -47,6 +47,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { deleteCharacter } from "@/server/actions/delete-character";
+import { loadCharacter } from "@/server/actions/load-character";
+import { setName } from "./redux/Slices/nameSlice";
+import { setLevel } from "./redux/Slices/levelSlice";
+import { setAncestry } from "./redux/Slices/ancestrySlice";
+import { setBackground } from "./redux/Slices/backgroundSlice";
+import { setClass } from "./redux/Slices/classSlice";
+import { setHeritage } from "./redux/Slices/heritageSlice";
+import { setSubclass } from "./redux/Slices/subclassSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -210,6 +218,19 @@ export default function Home() {
     },
   });
 
+  const { execute: loadCharacterExecute } = useAction(loadCharacter, {
+    onSuccess: (data) => {
+      if (data.data?.id) {
+        toast.success(`Character "${data.data.name}" loaded successfully!`);
+        dispatch(setId(data.data.id));
+        dispatch(setName(data.data.name));
+        dispatch(setLevel(data.data.level));
+
+        router.push("/character-builder");
+      }
+    },
+  });
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-3xl font-bold mb-8 text-center">
@@ -249,7 +270,9 @@ export default function Home() {
                       handleSetID(char.id);
                       setHighlightedCharacter(char.id);
                     }}
-                    onDoubleClick={() => {}}
+                    onDoubleClick={() => {
+                      id && loadCharacterExecute({ id: char.id });
+                    }}
                   >
                     <span className="select-none">
                       {char.name || "Unnamed Adventurer"}: Level: {char.level}{" "}
@@ -262,7 +285,14 @@ export default function Home() {
           </div>
 
           <div className="flex flex-row gap-4 items-center justify-center w-full">
-            <Button className="w-full" onClick={() => {}} disabled={!id}>
+            <Button
+              className="w-full"
+              onClick={() => {
+                highlightedCharacter &&
+                  loadCharacterExecute({ id: highlightedCharacter });
+              }}
+              disabled={!highlightedCharacter}
+            >
               Confirm Selection
             </Button>
             <Dialog>

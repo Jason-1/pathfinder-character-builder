@@ -253,7 +253,9 @@ export const backgrounds = pgTable("background", {
 export const attributes = pgTable("attribute_boosts", {
   id: serial("id").primaryKey(),
   name: AttributeBoostsEnum("name").notNull(),
-  characterID: integer("character_id").references(() => characters.id),
+  characterID: integer("character_id").references(() => characters.id, {
+    onDelete: "cascade",
+  }),
   boosts: AttributesEnum("boosts").array().notNull().default([]),
 });
 

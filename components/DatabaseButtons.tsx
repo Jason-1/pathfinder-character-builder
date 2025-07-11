@@ -11,6 +11,7 @@ import { deleteCharacter } from "@/server/actions/delete-character";
 import {
   selectAncestry,
   selectArmour,
+  selectAttributeBoostCategories,
   selectBackground,
   selectClass,
   selectHeritage,
@@ -40,6 +41,7 @@ const DatabaseButtons = () => {
   const selectedClass = useSelector(selectClass);
   const selectedSubclass = useSelector(selectSubclass);
   const selectedArmour = useSelector(selectArmour);
+  const attributeBoosts = useSelector(selectAttributeBoostCategories);
 
   const { execute: updateCharacterExecute } = useAction(updateCharacter, {
     onSuccess: (data) => {
@@ -81,6 +83,7 @@ const DatabaseButtons = () => {
               backgroundName: selectedBackground.name,
               className: selectedClass.name,
               subclassName: subclassValue,
+              attributesTable: attributeBoosts,
               armourName: selectedArmour.name,
             })
           }

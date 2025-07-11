@@ -63,6 +63,7 @@ import {
   initialSubclassState,
 } from "./redux/initialStates";
 import { setArmour } from "./redux/Slices/armourSlice";
+import { resetAttributeBoosts } from "./redux/Slices/attributeBoostCategoriesSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -202,6 +203,7 @@ export default function Home() {
     dispatch(setHeritage(initialHeritageState));
     dispatch(setBackground(initialBackgroundState));
     dispatch(setClass(initialClassState));
+    dispatch(resetAttributeBoosts());
     dispatch(setSubclass(initialSubclassState));
   }, []);
 

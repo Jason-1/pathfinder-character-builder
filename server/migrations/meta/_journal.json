@@ -176,6 +176,13 @@
       "when": 1752204996050,
       "tag": "0024_fat_nightcrawler",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1752205422423,
+      "tag": "0025_elite_invaders",
+      "breakpoints": true
     }
   ]
 }

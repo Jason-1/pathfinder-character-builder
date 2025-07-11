@@ -221,6 +221,7 @@ export default function Home() {
     onSuccess: (data) => {
       if (data.data) {
         toast.success(`Character "${data.data.name}" deleted successfully!`);
+        fetchCharacters();
         router.push("/");
       }
     },
@@ -364,7 +365,7 @@ export default function Home() {
                       setHighlightedCharacter(char.id);
                     }}
                     onDoubleClick={() => {
-                      id && loadCharacterExecute({ id: char.id });
+                      loadCharacterExecute({ id: char.id });
                     }}
                   >
                     <span className="select-none">
@@ -409,7 +410,6 @@ export default function Home() {
                       className="cursor-pointer w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2"
                       onClick={() => {
                         id && deleteCharacterExecute({ id });
-                        fetchCharacters();
                       }}
                     >
                       Yes

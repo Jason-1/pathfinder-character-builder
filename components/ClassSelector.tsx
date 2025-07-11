@@ -10,11 +10,15 @@ import {
 } from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { ClassType, subclassType } from "@/types";
-import { selectClass, selectSubclass } from "@/app/redux/selectors";
+import {
+  selectClass,
+  selectClassData,
+  selectClassDataLoaded,
+  selectSubclass,
+  selectSubclassData,
+  selectSubclassDataLoaded,
+} from "@/app/redux/selectors";
 import { clearSpells } from "@/app/redux/Slices/selectedSpellsSlice";
-import { useAction } from "next-safe-action/hooks";
-import { getClasses } from "@/server/actions/get-all-classes";
-import { getSubclasses } from "@/server/actions/get-all-subclasses";
 import {
   initialClassState,
   initialSubclassState,
@@ -22,6 +26,12 @@ import {
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
+
+  const classData = useSelector(selectClassData);
+  const subclassData = useSelector(selectSubclassData);
+
+  const classesLoaded = useSelector(selectClassDataLoaded);
+  const subclassesLoaded = useSelector(selectSubclassDataLoaded);
 
   const [highlightedClass, setHighlightedClass] = React.useState<
     ClassType | undefined
@@ -34,38 +44,6 @@ const ClassSelector: React.FC = ({}) => {
   const selectedSubclass = useSelector(selectSubclass);
 
   //------------------------------------------------------------------------------//
-
-  const [classData, setClassData] = useState<ClassType[]>([]);
-  const [subclassData, setSubclassData] = useState<subclassType[]>([]);
-
-  const { execute: getAllClasses } = useAction(getClasses, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setClassData(
-          data.data.map((item: any) => ({
-            ...item,
-            category: item.category as ClassType[],
-          }))
-        );
-      }
-    },
-  });
-
-  useEffect(() => {
-    getAllClasses();
-  }, [getAllClasses]);
-
-  const { execute: getAllSubclasses } = useAction(getSubclasses, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setSubclassData(data.data as subclassType[]);
-      }
-    },
-  });
-
-  useEffect(() => {
-    getAllSubclasses();
-  }, [getAllSubclasses]);
 
   const availableSubclasses = subclassData.filter(
     (subclassItem) => subclassItem.className === selectedClass.name
@@ -118,6 +96,16 @@ const ClassSelector: React.FC = ({}) => {
         return "Untrained";
     }
   };
+
+  if (!classesLoaded || !subclassesLoaded) {
+    return (
+      <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
+        <div className="border rounded-sm p-2 w-full text-center text-gray-500">
+          Class data not loaded
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">

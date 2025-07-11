@@ -25,3 +25,26 @@ export const selectShieldReinforcing = (state: RootState) =>
 export const selectWeapon = (state: RootState) => state.weapon.weapon;
 export const selectSpells = (state: RootState) => state.selectedSpells;
 export const selectID = (state: RootState) => state.id.id;
+
+export const selectAncestryData = (state: RootState) =>
+  state.ancestryData.ancestries;
+export const selectAncestryDataLoaded = (state: RootState) =>
+  state.ancestryData.isLoaded;
+export const selectHeritageData = (state: RootState) =>
+  state.heritageData.heritages;
+export const selectHeritageDataLoaded = (state: RootState) =>
+  state.heritageData.isLoaded;
+export const selectBackgroundData = (state: RootState) =>
+  state.backgroundData.backgrounds;
+export const selectBackgroundDataLoaded = (state: RootState) =>
+  state.backgroundData.isLoaded;
+export const selectClassData = (state: RootState) => state.classData.classes;
+export const selectClassDataLoaded = (state: RootState) =>
+  state.classData.isLoaded;
+export const selectSubclassData = (state: RootState) =>
+  state.subclassData.subclasses;
+export const selectSubclassDataLoaded = (state: RootState) =>
+  state.subclassData.isLoaded;
+export const selectArmourData = (state: RootState) => state.armourData.armour;
+export const selectArmourDataLoaded = (state: RootState) =>
+  state.armourData.isLoaded;

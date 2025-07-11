@@ -7,7 +7,14 @@ import { setHeritage } from "@/app/redux/Slices/heritageSlice";
 import { heritiges } from "@/data/heritiges";
 import SelectorDialog from "./SelectorDialog";
 import { AncestryType, heritageType } from "@/types";
-import { selectAncestry, selectHeritage } from "@/app/redux/selectors";
+import {
+  selectAncestry,
+  selectAncestryData,
+  selectAncestryDataLoaded,
+  selectHeritage,
+  selectHeritageData,
+  selectHeritageDataLoaded,
+} from "@/app/redux/selectors";
 import {
   initialAncestryState,
   initialHeritageState,
@@ -19,37 +26,16 @@ import { getHeritages } from "@/server/actions/get-all-heritages";
 const AncestrySelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
+  const ancestryData = useSelector(selectAncestryData);
+  const heritageData = useSelector(selectHeritageData);
+
+  const ancestryDataLoaded = useSelector(selectAncestryDataLoaded);
+  const heritageDataLoaded = useSelector(selectHeritageDataLoaded);
+
   const selectedAncestry = useSelector(selectAncestry);
   const selectedHeritage = useSelector(selectHeritage);
 
   //------------------------------------------------------------------------------//
-
-  const [ancestryData, setAncestryData] = useState<AncestryType[]>([]);
-  const [heritageData, setHeritageData] = useState<heritageType[]>([]);
-
-  const { execute: getAllAncestries } = useAction(getAncestries, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setAncestryData(data.data as AncestryType[]);
-      }
-    },
-  });
-
-  useEffect(() => {
-    getAllAncestries();
-  }, [getAllAncestries]);
-
-  const { execute: getAllHeritages } = useAction(getHeritages, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setHeritageData(data.data as heritageType[]);
-      }
-    },
-  });
-
-  useEffect(() => {
-    getAllHeritages();
-  }, [getAllHeritages]);
 
   const availableHeritages = heritageData.filter(
     (heritageItem) => heritageItem.ancestryName === selectedAncestry.name
@@ -68,7 +54,9 @@ const AncestrySelector: React.FC = ({}) => {
   };
 
   const handleSetHeritage = (heritageString: string) => {
-    const heritageItem = heritiges.find((item) => item.name === heritageString);
+    const heritageItem = availableHeritages.find(
+      (item) => item.name === heritageString
+    );
     if (heritageItem) {
       dispatch(setHeritage(heritageItem));
     }
@@ -81,9 +69,19 @@ const AncestrySelector: React.FC = ({}) => {
   const [highlightedAncestry, setHighlightedAncestry] = React.useState<
     AncestryType | undefined
   >(undefined);
-  const [highlightedHeritage, setHighlighterHeritage] = React.useState<
+  const [highlightedHeritage, setHighlightedHeritage] = React.useState<
     heritageType | undefined
   >(undefined);
+
+  if (!ancestryDataLoaded || !heritageDataLoaded) {
+    return (
+      <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
+        <div className="border rounded-sm p-2 w-full text-center text-gray-500">
+          Ancestry data not loaded
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
@@ -119,12 +117,15 @@ const AncestrySelector: React.FC = ({}) => {
         className="border rounded-sm hover:border-red-700 p-2 w-full"
         itemType="Heritage"
         selectedItem={selectedHeritage.name}
-        data={availableHeritiges}
+        data={availableHeritages}
         highlightedItem={
           highlightedHeritage ?? availableHeritiges[0] ?? initialHeritageState
         }
         onItemClick={(item) => handleSetHeritage(item)}
-        setHighlightedItem={setHighlighterHeritage}
+        setHighlightedItem={(item) => {
+          // ✅ Cast to proper type to fix the type error
+          setHighlightedHeritage(item as heritageType);
+        }}
       ></SelectorDialog>
     </div>
   );

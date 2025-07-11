@@ -2,16 +2,42 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import { getCharacters } from "@/server/actions/get-all-characters";
+import {
+  selectAncestryData,
+  selectAncestryDataLoaded,
+  selectArmourData,
+  selectArmourDataLoaded,
+  selectBackgroundData,
+  selectBackgroundDataLoaded,
+  selectClass,
+  selectClassData,
+  selectClassDataLoaded,
+  selectHeritageData,
+  selectHeritageDataLoaded,
+  selectID,
+  selectSubclassData,
+  selectSubclassDataLoaded,
+} from "./redux/selectors";
+import { useEffect, useState } from "react";
 import { useAction } from "next-safe-action/hooks";
+import { getClasses } from "@/server/actions/get-all-classes";
+import { getAncestries } from "@/server/actions/get-all-ancestries";
+import { getHeritages } from "@/server/actions/get-all-heritages";
+import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
+import { getSubclasses } from "@/server/actions/get-all-subclasses";
+import { getArmour } from "@/server/actions/get-all-armour";
+import { setAncestryData } from "./redux/Slices/data/ancestryDataSlice";
+import { setHeritageData } from "./redux/Slices/data/heritageDataSlice";
+import { setBackgroundData } from "./redux/Slices/data/backgroundDataSlice";
+import { setClassData } from "./redux/Slices/data/classDataSlice";
+import { setSubclassData } from "./redux/Slices/data/subclassDataSlice";
+import { setArmourData } from "./redux/Slices/data/armourDataSlice";
 import { createCharacter } from "@/server/actions/create-character";
 import { toast } from "sonner";
-import { loadCharacter } from "@/server/actions/load-character";
-import { useDispatch, useSelector } from "react-redux";
-import { setName } from "./redux/Slices/nameSlice";
 import { setId } from "./redux/Slices/idSlice";
-import { useEffect, useState } from "react";
-import { getCharacters } from "@/server/actions/get-all-characters";
-import { selectID } from "./redux/selectors";
+
 import {
   Dialog,
   DialogClose,
@@ -21,224 +47,166 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { deleteCharacter } from "@/server/actions/delete-character";
+import { loadCharacter } from "@/server/actions/load-character";
+import { setName } from "./redux/Slices/nameSlice";
 import { setLevel } from "./redux/Slices/levelSlice";
-import { setArmour } from "./redux/Slices/armourSlice";
-import {
-  AncestryType,
-  armourItemType,
-  BackgroundType,
-  characterType,
-  ClassType,
-  heritageType,
-  subclassType,
-} from "@/types";
-import { getArmour } from "@/server/actions/get-all-armour";
-import { getClasses } from "@/server/actions/get-all-classes";
+import { setAncestry } from "./redux/Slices/ancestrySlice";
+import { setBackground } from "./redux/Slices/backgroundSlice";
 import { setClass } from "./redux/Slices/classSlice";
+import { setHeritage } from "./redux/Slices/heritageSlice";
+import { setSubclass } from "./redux/Slices/subclassSlice";
 import {
   initialAncestryState,
-  initialArmourState,
   initialBackgroundState,
   initialClassState,
   initialHeritageState,
   initialSubclassState,
 } from "./redux/initialStates";
-import { getSubclasses } from "@/server/actions/get-all-subclasses";
-import { setSubclass } from "./redux/Slices/subclassSlice";
-import { getHeritages } from "@/server/actions/get-all-heritages";
-import { getAncestries } from "@/server/actions/get-all-ancestries";
-import { setAncestry } from "./redux/Slices/ancestrySlice";
-import { setHeritage } from "./redux/Slices/heritageSlice";
-import { setBackground } from "./redux/Slices/backgroundSlice";
-import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
+import { setArmour } from "./redux/Slices/armourSlice";
 
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
-
   const id = useSelector(selectID);
-
-  const [characters, setCharacters] = useState<characterType[]>([]);
 
   const [highlightedCharacter, setHighlightedCharacter] = useState<
     number | null
   >(null);
 
-  const [ancestryData, setAncestryData] = useState<AncestryType[]>([]);
-  const [pendingAncestryName, setPendingAncestryName] = useState<string | null>(
-    null
-  );
+  const ancestries = useSelector(selectAncestryData);
+  const ancestriesLoaded = useSelector(selectAncestryDataLoaded);
 
-  const [heritageData, setHeritageData] = useState<heritageType[]>([]);
-  const [pendingHeritageName, setPendingHeritageName] = useState<string | null>(
-    null
-  );
+  const heritages = useSelector(selectHeritageData);
+  const heritagesLoaded = useSelector(selectHeritageDataLoaded);
 
-  const [backgroundData, setBackgroundData] = useState<BackgroundType[]>([]);
-  const [pendingBackgroundData, setPendingBackgroundData] = useState<
-    string | null
-  >(null);
+  const backgrounds = useSelector(selectBackgroundData);
+  const backgroundsLoaded = useSelector(selectBackgroundDataLoaded);
 
-  const [classData, setClassData] = useState<ClassType[]>([]);
-  const [pendingClassName, setPendingClassName] = useState<string | null>(null);
+  const classes = useSelector(selectClassData);
+  const classesLoaded = useSelector(selectClassDataLoaded);
 
-  const [subclassData, setSubclassData] = useState<subclassType[]>([]);
-  const [pendingSubclassName, setPendingSubclassName] = useState<string | null>(
-    null
-  );
+  const subclasses = useSelector(selectSubclassData);
+  const subclassesLoaded = useSelector(selectSubclassDataLoaded);
 
-  const [armourData, setArmourData] = useState<armourItemType[]>([]);
-  const [pendingArmourName, setPendingArmourName] = useState<string | null>(
-    null
-  );
+  const armour = useSelector(selectArmourData);
+  const armourLoaded = useSelector(selectArmourDataLoaded);
+
+  const [characters, setCharacters] = useState<any[]>([]);
 
   //------------------------------------------------------------------------------//
+  // Fetch characters
+  const { execute: fetchCharacters, isExecuting: charactersLoading } =
+    useAction(getCharacters, {
+      onSuccess: (data) => {
+        if (data.data) {
+          setCharacters(data.data);
+        }
+      },
+    });
 
-  // Reset all states when returning to this page
+  const { execute: fetchAncestries } = useAction(getAncestries, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setAncestryData(data.data));
+      }
+    },
+  });
+
+  const { execute: fetchHeritages } = useAction(getHeritages, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setHeritageData(data.data));
+      }
+    },
+  });
+
+  const { execute: fetchBackgrounds } = useAction(getBackgrounds, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setBackgroundData(data.data));
+      }
+    },
+  });
+
+  const { execute: fetchClasses } = useAction(getClasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        //Transform null values to undefined
+
+        const transformedData = data.data.map((classData: any) => {
+          const transformObject = (obj: any): any => {
+            if (obj === null) return null;
+            if (Array.isArray(obj)) return obj.map(transformObject);
+            if (typeof obj === "object") {
+              const transformed: any = {};
+              for (const [key, value] of Object.entries(obj)) {
+                transformed[key] = transformObject(value);
+              }
+              return transformed;
+            }
+            return obj;
+          };
+
+          return transformObject(classData);
+        });
+
+        dispatch(setClassData(transformedData));
+      }
+    },
+  });
+
+  const { execute: fetchSubclasses } = useAction(getSubclasses, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setSubclassData(data.data));
+      }
+    },
+  });
+
+  const { execute: fetchArmour } = useAction(getArmour, {
+    onSuccess: (data) => {
+      if (data.data) {
+        dispatch(setArmourData(data.data));
+      }
+    },
+  });
+
+  //------------------------------------------------------------------------------//
+  //Check if any of the data is still loading
+  const isLoading =
+    charactersLoading ||
+    !ancestriesLoaded ||
+    !heritagesLoaded ||
+    !backgroundsLoaded ||
+    !classesLoaded ||
+    !subclassesLoaded ||
+    !armourLoaded;
+
+  //Fetch all data when component mounts
   useEffect(() => {
-    dispatch(setName(""));
+    fetchCharacters();
+    fetchAncestries();
+    fetchHeritages();
+    fetchBackgrounds();
+    fetchClasses();
+    fetchSubclasses();
+    fetchArmour();
+  }, []);
+
+  //Reset character state when component mounts
+  useEffect(() => {
     dispatch(setId(null));
     dispatch(setLevel(1));
+    dispatch(setName(""));
     dispatch(setAncestry(initialAncestryState));
     dispatch(setHeritage(initialHeritageState));
     dispatch(setBackground(initialBackgroundState));
     dispatch(setClass(initialClassState));
     dispatch(setSubclass(initialSubclassState));
-    dispatch(setArmour(initialArmourState));
-  }, [dispatch]);
+  }, []);
 
-  const { execute: getAllCharacters } = useAction(getCharacters, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setCharacters(data.data);
-      }
-    },
-  });
-
-  const { execute: getAllAncestries } = useAction(getAncestries, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setAncestryData(data.data as AncestryType[]);
-      }
-    },
-  });
-  const { execute: getAllHeritages } = useAction(getHeritages, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setHeritageData(data.data as heritageType[]);
-      }
-    },
-  });
-
-  const { execute: getAllBackgrounds } = useAction(getBackgrounds, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setBackgroundData(data.data as BackgroundType[]);
-      }
-    },
-  });
-
-  const { execute: getAllClasses } = useAction(getClasses, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setClassData(data.data as ClassType[]);
-      }
-    },
-  });
-
-  const { execute: getAllSubclasses } = useAction(getSubclasses, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setSubclassData(data.data as subclassType[]);
-      }
-    },
-  });
-
-  const { execute: getAllArmour } = useAction(getArmour, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setArmourData(
-          data.data.map((item: any) => ({
-            ...item,
-            category: item.category as armourItemType["category"],
-          }))
-        );
-      }
-    },
-  });
-
-  useEffect(() => {
-    getAllSubclasses();
-  }, [getAllSubclasses]);
-
-  const handleSetAncestry = (ancestryString: string) => {
-    const ancestryItem = ancestryData.find(
-      (item) => item.name === ancestryString
-    );
-    if (ancestryItem) {
-      dispatch(setAncestry(ancestryItem));
-    }
-  };
-
-  const handleSetHeritage = (heritageString: string) => {
-    const heritageItem = heritageData.find(
-      (item) => item.name === heritageString
-    );
-    if (heritageItem) {
-      dispatch(setHeritage(heritageItem));
-    }
-  };
-
-  const handleSetBackground = (backgroundString: string) => {
-    const backgroundItem = backgroundData.find(
-      (item) => item.name === backgroundString
-    );
-    if (backgroundItem) {
-      dispatch(setBackground(backgroundItem));
-    }
-  };
-
-  const handleSetClass = (className: string) => {
-    const classItem = classData.find((item) => item.name === className);
-    if (classItem) {
-      dispatch(setClass(classItem));
-    }
-  };
-
-  const handleSetSubclass = (subclassName: string) => {
-    const subclassItem = subclassData.find(
-      (item) => item.name === subclassName
-    );
-    if (subclassItem) {
-      dispatch(setSubclass(subclassItem));
-    }
-  };
-
-  const handleSetArmour = (armourName: string) => {
-    const armourItem = armourData.find((item) => item.name === armourName);
-    if (armourItem) {
-      dispatch(setArmour(armourItem));
-    }
-  };
-
-  const { execute: loadCharacterExecute } = useAction(loadCharacter, {
-    onSuccess: (data) => {
-      if (data.data?.id) {
-        toast.success(`Character "${data.data.name}" loaded successfully!`);
-        dispatch(setName(data.data.name));
-        dispatch(setId(data.data.id));
-        dispatch(setLevel(data.data.level));
-        setPendingAncestryName(data.data.ancestryName);
-        setPendingHeritageName(data.data.heritageName);
-        setPendingBackgroundData(data.data.backgroundName);
-        setPendingClassName(data.data.className);
-        setPendingSubclassName(data.data.subclassName);
-        setPendingArmourName(data.data.armourName);
-        router.push("/character-builder");
-      }
-    },
-  });
-
+  //------------------------------------------------------------------------------//
+  //Character Creation and deletion
   const { execute: createCharacterExecute } = useAction(createCharacter, {
     onSuccess: (data) => {
       if (data.data) {
@@ -253,7 +221,100 @@ export default function Home() {
     onSuccess: (data) => {
       if (data.data) {
         toast.success(`Character "${data.data.name}" deleted successfully!`);
+        fetchCharacters();
         router.push("/");
+      }
+    },
+  });
+
+  //------------------------------------------------------------------------------//
+  //Character Loading and helper functions
+
+  const getAncestry = (ancestryName: string) => {
+    const ancestryObject = ancestries.find(
+      (ancestry) => ancestry.name === ancestryName
+    );
+
+    return ancestryObject || null;
+  };
+
+  const getHeritage = (heritageName: string | null) => {
+    const heritageObject = heritages.find(
+      (heritage) => heritage.name === heritageName
+    );
+
+    return heritageObject || null;
+  };
+
+  const getBackground = (backgroundName: string | null) => {
+    const backgroundObject = backgrounds.find(
+      (background) => background.name === backgroundName
+    );
+
+    return backgroundObject || null;
+  };
+
+  const getClass = (className: string | null) => {
+    const classObject = classes.find((cls) => cls.name === className);
+
+    return classObject || null;
+  };
+
+  const getSubclass = (subclassName: string | null) => {
+    const subclassObject = subclasses.find(
+      (subclass) => subclass.name === subclassName
+    );
+
+    return subclassObject || null;
+  };
+
+  const getArmourItem = (armourName: string | null) => {
+    const armourObject = armour.find(
+      (armourItem) => armourItem.name === armourName
+    );
+
+    return armourObject || null;
+  };
+
+  const { execute: loadCharacterExecute } = useAction(loadCharacter, {
+    onSuccess: (data) => {
+      if (data.data?.id) {
+        toast.success(`Character "${data.data.name}" loaded successfully!`);
+        dispatch(setId(data.data.id));
+        dispatch(setName(data.data.name));
+        dispatch(setLevel(data.data.level));
+
+        const ancestry = getAncestry(data.data.ancestryName);
+        if (ancestry) {
+          dispatch(setAncestry(ancestry));
+        }
+
+        const heritage = getHeritage(data.data.heritageName);
+        if (heritage) {
+          dispatch(setHeritage(heritage));
+        }
+
+        const background = getBackground(data.data.backgroundName);
+        if (background) {
+          dispatch(setBackground(background));
+        }
+
+        const characterClass = getClass(data.data.className);
+        if (characterClass) {
+          dispatch(setClass(characterClass));
+        }
+
+        const characterSubclass = getSubclass(data.data.subclassName);
+        if (characterSubclass) {
+          dispatch(setSubclass(characterSubclass));
+        }
+
+        const characterArmour = getArmourItem(data.data.armourName);
+        if (characterArmour) {
+          dispatch(setArmour(characterArmour));
+        }
+
+        router.push("/character-builder");
       }
     },
   });
@@ -264,102 +325,32 @@ export default function Home() {
     dispatch(setId(id));
   };
 
-  useEffect(() => {
-    getAllCharacters();
-  }, [getAllCharacters]);
-
-  useEffect(() => {
-    if (pendingAncestryName && ancestryData.length > 0) {
-      handleSetAncestry(pendingAncestryName);
-      setPendingAncestryName(null); // clear after setting
-    }
-  }, [pendingAncestryName, ancestryData]);
-
-  useEffect(() => {
-    getAllAncestries();
-  }, [getAllAncestries]);
-
-  useEffect(() => {
-    if (pendingHeritageName && heritageData.length > 0) {
-      handleSetHeritage(pendingHeritageName);
-      setPendingHeritageName(null); // clear after setting
-    }
-  }, [pendingHeritageName, heritageData]);
-
-  useEffect(() => {
-    getAllHeritages();
-  }, [getAllHeritages]);
-
-  useEffect(() => {
-    if (pendingBackgroundData && backgroundData.length > 0) {
-      handleSetBackground(pendingBackgroundData);
-      setPendingBackgroundData(null); // clear after setting
-    }
-  }, [pendingBackgroundData, backgroundData]);
-
-  useEffect(() => {
-    getAllBackgrounds();
-  }, [getAllBackgrounds]);
-
-  useEffect(() => {
-    if (pendingClassName && classData.length > 0) {
-      handleSetClass(pendingClassName);
-      setPendingClassName(null); // clear after setting
-    }
-  }, [pendingClassName, classData]);
-
-  useEffect(() => {
-    getAllClasses();
-  }, [getAllClasses]);
-
-  useEffect(() => {
-    if (pendingSubclassName && subclassData.length > 0) {
-      handleSetSubclass(pendingSubclassName);
-      setPendingSubclassName(null); // clear after setting
-    }
-  }, [pendingSubclassName, subclassData]);
-
-  useEffect(() => {
-    getAllSubclasses();
-  }, [getAllSubclasses]);
-
-  // Ensure the armour data has loaded
-  useEffect(() => {
-    if (pendingArmourName && armourData.length > 0) {
-      handleSetArmour(pendingArmourName);
-      setPendingArmourName(null); // clear after setting
-    }
-  }, [pendingArmourName, armourData]);
-
-  useEffect(() => {
-    getAllArmour();
-  }, [getAllArmour]);
-
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-3xl font-bold mb-8 text-center">
         Welcome to Pathfinder Character Builder
       </h1>
-      <div className="flex flex-col gap-2">
-        <Button
-          onClick={() => {
-            createCharacterExecute({ name: "" });
-          }}
-        >
-          Create new character
-        </Button>
 
-        <Dialog>
-          <DialogTrigger>
-            <span className="mt-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
-              Load existing character
-            </span>
-          </DialogTrigger>
-          <DialogContent className="w-full max-w-full md:w-1/3 h-3/4 max-h-[75vh] flex flex-col">
-            <DialogHeader>
-              <DialogTitle>Select a character to load</DialogTitle>{" "}
-            </DialogHeader>
-            <div className="h-full overflow-y-auto border">
+      <Dialog>
+        <DialogTrigger>
+          <span className="mt-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
+            Load existing character
+          </span>
+        </DialogTrigger>
+        <DialogContent className="w-full max-w-full md:w-1/3 h-3/4 max-h-[75vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Select a character to load</DialogTitle>{" "}
+          </DialogHeader>
+          <div className="h-full overflow-y-auto border">
+            {isLoading ? (
+              <div>Loading Characters...</div>
+            ) : characters.length === 0 ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center text-gray-500">
+                  No characters found. Create your first character!
+                </div>
+              </div>
+            ) : (
               <ul>
                 {characters.map((char) => (
                   <li
@@ -374,7 +365,7 @@ export default function Home() {
                       setHighlightedCharacter(char.id);
                     }}
                     onDoubleClick={() => {
-                      id && loadCharacterExecute({ id });
+                      loadCharacterExecute({ id: char.id });
                     }}
                   >
                     <span className="select-none">
@@ -384,56 +375,66 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-            </div>
+            )}
+          </div>
 
-            <div className="flex flex-row gap-4 items-center justify-center w-full">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  id && loadCharacterExecute({ id });
-                }}
-                disabled={!id}
-              >
-                Confirm Selection
-              </Button>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <span className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2">
-                    Delete Character
-                  </span>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>
-                      Are you sure you want to delete{" "}
-                      {characters.find((char) => char.id === id)?.name ||
-                        "that which has no name"}
-                      ?
-                    </DialogTitle>
-                  </DialogHeader>
-                  <div className="flex flex-row gap-4 items-center justify-center w-full">
-                    <DialogClose asChild>
-                      <span
-                        className="cursor-pointer w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2"
-                        onClick={() => {
-                          id && deleteCharacterExecute({ id });
-                          getAllCharacters();
-                        }}
-                      >
-                        Yes
-                      </span>
-                    </DialogClose>
-                    <DialogClose asChild>
-                      <span className="cursor-pointer w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
-                        No
-                      </span>
-                    </DialogClose>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </DialogContent>
-        </Dialog>
+          <div className="flex flex-row gap-4 items-center justify-center w-full">
+            <Button
+              className="w-full"
+              onClick={() => {
+                highlightedCharacter &&
+                  loadCharacterExecute({ id: highlightedCharacter });
+              }}
+              disabled={!highlightedCharacter}
+            >
+              Confirm Selection
+            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <span className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2">
+                  Delete Character
+                </span>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    Are you sure you want to delete{" "}
+                    {characters.find((char) => char.id === id)?.name ||
+                      "that which has no name"}
+                    ?
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-row gap-4 items-center justify-center w-full">
+                  <DialogClose asChild>
+                    <span
+                      className="cursor-pointer w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2"
+                      onClick={() => {
+                        id && deleteCharacterExecute({ id });
+                      }}
+                    >
+                      Yes
+                    </span>
+                  </DialogClose>
+                  <DialogClose asChild>
+                    <span className="cursor-pointer w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
+                      No
+                    </span>
+                  </DialogClose>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <div className="flex flex-col gap-2 mt-8">
+        <Button
+          onClick={() => {
+            createCharacterExecute({ name: "" });
+          }}
+        >
+          Create new character
+        </Button>
       </div>
     </main>
   );

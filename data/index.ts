@@ -15,7 +15,7 @@ import {
   weaponItemType,
 } from "@/types";
 
-export const Ancestries: AncestryType[] = [
+/*export const Ancestries: AncestryType[] = [
   {
     name: "Human",
     attributes: ["Free"],
@@ -79,7 +79,7 @@ export const Ancestries: AncestryType[] = [
     description:
       "Leshies are immortal spirits of nature placed in small plant bodies, seeking to experience the world. Created through rituals by druids or primal magic users, leshies are guardians and emissaries of the environment. While their spirits are ancient, leshies rarely recall past lives and see each new existence as a fresh opportunity to explore the world. Leshies are curious, connected to nature, and often act as agents for natural guardians. They appear as humanoid forms made from a mix of plants or fungi, about 3 feet tall, and do not age. Leshies form families through bonds of loyalty and friendship, and expect mutual protection for themselves and nature. Their beliefs focus on the natural world, often venerating the Green Faith or Gozreh. Leshies have 8 hit points, are Small, have a speed of 25 feet, and receive ability boosts to Constitution, Wisdom, and one free ability, with a flaw in Intelligence. They speak Common and Fey, can learn additional languages, have low-light vision, and gain nourishment as plants or fungi do, usually not needing to pay for food.",
   },
-];
+];*/
 
 export const Backgrounds: BackgroundType[] = [
   {
@@ -369,7 +369,7 @@ export const Classes: ClassType[] = [
       "You are an eternal student of the secrets of the universe, using your mastery of magic to cast powerful spells. You treat magic like a science, cross-referencing the latest texts on practical spellcraft with ancient tomes to discover and understand arcane magic. Yet magical theory is vast, and there's no way you can study it all. Most wizards learn through formal schooling, with their curriculum informing a specific rubric, although particularly driven researchers sometimes piece together their own theories.",
   },
 ];
-
+/* 
 export const subclasses: subclassType[] = [
   {
     name: "Desecration (Unholy)",
@@ -515,7 +515,7 @@ export const subclasses: subclassType[] = [
     description:
       "Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows, or even a consultant, testing clients’ vaults for openings.",
   },
-];
+];*/
 
 //Add intelligenceBoosted as a new item in the object. Can then check and update it the same way as the other boosts without infinite rerenders. Likely need the level associated with when int was boosted
 export const skillProficiencies: skillProficienciesType[] = [

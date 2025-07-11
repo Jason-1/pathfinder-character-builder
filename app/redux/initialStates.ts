@@ -154,6 +154,8 @@ export const initialArmourState: armourItemType = {
 
 export const initialSubclassState: subclassType = {
   name: "Select a subclass",
+  className: null,
+  attribute: null,
   description: "No subclass selected",
 };
 
@@ -170,6 +172,7 @@ export const initialAncestryState: AncestryType = {
 export const initialHeritageState: heritageType = {
   name: "Select Heritage",
   ancestryName: "Select Ancestry",
+  abilityName: null,
   description: "No heritage selected",
 };
 

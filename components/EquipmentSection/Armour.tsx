@@ -22,6 +22,8 @@ import { setShield } from "@/app/redux/Slices/shieldSlice";
 import SelectorDialog from "../SelectorDialog";
 import {
   selectArmour,
+  selectArmourData,
+  selectArmourDataLoaded,
   selectClass,
   selectLevel,
   selectPotency,
@@ -36,24 +38,8 @@ import { getArmour } from "@/server/actions/get-all-armour";
 const Armour = () => {
   const dispatch = useDispatch();
 
-  const [armourData, setArmourData] = useState<armourItemType[]>([]);
-
-  const { execute: getAllArmour } = useAction(getArmour, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setArmourData(
-          data.data.map((item: any) => ({
-            ...item,
-            category: item.category as armourItemType["category"],
-          }))
-        );
-      }
-    },
-  });
-
-  useEffect(() => {
-    getAllArmour();
-  }, [getAllArmour]);
+  const armourData = useSelector(selectArmourData);
+  const armourLoaded = useSelector(selectArmourDataLoaded);
 
   const selectedArmour = useSelector(selectArmour);
   const selectedPotency = useSelector(selectPotency);
@@ -143,6 +129,16 @@ const Armour = () => {
     const hp = selectedShieldData.hp + selectedShieldReinforcingData.HPBonus;
     return Math.min(hp, selectedShieldReinforcingData.HPMaximum);
   };
+
+  if (!armourLoaded) {
+    return (
+      <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
+        <div className="border rounded-sm p-2 w-full text-center text-gray-500">
+          Armour data not loaded
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

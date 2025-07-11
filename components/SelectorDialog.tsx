@@ -44,7 +44,7 @@ interface SelectorDialogProps<T> {
 const SelectorDialog = <
   T extends {
     name: string;
-    description: string;
+    description: string | null;
     level?: number;
     category?: string;
     action?: string;

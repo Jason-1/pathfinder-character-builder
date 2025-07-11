@@ -7,7 +7,11 @@ import { setBackground } from "@/app/redux/Slices/backgroundSlice";
 import { resetAllSkillBoostsAtLevel } from "@/app/redux/Slices/selectedSkillsSlice";
 import SelectorDialog from "./SelectorDialog";
 import { BackgroundType } from "@/types";
-import { selectBackground } from "@/app/redux/selectors";
+import {
+  selectBackground,
+  selectBackgroundData,
+  selectBackgroundDataLoaded,
+} from "@/app/redux/selectors";
 import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
 import { useAction } from "next-safe-action/hooks";
 import { initialBackgroundState } from "@/app/redux/initialStates";
@@ -15,23 +19,12 @@ import { initialBackgroundState } from "@/app/redux/initialStates";
 const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
 
+  const backgroundData = useSelector(selectBackgroundData);
+  const backgroundDataLoaded = useSelector(selectBackgroundDataLoaded);
+
   const selectedBackground = useSelector(selectBackground);
 
   //------------------------------------------------------------------------------//
-
-  const [backgroundData, setBackgroundData] = useState<BackgroundType[]>([]);
-
-  const { execute: getAllBackgrounds } = useAction(getBackgrounds, {
-    onSuccess: (data) => {
-      if (data.data) {
-        setBackgroundData(data.data as BackgroundType[]);
-      }
-    },
-  });
-
-  useEffect(() => {
-    getAllBackgrounds();
-  }, [getAllBackgrounds]);
 
   const [highlightedBackground, setHighlightedBackground] = React.useState<
     BackgroundType | undefined
@@ -49,6 +42,16 @@ const BackgroundSelector: React.FC = ({}) => {
       dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -1 }));
     }
   };
+
+  if (!backgroundDataLoaded) {
+    return (
+      <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
+        <div className="border rounded-sm p-2 w-full text-center text-gray-500">
+          Background data not loaded
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">

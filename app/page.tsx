@@ -238,6 +238,14 @@ export default function Home() {
     return heritageObject || null;
   };
 
+  const getBackground = (backgroundName: string | null) => {
+    const backgroundObject = backgrounds.find(
+      (background) => background.name === backgroundName
+    );
+
+    return backgroundObject || null;
+  };
+
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
       if (data.data?.id) {
@@ -254,6 +262,11 @@ export default function Home() {
         const heritage = getHeritage(data.data.heritageName);
         if (heritage) {
           dispatch(setHeritage(heritage));
+        }
+
+        const background = getBackground(data.data.backgroundName);
+        if (background) {
+          dispatch(setBackground(background));
         }
 
         router.push("/character-builder");

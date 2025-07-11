@@ -135,7 +135,7 @@ export default function Home() {
 
         const transformedData = data.data.map((classData: any) => {
           const transformObject = (obj: any): any => {
-            if (obj === null) return undefined;
+            if (obj === null) return null;
             if (Array.isArray(obj)) return obj.map(transformObject);
             if (typeof obj === "object") {
               const transformed: any = {};

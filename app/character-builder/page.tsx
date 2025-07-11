@@ -21,22 +21,7 @@ export default function Home() {
   //------------------------------------------------------------------------------//
 
   //TODO -
-  // Dice Tray
-  // Equipment
-  // combine useSelector calls into a single call
-  // display weapon traits
-  // Perception, classDC
-
-  // Limit content to the center on extra large screens
-
-  // I can manually got to /character-builder to build a character without a DB entry - prevent this
-  // Refreshing leads to no character ID on modification page - prevent this
-
-  // Are you sure you want to delete this character? - confirmation dialog
-  // Load character toast on success
-
-  // select heritage greyed out
-  // look into orderBy for DB queries
+  // Instead of "data not loaded" returns in ancestry, class, background, etc. selectors, create a generic loading component that can be used in all selectors
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {

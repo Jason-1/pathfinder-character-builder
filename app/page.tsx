@@ -55,6 +55,10 @@ import { setBackground } from "./redux/Slices/backgroundSlice";
 import { setClass } from "./redux/Slices/classSlice";
 import { setHeritage } from "./redux/Slices/heritageSlice";
 import { setSubclass } from "./redux/Slices/subclassSlice";
+import {
+  initialAncestryState,
+  initialHeritageState,
+} from "./redux/initialStates";
 
 export default function Home() {
   const router = useRouter();
@@ -85,6 +89,7 @@ export default function Home() {
 
   const [characters, setCharacters] = useState<any[]>([]);
 
+  //------------------------------------------------------------------------------//
   // Fetch characters
   const { execute: fetchCharacters, isExecuting: charactersLoading } =
     useAction(getCharacters, {
@@ -162,6 +167,8 @@ export default function Home() {
     },
   });
 
+  //------------------------------------------------------------------------------//
+  //Check if any of the data is still loading
   const isLoading =
     charactersLoading ||
     !ancestriesLoaded ||
@@ -171,7 +178,7 @@ export default function Home() {
     !subclassesLoaded ||
     !armourLoaded;
 
-  // Fetch both when component mounts
+  //Fetch all data when component mounts
   useEffect(() => {
     fetchCharacters();
     fetchAncestries();
@@ -182,6 +189,17 @@ export default function Home() {
     fetchArmour();
   }, []);
 
+  //Reset character state when component mounts
+  useEffect(() => {
+    dispatch(setId(null));
+    dispatch(setLevel(1));
+    dispatch(setName(""));
+    dispatch(setAncestry(initialAncestryState));
+    dispatch(setHeritage(initialHeritageState));
+  }, []);
+
+  //------------------------------------------------------------------------------//
+  //Character Creation and deletion
   const { execute: createCharacterExecute } = useAction(createCharacter, {
     onSuccess: (data) => {
       if (data.data) {
@@ -192,23 +210,6 @@ export default function Home() {
     },
   });
 
-  const handleSetID = (id: number) => {
-    dispatch(setId(id));
-  };
-
-  const getAncestryData = (ancestryName: string) => {
-    return ancestries.find((ancestry) => ancestry.name === ancestryName);
-  };
-
-  const getHeritageData = (heritageName: string) => {
-    return heritages.find((heritage) => heritage.name === heritageName);
-  };
-
-  // Helper function to get class data for a character
-  const getClassData = (className: string) => {
-    return classes.find((cls) => cls.name === className);
-  };
-
   const { execute: deleteCharacterExecute } = useAction(deleteCharacter, {
     onSuccess: (data) => {
       if (data.data) {
@@ -218,6 +219,25 @@ export default function Home() {
     },
   });
 
+  //------------------------------------------------------------------------------//
+  //Character Loading and helper functions
+
+  const getAncestry = (ancestryName: string) => {
+    const ancestryObject = ancestries.find(
+      (ancestry) => ancestry.name === ancestryName
+    );
+
+    return ancestryObject || null;
+  };
+
+  const getHeritage = (heritageName: string | null) => {
+    const heritageObject = heritages.find(
+      (heritage) => heritage.name === heritageName
+    );
+
+    return heritageObject || null;
+  };
+
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
       if (data.data?.id) {
@@ -226,10 +246,26 @@ export default function Home() {
         dispatch(setName(data.data.name));
         dispatch(setLevel(data.data.level));
 
+        const ancestry = getAncestry(data.data.ancestryName);
+        if (ancestry) {
+          dispatch(setAncestry(ancestry));
+        }
+
+        const heritage = getHeritage(data.data.heritageName);
+        if (heritage) {
+          dispatch(setHeritage(heritage));
+        }
+
         router.push("/character-builder");
       }
     },
   });
+
+  //------------------------------------------------------------------------------//
+
+  const handleSetID = (id: number) => {
+    dispatch(setId(id));
+  };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">

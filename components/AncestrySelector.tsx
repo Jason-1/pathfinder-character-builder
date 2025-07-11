@@ -10,8 +10,10 @@ import { AncestryType, heritageType } from "@/types";
 import {
   selectAncestry,
   selectAncestryData,
+  selectAncestryDataLoaded,
   selectHeritage,
   selectHeritageData,
+  selectHeritageDataLoaded,
 } from "@/app/redux/selectors";
 import {
   initialAncestryState,
@@ -26,6 +28,9 @@ const AncestrySelector: React.FC = ({}) => {
 
   const ancestryData = useSelector(selectAncestryData);
   const heritageData = useSelector(selectHeritageData);
+
+  const ancestryDataLoaded = useSelector(selectAncestryDataLoaded);
+  const heritageDataLoaded = useSelector(selectHeritageDataLoaded);
 
   const selectedAncestry = useSelector(selectAncestry);
   const selectedHeritage = useSelector(selectHeritage);
@@ -67,6 +72,16 @@ const AncestrySelector: React.FC = ({}) => {
   const [highlightedHeritage, setHighlightedHeritage] = React.useState<
     heritageType | undefined
   >(undefined);
+
+  if (!ancestryDataLoaded || !heritageDataLoaded) {
+    return (
+      <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">
+        <div className="border rounded-sm p-2 w-full text-center text-gray-500">
+          Ancestry data not loaded
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-2 gap-10 items-center justify-between mt-4">

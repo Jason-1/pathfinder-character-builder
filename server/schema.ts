@@ -83,6 +83,17 @@ export const AttributesEnum = pgEnum("attributes", [
   "Free",
 ]);
 
+export const AttributeBoostsEnum = pgEnum("attribute_boost_names", [
+  "Ancestry",
+  "Background",
+  "Class",
+  "Initial",
+  "Level5",
+  "Level10",
+  "Level15",
+  "Level20",
+]);
+
 export const SkillsEnum = pgEnum("skill", [
   "Acrobatics",
   "Arcana",
@@ -234,6 +245,16 @@ export const backgrounds = pgTable("background", {
   attributes: AttributesEnum("attributes").array().notNull().default([]),
   skills: SkillsEnum("skills").array().notNull().default([]),
   description: text("description").default("No description available"),
+});
+
+//------------------------------------------------------------------------------//
+// Attributes
+
+export const attributes = pgTable("attribute_boosts", {
+  id: serial("id").primaryKey(),
+  name: AttributeBoostsEnum("name").notNull(),
+  characterID: integer("character_id").references(() => characters.id),
+  boosts: AttributesEnum("boosts").array().notNull().default([]),
 });
 
 //------------------------------------------------------------------------------//

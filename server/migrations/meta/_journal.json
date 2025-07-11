@@ -169,6 +169,13 @@
       "when": 1750124359607,
       "tag": "0023_mixed_patch",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1752204996050,
+      "tag": "0024_fat_nightcrawler",
+      "breakpoints": true
     }
   ]
 }

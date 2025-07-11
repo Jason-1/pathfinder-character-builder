@@ -57,7 +57,10 @@ import { setHeritage } from "./redux/Slices/heritageSlice";
 import { setSubclass } from "./redux/Slices/subclassSlice";
 import {
   initialAncestryState,
+  initialBackgroundState,
+  initialClassState,
   initialHeritageState,
+  initialSubclassState,
 } from "./redux/initialStates";
 
 export default function Home() {
@@ -196,6 +199,9 @@ export default function Home() {
     dispatch(setName(""));
     dispatch(setAncestry(initialAncestryState));
     dispatch(setHeritage(initialHeritageState));
+    dispatch(setBackground(initialBackgroundState));
+    dispatch(setClass(initialClassState));
+    dispatch(setSubclass(initialSubclassState));
   }, []);
 
   //------------------------------------------------------------------------------//
@@ -246,6 +252,20 @@ export default function Home() {
     return backgroundObject || null;
   };
 
+  const getClass = (className: string | null) => {
+    const classObject = classes.find((cls) => cls.name === className);
+
+    return classObject || null;
+  };
+
+  const getSubclass = (subclassName: string | null) => {
+    const subclassObject = subclasses.find(
+      (subclass) => subclass.name === subclassName
+    );
+
+    return subclassObject || null;
+  };
+
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
       if (data.data?.id) {
@@ -267,6 +287,16 @@ export default function Home() {
         const background = getBackground(data.data.backgroundName);
         if (background) {
           dispatch(setBackground(background));
+        }
+
+        const characterClass = getClass(data.data.className);
+        if (characterClass) {
+          dispatch(setClass(characterClass));
+        }
+
+        const characterSubclass = getSubclass(data.data.subclassName);
+        if (characterSubclass) {
+          dispatch(setSubclass(characterSubclass));
         }
 
         router.push("/character-builder");

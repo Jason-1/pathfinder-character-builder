@@ -17,6 +17,8 @@ import calculateCurrentAttributeBoost from "@/lib/calculateCurrentAttributeBoost
 import {
   selectAncestry,
   selectAttributeBoostCategories,
+  selectBackground,
+  selectClass,
   selectLevel,
 } from "@/app/redux/selectors";
 
@@ -25,6 +27,8 @@ const Abilities: React.FC = ({}) => {
 
   const selectedLevel = useSelector(selectLevel);
   const selectedAncestry = useSelector(selectAncestry);
+  const selecteedBackground = useSelector(selectBackground);
+  const selectedClass = useSelector(selectClass);
   const attributeBoosts = useSelector(selectAttributeBoostCategories);
 
   //------------------------------------------------------------------------------//
@@ -41,15 +45,15 @@ const Abilities: React.FC = ({}) => {
     handleResetAttributes("Ancestry");
   }, [selectedAncestry, handleResetAttributes]);
 
-  //Reset Background boosts when a new class is selected
+  //Reset Background boosts when a new Background is selected
   useEffect(() => {
     handleResetAttributes("Background");
-  }, [selectedAncestry, handleResetAttributes]);
+  }, [selecteedBackground, handleResetAttributes]);
 
   //Reset Class boosts when a new class is selected
   useEffect(() => {
     handleResetAttributes("Class");
-  }, [selectedAncestry, handleResetAttributes]);
+  }, [selectedClass, handleResetAttributes]);
 
   return (
     <div className="grid grid-cols-3 gap-8 mt-4">

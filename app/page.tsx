@@ -9,6 +9,7 @@ import {
   selectAncestryDataLoaded,
   selectArmourData,
   selectArmourDataLoaded,
+  selectAttributeBoostCategories,
   selectBackgroundData,
   selectBackgroundDataLoaded,
   selectClass,
@@ -63,7 +64,11 @@ import {
   initialSubclassState,
 } from "./redux/initialStates";
 import { setArmour } from "./redux/Slices/armourSlice";
-import { resetAttributeBoosts } from "./redux/Slices/attributeBoostCategoriesSlice";
+import {
+  resetAttributeBoosts,
+  setAllAttributeBoosts,
+} from "./redux/Slices/attributeBoostCategoriesSlice";
+import { loadAttributes } from "@/server/actions/load-attributes";
 
 export default function Home() {
   const router = useRouter();
@@ -91,6 +96,9 @@ export default function Home() {
 
   const armour = useSelector(selectArmourData);
   const armourLoaded = useSelector(selectArmourDataLoaded);
+
+  const attributes = useSelector(selectAttributeBoostCategories);
+  const [attributesLoaded, setAttributesLoaded] = useState(false);
 
   const [characters, setCharacters] = useState<any[]>([]);
 
@@ -205,6 +213,7 @@ export default function Home() {
     dispatch(setClass(initialClassState));
     dispatch(resetAttributeBoosts());
     dispatch(setSubclass(initialSubclassState));
+    setAttributesLoaded(false);
   }, []);
 
   //------------------------------------------------------------------------------//
@@ -278,6 +287,18 @@ export default function Home() {
     return armourObject || null;
   };
 
+  const { execute: fetchAttributes, isExecuting: attributesLoading } =
+    useAction(loadAttributes, {
+      onSuccess: (data) => {
+        if (data.data) {
+          // Handle the loaded attributes data
+          console.log("Loaded attributes:", data.data);
+          dispatch(setAllAttributeBoosts(data.data));
+          setAttributesLoaded(true);
+        }
+      },
+    });
+
   const { execute: loadCharacterExecute } = useAction(loadCharacter, {
     onSuccess: (data) => {
       if (data.data?.id) {
@@ -316,10 +337,18 @@ export default function Home() {
           dispatch(setArmour(characterArmour));
         }
 
-        router.push("/character-builder");
+        fetchAttributes({
+          characterId: data.data.id,
+        });
       }
     },
   });
+
+  useEffect(() => {
+    if (id && attributesLoaded) {
+      router.push("/character-builder");
+    }
+  }, [id, attributesLoaded]);
 
   //------------------------------------------------------------------------------//
 

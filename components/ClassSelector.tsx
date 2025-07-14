@@ -23,6 +23,7 @@ import {
   initialClassState,
   initialSubclassState,
 } from "@/app/redux/initialStates";
+import { resetSpecificAttributeBoost } from "@/app/redux/Slices/attributeBoostCategoriesSlice";
 
 const ClassSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const ClassSelector: React.FC = ({}) => {
           levels: [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
         })
       );
+      dispatch(resetSpecificAttributeBoost("Class"));
     }
   };
 

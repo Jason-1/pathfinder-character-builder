@@ -33,28 +33,6 @@ const Abilities: React.FC = ({}) => {
 
   //------------------------------------------------------------------------------//
 
-  const handleResetAttributes = useCallback(
-    (attribute: Category) => {
-      dispatch(resetSpecificAttributeBoost(attribute));
-    },
-    [dispatch]
-  );
-
-  //Reset Ancestry boosts when a new class is selected
-  useEffect(() => {
-    handleResetAttributes("Ancestry");
-  }, [selectedAncestry, handleResetAttributes]);
-
-  //Reset Background boosts when a new Background is selected
-  useEffect(() => {
-    handleResetAttributes("Background");
-  }, [selecteedBackground, handleResetAttributes]);
-
-  //Reset Class boosts when a new class is selected
-  useEffect(() => {
-    handleResetAttributes("Class");
-  }, [selectedClass, handleResetAttributes]);
-
   return (
     <div className="grid grid-cols-3 gap-8 mt-4">
       {Attributes.map((attribute) => (

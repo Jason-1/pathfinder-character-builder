@@ -22,6 +22,7 @@ import {
 import { getAncestries } from "@/server/actions/get-all-ancestries";
 import { useAction } from "next-safe-action/hooks";
 import { getHeritages } from "@/server/actions/get-all-heritages";
+import { resetSpecificAttributeBoost } from "@/app/redux/Slices/attributeBoostCategoriesSlice";
 
 const AncestrySelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const AncestrySelector: React.FC = ({}) => {
     if (ancestryItem) {
       dispatch(setAncestry(ancestryItem));
       dispatch(setHeritage(initialHeritageState));
+      dispatch(resetSpecificAttributeBoost("Ancestry"));
     }
   };
 
@@ -123,7 +125,6 @@ const AncestrySelector: React.FC = ({}) => {
         }
         onItemClick={(item) => handleSetHeritage(item)}
         setHighlightedItem={(item) => {
-          // ✅ Cast to proper type to fix the type error
           setHighlightedHeritage(item as heritageType);
         }}
       ></SelectorDialog>
@@ -132,3 +133,6 @@ const AncestrySelector: React.FC = ({}) => {
 };
 
 export default AncestrySelector;
+function handleResetAttributes(arg0: string) {
+  throw new Error("Function not implemented.");
+}

@@ -15,6 +15,7 @@ import {
 import { getBackgrounds } from "@/server/actions/get-all-backgrounds";
 import { useAction } from "next-safe-action/hooks";
 import { initialBackgroundState } from "@/app/redux/initialStates";
+import { resetSpecificAttributeBoost } from "@/app/redux/Slices/attributeBoostCategoriesSlice";
 
 const BackgroundSelector: React.FC = ({}) => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const BackgroundSelector: React.FC = ({}) => {
       //When a Background is set also reset skill proficiencies for it
       dispatch(setBackground(backgroundItem));
       dispatch(resetAllSkillBoostsAtLevel({ currentLevel: -1 }));
+      dispatch(resetSpecificAttributeBoost("Background"));
     }
   };
 

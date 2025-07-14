@@ -183,6 +183,13 @@
       "when": 1752205422423,
       "tag": "0025_elite_invaders",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1752457715198,
+      "tag": "0026_smart_sunfire",
+      "breakpoints": true
     }
   ]
 }

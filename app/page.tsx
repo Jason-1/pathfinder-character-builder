@@ -12,7 +12,6 @@ import {
   selectAttributeBoostCategories,
   selectBackgroundData,
   selectBackgroundDataLoaded,
-  selectClass,
   selectClassData,
   selectClassDataLoaded,
   selectHeritageData,
@@ -58,6 +57,7 @@ import { setHeritage } from "./redux/Slices/heritageSlice";
 import { setSubclass } from "./redux/Slices/subclassSlice";
 import {
   initialAncestryState,
+  initialArmourState,
   initialBackgroundState,
   initialClassState,
   initialHeritageState,
@@ -69,6 +69,7 @@ import {
   setAllAttributeBoosts,
 } from "./redux/Slices/attributeBoostCategoriesSlice";
 import { loadAttributes } from "@/server/actions/load-attributes";
+import { resetAllSkillBoosts } from "./redux/Slices/selectedSkillsSlice";
 
 export default function Home() {
   const router = useRouter();
@@ -211,9 +212,11 @@ export default function Home() {
     dispatch(setHeritage(initialHeritageState));
     dispatch(setBackground(initialBackgroundState));
     dispatch(setClass(initialClassState));
-    dispatch(resetAttributeBoosts());
     dispatch(setSubclass(initialSubclassState));
+    dispatch(setArmour(initialArmourState));
+    dispatch(resetAttributeBoosts());
     setAttributesLoaded(false);
+    dispatch(resetAllSkillBoosts());
   }, []);
 
   //------------------------------------------------------------------------------//

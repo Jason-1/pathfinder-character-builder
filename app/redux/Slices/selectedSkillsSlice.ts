@@ -1,8 +1,8 @@
-import { skillProficiencies } from "@/data";
 import { skillProficienciesType, skillTypes } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { initialSkillProficiencyState } from "../initialStates";
 
-const initialState: skillProficienciesType[] = skillProficiencies;
+const initialState: skillProficienciesType[] = initialSkillProficiencyState;
 
 const selectedSkillsSlice = createSlice({
   name: "selectedSkills",
@@ -53,7 +53,7 @@ const selectedSkillsSlice = createSlice({
     },
 
     resetAllSkillBoosts: () => {
-      return skillProficiencies;
+      return initialSkillProficiencyState;
     },
     resetAllSkillBoostsAtLevel: (
       state,

@@ -260,6 +260,22 @@ export const attributes = pgTable("attribute_boosts", {
 });
 
 //------------------------------------------------------------------------------//
+// Skill Proficiencies
+
+export const skillProficiencies = pgTable("skill_proficiencies", {
+  id: serial("id").primaryKey().notNull(),
+  characterID: integer("character_id")
+    .references(() => characters.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+  skill: SkillsEnum("skill").notNull(),
+  attribute: AttributesEnum("attribute").notNull(),
+  levelsBoosted: integer("levels_boosted").array().notNull().default([]),
+  intBoost: integer("int_boost"),
+});
+
+//------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------//
 // Relations
 

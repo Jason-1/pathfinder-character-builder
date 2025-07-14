@@ -4,6 +4,7 @@ import {
   BackgroundType,
   ClassType,
   heritageType,
+  skillProficienciesType,
   subclassType,
 } from "@/types";
 
@@ -183,3 +184,97 @@ export const initialBackgroundState: BackgroundType = {
   description:
     "You have five specialties: hefting barrels, drinking, polishing steins, drinking, and drinking. You worked in a bar, where you learned how to hold your liquor and rowdily socialize.",
 };
+
+export const initialSkillProficiencyState: skillProficienciesType[] = [
+  {
+    skill: "Acrobatics",
+    attribute: "Dexterity",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Arcana",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Athletics",
+    attribute: "Strength",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Crafting",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Deception",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Diplomacy",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Intimidation",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Medicine",
+    attribute: "Wisdom",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  { skill: "Nature", attribute: "Wisdom", LevelsBoosted: [], IntBoost: null },
+  {
+    skill: "Occultism",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Performance",
+    attribute: "Charisma",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Religion",
+    attribute: "Wisdom",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Society",
+    attribute: "Intelligence",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Stealth",
+    attribute: "Dexterity",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Survival",
+    attribute: "Wisdom",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+  {
+    skill: "Thievery",
+    attribute: "Dexterity",
+    LevelsBoosted: [],
+    IntBoost: null,
+  },
+];
